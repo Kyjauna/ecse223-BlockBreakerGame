@@ -1,0 +1,110 @@
+namespace ca.mcgill.ecse.btms.model;
+
+class Block223 {
+ 	1 <@>- * User user;
+ 	// 1 <@>- * Role role;
+ 	
+ 	1 <@>- * Player players;
+ 	1 <@>- * Admin admin;
+ 	1 <@>- * Game game;
+ 	1 <@>- * GameLevel level;
+ 	1 <@>- * Block block;
+ 	1 <@>- * SpecificBlock specificBlock;
+ 	1 <@>- * PlayArea playArea;
+ 	1 <@>- * Ball ball;
+ 	1 <@>- * Paddle paddle;
+ }  
+  
+association { 
+	1 Admin -- * Game;
+	1 Game <@>- 1..99 GameLevel;
+	1 GameLevel -- * SpecificBlock; 
+	1 Game -- * Block;
+	1 Block -- * SpecificBlock;
+	1 User -- 0..2 Role;
+	1 PlayArea -- 1 Game;
+	1 Ball -- 1 Game;
+	1 Paddle -- 1 Game;
+	1 PlayArea -- * SpecificBlock;
+}
+
+class User {
+	unique String username;
+}
+
+class Role {
+	abstract;
+	String password;
+}
+
+class Player { isA Role; }
+class Admin { isA Role; }
+
+class Game {
+	unique String gameName;
+	Integer numberOfBlocks;
+	Integer speedFactor;
+}
+
+class GameLevel {
+	Integer levelNumber;
+	Boolean randomLevel;
+}
+
+class Ball {
+	Integer ballSpeed;
+	Integer minimumSpeed;
+	Integer maximumSpeed;
+	const Integer BallSize = 10;
+}
+
+class Paddle {
+	Integer paddleLength;
+	Integer minimumLength;
+	Integer maximumLength;
+	const Integer PaddleWidth = 5;
+}
+
+class PlayArea {
+	Integer gameHeight;
+	before constructor, setGameHeight {
+		if (aGameHeight < 200 || aGameHeight > 500) {
+			throw new RuntimeException("Height has to be between 200 and 500.");
+		}
+	}
+	Integer gameWidth;
+	before constructor, setGameWidth {
+		if (aGameWidth < 200 || aGameWidth > 500) {
+			throw new RuntimeException("Width has to be between 200 and 500.");
+		}
+	}
+}
+
+class Block {
+	String color;
+	Integer pointWorth;
+	before constructor, setPointWorth {
+		if (aPointWorth < 1 || aPointWorth > 1000) {
+			throw new RuntimeException("Point worth of a block must be between 1 and 1000.");
+		}
+	}
+	const Integer SideLength = 20;
+}
+
+class SpecificBlock {
+	Integer xGridPosition;
+	before constructor, setXGridPosition {
+		if (aXGridPosition < 1 || aXGridPosition > playArea.getGameWidth()/Block.SideLength) {
+			throw new RuntimeException("Invalid x-grid position.");
+		}
+	}
+	Integer yGridPosition;
+	before constructor, setYGridPosition {
+		if (aYGridPosition < 1 || aYGridPosition > playArea.getGameHeight()/Block.SideLength) {
+			throw new RuntimeException("Invalid y-grid position.");
+		}
+	}
+}
+
+
+
