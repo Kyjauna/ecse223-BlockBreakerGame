@@ -1,9 +1,6 @@
 package ca.mcgill.ecse223.block.application;
 
 
-import java.util.HashMap;
-import java.util.Map;
-
 import ca.mcgill.ecse223.block.model.Block223;
 import ca.mcgill.ecse223.block.model.Game;
 import ca.mcgill.ecse223.block.model.User;
@@ -15,9 +12,6 @@ public class Block223Application {
 	public static Game CurrentGame;
 	public static User CurrentUser;
 	public static UserRole CurrentUserRole;
-	
-	private static Map<String, User> usersByUsername = new HashMap<String, User>();
-	
 	
 	
 	public static Block223 getBlock223() {
@@ -45,12 +39,9 @@ public class Block223Application {
 	public static UserRole getCurrentUserRole() {
 		return CurrentUserRole;
 	}
+	
 	public static void setCurrentUserRole(UserRole role) {
 		CurrentUserRole=role;
 	}
-	
-	public static User getWithUsername(String aUsername){
-	    return usersByUsername.get(aUsername);
-	  }
 
 }
