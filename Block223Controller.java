@@ -1,5 +1,6 @@
 package ca.mcgill.ecse223.block.controller;
 
+import java.util.ArrayList;
 import java.util.List;
 
 
@@ -8,9 +9,13 @@ import ca.mcgill.ecse223.block.application.Block223Application;
 import ca.mcgill.ecse223.block.controller.TOUserMode.Mode;
 import ca.mcgill.ecse223.block.model.Admin;
 import ca.mcgill.ecse223.block.model.Block223;
+import ca.mcgill.ecse223.block.model.BlockAssignment;
+import ca.mcgill.ecse223.block.model.Game;
+import ca.mcgill.ecse223.block.model.Level;
 import ca.mcgill.ecse223.block.model.Player;
 import ca.mcgill.ecse223.block.model.User;
-import ca.mcgill.ecse223.block.model.UserRole;;
+import ca.mcgill.ecse223.block.model.UserRole;
+import ca.mcgill.ecse223.block.controller.TOGame;
 
 
 public class Block223Controller {
@@ -21,24 +26,24 @@ public class Block223Controller {
 	public static void createGame(String name) throws InvalidInputException {
 
 		String error="";
-		if (Block223Application.getCurrentUserRole() instanceOf Admin == false) 
+		if (Block223Application.getCurrentUserRole() instanceof Admin == false) 
 			error="Admin priveleges are required to create a game. ";
 		
 		if (error.length() > 0)
 			throw new InvalidInputException(error.trim());
 		
 		Block223 block223 = Block223Application.getBlock223();
-		Admin admin=Block223Application.getCurrentUserRole();
+		UserRole admin = Block223Application.getCurrentUserRole();
 		
 		try {
-			block223.addGame(name, 1, admin, 1, 1, 1, 10, 10, block223);
+			Game game=new Game(name, 1, (Admin) admin, 1, 1, 1, 10, 10, block223);
 		}
 		catch (RuntimeException e) {
 			throw new InvalidInputException(e.getMessage());
 		}
 	}
 	
-	private static Game findGame(String name) {
+	public static Game findGame(String name) {
 		Game foundGame = null;
 		for (Game game : Block223Application.getBlock223().getGames()) {
 			if (game.getName() == name) {
@@ -57,11 +62,17 @@ public class Block223Controller {
 	public static void deleteGame(String name) throws InvalidInputException {
 
 		Game game = findGame(name);
+		String error="";
 		// We must check that the user is an admin AND the admin of the game!
-		AdminRole admin = getBlock223Application.currentUserRole(); //Is this right?
-		if (admin != admin) { 	// FTW
-			throw new InvalidInputException("Admin privileges are required to delete a game.");
+		UserRole admin = Block223Application.getCurrentUserRole(); 
+		
+		if (admin != Block223Application.getCurrentGame().getAdmin()) { 	
+			error="Admin privileges are required to delete a game.";
 		}
+		
+		if (error.length() > 0)
+			throw new InvalidInputException(error.trim());
+		
 		if (game != null) {
 			game.delete();
 		}
@@ -91,21 +102,22 @@ public class Block223Controller {
 	public static void moveBlock(int level, int oldGridHorizontalPosition, int oldGridVerticalPosition,
 			int newGridHorizontalPosition, int newGridVerticalPosition) throws InvalidInputException {
 
+		String error="";
+		if (Block223Application.getCurrentUserRole()instanceof Admin == false)	//instance of an admin
+			error="Admin Privileges are required to move a block. ";
 		
-		if (getCurrentUserRole()!= )	//instance of an admin
-			throw new InvalidInputException ("Admin Privileges are required to move a block.");
+		if (Block223Application.getCurrentGame()==null)
+			error=error+"A game must be selected to move a block. ";
 		
-		if (getCurrentGame()==null)
-			throw new InvalidInputException ("A game must be selected to move a block.");
-		
-		if(getCurrentGame().getAdmin()!=getCurrentUserRole())
-			throw new InvalidInputException ("Only the admin who created the game may move a block.");
+		if(Block223Application.getCurrentGame().getAdmin()!=Block223Application.getCurrentUserRole())
+			error=error+"Only the admin who created the game may move a block. ";
 
-		Game game=getCurrentGame();
+		
+		Game game=Block223Application.getCurrentGame();
 		
 		try {
-			Level level=getLevel(level);
-			BlockAssignment assignment=level.findBlockAssignment(oldGridHorizontalPosition, oldGridVerticalPosition);
+			Level Gamelevel=game.getLevel(level);
+			BlockAssignment assignment=Gamelevel.findBlockAssignment(oldGridHorizontalPosition, oldGridVerticalPosition);
 			assignment.setGridHorizontalPosition(newGridHorizontalPosition);
 			assignment.setGridVerticalPosition(newGridVerticalPosition);
 		}
@@ -125,8 +137,8 @@ public class Block223Controller {
 	public static void register(String username, String playerPassword, String adminPassword)
 			throws InvalidInputException {
 
-		
 		String error = "";
+		
 		Block223 block223=Block223Application.getBlock223();
 		
 		if (Block223Application.getCurrentUserRole()!=null)
@@ -138,9 +150,10 @@ public class Block223Controller {
 		if (error.length() > 0) {
 			throw new InvalidInputException(error.trim());
 		}
+		Player player = null;
 		
 		try{ 
-			Player player= new Player(playerPassword, block223);
+			player= new Player(playerPassword, block223);
 			User user= new User(username, block223, player);
 			
 			if(adminPassword!=null&&adminPassword!= "") {
@@ -151,7 +164,7 @@ public class Block223Controller {
 		catch(RuntimeException e) {
 			
 			if (e.getMessage()=="The password must be specified."||e.getMessage()=="The username must be specified.")
-				//player.delete();
+				player.delete();
 			throw new InvalidInputException(e.getMessage());
 		}
 		//save(block223);
@@ -178,7 +191,7 @@ public class Block223Controller {
 		}
 			
 		if(password!=user.getRole(0).getPassword() && password!=user.getRole(1).getPassword())
-			error=error+"The username and password do not match. ";
+			error= error+"The username and password do not match. ";
 		
 		if (error.length() > 0)
 			throw new InvalidInputException(error.trim());
@@ -189,12 +202,6 @@ public class Block223Controller {
 		Block223Application.setCurrentUserRole(null);
 	}
 
-	public static void login(String username, String password) throws InvalidInputException {
-	}
-
-	public static void logout() {
-
-	}
 
 	// ****************************
 	// Query methods
@@ -205,10 +212,11 @@ public class Block223Controller {
 		// Is there a line for getCurrentUserRole() ?
 		// I'm pretty sure there is because I need to throw an exception if the role is not AdminRole
 		ArrayList<TOGame> result = new ArrayList<TOGame>();
+		
 		for (Game game: block223.getGames()) {
-			if (game.getAdmin().equals(admin)) { //CHECK THIS LINE -- based on sequence diagram
-				TOGame = new TOGame(game.getName(), game.getLevels().size(), game.getNrBlocksPerLevel(), game.getBall().getMinBallSpeedX(), game.getBall().getMinBallSpeedY(), game.getBall().getBallSpeedIncreaseFactor(), game.getPaddle().getMaxPaddleLenghth(), game.getPaddle().getMinPaddleLength());
-				result.add(toGame);
+			if (game.getAdmin().equals(Block223Application.getCurrentUserRole())) { //CHECK THIS LINE -- based on sequence diagram
+				TOGame togame= new TOGame(game.getName(), game.getLevels().size(), game.getNrBlocksPerLevel(), game.getBall().getMinBallSpeedX(), game.getBall().getMinBallSpeedY(), game.getBall().getBallSpeedIncreaseFactor(), game.getPaddle().getMaxPaddleLength(), game.getPaddle().getMinPaddleLength());
+				result.add(togame);
 			}
 		}
 		return result;
@@ -234,12 +242,12 @@ public class Block223Controller {
 		if (userRole==null) {
 			TOUserMode to=new TOUserMode(Mode.None);
 			return to;
-	}
-		if (Block223Application.getCurrentUserRole() instanceOf Admin) {
+		}
+		if (Block223Application.getCurrentUserRole() instanceof Admin) {
 			TOUserMode to=new TOUserMode(Mode.Design);
 			return to;
 		}
-		if (Block223Application.getCurrentUserRole() instanceOf Player) {
+		if (Block223Application.getCurrentUserRole() instanceof Player) {
 			TOUserMode to=new TOUserMode(Mode.Play);
 			return to;
 		}
