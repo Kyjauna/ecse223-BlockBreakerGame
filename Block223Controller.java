@@ -116,8 +116,8 @@ public class Block223Controller {
 		Game game=Block223Application.getCurrentGame();
 		
 		try {
-			Level Gamelevel=game.getLevel(level);
-			BlockAssignment assignment=Gamelevel.findBlockAssignment(oldGridHorizontalPosition, oldGridVerticalPosition);
+			Level gameLevel=game.getLevel(level);
+			BlockAssignment assignment=findBlockAssignment(oldGridHorizontalPosition, oldGridVerticalPosition, gameLevel);
 			assignment.setGridHorizontalPosition(newGridHorizontalPosition);
 			assignment.setGridVerticalPosition(newGridVerticalPosition);
 		}
@@ -126,6 +126,18 @@ public class Block223Controller {
 		}
 
 	}
+	
+	   
+	   public static BlockAssignment findBlockAssignment(int oldHorizontalGridPosition, int oldVerticalGridPosition, Level level){
+			BlockAssignment foundBA = null;
+			for (BlockAssignment BA : level.getBlockAssignments()) {
+				if (BA.getGridHorizontalPosition() == oldHorizontalGridPosition&&BA.getGridHorizontalPosition()==oldVerticalGridPosition) {
+					foundBA = BA;
+					break;
+				}
+			}
+			return foundBA;
+	   }
 
 	public static void removeBlock(int level, int gridHorizontalPosition, int gridVerticalPosition)
 			throws InvalidInputException {
@@ -176,7 +188,7 @@ public class Block223Controller {
 		if(Block223Application.getCurrentUserRole()!=null)
 			error= "Cannot login a user while a user is logged in. ";
 
-		User user=Block223Application.getWithUsername(username);
+		User user=User.getWithUsername(username);
 		
 		if(user==null)
 			error=error+"There is no user with this username. ";
@@ -233,25 +245,36 @@ public class Block223Controller {
 	}
 
 	public List<TOGridCell> getBlocksAtLevelOfCurrentDesignableGame(int level) throws InvalidInputException {
+	
+		Game game = Block223Application.getCurrentGame();
+		Level gameLevel = game.getLevel(level);
+		
+		ArrayList<TOGridCell> result = new ArrayList<>();
+		
+		for(BlockAssignment bA: gameLevel.getBlockAssignments()) {
+			TOGridCell toba = new TOGridCell(bA.getGridHorizontalPosition(),bA.getGridVerticalPosition(), bA.getBlock().getId(), 
+					bA.getBlock().getRed(), bA.getBlock().getGreen(), bA.getBlock().getBlue(), bA.getBlock().getPoints());
+		}
+		return result;
 	}
 
 	public static TOUserMode getUserMode() {
 
 		UserRole userRole=Block223Application.getCurrentUserRole();
-		
-		if (userRole==null) {
-			TOUserMode to=new TOUserMode(Mode.None);
-			return to;
-		}
-		if (Block223Application.getCurrentUserRole() instanceof Admin) {
+
+		if (userRole instanceof Admin) {
 			TOUserMode to=new TOUserMode(Mode.Design);
 			return to;
 		}
-		if (Block223Application.getCurrentUserRole() instanceof Player) {
+		if (userRole instanceof Player) {
 			TOUserMode to=new TOUserMode(Mode.Play);
 			return to;
+		}	
+		else {
+			TOUserMode to=new TOUserMode(Mode.None);
+			return to;
 		}
+			
 	}
-
 
 }
