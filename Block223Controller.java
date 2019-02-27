@@ -2,6 +2,16 @@ package ca.mcgill.ecse223.block.controller;
 
 import java.util.List;
 
+import ca.mcgill.ecse223.block.controller.InvalidInputException;
+import ca.mcgill.ecse223.block.application.Block223Application;
+import ca.mcgill.ecse223.block.controller.TOUserMode.Mode;
+import ca.mcgill.ecse223.block.model.Admin;
+import ca.mcgill.ecse223.block.model.Block223;
+import ca.mcgill.ecse223.block.model.Player;
+import ca.mcgill.ecse223.block.model.User;
+import ca.mcgill.ecse223.block.model.UserRole;;
+
+
 public class Block223Controller {
 
 	// ****************************
@@ -39,6 +49,27 @@ public class Block223Controller {
 
 	public static void moveBlock(int level, int oldGridHorizontalPosition, int oldGridVerticalPosition,
 			int newGridHorizontalPosition, int newGridVerticalPosition) throws InvalidInputException {
+		
+		if (getCurrentUserRole()!= )	//instance of an admin
+			throw new InvalidInputException ("Admin Privileges are required to move a block.");
+		
+		if (getCurrentGame()==null)
+			throw new InvalidInputException ("A game must be selected to move a block.");
+		
+		if(getCurrentGame().getAdmin()!=getCurrentUserRole())
+			throw new InvalidInputException ("Only the admin who created the game may move a block.");
+
+		Game game=getCurrentGame();
+		
+		try {
+			Level level=getLevel(level);
+			BlockAssignment assignment=level.findBlockAssignment(oldGridHorizontalPosition, oldGridVerticalPosition);
+			assignment.setGridHorizontalPosition(newGridHorizontalPosition);
+			assignment.setGridVerticalPosition(newGridVerticalPosition);
+		}
+		catch (IndexOutOfBoundsException e) {
+			throw new InvalidInputException ("Level"+level+"does not exist for this game.");
+		}
 	}
 
 	public static void removeBlock(int level, int gridHorizontalPosition, int gridVerticalPosition)
@@ -50,64 +81,68 @@ public class Block223Controller {
 
 	public static void register(String username, String playerPassword, String adminPassword)
 			throws InvalidInputException {
-		Block223 block223=getBlock223();
-		try {
-			block223.currentUserRole!=null;
-			throw new InvalidInputException("Cannot register a new user while a user is logged in.")
+		
+		String error = "";
+		Block223 block223=Block223Application.getBlock223();
+		
+		if (Block223Application.getCurrentUserRole()!=null)
+			error = "Cannot register a new user while a user is logged in. ";
+		
+		if(playerPassword==adminPassword)
+			error = error + "Player and Admin passwords must be different. ";	
+		
+		if (error.length() > 0) {
+			throw new InvalidInputException(error.trim());
 		}
-		try {
-			playerPassword==adminPassword;
-			throw new InvalidInputException("Player and Admin passwords must be different.");	
+		
+		try{ 
+			Player player= new Player(playerPassword, block223);
+			User user= new User(username, block223, player);
+			
+			if(adminPassword!=null&&adminPassword!= "") {
+				Admin admin=new Admin(adminPassword, block223);
+				user.addRole(admin);
+			}
 		}
-		try {
-			playerPassword==null; //needs to be rethrown
-			playerPassword=="";
-			throw new InvalidInputException("The player password must be specified.");
+		catch(RuntimeException e) {
+			
+			if (e.getMessage()=="The password must be specified."||e.getMessage()=="The username must be specified.")
+				//player.delete();
+			throw new InvalidInputException(e.getMessage());
 		}
-		try {
-			getWithUsername(username)!=null; //needs to be rethrown
-			throw new InvalidInputException("This username has already been taken.");
-		}
-		try {
-			username==null; //needs to be rethrown
-			username=="";
-			throw new InvalidInputException("The username must be specified.");
-		}
-		Player player= new Player(playerPassword, block223);
-		User user= new User(username, block223, player);
-		if(adminPassword!=null&&adminPassword!= "") {
-			Admin admin=new Admin(adminPassword, block223);
-			user.addUserRole(admin);
-		}
-		save(block223);
+		//save(block223);
 	}
 
 	public static void login(String username, String password) throws InvalidInputException {
-		try {
-			block223.currentUserRole!=null;
-			throw new InvalidInputException("Cannot login a user while a user is logged in.")
-		}
-		User user=getWithUsername(username);
-		try {
-			getWithUsername(username)==null;
-			throw new InvalidInputException("There is no user with this username.");
-		}
-		Role[] roles=user.getRoles();
-		for (int i=0; i<user.numberOfRoles;i++) {
-			rolePassword=roles[i].getPassword();
-			if (RolePassword==password) {
-				setCurrentUserRole(roles[i]);
-				resetBlock223();
-			}
-			try {
-				rolePassword!=roles[0].getPassword() && rolePassword!=roles[1].getPassword();
-				throw new InvalidInputException("The username and password do not match.")
+		String error = "";
+		
+		if(Block223Application.getCurrentUserRole()!=null)
+			error= "Cannot login a user while a user is logged in. ";
+
+		User user=Block223Application.getWithUsername(username);
+		
+		if(user==null)
+			error=error+"There is no user with this username. ";
+		
+		for (int i=0; i<user.numberOfRoles();i++) {
+			String rolePassword= user.getRole(i).getPassword();
+			
+			if (rolePassword==password) {
+				Block223Application.setCurrentUserRole(user.getRole(i));
+				//resetBlock223();
 			}
 		}
+			
+		if(password!=user.getRole(0).getPassword() && password!=user.getRole(1).getPassword())
+			error=error+"The username and password do not match. ";
+		
+		if (error.length() > 0)
+			throw new InvalidInputException(error.trim());
+		
 	}
 
 	public static void logout() {
-		setCurrentUserRole(null);
+		Block223Application.setCurrentUserRole(null);
 	}
 
 	// ****************************
@@ -129,7 +164,8 @@ public class Block223Controller {
 	}
 
 	public static TOUserMode getUserMode() {
-		userRole=getCurrentUserRole();
+		UserRole userRole=Block223Application.getCurrentUserRole();
+		
 		if (userRole==null) {
 			TOUserMode to=new TOUserMode(Mode.None);
 			return to;
