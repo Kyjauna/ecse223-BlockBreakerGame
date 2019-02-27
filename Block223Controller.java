@@ -20,30 +20,21 @@ public class Block223Controller {
 	// ****************************
 	public static void createGame(String name) throws InvalidInputException {
 
-		Block223 block223 = Block223Application.getBlock223();
-		/* try {
-			block223.currentUserRole();
-			Block223Persistence.save(block223); //not sure about this line
-		}
-		catch (RuntimeException e) {
-			throw new InvalidInputException("Admin priveleges are required to create a game.");
-		} */
+		String error="";
+		if (Block223Application.getCurrentUserRole() instanceOf Admin == false) 
+			error="Admin priveleges are required to create a game. ";
 		
-		if (Block223Application.currentUserRole != admin) {
-			throw new InvalidInputException("Admin priveleges are required to create a game.");
-		}
+		if (error.length() > 0)
+			throw new InvalidInputException(error.trim());
+		
+		Block223 block223 = Block223Application.getBlock223();
+		Admin admin=Block223Application.getCurrentUserRole();
 		
 		try {
-			block223.create(name, 1, admin, 1, 1, 1, 10, 10, block223);
-			Block223Persistence.save(block223);
+			block223.addGame(name, 1, admin, 1, 1, 1, 10, 10, block223);
 		}
 		catch (RuntimeException e) {
-			throw new InvalidInputException("The name of a game must be specified."); //or e.getMessage()
-		}
-		
-		Game game = findGame(name);
-		if (game == null) {
-			throw new InvalidInputException("The name of a game must be unique.");
+			throw new InvalidInputException(e.getMessage());
 		}
 	}
 	
@@ -244,11 +235,11 @@ public class Block223Controller {
 			TOUserMode to=new TOUserMode(Mode.None);
 			return to;
 	}
-		if () { //check if userRole is an instance of an admin
+		if (Block223Application.getCurrentUserRole() instanceOf Admin) {
 			TOUserMode to=new TOUserMode(Mode.Design);
 			return to;
 		}
-		if () { //check if userRole is an instance of a player
+		if (Block223Application.getCurrentUserRole() instanceOf Player) {
 			TOUserMode to=new TOUserMode(Mode.Play);
 			return to;
 		}
