@@ -8,6 +8,7 @@ import ca.mcgill.ecse223.block.controller.InvalidInputException;
 import ca.mcgill.ecse223.block.application.Block223Application;
 import ca.mcgill.ecse223.block.controller.TOUserMode.Mode;
 import ca.mcgill.ecse223.block.model.Admin;
+import ca.mcgill.ecse223.block.model.Block;
 import ca.mcgill.ecse223.block.model.Block223;
 import ca.mcgill.ecse223.block.model.BlockAssignment;
 import ca.mcgill.ecse223.block.model.Game;
@@ -93,6 +94,28 @@ public class Block223Controller {
 	}
 
 	public static void deleteBlock(int id) throws InvalidInputException {
+		
+		String error="";
+		if (Block223Application.getCurrentUserRole()instanceof Admin == false)	//instance of an admin
+			error="Admin Privileges are required to move a block. ";
+		
+		if (Block223Application.getCurrentGame()==null)
+			error=error+"A game must be selected to move a block. ";
+		
+		if(Block223Application.getCurrentGame().getAdmin()!=Block223Application.getCurrentUserRole())
+			error=error+"Only the admin who created the game may move a block. ";
+		
+		Game game = Block223Application.getCurrentGame();
+		Block block = findBlock(id);
+		
+	}
+	
+	public static Block findBlock(int id) {
+		Block foundBlock = null;
+		for (Block B : )
+		return null;
+		
+		
 	}
 
 	public static void updateBlock(int id, int red, int green, int blue, int points) throws InvalidInputException {
