@@ -8,10 +8,12 @@ import ca.mcgill.ecse223.block.controller.InvalidInputException;
 import ca.mcgill.ecse223.block.application.Block223Application;
 import ca.mcgill.ecse223.block.controller.TOUserMode.Mode;
 import ca.mcgill.ecse223.block.model.Admin;
+import ca.mcgill.ecse223.block.model.Ball;
 import ca.mcgill.ecse223.block.model.Block223;
 import ca.mcgill.ecse223.block.model.BlockAssignment;
 import ca.mcgill.ecse223.block.model.Game;
 import ca.mcgill.ecse223.block.model.Level;
+import ca.mcgill.ecse223.block.model.Paddle;
 import ca.mcgill.ecse223.block.model.Player;
 import ca.mcgill.ecse223.block.model.User;
 import ca.mcgill.ecse223.block.model.UserRole;
@@ -62,40 +64,38 @@ public class Block223Controller {
 	public static void setGameDetails(int nrLevels, int nrBlocksPerLevel, int minBallSpeedX, int minBallSpeedY,
 			Double ballSpeedIncreaseFactor, int maxPaddleLength, int minPaddleLength) throws InvalidInputException {
 		// I'm not 100% sure my code's right cuz some of the things I'm a little meh about but yeah
-		Game game = Block223Application.getCurrentGame(); // Should I put this after the error checks
+		// Should I put this after the error checks
 		
 		String error = "";
 		
 		if (Block223Application.getCurrentUserRole()instanceof Admin == false)
-			error="Admin Privileges are required to define game settings. ";
+			error="Admin privileges are required to define game settings. ";
 		
-		if (game == null)
-			error = error + "A game must be selected to remove a block. ";
+		if (Block223Application.getCurrentGame() == null)
+			error = error + "A game must be selected to define game settings. ";
 		
-		if (game.getAdmin()!=Block223Application.getCurrentUserRole())
-			error=error+"Only the admin who created the game may move a block. ";
+		if (Block223Application.getCurrentGame().getAdmin()!=Block223Application.getCurrentUserRole())
+			error=error+"Only the admin who created the game can define its game settings. ";
 		
 		if (nrLevels < 1 || nrLevels > 99)
 			error = error + "The number of levels must be between 1 and 99. ";
-
+		
+		Game game = Block223Application.getCurrentGame();
 		game.setNrBlocksPerLevel(nrBlocksPerLevel);
-		Ball gameBall = game.getBall(); //idk why there's an error here :(
+		Ball gameBall = game.getBall();
 		gameBall.setMinBallSpeedX(minBallSpeedX);
 		gameBall.setMinBallSpeedY(minBallSpeedY);
 		gameBall.setBallSpeedIncreaseFactor(ballSpeedIncreaseFactor);
-		Paddle gamePaddle = game.getPaddle(); //idk why there's an error here :(
+		Paddle gamePaddle = game.getPaddle();
 		gamePaddle.setMaxPaddleLength(maxPaddleLength);
 		gamePaddle.setMinPaddleLength(minPaddleLength);
-		ArrayList<Levels> levels = game.getLevels(); //idk why there's an error here :(
-		int size = levels.size();
-		while (nrLevels > size) {
+
+		while (nrLevels > game.numberOfLevels()) {
 			game.addLevel();
-			size = levels.size();
 		}
-		while (nrLevels < size) {
-			levels = game.getLevel(size-1);
-			levels.delete();
-			size = levels.size();
+		while (nrLevels < game.numberOfLevels()) {
+			Level level = game.getLevel(game.numberOfLevels()-1);
+			level.delete();
 		}
 	}
 
