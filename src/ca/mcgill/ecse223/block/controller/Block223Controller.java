@@ -27,6 +27,7 @@ public class Block223Controller {
 
 		System.out.println("Hello world. Sharon is awesome.");
 		System.out.println("What up, it's Nico.");
+		System.out.println("The world isn't ready for Victor.");
 		String error="";
 		if (Block223Application.getCurrentUserRole() instanceof Admin == false) 
 			error="Admin priveleges are required to create a game. ";
