@@ -25,6 +25,7 @@ public class Block223Controller {
 	// ****************************
 	public static void createGame(String name) throws InvalidInputException {
 
+		System.out.println("Hello world.");
 		String error="";
 		if (Block223Application.getCurrentUserRole() instanceof Admin == false) 
 			error="Admin priveleges are required to create a game. ";
