@@ -8,11 +8,8 @@ import ca.mcgill.ecse223.block.controller.InvalidInputException;
 import ca.mcgill.ecse223.block.application.Block223Application;
 import ca.mcgill.ecse223.block.controller.TOUserMode.Mode;
 import ca.mcgill.ecse223.block.model.Admin;
-<<<<<<< HEAD
 import ca.mcgill.ecse223.block.model.Ball;
-=======
 import ca.mcgill.ecse223.block.model.Block;
->>>>>>> refs/remotes/origin/master
 import ca.mcgill.ecse223.block.model.Block223;
 import ca.mcgill.ecse223.block.model.BlockAssignment;
 import ca.mcgill.ecse223.block.model.Game;
