@@ -35,6 +35,11 @@ class Player {
 }
 
 class Game {
+   before constructor{
+   		if (nrBlocksPerLevel <= 0){
+   			throw new RuntimeException("The number of blocks per level must be greater than zero.");
+   		}
+   }
    const Integer MIN_NR_LEVELS = 1;
    const Integer MAX_NR_LEVELS = 99; // this is somewhat redundant because the max multiplicity is enforced by Umple
    const Integer PLAY_AREA_SIDE = 400; // play area is now constant
@@ -77,6 +82,17 @@ class BlockAssignment {
 }
 
 class Ball {
+      before constructor{
+   		if (minBallSpeedX <= 0){
+   			throw new RuntimeException("The minimum speed of the ball must be greater than zero.");
+   		}
+   		if (minBallSpeedY <= 0){
+   			throw new RuntimeException("The minimum speed of the ball must be greater than zero.");
+		}
+   		if (ballSpeedIncreaseFactor <= 0){
+   			throw new RuntimeException("The speed increase factor of the ball must be greater than zero.");  
+		}
+   }
    const Integer BALL_DIAMETER = 10;
    Integer minBallSpeedX;
    Integer minBallSpeedY;
@@ -84,6 +100,14 @@ class Ball {
 }
 
 class Paddle {
+      before constructor{
+      	if (maxPaddleLength <= 0 || maxPaddleLength > 400){
+   			throw new RuntimeException("The maximum length of the paddle must be greater than zero and less than or equal to 400");
+      	}
+      	if (minPaddleLength <= 0){
+   			throw new RuntimeException("The minimum length of the paddle must be greater than zero");
+      	}
+      	
    const Integer PADDLE_WIDTH = 5;
    const Integer VERTICAL_DISTANCE = 30;
    Integer maxPaddleLength;

@@ -8,6 +8,7 @@ import ca.mcgill.ecse223.block.controller.InvalidInputException;
 import ca.mcgill.ecse223.block.application.Block223Application;
 import ca.mcgill.ecse223.block.controller.TOUserMode.Mode;
 import ca.mcgill.ecse223.block.model.Admin;
+import ca.mcgill.ecse223.block.model.Block;
 import ca.mcgill.ecse223.block.model.Block223;
 import ca.mcgill.ecse223.block.model.BlockAssignment;
 import ca.mcgill.ecse223.block.model.Game;
@@ -27,7 +28,12 @@ public class Block223Controller {
 
 		System.out.println("Hello world. Sharon is awesome.");
 		System.out.println("What up, it's Nico.");
+<<<<<<< HEAD
 		System.out.println("The world isn't ready for Victor.");
+=======
+		System.out.println("What is WRONG WITH THE ME.");
+		System.out.print("whats up, andrew is here");
+>>>>>>> 3e1e67a79f25cff543974532a58a700e72620324
 		String error="";
 		if (Block223Application.getCurrentUserRole() instanceof Admin == false) 
 			error="Admin priveleges are required to create a game. ";
@@ -60,6 +66,42 @@ public class Block223Controller {
 
 	public static void setGameDetails(int nrLevels, int nrBlocksPerLevel, int minBallSpeedX, int minBallSpeedY,
 			Double ballSpeedIncreaseFactor, int maxPaddleLength, int minPaddleLength) throws InvalidInputException {
+		// I'm not 100% sure my code's right cuz some of the things I'm a little meh about but yeah
+		Game game = Block223Application.getCurrentGame(); // Should I put this after the error checks
+		
+		String error = "";
+		
+		if (Block223Application.getCurrentUserRole()instanceof Admin == false)
+			error="Admin Privileges are required to define game settings. ";
+		
+		if (game == null)
+			error = error + "A game must be selected to remove a block. ";
+		
+		if (game.getAdmin()!=Block223Application.getCurrentUserRole())
+			error=error+"Only the admin who created the game may move a block. ";
+		
+		if (nrLevels < 1 || nrLevels > 99)
+			error = error + "The number of levels must be between 1 and 99. ";
+
+		game.setNrBlocksPerLevel(nrBlocksPerLevel);
+		Ball gameBall = game.getBall(); //idk why there's an error here :(
+		gameBall.setMinBallSpeedX(minBallSpeedX);
+		gameBall.setMinBallSpeedY(minBallSpeedY);
+		gameBall.setBallSpeedIncreaseFactor(ballSpeedIncreaseFactor);
+		Paddle gamePaddle = game.getPaddle(); //idk why there's an error here :(
+		gamePaddle.setMaxPaddleLength(maxPaddleLength);
+		gamePaddle.setMinPaddleLength(minPaddleLength);
+		ArrayList<Levels> levels = game.getLevels(); //idk why there's an error here :(
+		int size = levels.size();
+		while (nrLevels > size) {
+			game.addLevel();
+			size = levels.size();
+		}
+		while (nrLevels < size) {
+			levels = game.getLevel(size-1);
+			levels.delete();
+			size = levels.size();
+		}
 	}
 
 	public static void deleteGame(String name) throws InvalidInputException {
@@ -93,6 +135,28 @@ public class Block223Controller {
 	}
 
 	public static void deleteBlock(int id) throws InvalidInputException {
+		
+		String error="";
+		if (Block223Application.getCurrentUserRole()instanceof Admin == false)	//instance of an admin
+			error="Admin Privileges are required to move a block. ";
+		
+		if (Block223Application.getCurrentGame()==null)
+			error=error+"A game must be selected to move a block. ";
+		
+		if(Block223Application.getCurrentGame().getAdmin()!=Block223Application.getCurrentUserRole())
+			error=error+"Only the admin who created the game may move a block. ";
+		
+		Game game = Block223Application.getCurrentGame();
+		Block block = findBlock(id);
+		
+	}
+	
+	public static Block findBlock(int id) {
+		Block foundBlock = null;
+		for (Block B : )
+		return null;
+		
+		
 	}
 
 	public static void updateBlock(int id, int red, int green, int blue, int points) throws InvalidInputException {
@@ -144,6 +208,22 @@ public class Block223Controller {
 
 	public static void removeBlock(int level, int gridHorizontalPosition, int gridVerticalPosition)
 			throws InvalidInputException {
+		Game game = Block223Application.getCurrentGame(); // Should I put this after the error checks
+		String error = "";
+		if (Block223Application.getCurrentUserRole()instanceof Admin == false)
+			error="Admin Privileges are required to define game settings. ";
+		
+		if (game == null)
+			error = error + "A game must be selected to remove a block. ";
+		
+		if (game.getAdmin()!=Block223Application.getCurrentUserRole())
+			error=error+"Only the admin who created the game may move a block. ";
+		
+		Level gameLevel = game.getLevel(level);
+		BlockAssignment assignment = findBlockAssignment(gridHorizontalPosition, gridVerticalPosition, gameLevel);
+		if (assignment != null) {
+			assignment.delete();
+		}
 	}
 
 	public static void saveGame() throws InvalidInputException {
