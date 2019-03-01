@@ -5,18 +5,15 @@ class Block223 {
    1 <@>- * UserRole roles;
    1 <@>- * Game games;
 	
-	 	public Game findGame(String name) {
+	 	Game findGame(String name) {
  		Game foundGame = null;
- 		Block223 b= Block223Application.getBlock223();
- 		for (Game game : b.getGames()) {
+ 		for (Game game : this.getGames()) {
  			if (game.getName() == name) {
  				foundGame = game;
  				break;
  			}
  		}
  		return foundGame;
-   
- 	}
    
  }
 
@@ -51,16 +48,7 @@ class Player {
 }
 
 class Game {
-   before constructor {
-   	   if (aName == null || aName = "") {
-   		   throw new RuntimeException("The name of a game must be specified.");
-   	   }
-   }
-   before constructor{
-   		if (nrBlocksPerLevel <= 0){
-   			throw new RuntimeException("The number of blocks per level must be greater than zero.");
-   		}
-   }
+
    const Integer MIN_NR_LEVELS = 1;
    const Integer MAX_NR_LEVELS = 99; // this is somewhat redundant because the max multiplicity is enforced by Umple
    const Integer PLAY_AREA_SIDE = 400; // play area is now constant
@@ -69,17 +57,24 @@ class Game {
    const Integer ROW_PADDING = 2;
    unique name;
    Integer nrBlocksPerLevel;
+   
    * -- 1 Admin admin;
    1 <@>- * Block blocks;
    1 <@>- 1..99 Level levels;
    1 <@>- * BlockAssignment blockAssignments;
    1 <@>- 1 Ball ball;
    1 <@>- 1 Paddle paddle;
-
-		public static Block findBlock(int id) {
-		Game game=Block223Application.getCurrentGame();
+   
+   before constructor {
+   	   if (aName == null || aName == "") 
+   		   throw new RuntimeException("The name of a game must be specified.");
+   	   
+   	   if (nrBlocksPerLevel <= 0)
+   			throw new RuntimeException("The number of blocks per level must be greater than zero.");
+   }
+		Block findBlock(int id) {
 		Block foundBlock = null;
-		for (Block B : game.getBlocks()) {
+		for (Block B : this.getBlocks()) {
 			if (B.getId() == id) {
 				foundBlock = B;
 				break;
@@ -93,25 +88,7 @@ class Game {
 }
 
 class Block {
-   before constructor {
-   
-  	 if (red < 0 || red > 255){
-  		 throw new RuntimeException("Red must be between 0 and 255.");
-   	}
-  
-  	 if (green < 0 || green > 255){
-  		 throw new RuntimeException("Green must be between 0 and 255.");
-   	}
-   
-  	 if (blue < 0 || blue > 255){
-   		throw new RuntimeException("blue must be between 0 and 255.");
-   	}
-   
-   	if (points < 1 || points > 1000){
-   		throw new RuntimeException("Points must be between 1 and 1000");
-   	}
- 
- }
+
  
    const Integer MIN_COLOR = 0;
    const Integer MAX_COLOR = 255;
@@ -123,6 +100,24 @@ class Block {
    Integer green;
    Integer blue;
    Integer points;
+   
+  before constructor {
+   
+    	if (red < 0 || red > 255)
+  			 throw new RuntimeException("Red must be between 0 and 255.");
+   	
+  
+  		 if (green < 0 || green > 255)
+  		 	throw new RuntimeException("Green must be between 0 and 255.");
+   		
+   
+  	 	if (blue < 0 || blue > 255)
+   			throw new RuntimeException("blue must be between 0 and 255.");
+   	
+   
+   		if (points < 1 || points > 1000)
+   			throw new RuntimeException("Points must be between 1 and 1000");
+  }
 }
 
 // random attribute not needed anymore
@@ -138,7 +133,13 @@ class BlockAssignment {
 }
 
 class Ball {
-      before constructor{
+
+   const Integer BALL_DIAMETER = 10;
+   Integer minBallSpeedX;
+   Integer minBallSpeedY;
+   Double ballSpeedIncreaseFactor;
+   
+     before constructor{
    		if (minBallSpeedX <= 0){
    			throw new RuntimeException("The minimum speed of the ball must be greater than zero.");
    		}
@@ -149,23 +150,22 @@ class Ball {
    			throw new RuntimeException("The speed increase factor of the ball must be greater than zero.");  
 		}
    }
-   const Integer BALL_DIAMETER = 10;
-   Integer minBallSpeedX;
-   Integer minBallSpeedY;
-   Double ballSpeedIncreaseFactor;
+   
 }
 
 class Paddle {
-      before constructor{
+      	
+   const Integer PADDLE_WIDTH = 5;
+   const Integer VERTICAL_DISTANCE = 30;
+   Integer maxPaddleLength;
+   Integer minPaddleLength;
+   
+   before constructor{
       	if (maxPaddleLength <= 0 || maxPaddleLength > 400){
    			throw new RuntimeException("The maximum length of the paddle must be greater than zero and less than or equal to 400");
       	}
       	if (minPaddleLength <= 0){
    			throw new RuntimeException("The minimum length of the paddle must be greater than zero");
       	}
-      	
-   const Integer PADDLE_WIDTH = 5;
-   const Integer VERTICAL_DISTANCE = 30;
-   Integer maxPaddleLength;
-   Integer minPaddleLength;
+	}
 }
