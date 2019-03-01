@@ -4,9 +4,7 @@
 package ca.mcgill.ecse223.block.model;
 import java.util.*;
 
-import ca.mcgill.ecse223.block.application.Block223Application;
-
-// line 37 "../../../../../Block223 v2.ump"
+// line 50 "../../../../../Block223 v2.ump"
 public class Game
 {
 
@@ -53,6 +51,13 @@ public class Game
 
   public Game(String aName, int aNrBlocksPerLevel, Admin aAdmin, Ball aBall, Paddle aPaddle, Block223 aBlock223)
   {
+    // line 69 "../../../../../Block223 v2.ump"
+    if (aName == null || aName == "") 
+       		   throw new RuntimeException("The name of a game must be specified.");
+       	   
+       	   if (nrBlocksPerLevel <= 0)
+       			throw new RuntimeException("The number of blocks per level must be greater than zero.");
+    // END OF UMPLE BEFORE INJECTION
     nrBlocksPerLevel = aNrBlocksPerLevel;
     if (!setName(aName))
     {
@@ -85,6 +90,13 @@ public class Game
 
   public Game(String aName, int aNrBlocksPerLevel, Admin aAdmin, int aMinBallSpeedXForBall, int aMinBallSpeedYForBall, double aBallSpeedIncreaseFactorForBall, int aMaxPaddleLengthForPaddle, int aMinPaddleLengthForPaddle, Block223 aBlock223)
   {
+    // line 69 "../../../../../Block223 v2.ump"
+    if (aName == null || aName == "") 
+       		   throw new RuntimeException("The name of a game must be specified.");
+       	   
+       	   if (nrBlocksPerLevel <= 0)
+       			throw new RuntimeException("The number of blocks per level must be greater than zero.");
+    // END OF UMPLE BEFORE INJECTION
     name = aName;
     nrBlocksPerLevel = aNrBlocksPerLevel;
     boolean didAddAdmin = setAdmin(aAdmin);
@@ -602,6 +614,19 @@ public class Game
     }
   }
 
+  // line 76 "../../../../../Block223 v2.ump"
+  public Block findBlock(int id){
+    Block foundBlock = null;
+		for (Block B : this.getBlocks()) {
+			if (B.getId() == id) {
+				foundBlock = B;
+				break;
+			}
+			
+		}
+		return foundBlock;
+  }
+
 
   public String toString()
   {
@@ -613,5 +638,4 @@ public class Game
             "  " + "paddle = "+(getPaddle()!=null?Integer.toHexString(System.identityHashCode(getPaddle())):"null") + System.getProperties().getProperty("line.separator") +
             "  " + "block223 = "+(getBlock223()!=null?Integer.toHexString(System.identityHashCode(getBlock223())):"null");
   }
-  
 }

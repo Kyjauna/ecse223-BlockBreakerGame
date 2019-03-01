@@ -28,12 +28,6 @@ public class Block223Controller {
 	// ****************************
 	public static void createGame(String name) throws InvalidInputException {
 
-		System.out.println("Hello world. Sharon is awesome.");
-		System.out.println("What up, it's Nico.");
-		System.out.println("The world isn't ready for Victor.");
-		System.out.println("What is WRONG WITH THE ME.");
-		System.out.print("whats up, andrew is here");
-		System.out.print("Kyjauna is queen.");
 		String error="";
 		if (Block223Application.getCurrentUserRole() instanceof Admin == false) 
 			error="Admin priveleges are required to create a game. ";
@@ -51,24 +45,9 @@ public class Block223Controller {
 			throw new InvalidInputException(e.getMessage());
 		}
 	}
-	
-	public static Game findGame(String name) {
-		Game foundGame = null;
-		for (Game game : Block223Application.getBlock223().getGames()) {
-			if (game.getName() == name) {
-				foundGame = game;
-				break;
-			}
-		}
-		return foundGame;
-
-	}
 
 	public static void setGameDetails(int nrLevels, int nrBlocksPerLevel, int minBallSpeedX, int minBallSpeedY,
 			Double ballSpeedIncreaseFactor, int maxPaddleLength, int minPaddleLength) throws InvalidInputException {
-		// I'm not 100% sure my code's right cuz some of the things I'm a little meh about but yeah
-		// Should I put this after the error checks
-		
 		String error = "";
 		
 		if (Block223Application.getCurrentUserRole()instanceof Admin == false)
@@ -104,7 +83,7 @@ public class Block223Controller {
 
 	public static void deleteGame(String name) throws InvalidInputException {
 
-		Game game = findGame(name);
+		Game game = Block223Application.getBlock223().findGame(name);
 		String error="";
 		// We must check that the user is an admin AND the admin of the game!
 		UserRole admin = Block223Application.getCurrentUserRole(); 

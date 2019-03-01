@@ -4,7 +4,7 @@
 package ca.mcgill.ecse223.block.model;
 import java.util.*;
 
-// line 54 "../../../../../Block223 v2.ump"
+// line 90 "../../../../../Block223 v2.ump"
 public class Block
 {
 
@@ -42,6 +42,22 @@ public class Block
 
   public Block(int aRed, int aGreen, int aBlue, int aPoints, Game aGame)
   {
+    // line 106 "../../../../../Block223 v2.ump"
+    if (red < 0 || red > 255)
+      			 throw new RuntimeException("Red must be between 0 and 255.");
+       	
+      
+      		 if (green < 0 || green > 255)
+      		 	throw new RuntimeException("Green must be between 0 and 255.");
+       		
+       
+      	 	if (blue < 0 || blue > 255)
+       			throw new RuntimeException("blue must be between 0 and 255.");
+       	
+       
+       		if (points < 1 || points > 1000)
+       			throw new RuntimeException("Points must be between 1 and 1000");
+    // END OF UMPLE BEFORE INJECTION
     red = aRed;
     green = aGreen;
     blue = aBlue;
@@ -242,7 +258,7 @@ public class Block
     return wasAdded;
   }
 
- public void delete()
+  public void delete()
   {
     Game placeholderGame = game;
     this.game = null;
