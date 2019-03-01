@@ -177,7 +177,8 @@ public class Block223Controller {
 		if (Block223Application.getCurrentGame().getAdmin()!=Block223Application.getCurrentUserRole())
 			error=error+"Only the admin who created the game can update a block. ";
 		
-		if (Block223Application.getCurrentGame().getBlocks())
+		for (Block B : Block223Application.getCurrentGame().getBlocks())
+			if (B.getRed()== red && B.getBlue()== blue && B.getGreen() == green)
 			error=error+"A block with the same color already exists for the game. ";
 			
 		
