@@ -18,15 +18,19 @@ import java.awt.SystemColor;
 import javax.swing.JPasswordField;
 import javax.swing.JButton;
 import javax.swing.SwingConstants;
+
+import ca.mcgill.ecse223.block.controller.Block223Controller;
+import ca.mcgill.ecse223.block.controller.InvalidInputException;
+
 import javax.swing.JMenuBar;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 
 public class WelcomePage {
 
-	private JFrame frame;
-	private JTextField txtSername;
-	private JPasswordField pwdPassword;
+	public JFrame frame;
+	public JTextField txtUsername;
+	public JPasswordField pwdPassword;
 
 	/**
 	 * Launch the application.
@@ -63,11 +67,11 @@ public class WelcomePage {
 		lblHi.setForeground(Color.BLACK);
 		lblHi.setFont(new Font("Monospaced", Font.BOLD, 32));
 		
-		txtSername = new JTextField();
-		txtSername.setBackground(Color.WHITE);
-		txtSername.setFont(new Font("Monospaced", Font.BOLD, 13));
-		txtSername.setText("Username");
-		txtSername.setColumns(10);
+		txtUsername = new JTextField();
+		txtUsername.setBackground(Color.WHITE);
+		txtUsername.setFont(new Font("Monospaced", Font.BOLD, 13));
+		txtUsername.setText("Username");
+		txtUsername.setColumns(10);
 		
 		JLabel lblUsername = new JLabel("Username:");
 		lblUsername.setFont(new Font("Monospaced", Font.BOLD, 13));
@@ -81,9 +85,19 @@ public class WelcomePage {
 		
 		JButton btnLogin = new JButton("LOGIN");
 		btnLogin.addActionListener(new ActionListener() {
+			
+		/* actionlistener for login button
+		 * does not yet work because we do not have the admin page set up 
+		 */
 			public void actionPerformed(ActionEvent e) {
 				
-				
+				String username=txtUsername.getText();	//getting text from the username text field
+				String password=new String(pwdPassword.getPassword());	//getting text from the password field
+				try {
+					Block223Controller.login(username, password);	//calling controller to perform action associated with the method
+				} catch (InvalidInputException e1) {
+					e1.printStackTrace();
+				}
 				
 			}
 		});
@@ -91,9 +105,17 @@ public class WelcomePage {
 		btnLogin.setForeground(Color.BLACK);
 		btnLogin.setFont(new Font("Monospaced", Font.BOLD, 12));
 		
+		/*actionlistener for signup button
+		 * launches signup page
+		 */
+		
 		JButton btnSignUp = new JButton("SIGN UP");
 		btnSignUp.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
+				
+				SignUpPage signuppage= new SignUpPage();	//this is how you launch a different page
+				signuppage.frame.setVisible(true);		//don't forget to set the frame etc. to public
+			
 			}
 			
 		});
@@ -115,7 +137,7 @@ public class WelcomePage {
 									.addComponent(lblUsername))
 								.addPreferredGap(ComponentPlacement.RELATED)
 								.addGroup(groupLayout.createParallelGroup(Alignment.LEADING)
-									.addComponent(txtSername, GroupLayout.DEFAULT_SIZE, 89, Short.MAX_VALUE)
+									.addComponent(txtUsername, GroupLayout.DEFAULT_SIZE, 89, Short.MAX_VALUE)
 									.addComponent(pwdPassword, GroupLayout.PREFERRED_SIZE, 113, GroupLayout.PREFERRED_SIZE)))
 							.addGroup(Alignment.LEADING, groupLayout.createSequentialGroup()
 								.addGap(274)
@@ -133,7 +155,7 @@ public class WelcomePage {
 					.addGap(27)
 					.addGroup(groupLayout.createParallelGroup(Alignment.BASELINE)
 						.addComponent(lblUsername)
-						.addComponent(txtSername, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
+						.addComponent(txtUsername, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
 					.addPreferredGap(ComponentPlacement.RELATED, 27, Short.MAX_VALUE)
 					.addGroup(groupLayout.createParallelGroup(Alignment.BASELINE)
 						.addComponent(lblPassword)
