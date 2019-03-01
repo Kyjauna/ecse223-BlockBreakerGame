@@ -4,6 +4,22 @@ class Block223 {
    1 <@>- * User users;
    1 <@>- * UserRole roles;
    1 <@>- * Game games;
+	
+	 	public Game findGame(String name) {
+ 		Game foundGame = null;
+ 		Block223 b= Block223Application.getBlock223();
+ 		for (Game game : b.getGames()) {
+ 			if (game.getName() == name) {
+ 				foundGame = game;
+ 				break;
+ 			}
+ 		}
+ 		return foundGame;
+   
+ 	}
+   
+ }
+
 }
 
 class User {
@@ -35,6 +51,11 @@ class Player {
 }
 
 class Game {
+   before constructor {
+   	   if (aName == null || aName = "") {
+   		   throw new RuntimeException("The name of a game must be specified.");
+   	   }
+   }
    before constructor{
    		if (nrBlocksPerLevel <= 0){
    			throw new RuntimeException("The number of blocks per level must be greater than zero.");
@@ -54,6 +75,21 @@ class Game {
    1 <@>- * BlockAssignment blockAssignments;
    1 <@>- 1 Ball ball;
    1 <@>- 1 Paddle paddle;
+
+		public static Block findBlock(int id) {
+		Game game=Block223Application.getCurrentGame();
+		Block foundBlock = null;
+		for (Block B : game.getBlocks()) {
+			if (B.getId() == id) {
+				foundBlock = B;
+				break;
+			}
+			
+		}
+		return foundBlock;
+		
+	}
+
 }
 
 class Block {

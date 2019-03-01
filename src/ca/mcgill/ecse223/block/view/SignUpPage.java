@@ -9,6 +9,10 @@ import javax.swing.JLabel;
 import java.awt.Color;
 import java.awt.Font;
 import javax.swing.LayoutStyle.ComponentPlacement;
+
+import ca.mcgill.ecse223.block.controller.Block223Controller;
+import ca.mcgill.ecse223.block.controller.InvalidInputException;
+
 import javax.swing.JTextField;
 import javax.swing.JPasswordField;
 import javax.swing.JButton;
@@ -17,10 +21,10 @@ import java.awt.event.ActionEvent;
 
 public class SignUpPage {
 
-	private JFrame frame;
-	private JTextField txtUsername;
-	private JPasswordField pwdPassword;
-	private JPasswordField pwdPassword_1;
+	public JFrame frame;
+	public JTextField txtUsername;
+	public JPasswordField pwdPassword;
+	public JPasswordField pwdPassword_1;
 
 	/**
 	 * Launch the application.
@@ -91,8 +95,18 @@ public class SignUpPage {
 		JButton btnCreateAccount = new JButton("CREATE ACCOUNT");
 		btnCreateAccount.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
+				String username= txtUsername.getText();
+				String playerpassword=new String(pwdPassword.getPassword());
+				String adminpassword=new String(pwdPassword_1.getPassword());
 				
+				try {
+					Block223Controller.register(username, playerpassword, adminpassword);
+				} catch (InvalidInputException e1) {
+					e1.printStackTrace();
+				}
 				
+				WelcomePage welcomeback= new WelcomePage();
+				welcomeback.frame.setVisible(true);
 			}
 		});
 		btnCreateAccount.setForeground(new Color(0, 0, 102));
@@ -115,41 +129,39 @@ public class SignUpPage {
 				.addGroup(groupLayout.createSequentialGroup()
 					.addGroup(groupLayout.createParallelGroup(Alignment.LEADING)
 						.addGroup(groupLayout.createSequentialGroup()
-							.addContainerGap(155, Short.MAX_VALUE)
-							.addGroup(groupLayout.createParallelGroup(Alignment.TRAILING, false)
+							.addGap(183)
+							.addGroup(groupLayout.createParallelGroup(Alignment.LEADING)
+								.addGroup(groupLayout.createParallelGroup(Alignment.TRAILING)
+									.addComponent(lblPlayerPassword)
+									.addComponent(lblUsername)
+									.addComponent(lblAdminPassword))
 								.addGroup(groupLayout.createSequentialGroup()
-									.addGroup(groupLayout.createParallelGroup(Alignment.TRAILING)
-										.addComponent(lblUsername)
-										.addComponent(lblPlayerPassword)
-										.addComponent(lblAdminPassword))
-									.addGap(18))
-								.addGroup(groupLayout.createSequentialGroup()
-									.addComponent(lblNewLabel, GroupLayout.PREFERRED_SIZE, 61, GroupLayout.PREFERRED_SIZE)
-									.addGap(56)))
+									.addGap(27)
+									.addComponent(lblNewLabel, GroupLayout.PREFERRED_SIZE, 61, GroupLayout.PREFERRED_SIZE)))
+							.addGap(18)
 							.addGroup(groupLayout.createParallelGroup(Alignment.LEADING, false)
-								.addComponent(pwdPassword)
+								.addComponent(txtUsername, GroupLayout.DEFAULT_SIZE, 139, Short.MAX_VALUE)
 								.addComponent(pwdPassword_1)
-								.addComponent(txtUsername, GroupLayout.DEFAULT_SIZE, 141, Short.MAX_VALUE)))
+								.addComponent(pwdPassword)))
 						.addGroup(groupLayout.createSequentialGroup()
-							.addGap(252)
+							.addGap(269)
 							.addComponent(lblSignUp))
 						.addGroup(groupLayout.createSequentialGroup()
-							.addGap(238)
-							.addGroup(groupLayout.createParallelGroup(Alignment.LEADING)
-								.addGroup(groupLayout.createSequentialGroup()
-									.addGap(10)
-									.addComponent(btnCancel, GroupLayout.PREFERRED_SIZE, 100, GroupLayout.PREFERRED_SIZE))
-								.addComponent(btnCreateAccount))))
-					.addContainerGap(240, Short.MAX_VALUE))
+							.addGap(257)
+							.addComponent(btnCreateAccount))
+						.addGroup(groupLayout.createSequentialGroup()
+							.addGap(271)
+							.addComponent(btnCancel, GroupLayout.PREFERRED_SIZE, 100, GroupLayout.PREFERRED_SIZE)))
+					.addContainerGap(214, Short.MAX_VALUE))
 		);
 		groupLayout.setVerticalGroup(
 			groupLayout.createParallelGroup(Alignment.TRAILING)
 				.addGroup(groupLayout.createSequentialGroup()
-					.addContainerGap(GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+					.addContainerGap(12, Short.MAX_VALUE)
 					.addGroup(groupLayout.createParallelGroup(Alignment.TRAILING)
 						.addGroup(groupLayout.createSequentialGroup()
 							.addComponent(lblSignUp)
-							.addGap(20)
+							.addGap(18)
 							.addGroup(groupLayout.createParallelGroup(Alignment.BASELINE)
 								.addComponent(lblUsername)
 								.addComponent(txtUsername, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
@@ -157,19 +169,19 @@ public class SignUpPage {
 							.addGroup(groupLayout.createParallelGroup(Alignment.BASELINE)
 								.addComponent(lblPlayerPassword)
 								.addComponent(pwdPassword_1, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
-							.addGap(33)
+							.addGap(31)
 							.addGroup(groupLayout.createParallelGroup(Alignment.BASELINE)
 								.addComponent(lblAdminPassword)
 								.addComponent(pwdPassword, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
 							.addGap(40))
 						.addGroup(groupLayout.createSequentialGroup()
 							.addComponent(lblNewLabel, GroupLayout.PREFERRED_SIZE, 11, GroupLayout.PREFERRED_SIZE)
-							.addGap(33)))
+							.addGap(31)))
 					.addPreferredGap(ComponentPlacement.RELATED)
 					.addComponent(btnCreateAccount, GroupLayout.PREFERRED_SIZE, 22, GroupLayout.PREFERRED_SIZE)
-					.addPreferredGap(ComponentPlacement.UNRELATED)
+					.addGap(18)
 					.addComponent(btnCancel, GroupLayout.PREFERRED_SIZE, 22, GroupLayout.PREFERRED_SIZE)
-					.addGap(56))
+					.addGap(51))
 		);
 		frame.getContentPane().setLayout(groupLayout);
 	}

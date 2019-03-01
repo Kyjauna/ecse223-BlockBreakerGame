@@ -4,6 +4,8 @@
 package ca.mcgill.ecse223.block.model;
 import java.util.*;
 
+import ca.mcgill.ecse223.block.application.Block223Application;
+
 // line 3 "../../../../../Block223 v2.ump"
 public class Block223
 {
@@ -359,5 +361,5 @@ public class Block223
     }
     
   }
-
+  
 }
