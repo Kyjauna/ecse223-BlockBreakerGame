@@ -113,7 +113,7 @@ public class Block223Controller {
 		if (error.length() > 0) {
 			throw new InvalidInputException(error.trim());
 	}
-			Game game = findGame(name);
+			Game game = Block223Application.getBlock223().findGame(name);
 				if ( game == null) {
 					error = "A game with name" +name+ "does not exist.";
 				if (error.length() > 0) {
@@ -193,7 +193,7 @@ public class Block223Controller {
 		if(Block223Application.getCurrentGame().getAdmin()!=Block223Application.getCurrentUserRole())
 			error=error+"Only the admin who created the game can delete a block. ";
 		
-		Block block = findBlock(id);
+		Block block = Block223Application.getCurrentGame().findBlock(id);
 		
 		if (block != null) {
 			block.delete();
@@ -201,19 +201,6 @@ public class Block223Controller {
 		
 	}
 	
-	public static Block findBlock(int id) {
-		Block foundBlock = null;
-		for (Block B : Block223Application.getCurrentGame().getBlocks()) {
-			if (B.getId() == id) {
-				foundBlock = B;
-				break;
-			}
-			
-		}
-		return foundBlock;
-
-		
-	}
 
 	public static void updateBlock(int id, int red, int green, int blue, int points) throws InvalidInputException {
 		
@@ -232,9 +219,9 @@ public class Block223Controller {
 			
 		
 		Game game = Block223Application.getCurrentGame();
-		Block block = findBlock(id);
+		Block block = Block223Application.getCurrentGame().findBlock(id);
 		
-		if (findBlock(id) == null)
+		if (Block223Application.getCurrentGame().findBlock(id) == null)
 			error=error+"The block does not exist. ";
 		
 		block.setRed(red);
@@ -267,7 +254,7 @@ public class Block223Controller {
 		
 		try {
 			Level gameLevel=game.getLevel(level);
-			BlockAssignment assignment=findBlockAssignment(oldGridHorizontalPosition, oldGridVerticalPosition, gameLevel);
+			BlockAssignment assignment=Block223Application.getCurrentGame().findBlockAssignment(oldGridHorizontalPosition, oldGridVerticalPosition, gameLevel);
 			assignment.setGridHorizontalPosition(newGridHorizontalPosition);
 			assignment.setGridVerticalPosition(newGridVerticalPosition);
 		}
@@ -278,7 +265,7 @@ public class Block223Controller {
 	}
 	
 	   
-	   public static BlockAssignment findBlockAssignment(int oldHorizontalGridPosition, int oldVerticalGridPosition, Level level){
+	  public static BlockAssignment findBlockAssignment(int oldHorizontalGridPosition, int oldVerticalGridPosition, Level level){
 			BlockAssignment foundBA = null;
 			for (BlockAssignment BA : level.getBlockAssignments()) {
 				if (BA.getGridHorizontalPosition() == oldHorizontalGridPosition&&BA.getGridHorizontalPosition()==oldVerticalGridPosition) {
@@ -456,11 +443,11 @@ public class Block223Controller {
 		if(Block223Application.getCurrentGame().getAdmin()!=Block223Application.getCurrentUserRole())
 			error=error+"Only the admin who created the game can access its information. ";
 		
-		if (findBlock(id) == null)
+		if (Block223Application.getCurrentGame().findBlock(id) == null)
 			error=error+"The block does not exist. ";
 		
 		Game game = Block223Application.getCurrentGame();
-		Block block = findBlock(id);
+		Block block = Block223Application.getCurrentGame().findBlock(id);
 		TOBlock tobck1 = new TOBlock(block.getId(), block.getRed(), block.getGreen(), block.getBlue(), block.getPoints());
 		
 		return tobck1;
