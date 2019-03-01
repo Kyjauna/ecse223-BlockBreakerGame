@@ -57,6 +57,26 @@ class Game {
 }
 
 class Block {
+   before constructor {
+   
+  	 if (red < 0 || red > 255){
+  		 throw new RuntimeException("Red must be between 0 and 255.");
+   	}
+  
+  	 if (green < 0 || green > 255){
+  		 throw new RuntimeException("Green must be between 0 and 255.");
+   	}
+   
+  	 if (blue < 0 || blue > 255){
+   		throw new RuntimeException("blue must be between 0 and 255.");
+   	}
+   
+   	if (points < 1 || points > 1000){
+   		throw new RuntimeException("Points must be between 1 and 1000");
+   	}
+ 
+ }
+ 
    const Integer MIN_COLOR = 0;
    const Integer MAX_COLOR = 255;
    const Integer MIN_POINTS = 1;

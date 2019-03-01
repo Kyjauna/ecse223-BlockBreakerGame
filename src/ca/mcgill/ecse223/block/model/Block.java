@@ -242,7 +242,7 @@ public class Block
     return wasAdded;
   }
 
-  public void delete()
+ public void delete()
   {
     Game placeholderGame = game;
     this.game = null;
