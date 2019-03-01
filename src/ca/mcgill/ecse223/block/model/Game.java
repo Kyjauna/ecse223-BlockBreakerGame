@@ -4,6 +4,8 @@
 package ca.mcgill.ecse223.block.model;
 import java.util.*;
 
+import ca.mcgill.ecse223.block.application.Block223Application;
+
 // line 37 "../../../../../Block223 v2.ump"
 public class Game
 {
@@ -611,4 +613,5 @@ public class Game
             "  " + "paddle = "+(getPaddle()!=null?Integer.toHexString(System.identityHashCode(getPaddle())):"null") + System.getProperties().getProperty("line.separator") +
             "  " + "block223 = "+(getBlock223()!=null?Integer.toHexString(System.identityHashCode(getBlock223())):"null");
   }
+  
 }
