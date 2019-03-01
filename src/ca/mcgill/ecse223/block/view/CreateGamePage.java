@@ -111,6 +111,11 @@ public class CreateGamePage {
 		btnMaxPaddleLength.setFont(new Font("Monospaced", Font.PLAIN, 10));
 		
 		JButton btnBuild = new JButton("BUILD");
+		btnBuild.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				// this action should take you to the GamePage
+			}
+		});
 		btnBuild.setFont(new Font("Monospaced", Font.BOLD, 15));
 		btnBuild.setBackground(new Color(135, 206, 235));
 		
