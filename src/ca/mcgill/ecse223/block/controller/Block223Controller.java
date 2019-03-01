@@ -33,6 +33,7 @@ public class Block223Controller {
 		System.out.println("The world isn't ready for Victor.");
 		System.out.println("What is WRONG WITH THE ME.");
 		System.out.print("whats up, andrew is here");
+		System.out.print("Kyjauna is queen.");
 		String error="";
 		if (Block223Application.getCurrentUserRole() instanceof Admin == false) 
 			error="Admin priveleges are required to create a game. ";
