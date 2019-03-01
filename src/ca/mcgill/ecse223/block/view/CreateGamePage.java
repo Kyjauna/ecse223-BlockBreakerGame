@@ -60,7 +60,7 @@ public class CreateGamePage {
 	 */
 	private void initialize() {
 		frame = new JFrame();
-		frame.getContentPane().setBackground(new Color(75, 0, 130));
+		frame.getContentPane().setBackground(new Color(0, 0, 51));
 		
 		JButton btnNewButton = new JButton("NUMBER OF LEVELS");
 		btnNewButton.setFont(new Font("Monospaced", Font.PLAIN, 11));
@@ -185,7 +185,7 @@ public class CreateGamePage {
 		JLabel lblCreateNewGame = new JLabel("CREATE NEW GAME");
 		lblCreateNewGame.setFont(new Font("Monospaced", Font.BOLD, 25));
 		lblCreateNewGame.setForeground(new Color(64, 224, 208));
-		lblCreateNewGame.setBackground(new Color(175, 238, 238));
+		lblCreateNewGame.setBackground(new Color(70, 130, 180));
 		GroupLayout groupLayout = new GroupLayout(frame.getContentPane());
 		groupLayout.setHorizontalGroup(
 			groupLayout.createParallelGroup(Alignment.TRAILING)

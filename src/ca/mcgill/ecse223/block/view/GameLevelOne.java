@@ -47,7 +47,7 @@ public class GameLevelOne {
 	 */
 	private void initialize() {
 		frame = new JFrame();
-		frame.getContentPane().setBackground(new Color(75, 0, 130));
+		frame.getContentPane().setBackground(new Color(0, 0, 51));
 		
 		JLabel lblLevel = new JLabel("LEVEL 1");
 		lblLevel.setForeground(new Color(224, 255, 255));

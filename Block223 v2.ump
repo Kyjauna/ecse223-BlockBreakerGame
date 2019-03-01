@@ -35,6 +35,11 @@ class Player {
 }
 
 class Game {
+   before constructor {
+   	   if (aName == null || aName = "") {
+   		   throw new RuntimeException("The name of a game must be specified.");
+   	   }
+   }
    before constructor{
    		if (nrBlocksPerLevel <= 0){
    			throw new RuntimeException("The number of blocks per level must be greater than zero.");
