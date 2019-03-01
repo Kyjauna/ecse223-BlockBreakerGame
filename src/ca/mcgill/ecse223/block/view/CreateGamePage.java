@@ -14,19 +14,23 @@ import javax.swing.GroupLayout.Alignment;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 import javax.swing.LayoutStyle.ComponentPlacement;
+
+import ca.mcgill.ecse223.block.controller.Block223Controller;
+import ca.mcgill.ecse223.block.controller.InvalidInputException;
+
 import java.awt.Font;
+import java.awt.TextField;
 
 public class CreateGamePage {
 
-	private JFrame frame;
-	private JTextField textField;
-	private JTextField textField_1;
-	private JTextField textField_2;
-	private JTextField textField_3;
-	private JTextField textField_4;
-	private JTextField textField_5;
-	private JTextField textField_6;
-	private JTextField textField_7;
+	public JFrame frame;
+	public JTextField numberOfLevelsTxt;
+	public JTextField blocksPerLevelTxt;
+	public JTextField xBallSpeedTxt;
+	public JTextField yBallSpeedTxt;
+	public JTextField speedIncreaseFactorTxt;
+	public JTextField minPaddleLengthTxt;
+	public JTextField maxPaddleLengthTxt;
 
 	/**
 	 * Launch the application.
@@ -58,7 +62,7 @@ public class CreateGamePage {
 		frame = new JFrame();
 		frame.getContentPane().setBackground(new Color(75, 0, 130));
 		
-		JButton btnNewButton = new JButton("#BLOCKS per level");
+		JButton btnNewButton = new JButton("NUMBER OF LEVELS");
 		btnNewButton.setFont(new Font("Monospaced", Font.PLAIN, 11));
 		btnNewButton.setBackground(new Color(230, 230, 250));
 		btnNewButton.addActionListener(new ActionListener() {
@@ -66,17 +70,13 @@ public class CreateGamePage {
 			}
 		});
 		
-		JButton btnHeightPlayArea = new JButton("HEIGHT PLAY AREA");
+		JButton btnHeightPlayArea = new JButton("#BLOCKS per level");
 		btnHeightPlayArea.setFont(new Font("Monospaced", Font.PLAIN, 11));
 		btnHeightPlayArea.setBackground(new Color(230, 230, 250));
 		btnHeightPlayArea.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 			}
 		});
-		
-		JButton btnWidthPlayArea = new JButton("WIDTH PLAY AREA");
-		btnWidthPlayArea.setFont(new Font("Monospaced", Font.PLAIN, 11));
-		btnWidthPlayArea.setBackground(new Color(230, 230, 250));
 		
 		JButton btnMinXBall = new JButton("MIN X BALL SPEED");
 		btnMinXBall.setFont(new Font("Monospaced", Font.PLAIN, 11));
@@ -114,50 +114,73 @@ public class CreateGamePage {
 		btnBuild.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				// this action should take you to the GamePage
+				
+				String stringNumberOfLevels = numberOfLevelsTxt.getText();
+				int numberOfLevels = Integer.parseInt(stringNumberOfLevels);
+				
+				String stringBlocksPerLevel = blocksPerLevelTxt.getText();
+				int blocksPerLevel = Integer.parseInt(stringBlocksPerLevel);
+								
+				String stringXBallSpeed = xBallSpeedTxt.getText();
+				int xBallSpeed = Integer.parseInt(stringXBallSpeed);
+				
+				String stringYBallSpeed = yBallSpeedTxt.getText();
+				int yBallSpeed = Integer.parseInt(stringYBallSpeed);
+				
+				String stringSpeedIncreaseFactor = speedIncreaseFactorTxt.getText();
+				double speedIncreaseFactor = Double.parseDouble(stringSpeedIncreaseFactor);
+				
+				String stringMinPaddleLength = minPaddleLengthTxt.getText();
+				int minPaddleLength = Integer.parseInt(stringMinPaddleLength);
+				
+				String stringMaxPaddleLength = maxPaddleLengthTxt.getText();
+				int maxPaddleLength = Integer.parseInt(stringMaxPaddleLength);
+				
+				try {
+					Block223Controller.setGameDetails(numberOfLevels, blocksPerLevel, xBallSpeed, yBallSpeed, speedIncreaseFactor, maxPaddleLength, minPaddleLength);
+				} catch (InvalidInputException e1) {
+					e1.printStackTrace();
+				}
+				
 			}
 		});
 		btnBuild.setFont(new Font("Monospaced", Font.BOLD, 15));
 		btnBuild.setBackground(new Color(135, 206, 235));
 		
-		textField = new JTextField();
-		textField.setForeground(new Color(169, 169, 169));
-		textField.setText("28");
-		textField.setColumns(10);
+		numberOfLevelsTxt = new JTextField();
+		numberOfLevelsTxt.setForeground(new Color(169, 169, 169));
+		numberOfLevelsTxt.setText("45");
+		numberOfLevelsTxt.setColumns(10);
 		
-		textField_1 = new JTextField();
-		textField_1.setText("200");
-		textField_1.setForeground(new Color(169, 169, 169));
-		textField_1.setColumns(10);
+		blocksPerLevelTxt = new JTextField();
+		blocksPerLevelTxt.setText("28");
+		blocksPerLevelTxt.setForeground(new Color(169, 169, 169));
+		blocksPerLevelTxt.setColumns(10);
 		
-		textField_2 = new JTextField();
-		textField_2.setText("200");
-		textField_2.setForeground(new Color(169, 169, 169));
-		textField_2.setColumns(10);
+		xBallSpeedTxt = new JTextField();
+		xBallSpeedTxt.setText("5");
+		xBallSpeedTxt.setForeground(new Color(169, 169, 169));
+		xBallSpeedTxt.setColumns(10);
 		
-		textField_3 = new JTextField();
-		textField_3.setText("5");
-		textField_3.setForeground(new Color(169, 169, 169));
-		textField_3.setColumns(10);
+		yBallSpeedTxt = new JTextField();
+		yBallSpeedTxt.setText("5");
+		yBallSpeedTxt.setForeground(new Color(169, 169, 169));
+		yBallSpeedTxt.setColumns(10);
 		
-		textField_4 = new JTextField();
-		textField_4.setText("5");
-		textField_4.setForeground(new Color(169, 169, 169));
-		textField_4.setColumns(10);
+		speedIncreaseFactorTxt = new JTextField();
+		speedIncreaseFactorTxt.setText("1.5");
+		speedIncreaseFactorTxt.setForeground(new Color(169, 169, 169));
+		speedIncreaseFactorTxt.setColumns(10);
 		
-		textField_5 = new JTextField();
-		textField_5.setText("1.5");
-		textField_5.setForeground(new Color(169, 169, 169));
-		textField_5.setColumns(10);
+		minPaddleLengthTxt = new JTextField();
+		minPaddleLengthTxt.setText("10");
+		minPaddleLengthTxt.setForeground(new Color(169, 169, 169));
+		minPaddleLengthTxt.setColumns(10);
 		
-		textField_6 = new JTextField();
-		textField_6.setText("10");
-		textField_6.setForeground(new Color(169, 169, 169));
-		textField_6.setColumns(10);
-		
-		textField_7 = new JTextField();
-		textField_7.setText("2");
-		textField_7.setForeground(new Color(169, 169, 169));
-		textField_7.setColumns(10);
+		maxPaddleLengthTxt = new JTextField();
+		maxPaddleLengthTxt.setText("2");
+		maxPaddleLengthTxt.setForeground(new Color(169, 169, 169));
+		maxPaddleLengthTxt.setColumns(10);
 		
 		JLabel lblCreateNewGame = new JLabel("CREATE NEW GAME");
 		lblCreateNewGame.setFont(new Font("Monospaced", Font.BOLD, 25));
@@ -167,37 +190,34 @@ public class CreateGamePage {
 		groupLayout.setHorizontalGroup(
 			groupLayout.createParallelGroup(Alignment.TRAILING)
 				.addGroup(groupLayout.createSequentialGroup()
-					.addGap(109)
-					.addGroup(groupLayout.createParallelGroup(Alignment.LEADING)
-						.addGroup(groupLayout.createParallelGroup(Alignment.LEADING, false)
-							.addComponent(btnMinYBall, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-							.addComponent(btnMinXBall, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-							.addComponent(btnWidthPlayArea, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-							.addComponent(btnHeightPlayArea, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-							.addComponent(btnNewButton, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-						.addGroup(groupLayout.createParallelGroup(Alignment.TRAILING)
-							.addComponent(btnMaxPaddleLength, 0, 0, Short.MAX_VALUE)
-							.addComponent(btnMinPaddleLength, GroupLayout.PREFERRED_SIZE, 151, Short.MAX_VALUE)
-							.addComponent(btnSpeedIncreaseFactor, Alignment.LEADING, GroupLayout.DEFAULT_SIZE, 151, Short.MAX_VALUE)))
-					.addGap(18)
-					.addGroup(groupLayout.createParallelGroup(Alignment.LEADING)
-						.addComponent(textField_5, GroupLayout.PREFERRED_SIZE, 267, GroupLayout.PREFERRED_SIZE)
-						.addComponent(textField_4, GroupLayout.PREFERRED_SIZE, 267, GroupLayout.PREFERRED_SIZE)
-						.addComponent(textField_3, GroupLayout.PREFERRED_SIZE, 267, GroupLayout.PREFERRED_SIZE)
-						.addComponent(textField_2, GroupLayout.PREFERRED_SIZE, 267, GroupLayout.PREFERRED_SIZE)
-						.addComponent(textField_1, GroupLayout.PREFERRED_SIZE, 267, GroupLayout.PREFERRED_SIZE)
-						.addComponent(textField, GroupLayout.PREFERRED_SIZE, 267, GroupLayout.PREFERRED_SIZE)
-						.addComponent(textField_6, GroupLayout.PREFERRED_SIZE, 267, GroupLayout.PREFERRED_SIZE)
-						.addComponent(textField_7, GroupLayout.PREFERRED_SIZE, 267, GroupLayout.PREFERRED_SIZE))
-					.addGap(181))
-				.addGroup(groupLayout.createSequentialGroup()
-					.addContainerGap(328, Short.MAX_VALUE)
-					.addComponent(btnBuild)
-					.addGap(325))
-				.addGroup(groupLayout.createSequentialGroup()
-					.addContainerGap(265, Short.MAX_VALUE)
+					.addContainerGap(261, Short.MAX_VALUE)
 					.addComponent(lblCreateNewGame, GroupLayout.PREFERRED_SIZE, 231, GroupLayout.PREFERRED_SIZE)
 					.addGap(234))
+				.addGroup(groupLayout.createSequentialGroup()
+					.addGap(109)
+					.addGroup(groupLayout.createParallelGroup(Alignment.TRAILING)
+						.addComponent(btnMaxPaddleLength, GroupLayout.DEFAULT_SIZE, 151, Short.MAX_VALUE)
+						.addComponent(btnMinPaddleLength, GroupLayout.DEFAULT_SIZE, 151, Short.MAX_VALUE)
+						.addComponent(btnSpeedIncreaseFactor, GroupLayout.DEFAULT_SIZE, 151, Short.MAX_VALUE)
+						.addComponent(btnMinYBall, Alignment.LEADING, GroupLayout.DEFAULT_SIZE, 151, Short.MAX_VALUE)
+						.addComponent(btnMinXBall, GroupLayout.DEFAULT_SIZE, 151, Short.MAX_VALUE)
+						.addGroup(Alignment.LEADING, groupLayout.createParallelGroup(Alignment.LEADING, false)
+							.addComponent(btnHeightPlayArea, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+							.addComponent(btnNewButton, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+					.addGap(18)
+					.addGroup(groupLayout.createParallelGroup(Alignment.LEADING)
+						.addComponent(blocksPerLevelTxt, GroupLayout.PREFERRED_SIZE, 267, GroupLayout.PREFERRED_SIZE)
+						.addComponent(numberOfLevelsTxt, GroupLayout.PREFERRED_SIZE, 267, GroupLayout.PREFERRED_SIZE)
+						.addComponent(xBallSpeedTxt, GroupLayout.PREFERRED_SIZE, 267, GroupLayout.PREFERRED_SIZE)
+						.addComponent(yBallSpeedTxt, GroupLayout.PREFERRED_SIZE, 267, GroupLayout.PREFERRED_SIZE)
+						.addComponent(speedIncreaseFactorTxt, GroupLayout.PREFERRED_SIZE, 267, GroupLayout.PREFERRED_SIZE)
+						.addComponent(minPaddleLengthTxt, GroupLayout.PREFERRED_SIZE, 267, GroupLayout.PREFERRED_SIZE)
+						.addComponent(maxPaddleLengthTxt, GroupLayout.PREFERRED_SIZE, 267, GroupLayout.PREFERRED_SIZE))
+					.addGap(181))
+				.addGroup(Alignment.LEADING, groupLayout.createSequentialGroup()
+					.addGap(324)
+					.addComponent(btnBuild)
+					.addContainerGap(325, Short.MAX_VALUE))
 		);
 		groupLayout.setVerticalGroup(
 			groupLayout.createParallelGroup(Alignment.LEADING)
@@ -206,39 +226,35 @@ public class CreateGamePage {
 					.addComponent(lblCreateNewGame, GroupLayout.PREFERRED_SIZE, 51, GroupLayout.PREFERRED_SIZE)
 					.addGap(33)
 					.addGroup(groupLayout.createParallelGroup(Alignment.TRAILING, false)
-						.addComponent(textField, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
+						.addComponent(numberOfLevelsTxt, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
 						.addComponent(btnNewButton, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
 					.addGap(18)
 					.addGroup(groupLayout.createParallelGroup(Alignment.BASELINE)
 						.addComponent(btnHeightPlayArea)
-						.addComponent(textField_1, GroupLayout.PREFERRED_SIZE, 23, GroupLayout.PREFERRED_SIZE))
-					.addGap(18)
-					.addGroup(groupLayout.createParallelGroup(Alignment.BASELINE)
-						.addComponent(btnWidthPlayArea)
-						.addComponent(textField_2, GroupLayout.PREFERRED_SIZE, 23, GroupLayout.PREFERRED_SIZE))
-					.addGap(18)
-					.addGroup(groupLayout.createParallelGroup(Alignment.BASELINE)
-						.addComponent(btnMinXBall)
-						.addComponent(textField_3, GroupLayout.PREFERRED_SIZE, 23, GroupLayout.PREFERRED_SIZE))
-					.addGap(18)
+						.addComponent(blocksPerLevelTxt, GroupLayout.PREFERRED_SIZE, 23, GroupLayout.PREFERRED_SIZE))
+					.addPreferredGap(ComponentPlacement.UNRELATED)
+					.addGroup(groupLayout.createParallelGroup(Alignment.LEADING)
+						.addComponent(xBallSpeedTxt, GroupLayout.PREFERRED_SIZE, 23, GroupLayout.PREFERRED_SIZE)
+						.addComponent(btnMinXBall))
+					.addGap(12)
 					.addGroup(groupLayout.createParallelGroup(Alignment.BASELINE)
 						.addComponent(btnMinYBall)
-						.addComponent(textField_4, GroupLayout.PREFERRED_SIZE, 23, GroupLayout.PREFERRED_SIZE))
-					.addGap(18)
+						.addComponent(yBallSpeedTxt, GroupLayout.PREFERRED_SIZE, 23, GroupLayout.PREFERRED_SIZE))
+					.addPreferredGap(ComponentPlacement.UNRELATED)
 					.addGroup(groupLayout.createParallelGroup(Alignment.BASELINE)
 						.addComponent(btnSpeedIncreaseFactor, GroupLayout.PREFERRED_SIZE, 21, GroupLayout.PREFERRED_SIZE)
-						.addComponent(textField_5, GroupLayout.PREFERRED_SIZE, 23, GroupLayout.PREFERRED_SIZE))
-					.addGap(18)
+						.addComponent(speedIncreaseFactorTxt, GroupLayout.PREFERRED_SIZE, 23, GroupLayout.PREFERRED_SIZE))
+					.addPreferredGap(ComponentPlacement.UNRELATED)
 					.addGroup(groupLayout.createParallelGroup(Alignment.BASELINE)
 						.addComponent(btnMinPaddleLength)
-						.addComponent(textField_6, GroupLayout.PREFERRED_SIZE, 23, GroupLayout.PREFERRED_SIZE))
-					.addGap(18)
+						.addComponent(minPaddleLengthTxt, GroupLayout.PREFERRED_SIZE, 23, GroupLayout.PREFERRED_SIZE))
+					.addPreferredGap(ComponentPlacement.UNRELATED)
 					.addGroup(groupLayout.createParallelGroup(Alignment.BASELINE)
 						.addComponent(btnMaxPaddleLength, GroupLayout.PREFERRED_SIZE, 21, GroupLayout.PREFERRED_SIZE)
-						.addComponent(textField_7, GroupLayout.PREFERRED_SIZE, 23, GroupLayout.PREFERRED_SIZE))
-					.addGap(18)
+						.addComponent(maxPaddleLengthTxt, GroupLayout.PREFERRED_SIZE, 23, GroupLayout.PREFERRED_SIZE))
+					.addGap(52)
 					.addComponent(btnBuild)
-					.addContainerGap(20, Short.MAX_VALUE))
+					.addContainerGap(63, Short.MAX_VALUE))
 		);
 		frame.getContentPane().setLayout(groupLayout);
 	}
