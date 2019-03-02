@@ -317,17 +317,18 @@ public class Block223Controller {
 
 	public static void removeBlock(int level, int gridHorizontalPosition, int gridVerticalPosition)
 			throws InvalidInputException {
-		Game game = Block223Application.getCurrentGame(); // Should I put this after the error checks
+		// Should I put this after the error checks
 		String error = "";
 		if (Block223Application.getCurrentUserRole()instanceof Admin == false)
 			error="Admin Privileges are required to define game settings. ";
 		
-		if (game == null)
+		if (Block223Application.getCurrentGame() == null)
 			error = error + "A game must be selected to remove a block. ";
 		
-		if (game.getAdmin()!=Block223Application.getCurrentUserRole())
+		if (Block223Application.getCurrentGame().getAdmin()!=Block223Application.getCurrentUserRole())
 			error=error+"Only the admin who created the game may move a block. ";
 		
+		Game game = Block223Application.getCurrentGame();
 		Level gameLevel = game.getLevel(level);
 		BlockAssignment assignment = findBlockAssignment(gridHorizontalPosition, gridVerticalPosition, gameLevel);
 		if (assignment != null) {
