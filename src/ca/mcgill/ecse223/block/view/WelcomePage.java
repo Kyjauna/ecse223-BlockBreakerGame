@@ -99,14 +99,16 @@ public class WelcomePage {
 				String password=new String(pwdPassword.getPassword());	//getting text from the password field
 				try {
 					Block223Controller.login(username, password);	//calling controller to perform action associated with the method
+					YouAreAnAdminPage adminPage = new YouAreAnAdminPage();
+					adminPage.frame.setVisible(true);
+				
 				} catch (InvalidInputException e1) {
 					lblErrormessage.setText(e1.getMessage());
 					
 					
 				}
 				
-				YouAreAnAdminPage adminPage = new YouAreAnAdminPage();
-				adminPage.frame.setVisible(true);
+
 				
 			}
 		});

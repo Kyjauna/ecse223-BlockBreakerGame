@@ -77,16 +77,16 @@ public class SignUpPage {
 		
 		txtUsername = new JTextField();
 		txtUsername.setFont(new Font("Monospaced", Font.BOLD, 13));
-		txtUsername.setText("Username");
+		txtUsername.setText("");
 		txtUsername.setColumns(10);
 		
 		pwdPassword = new JPasswordField();
 		pwdPassword.setEchoChar('*');
-		pwdPassword.setText("password");
+		pwdPassword.setText("");
 		
 		pwdPassword_1 = new JPasswordField();
 		pwdPassword_1.setEchoChar('*');
-		pwdPassword_1.setText("password");
+		pwdPassword_1.setText("");
 		
 		JLabel lblNewLabel = new JLabel("[Optional]");
 		lblNewLabel.setFont(new Font("Monospaced", Font.BOLD, 10));
@@ -101,12 +101,13 @@ public class SignUpPage {
 				
 				try {
 					Block223Controller.register(username, playerpassword, adminpassword);
+					WelcomePage welcomeback= new WelcomePage();
+					welcomeback.frame.setVisible(true);
 				} catch (InvalidInputException e1) {
 					e1.printStackTrace();
 				}
 				
-				WelcomePage welcomeback= new WelcomePage();
-				welcomeback.frame.setVisible(true);
+
 			}
 		});
 		btnCreateAccount.setForeground(new Color(0, 0, 102));
