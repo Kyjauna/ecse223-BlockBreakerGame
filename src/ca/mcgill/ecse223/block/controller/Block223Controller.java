@@ -256,7 +256,7 @@ public class Block223Controller {
 		
 		try {
 			Level gameLevel=game.getLevel(level);
-			BlockAssignment assignment=Block223Application.getCurrentGame().findBlockAssignment(oldGridHorizontalPosition, oldGridVerticalPosition, gameLevel);
+			BlockAssignment assignment=gameLevel.findBlockAssignment(oldGridHorizontalPosition, oldGridVerticalPosition, gameLevel);
 			assignment.setGridHorizontalPosition(newGridHorizontalPosition);
 			assignment.setGridVerticalPosition(newGridVerticalPosition);
 		}
