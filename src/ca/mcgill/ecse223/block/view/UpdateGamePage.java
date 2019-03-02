@@ -142,7 +142,7 @@ public class UpdateGamePage {
 		
 		JLabel lblCreateNewGame = new JLabel("UPDATE GAME");
 		lblCreateNewGame.setFont(new Font("Monospaced", Font.BOLD, 25));
-		lblCreateNewGame.setForeground(new Color(153, 255, 255));
+		lblCreateNewGame.setForeground(new Color(204, 255, 255));
 		lblCreateNewGame.setBackground(new Color(70, 130, 180));
 		
 		JLabel lblNumberOfLevels = new JLabel("Number of Levels");

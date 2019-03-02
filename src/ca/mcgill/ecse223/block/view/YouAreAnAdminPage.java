@@ -10,12 +10,18 @@ import javax.swing.JLabel;
 import java.awt.Font;
 import javax.swing.JPanel;
 import javax.swing.LayoutStyle.ComponentPlacement;
+
+import ca.mcgill.ecse223.block.controller.Block223Controller;
+import ca.mcgill.ecse223.block.controller.InvalidInputException;
+import ca.mcgill.ecse223.block.controller.TOGame;
+
 import javax.swing.JTextField;
 import javax.swing.JButton;
 import javax.swing.JComboBox;
 
-import java.awt.Choice;
+// import java.awt.Choice;
 import java.awt.event.ActionListener;
+import java.util.List;
 import java.awt.event.ActionEvent;
 
 public class YouAreAnAdminPage {
@@ -106,24 +112,30 @@ public class YouAreAnAdminPage {
 		panel_15.setBackground(new Color(51, 255, 0));
 		
 		NewGameNameTxt = new JTextField();
-		NewGameNameTxt.setText("YOUR NEW GAME");
+		//NewGameNameTxt.setText("YOUR NEW GAME");
 		NewGameNameTxt.setToolTipText("");
 		NewGameNameTxt.setFont(new Font("Monospaced", Font.PLAIN, 12));
-		NewGameNameTxt.setForeground(new Color(169, 169, 169));
+		NewGameNameTxt.setForeground(new Color(0, 0, 0));
 		NewGameNameTxt.setColumns(10);
 		
-		/* Create New Game Button */
-		
-		JButton btnCreateNewGame = new JButton("CREATE NEW GAME");
-		btnCreateNewGame.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-			}
-		});
-		btnCreateNewGame.setFont(new Font("Monospaced", Font.PLAIN, 12));
+		String newGameName = NewGameNameTxt.getText();
 		
 		/* Drop down menu for all existing games */
 		
-		JComboBox comboBoxExistingGame = new JComboBox();
+		/* First, we need to retrieve the names of games that already exist */
+		List<TOGame> gameNamesList = null;
+		try {
+			gameNamesList = Block223Controller.getDesignableGames();
+		} catch (InvalidInputException e1) {
+			// TODO Auto-generated catch block
+			e1.printStackTrace();
+		}
+		
+		String[] gameNames = gameNamesList.toArray(new String[0]);
+	
+		
+		JComboBox comboBoxExistingGame = new JComboBox(gameNames);
+				
 		comboBoxExistingGame.setBackground(new Color(204, 255, 255));
 		comboBoxExistingGame.setMaximumRowCount(12);
 		comboBoxExistingGame.setFont(new Font("Monospaced", Font.PLAIN, 12));
@@ -132,6 +144,27 @@ public class YouAreAnAdminPage {
 		 * The comboBox needs to have a list of all the names of the existing games.
 		 * 
 		 */
+		
+		
+		
+		/* Create New Game Button */
+		
+		JButton btnCreateNewGame = new JButton("CREATE NEW GAME");
+		btnCreateNewGame.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				
+				/* Creating a new game will take you to the updateGamePage */
+				UpdateGamePage createGame = new UpdateGamePage();
+				createGame.frame.setVisible(true);
+				
+				/* Add game name to comboBox when it's created */
+				comboBoxExistingGame.addItem(newGameName);
+				
+				
+			}
+		});
+		btnCreateNewGame.setFont(new Font("Monospaced", Font.PLAIN, 12));
+
 		
 		/* Logout Button */
 		
@@ -155,6 +188,12 @@ public class YouAreAnAdminPage {
 			public void actionPerformed(ActionEvent e) {
 				
 				/* Deleting a game will remove the name from the drop down menu; stay on AdminPage */
+				// This gets the selected item
+				String gameToRemove = (String) comboBoxExistingGame.getSelectedItem();
+				// This removes the selected item
+				comboBoxExistingGame.removeItem(gameToRemove);
+				
+				/* No idea if this works, but the syntax is right */
 				
 			}
 		});
