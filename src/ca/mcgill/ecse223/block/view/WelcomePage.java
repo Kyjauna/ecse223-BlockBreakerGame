@@ -31,7 +31,7 @@ public class WelcomePage {
 	public JFrame frame;
 	public JTextField txtUsername;
 	public JPasswordField pwdPassword;
-	String errormessage;
+
 
 	/**
 	 * Launch the application.
