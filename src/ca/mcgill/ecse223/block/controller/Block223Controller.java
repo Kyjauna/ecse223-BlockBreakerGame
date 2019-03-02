@@ -179,10 +179,10 @@ public class Block223Controller {
 		
 		for (Block B : Block223Application.getCurrentGame().getBlocks())
 			if (B.getRed()== red && B.getBlue()== blue && B.getGreen() == green)
-			error=error+"A block with the same color already exists for the game. ";
+			error=error+"A block with the sames color already exists for the game. ";
 			
 		
-		Game game = Block223Application.getCurrentGame();
+		//Game game = Block223Application.getCurrentGame();
 		Block block = findBlock(id);
 		
 		if (findBlock(id) == null)
@@ -396,7 +396,7 @@ public class Block223Controller {
 		if (findBlock(id) == null)
 			error=error+"The block does not exist. ";
 		
-		Game game = Block223Application.getCurrentGame();
+		//Game game = Block223Application.getCurrentGame();
 		Block block = findBlock(id);
 		TOBlock tobck1 = new TOBlock(block.getId(), block.getRed(), block.getGreen(), block.getBlue(), block.getPoints());
 		
