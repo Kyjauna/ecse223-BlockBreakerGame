@@ -19,31 +19,23 @@ import ca.mcgill.ecse223.block.controller.InvalidInputException;
 
 import javax.swing.JButton;
 import javax.swing.JTextField;
-<<<<<<< HEAD
 import java.awt.GridLayout;
 import javax.swing.JLayeredPane;
 import javax.swing.JSeparator;
 import javax.swing.JTextArea;
 import javax.swing.JScrollBar;
-=======
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
->>>>>>> cfdc9a58e54784c023c060a9f0e017e3b1e70e90
 
 public class GameLevelPage {
 
 	public JFrame frame;
-<<<<<<< HEAD
 	public JTextField RedValue;
 	public JTextField textField;
 	public JTextField GreenValue;
 	public JTextField BlueValue;
 	int level=1;
-=======
-	private JTextField txtff;
-	private JTextField textField;
-	private JTextField textField_1;
->>>>>>> cfdc9a58e54784c023c060a9f0e017e3b1e70e90
+
 
 	/**
 	 * Launch the application.
@@ -75,11 +67,8 @@ public class GameLevelPage {
 		frame = new JFrame();
 		frame.getContentPane().setBackground(new Color(0, 0, 51));
 		
-<<<<<<< HEAD
 		JLabel lblLevel = new JLabel("LEVEL "+level);
-=======
-		JLabel lblLevel = new JLabel("GAME NAME");
->>>>>>> cfdc9a58e54784c023c060a9f0e017e3b1e70e90
+		JLabel lblName = new JLabel("GAME NAME");
 		lblLevel.setForeground(new Color(224, 255, 255));
 		lblLevel.setFont(new Font("Monospaced", Font.BOLD, 26));
 		
@@ -88,11 +77,10 @@ public class GameLevelPage {
 		lblAddBlocks.setForeground(new Color(224, 255, 255));
 		lblAddBlocks.setBackground(new Color(224, 255, 255));
 		
-<<<<<<< HEAD
 		JLabel lblRed = new JLabel("RED");
 		lblRed.setFont(new Font("Monospaced", Font.BOLD, 15));
 		lblRed.setForeground(new Color(224,255,255));
-=======
+		
 		JPanel panel = new JPanel();
 		
 		JPanel panel_1 = new JPanel();
@@ -194,7 +182,6 @@ public class GameLevelPage {
 		JPanel panel_50 = new JPanel();
 		
 		JPanel panel_51 = new JPanel();
->>>>>>> cfdc9a58e54784c023c060a9f0e017e3b1e70e90
 		
 		JPanel panel_52 = new JPanel();
 		panel_52.setBackground(Color.WHITE);
@@ -516,34 +503,29 @@ public class GameLevelPage {
 		
 		JPanel panel_255 = new JPanel();
 		
-<<<<<<< HEAD
+
 		RedValue = new JTextField();
 		RedValue.setForeground(new Color(169, 169, 169));
 		RedValue.setText("#33FF33");
 		RedValue.setColumns(10);
-=======
+
 		JButton btnAdd = new JButton("ADD");
 		btnAdd.setFont(new Font("Monospaced", Font.BOLD, 14));
 		
 		JButton btnFinish = new JButton("FINISH");
 		btnFinish.setFont(new Font("Monospaced", Font.BOLD, 14));
->>>>>>> cfdc9a58e54784c023c060a9f0e017e3b1e70e90
 		
 		JLabel lblMyBlocks = new JLabel("MY BLOCKS:");
 		lblMyBlocks.setFont(new Font("Monospaced", Font.BOLD, 12));
 		lblMyBlocks.setForeground(new Color(204, 255, 255));
-		
-<<<<<<< HEAD
-		JButton btnAdd = new JButton("ADD");
 		btnAdd.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 			}
 		});
 		btnAdd.setFont(new Font("Monospaced", Font.BOLD, 12));
-=======
+		
 		JButton btnSave = new JButton("SAVE");
 		btnSave.setFont(new Font("Monospaced", Font.BOLD, 14));
->>>>>>> cfdc9a58e54784c023c060a9f0e017e3b1e70e90
 		
 		JButton btnNextLevel = new JButton("NEXT LEVEL");
 		btnNextLevel.setFont(new Font("Monospaced", Font.BOLD, 12));
@@ -567,14 +549,12 @@ public class GameLevelPage {
 		label_3.setForeground(Color.YELLOW);
 		label_3.setFont(new Font("Monospaced", Font.BOLD, 22));
 		
-<<<<<<< HEAD
 		JLayeredPane layeredPane = new JLayeredPane();
 		
 		JLabel lblPoints = new JLabel("POINTS");
 		lblPoints.setFont(new Font("Monospaced", Font.BOLD, 13));
 		lblPoints.setForeground(new Color(224, 255, 255));
 		
-		JButton btnNextLevel = new JButton("NEXT LEVEL");
 		btnNextLevel.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 			}
@@ -584,9 +564,7 @@ public class GameLevelPage {
 		GreenValue.setText("#33FF33");
 		GreenValue.setForeground(new Color(169, 169, 169));
 		GreenValue.setColumns(10);
-		
-		JLabel lblBlue = new JLabel("BLUE");
-		lblBlue.setForeground(new Color(51, 255, 204));
+
 		
 		BlueValue = new JTextField();
 		BlueValue.setText("#33FF33");
@@ -597,19 +575,16 @@ public class GameLevelPage {
 		lblGreen.setForeground(new Color(102, 153, 255));
 		lblGreen.setFont(new Font("Monospaced", Font.BOLD, 15));
 		
-		JButton btnPreviousLevel = new JButton("PREVIOUS LEVEL");
 		btnPreviousLevel.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 			}
 		});
 		
-		JButton btnSave = new JButton("SAVE");
 		btnSave.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 			}
 		});
 		
-		JButton btnFinish = new JButton("FINISH");
 		btnFinish.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 			}
@@ -625,7 +600,6 @@ public class GameLevelPage {
 		});
 		
 		
-=======
 		JLabel label_4 = new JLabel("A");
 		label_4.setForeground(new Color(30, 144, 255));
 		label_4.setFont(new Font("Monospaced", Font.BOLD, 22));
@@ -634,15 +608,9 @@ public class GameLevelPage {
 		label_5.setForeground(Color.MAGENTA);
 		label_5.setFont(new Font("Monospaced", Font.BOLD, 22));
 		
-		JLabel lblRed = new JLabel("RED:");
 		lblRed.setFont(new Font("Monospaced", Font.BOLD, 18));
 		lblRed.setForeground(new Color(204, 255, 255));
 		
-		txtff = new JTextField();
-		txtff.setFont(new Font("Monospaced", Font.PLAIN, 11));
-		txtff.setForeground(new Color(169, 169, 169));
-		txtff.setText("#33FF33");
-		txtff.setColumns(10);
 		
 		JLabel lblBlue = new JLabel("BLUE:");
 		lblBlue.setForeground(new Color(204, 255, 255));
@@ -654,16 +622,7 @@ public class GameLevelPage {
 		textField.setFont(new Font("Monospaced", Font.PLAIN, 11));
 		textField.setColumns(10);
 		
-		JLabel lblGreen = new JLabel("GREEN:");
-		lblGreen.setForeground(new Color(204, 255, 255));
-		lblGreen.setFont(new Font("Monospaced", Font.BOLD, 18));
-		
-		textField_1 = new JTextField();
-		textField_1.setText("#33FF33");
-		textField_1.setForeground(new Color(169, 169, 169));
-		textField_1.setFont(new Font("Monospaced", Font.PLAIN, 11));
-		textField_1.setColumns(10);
->>>>>>> cfdc9a58e54784c023c060a9f0e017e3b1e70e90
+
 		GroupLayout groupLayout = new GroupLayout(frame.getContentPane());
 		groupLayout.setHorizontalGroup(
 			groupLayout.createParallelGroup(Alignment.LEADING)
@@ -868,7 +827,6 @@ public class GameLevelPage {
 										.addGap(6)
 										.addComponent(panel_192, GroupLayout.PREFERRED_SIZE, 20, GroupLayout.PREFERRED_SIZE)
 										.addGap(278))
-<<<<<<< HEAD
 									.addGroup(groupLayout.createParallelGroup(Alignment.LEADING)
 										.addGroup(groupLayout.createSequentialGroup()
 											.addComponent(panel_54, GroupLayout.PREFERRED_SIZE, 20, GroupLayout.PREFERRED_SIZE)
@@ -1035,7 +993,6 @@ public class GameLevelPage {
 															.addComponent(btnAdd)
 															.addPreferredGap(ComponentPlacement.RELATED, 40, GroupLayout.PREFERRED_SIZE)))
 													.addContainerGap())))))))))
-=======
 									.addGroup(groupLayout.createSequentialGroup()
 										.addGroup(groupLayout.createParallelGroup(Alignment.LEADING)
 											.addGroup(groupLayout.createSequentialGroup()
@@ -1349,13 +1306,12 @@ public class GameLevelPage {
 												.addComponent(panel_187, GroupLayout.PREFERRED_SIZE, 20, GroupLayout.PREFERRED_SIZE)))
 										.addGap(60)
 										.addComponent(lblGreen, GroupLayout.PREFERRED_SIZE, 85, GroupLayout.PREFERRED_SIZE)))
-								.addContainerGap()))))
+								.addContainerGap())
 >>>>>>> cfdc9a58e54784c023c060a9f0e017e3b1e70e90
 		);
 		groupLayout.setVerticalGroup(
 			groupLayout.createParallelGroup(Alignment.LEADING)
 				.addGroup(groupLayout.createSequentialGroup()
-<<<<<<< HEAD
 					.addGap(28)
 					.addComponent(lblLevel)
 					.addPreferredGap(ComponentPlacement.RELATED)
@@ -1398,7 +1354,6 @@ public class GameLevelPage {
 							.addComponent(btnFinish))
 						.addComponent(lblGameBlocks))
 					.addGap(133)
-=======
 					.addGap(27)
 					.addComponent(lblLevel)
 					.addGap(26)
@@ -1526,7 +1481,6 @@ public class GameLevelPage {
 								.addComponent(lblGreen, GroupLayout.PREFERRED_SIZE, 27, GroupLayout.PREFERRED_SIZE)
 								.addComponent(textField_1, GroupLayout.PREFERRED_SIZE, 22, GroupLayout.PREFERRED_SIZE))))
 					.addPreferredGap(ComponentPlacement.RELATED)
->>>>>>> cfdc9a58e54784c023c060a9f0e017e3b1e70e90
 					.addGroup(groupLayout.createParallelGroup(Alignment.TRAILING)
 						.addGroup(groupLayout.createSequentialGroup()
 							.addGroup(groupLayout.createParallelGroup(Alignment.LEADING)
@@ -1564,7 +1518,6 @@ public class GameLevelPage {
 								.addComponent(panel_203, GroupLayout.PREFERRED_SIZE, 20, GroupLayout.PREFERRED_SIZE)
 								.addComponent(panel_204, GroupLayout.PREFERRED_SIZE, 20, GroupLayout.PREFERRED_SIZE)
 								.addComponent(panel_201, GroupLayout.PREFERRED_SIZE, 20, GroupLayout.PREFERRED_SIZE)))
-<<<<<<< HEAD
 						.addGroup(groupLayout.createParallelGroup(Alignment.BASELINE)
 							.addComponent(lblM)
 							.addComponent(lblO)
@@ -1663,7 +1616,6 @@ public class GameLevelPage {
 						.addComponent(panel_88, GroupLayout.PREFERRED_SIZE, 20, GroupLayout.PREFERRED_SIZE)
 						.addComponent(panel_60, GroupLayout.PREFERRED_SIZE, 20, GroupLayout.PREFERRED_SIZE))
 					.addGap(9))
-=======
 						.addGroup(groupLayout.createSequentialGroup()
 							.addComponent(btnAdd)
 							.addGap(41)))
@@ -1777,9 +1729,7 @@ public class GameLevelPage {
 							.addComponent(btnSave, GroupLayout.PREFERRED_SIZE, 31, GroupLayout.PREFERRED_SIZE)
 							.addPreferredGap(ComponentPlacement.UNRELATED)
 							.addComponent(btnFinish, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
-					.addGap(26))
->>>>>>> cfdc9a58e54784c023c060a9f0e017e3b1e70e90
-		);
+					.addGap(26);
 		
 		JPanel panel_8 = new JPanel();
 		panel_8.setBounds(12, 0, 20, 20);
