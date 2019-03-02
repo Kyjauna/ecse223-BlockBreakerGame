@@ -169,12 +169,14 @@ public class Block223Controller {
 		if (error.length() > 0) {
 			throw new InvalidInputException(error.trim());
 		}
-			
-		Game game= Block223Application.getCurrentGame();
-
+		Game game = Block223Application.getCurrentGame();
+				List<Block> blocks = game.getBlocks();
+				for (Block block : blocks) {
+					if (block.getBlue() == blue && block.getRed() == red && block.getGreen()== green)
+						throw new InvalidInputException ("A block with the same colour already exists for the game.");
+				}
 			try {
 				game.addBlock(red, green, blue, points);
-				
 			}
 			catch (RuntimeException e)	{
 				throw new InvalidInputException(e.getMessage());
