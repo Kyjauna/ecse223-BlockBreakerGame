@@ -4,7 +4,7 @@
 package ca.mcgill.ecse223.block.model;
 import java.util.*;
 
-// line 86 "../../../../../Block223 v2.ump"
+// line 156 "../../../../../Block223 v2.ump"
 public class Paddle
 {
 
@@ -32,6 +32,14 @@ public class Paddle
 
   public Paddle(int aMaxPaddleLength, int aMinPaddleLength, Game aGame)
   {
+    // line 164 "../../../../../Block223 v2.ump"
+    if (maxPaddleLength <= 0 || maxPaddleLength > 400){
+       			throw new RuntimeException("The maximum length of the paddle must be greater than zero and less than or equal to 400");
+          	}
+          	if (minPaddleLength <= 0){
+       			throw new RuntimeException("The minimum length of the paddle must be greater than zero");
+          	}
+    // END OF UMPLE BEFORE INJECTION
     maxPaddleLength = aMaxPaddleLength;
     minPaddleLength = aMinPaddleLength;
     if (aGame == null || aGame.getPaddle() != null)
@@ -43,6 +51,14 @@ public class Paddle
 
   public Paddle(int aMaxPaddleLength, int aMinPaddleLength, String aNameForGame, int aNrBlocksPerLevelForGame, Admin aAdminForGame, Ball aBallForGame, Block223 aBlock223ForGame)
   {
+    // line 164 "../../../../../Block223 v2.ump"
+    if (maxPaddleLength <= 0 || maxPaddleLength > 400){
+       			throw new RuntimeException("The maximum length of the paddle must be greater than zero and less than or equal to 400");
+          	}
+          	if (minPaddleLength <= 0){
+       			throw new RuntimeException("The minimum length of the paddle must be greater than zero");
+          	}
+    // END OF UMPLE BEFORE INJECTION
     maxPaddleLength = aMaxPaddleLength;
     minPaddleLength = aMinPaddleLength;
     game = new Game(aNameForGame, aNrBlocksPerLevelForGame, aAdminForGame, aBallForGame, this, aBlock223ForGame);

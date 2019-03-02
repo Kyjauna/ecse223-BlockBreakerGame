@@ -4,7 +4,7 @@
 package ca.mcgill.ecse223.block.model;
 import java.util.*;
 
-// line 79 "../../../../../Block223 v2.ump"
+// line 135 "../../../../../Block223 v2.ump"
 public class Ball
 {
 
@@ -32,6 +32,17 @@ public class Ball
 
   public Ball(int aMinBallSpeedX, int aMinBallSpeedY, double aBallSpeedIncreaseFactor, Game aGame)
   {
+    // line 143 "../../../../../Block223 v2.ump"
+    if (minBallSpeedX <= 0){
+       			throw new RuntimeException("The minimum speed of the ball must be greater than zero.");
+       		}
+       		if (minBallSpeedY <= 0){
+       			throw new RuntimeException("The minimum speed of the ball must be greater than zero.");
+    		}
+       		if (ballSpeedIncreaseFactor <= 0){
+       			throw new RuntimeException("The speed increase factor of the ball must be greater than zero.");  
+    		}
+    // END OF UMPLE BEFORE INJECTION
     minBallSpeedX = aMinBallSpeedX;
     minBallSpeedY = aMinBallSpeedY;
     ballSpeedIncreaseFactor = aBallSpeedIncreaseFactor;
@@ -44,6 +55,17 @@ public class Ball
 
   public Ball(int aMinBallSpeedX, int aMinBallSpeedY, double aBallSpeedIncreaseFactor, String aNameForGame, int aNrBlocksPerLevelForGame, Admin aAdminForGame, Paddle aPaddleForGame, Block223 aBlock223ForGame)
   {
+    // line 143 "../../../../../Block223 v2.ump"
+    if (minBallSpeedX <= 0){
+       			throw new RuntimeException("The minimum speed of the ball must be greater than zero.");
+       		}
+       		if (minBallSpeedY <= 0){
+       			throw new RuntimeException("The minimum speed of the ball must be greater than zero.");
+    		}
+       		if (ballSpeedIncreaseFactor <= 0){
+       			throw new RuntimeException("The speed increase factor of the ball must be greater than zero.");  
+    		}
+    // END OF UMPLE BEFORE INJECTION
     minBallSpeedX = aMinBallSpeedX;
     minBallSpeedY = aMinBallSpeedY;
     ballSpeedIncreaseFactor = aBallSpeedIncreaseFactor;

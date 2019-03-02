@@ -88,6 +88,8 @@ public class WelcomePage {
 			
 		/* actionlistener for login button
 		 * does not yet work because we do not have the admin page set up 
+		 * 
+		 * Sharon just set it up.
 		 */
 			public void actionPerformed(ActionEvent e) {
 				
@@ -98,6 +100,9 @@ public class WelcomePage {
 				} catch (InvalidInputException e1) {
 					e1.printStackTrace();
 				}
+				
+				YouAreAnAdminPage adminPage = new YouAreAnAdminPage();
+				adminPage.frame.setVisible(true);
 				
 			}
 		});
