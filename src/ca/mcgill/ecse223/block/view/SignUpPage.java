@@ -116,10 +116,10 @@ public class SignUpPage {
 		JButton btnCancel = new JButton("CANCEL");
 		btnCancel.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				
-				
+				frame.setVisible(false);
 			}
 		});
+		
 		btnCancel.setFont(new Font("Monospaced", Font.BOLD, 12));
 		btnCancel.setForeground(new Color(0, 0, 102));
 		btnCancel.setBackground(new Color(153, 204, 204));
