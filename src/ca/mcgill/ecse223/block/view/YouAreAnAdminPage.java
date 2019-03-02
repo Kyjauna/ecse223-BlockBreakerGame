@@ -140,6 +140,11 @@ public class YouAreAnAdminPage {
 		JButton btnUpdate = new JButton("UPDATE");
 		btnUpdate.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
+				
+				/* Update button will take you to the CreateGamePage */
+				
+				
+				
 			}
 		});
 		btnUpdate.setFont(new Font("Monospaced", Font.BOLD, 12));

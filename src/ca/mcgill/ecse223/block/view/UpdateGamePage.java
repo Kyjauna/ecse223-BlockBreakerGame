@@ -21,7 +21,7 @@ import ca.mcgill.ecse223.block.controller.InvalidInputException;
 import java.awt.Font;
 import java.awt.TextField;
 
-public class CreateGamePage {
+public class UpdateGamePage {
 
 	public JFrame frame;
 	public JTextField numberOfLevelsTxt;
@@ -39,7 +39,7 @@ public class CreateGamePage {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
-					CreateGamePage window = new CreateGamePage();
+					UpdateGamePage window = new UpdateGamePage();
 					window.frame.setVisible(true);
 				} catch (Exception e) {
 					e.printStackTrace();
@@ -51,7 +51,7 @@ public class CreateGamePage {
 	/**
 	 * Create the application.
 	 */
-	public CreateGamePage() {
+	public UpdateGamePage() {
 		initialize();
 	}
 
