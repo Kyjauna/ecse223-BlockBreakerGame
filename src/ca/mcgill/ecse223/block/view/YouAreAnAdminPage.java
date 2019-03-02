@@ -128,6 +128,11 @@ public class YouAreAnAdminPage {
 		comboBoxExistingGame.setMaximumRowCount(12);
 		comboBoxExistingGame.setFont(new Font("Monospaced", Font.PLAIN, 12));
 		
+		/* 
+		 * The comboBox needs to have a list of all the names of the existing games.
+		 * 
+		 */
+		
 		/* Logout Button */
 		
 		JButton btnLogout = new JButton("LOGOUT");
@@ -163,6 +168,8 @@ public class YouAreAnAdminPage {
 			public void actionPerformed(ActionEvent arg0) {
 				
 				/* Updating an existing game should take you to the UpdateGamePage */
+				UpdateGamePage updateGame = new UpdateGamePage();
+				updateGame.frame.setVisible(true);
 			}
 		});
 		
