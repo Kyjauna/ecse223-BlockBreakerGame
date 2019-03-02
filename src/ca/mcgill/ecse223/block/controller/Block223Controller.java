@@ -18,6 +18,7 @@ import ca.mcgill.ecse223.block.model.Paddle;
 import ca.mcgill.ecse223.block.model.Player;
 import ca.mcgill.ecse223.block.model.User;
 import ca.mcgill.ecse223.block.model.UserRole;
+import ca.mcgill.ecse223.block.persistence.Block223Persistence;
 import ca.mcgill.ecse223.block.controller.TOGame;
 
 
@@ -104,7 +105,8 @@ public class Block223Controller {
 	}
 
 	public static void deleteGame(String name) throws InvalidInputException {
-
+		
+		Block223 block223 = Block223Application.getBlock223();
 		Game game = findGame(name);
 		String error="";
 		// We must check that the user is an admin AND the admin of the game!
@@ -119,8 +121,9 @@ public class Block223Controller {
 		
 		if (game != null) {
 			game.delete();
+			Block223Persistence.save(block223);
 		}
-
+		
 	}
 
 	public static void selectGame(String name) throws InvalidInputException {
@@ -342,6 +345,7 @@ public class Block223Controller {
 	public static void register(String username, String playerPassword, String adminPassword)
 			throws InvalidInputException {
 
+		
 		String error = "";
 		
 		Block223 block223=Block223Application.getBlock223();
@@ -365,6 +369,7 @@ public class Block223Controller {
 				Admin admin=new Admin(adminPassword, block223);
 				user.addRole(admin);
 			}
+			Block223Persistence.save(block223);
 		}
 		catch(RuntimeException e) {
 			
