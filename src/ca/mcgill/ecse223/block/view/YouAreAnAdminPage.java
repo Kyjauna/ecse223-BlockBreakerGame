@@ -11,9 +11,11 @@ import java.awt.Font;
 import javax.swing.JPanel;
 import javax.swing.LayoutStyle.ComponentPlacement;
 
+//import ca.mcgill.ecse223.block.application.Block223Application;
 import ca.mcgill.ecse223.block.controller.Block223Controller;
 import ca.mcgill.ecse223.block.controller.InvalidInputException;
-import ca.mcgill.ecse223.block.controller.TOGame;
+//import ca.mcgill.ecse223.block.controller.TOGame;
+import ca.mcgill.ecse223.block.model.Game;
 
 import javax.swing.JTextField;
 import javax.swing.JButton;
@@ -21,7 +23,7 @@ import javax.swing.JComboBox;
 
 // import java.awt.Choice;
 import java.awt.event.ActionListener;
-import java.util.List;
+//import java.util.List;
 import java.awt.event.ActionEvent;
 
 public class YouAreAnAdminPage {
@@ -112,7 +114,6 @@ public class YouAreAnAdminPage {
 		panel_15.setBackground(new Color(51, 255, 0));
 		
 		NewGameNameTxt = new JTextField();
-		//NewGameNameTxt.setText("YOUR NEW GAME");
 		NewGameNameTxt.setToolTipText("");
 		NewGameNameTxt.setFont(new Font("Monospaced", Font.PLAIN, 12));
 		NewGameNameTxt.setForeground(new Color(0, 0, 0));
@@ -120,31 +121,18 @@ public class YouAreAnAdminPage {
 		
 		String newGameName = NewGameNameTxt.getText();
 		
-		/* Drop down menu for all existing games */
+		/* Drop Down Menu */
 		
-		/* First, we need to retrieve the names of games that already exist */
-		List<TOGame> gameNamesList = null;
-		try {
-			gameNamesList = Block223Controller.getDesignableGames();
-		} catch (InvalidInputException e1) {
-			// TODO Auto-generated catch block
-			e1.printStackTrace();
-		}
-		
-		String[] gameNames = gameNamesList.toArray(new String[0]);
-	
-		
-		JComboBox comboBoxExistingGame = new JComboBox(gameNames);
-				
+		JComboBox<String> comboBoxExistingGame = new JComboBox<String>();
 		comboBoxExistingGame.setBackground(new Color(204, 255, 255));
 		comboBoxExistingGame.setMaximumRowCount(12);
 		comboBoxExistingGame.setFont(new Font("Monospaced", Font.PLAIN, 12));
 		
 		/* 
+		 * 
 		 * The comboBox needs to have a list of all the names of the existing games.
 		 * 
 		 */
-		
 		
 		
 		/* Create New Game Button */
@@ -159,6 +147,14 @@ public class YouAreAnAdminPage {
 				
 				/* Add game name to comboBox when it's created */
 				comboBoxExistingGame.addItem(newGameName);
+				
+				/* Actually create the game */
+				try {
+					Block223Controller.createGame(newGameName);
+				} catch (InvalidInputException e1) {
+					// TODO Auto-generated catch block
+					e1.printStackTrace();
+				}
 				
 				
 			}
@@ -193,7 +189,13 @@ public class YouAreAnAdminPage {
 				// This removes the selected item
 				comboBoxExistingGame.removeItem(gameToRemove);
 				
-				/* No idea if this works, but the syntax is right */
+				/* Actually delete a game */
+				try {
+					Block223Controller.deleteGame(newGameName);
+				} catch (InvalidInputException e1) {
+					// TODO Auto-generated catch block
+					e1.printStackTrace();
+				}
 				
 			}
 		});
@@ -207,6 +209,14 @@ public class YouAreAnAdminPage {
 			public void actionPerformed(ActionEvent arg0) {
 				
 				/* Updating an existing game should take you to the UpdateGamePage */
+				String gameToUpdate = (String) comboBoxExistingGame.getSelectedItem();
+				
+				// How to get all the information of the game I want to update?
+				Game.getWithName(gameToUpdate);
+				
+				// gameToUpdate = Block223Controller.getCurrentDesignableGame();
+				
+				// How do I get to the update game page with the correct game???
 				UpdateGamePage updateGame = new UpdateGamePage();
 				updateGame.frame.setVisible(true);
 			}
@@ -313,4 +323,20 @@ public class YouAreAnAdminPage {
 		frame.setBounds(100, 100, 704, 563);
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 	}
+	
+	/* Things I removed so I can try again
+	 * Drop down menu for all existing games
+		
+		First, we need to retrieve the names of games that already exist
+		List<TOGame> gameNamesList = null;
+		try {
+			gameNamesList = Block223Controller.getDesignableGames();
+		} catch (InvalidInputException e1) {
+			// TODO Auto-generated catch block
+			e1.printStackTrace();
+		}
+		
+	//	String[] gameNames = gameNamesList.toArray(new String[0]);
+	
+	 */
 }
