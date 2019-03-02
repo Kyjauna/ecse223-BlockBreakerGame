@@ -15,11 +15,13 @@ import javax.swing.JButton;
 import javax.swing.JComboBox;
 
 import java.awt.Choice;
+import java.awt.event.ActionListener;
+import java.awt.event.ActionEvent;
 
 public class YouAreAnAdminPage {
 
-	private JFrame frame;
-	private JTextField NewGameNameTxt;
+	public JFrame frame;
+	public JTextField NewGameNameTxt;
 	
 	/**
 	 * Launch the application.
@@ -110,7 +112,13 @@ public class YouAreAnAdminPage {
 		NewGameNameTxt.setForeground(new Color(169, 169, 169));
 		NewGameNameTxt.setColumns(10);
 		
+		/* Create New Game Button */
+		
 		JButton btnCreateNewGame = new JButton("CREATE NEW GAME");
+		btnCreateNewGame.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+			}
+		});
 		btnCreateNewGame.setFont(new Font("Monospaced", Font.PLAIN, 12));
 		
 		JComboBox comboBoxExistingGame = new JComboBox();
@@ -118,13 +126,37 @@ public class YouAreAnAdminPage {
 		comboBoxExistingGame.setMaximumRowCount(12);
 		comboBoxExistingGame.setFont(new Font("Monospaced", Font.PLAIN, 12));
 		
+		/* Delete Button */
+		
 		JButton btnDelete = new JButton("DELETE");
+		btnDelete.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+			}
+		});
 		btnDelete.setFont(new Font("Monospaced", Font.BOLD, 12));
 		
+		/* Update Button */
+		
 		JButton btnUpdate = new JButton("UPDATE");
+		btnUpdate.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+			}
+		});
 		btnUpdate.setFont(new Font("Monospaced", Font.BOLD, 12));
 		
+		/* Logout Button */
+		
 		JButton btnLogout = new JButton("LOGOUT");
+		btnLogout.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				
+				/* Logging out will take you back to the Welcome Page */
+				
+				WelcomePage homePage = new WelcomePage();
+				homePage.frame.setVisible(true);
+				
+			}
+		});
 		btnLogout.setFont(new Font("Monospaced", Font.BOLD, 10));
 		
 		GroupLayout groupLayout = new GroupLayout(frame.getContentPane());
