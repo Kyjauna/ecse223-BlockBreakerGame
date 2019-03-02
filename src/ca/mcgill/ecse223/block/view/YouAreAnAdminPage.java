@@ -10,16 +10,24 @@ import javax.swing.JLabel;
 import java.awt.Font;
 import javax.swing.JPanel;
 import javax.swing.LayoutStyle.ComponentPlacement;
+
+import ca.mcgill.ecse223.block.controller.Block223Controller;
+import ca.mcgill.ecse223.block.controller.InvalidInputException;
+import ca.mcgill.ecse223.block.controller.TOGame;
+
 import javax.swing.JTextField;
 import javax.swing.JButton;
 import javax.swing.JComboBox;
 
-import java.awt.Choice;
+// import java.awt.Choice;
+import java.awt.event.ActionListener;
+import java.util.List;
+import java.awt.event.ActionEvent;
 
 public class YouAreAnAdminPage {
 
-	private JFrame frame;
-	private JTextField NewGameNameTxt;
+	public JFrame frame;
+	public JTextField NewGameNameTxt;
 	
 	/**
 	 * Launch the application.
@@ -104,28 +112,107 @@ public class YouAreAnAdminPage {
 		panel_15.setBackground(new Color(51, 255, 0));
 		
 		NewGameNameTxt = new JTextField();
-		NewGameNameTxt.setText("YOUR NEW GAME");
+		//NewGameNameTxt.setText("YOUR NEW GAME");
 		NewGameNameTxt.setToolTipText("");
 		NewGameNameTxt.setFont(new Font("Monospaced", Font.PLAIN, 12));
-		NewGameNameTxt.setForeground(new Color(169, 169, 169));
+		NewGameNameTxt.setForeground(new Color(0, 0, 0));
 		NewGameNameTxt.setColumns(10);
 		
-		JButton btnCreateNewGame = new JButton("CREATE NEW GAME");
-		btnCreateNewGame.setFont(new Font("Monospaced", Font.PLAIN, 12));
+		String newGameName = NewGameNameTxt.getText();
 		
-		JComboBox comboBoxExistingGame = new JComboBox();
+		/* Drop down menu for all existing games */
+		
+		/* First, we need to retrieve the names of games that already exist */
+		List<TOGame> gameNamesList = null;
+		try {
+			gameNamesList = Block223Controller.getDesignableGames();
+		} catch (InvalidInputException e1) {
+			// TODO Auto-generated catch block
+			e1.printStackTrace();
+		}
+		
+		String[] gameNames = gameNamesList.toArray(new String[0]);
+	
+		
+		JComboBox comboBoxExistingGame = new JComboBox(gameNames);
+				
 		comboBoxExistingGame.setBackground(new Color(204, 255, 255));
 		comboBoxExistingGame.setMaximumRowCount(12);
 		comboBoxExistingGame.setFont(new Font("Monospaced", Font.PLAIN, 12));
 		
-		JButton btnDelete = new JButton("DELETE");
-		btnDelete.setFont(new Font("Monospaced", Font.BOLD, 12));
+		/* 
+		 * The comboBox needs to have a list of all the names of the existing games.
+		 * 
+		 */
 		
-		JButton btnUpdate = new JButton("UPDATE");
-		btnUpdate.setFont(new Font("Monospaced", Font.BOLD, 12));
+		
+		
+		/* Create New Game Button */
+		
+		JButton btnCreateNewGame = new JButton("CREATE NEW GAME");
+		btnCreateNewGame.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				
+				/* Creating a new game will take you to the updateGamePage */
+				UpdateGamePage createGame = new UpdateGamePage();
+				createGame.frame.setVisible(true);
+				
+				/* Add game name to comboBox when it's created */
+				comboBoxExistingGame.addItem(newGameName);
+				
+				
+			}
+		});
+		btnCreateNewGame.setFont(new Font("Monospaced", Font.PLAIN, 12));
+
+		
+		/* Logout Button */
 		
 		JButton btnLogout = new JButton("LOGOUT");
-		btnLogout.setFont(new Font("Monospaced", Font.BOLD, 10));
+		btnLogout.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				
+				/* Logging out will take you back to the Welcome Page */
+				
+				WelcomePage homePage = new WelcomePage();
+				homePage.frame.setVisible(true);
+				
+			}
+		});
+		btnLogout.setFont(new Font("Monospaced", Font.BOLD, 11));
+		
+		/* Delete button */
+		
+		JButton button = new JButton("DELETE");
+		button.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				
+				/* Deleting a game will remove the name from the drop down menu; stay on AdminPage */
+				// This gets the selected item
+				String gameToRemove = (String) comboBoxExistingGame.getSelectedItem();
+				// This removes the selected item
+				comboBoxExistingGame.removeItem(gameToRemove);
+				
+				/* No idea if this works, but the syntax is right */
+				
+			}
+		});
+		
+		button.setFont(new Font("Monospaced", Font.BOLD, 12));
+		
+		/* Update Button */
+		
+		JButton btnUpdate = new JButton("UPDATE");
+		btnUpdate.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				
+				/* Updating an existing game should take you to the UpdateGamePage */
+				UpdateGamePage updateGame = new UpdateGamePage();
+				updateGame.frame.setVisible(true);
+			}
+		});
+		
+		btnUpdate.setFont(new Font("Monospaced", Font.BOLD, 12));
 		
 		GroupLayout groupLayout = new GroupLayout(frame.getContentPane());
 		groupLayout.setHorizontalGroup(
@@ -173,16 +260,16 @@ public class YouAreAnAdminPage {
 						.addGroup(groupLayout.createSequentialGroup()
 							.addGap(246)
 							.addGroup(groupLayout.createParallelGroup(Alignment.TRAILING, false)
+								.addComponent(comboBoxExistingGame, Alignment.LEADING, 0, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
 								.addComponent(btnCreateNewGame, Alignment.LEADING, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-								.addComponent(NewGameNameTxt, Alignment.LEADING, GroupLayout.DEFAULT_SIZE, 160, Short.MAX_VALUE)
-								.addComponent(comboBoxExistingGame, 0, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+								.addComponent(NewGameNameTxt, Alignment.LEADING, GroupLayout.DEFAULT_SIZE, 184, Short.MAX_VALUE)
 								.addGroup(Alignment.LEADING, groupLayout.createSequentialGroup()
-									.addComponent(btnDelete)
+									.addComponent(button, GroupLayout.PREFERRED_SIZE, 86, GroupLayout.PREFERRED_SIZE)
 									.addPreferredGap(ComponentPlacement.UNRELATED)
-									.addComponent(btnUpdate, GroupLayout.PREFERRED_SIZE, 75, GroupLayout.PREFERRED_SIZE))))
+									.addComponent(btnUpdate, GroupLayout.PREFERRED_SIZE, 86, GroupLayout.PREFERRED_SIZE))))
 						.addGroup(groupLayout.createSequentialGroup()
 							.addGap(288)
-							.addComponent(btnLogout)))
+							.addComponent(btnLogout, GroupLayout.PREFERRED_SIZE, 87, GroupLayout.PREFERRED_SIZE)))
 					.addContainerGap(28, Short.MAX_VALUE))
 		);
 		groupLayout.setVerticalGroup(
@@ -206,10 +293,10 @@ public class YouAreAnAdminPage {
 					.addGap(18)
 					.addComponent(comboBoxExistingGame, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
 					.addGap(18)
-					.addGroup(groupLayout.createParallelGroup(Alignment.LEADING)
-						.addComponent(btnDelete)
+					.addGroup(groupLayout.createParallelGroup(Alignment.BASELINE)
+						.addComponent(button, GroupLayout.PREFERRED_SIZE, 25, GroupLayout.PREFERRED_SIZE)
 						.addComponent(btnUpdate, GroupLayout.PREFERRED_SIZE, 25, GroupLayout.PREFERRED_SIZE))
-					.addPreferredGap(ComponentPlacement.RELATED, 133, Short.MAX_VALUE)
+					.addPreferredGap(ComponentPlacement.RELATED, 135, Short.MAX_VALUE)
 					.addComponent(btnLogout)
 					.addGap(18)
 					.addGroup(groupLayout.createParallelGroup(Alignment.TRAILING)
