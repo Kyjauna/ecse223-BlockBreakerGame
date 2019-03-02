@@ -121,33 +121,12 @@ public class YouAreAnAdminPage {
 		});
 		btnCreateNewGame.setFont(new Font("Monospaced", Font.PLAIN, 12));
 		
+		/* Drop down menu for all existing games */
+		
 		JComboBox comboBoxExistingGame = new JComboBox();
 		comboBoxExistingGame.setBackground(new Color(204, 255, 255));
 		comboBoxExistingGame.setMaximumRowCount(12);
 		comboBoxExistingGame.setFont(new Font("Monospaced", Font.PLAIN, 12));
-		
-		/* Delete Button */
-		
-		JButton btnDelete = new JButton("DELETE");
-		btnDelete.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-			}
-		});
-		btnDelete.setFont(new Font("Monospaced", Font.BOLD, 12));
-		
-		/* Update Button */
-		
-		JButton btnUpdate = new JButton("UPDATE");
-		btnUpdate.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				
-				/* Update button will take you to the CreateGamePage */
-				
-				
-				
-			}
-		});
-		btnUpdate.setFont(new Font("Monospaced", Font.BOLD, 12));
 		
 		/* Logout Button */
 		
@@ -162,7 +141,32 @@ public class YouAreAnAdminPage {
 				
 			}
 		});
-		btnLogout.setFont(new Font("Monospaced", Font.BOLD, 10));
+		btnLogout.setFont(new Font("Monospaced", Font.BOLD, 11));
+		
+		/* Delete button */
+		
+		JButton button = new JButton("DELETE");
+		button.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				
+				/* Deleting a game will remove the name from the drop down menu; stay on AdminPage */
+				
+			}
+		});
+		
+		button.setFont(new Font("Monospaced", Font.BOLD, 12));
+		
+		/* Update Button */
+		
+		JButton btnUpdate = new JButton("UPDATE");
+		btnUpdate.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				
+				/* Updating an existing game should take you to the UpdateGamePage */
+			}
+		});
+		
+		btnUpdate.setFont(new Font("Monospaced", Font.BOLD, 12));
 		
 		GroupLayout groupLayout = new GroupLayout(frame.getContentPane());
 		groupLayout.setHorizontalGroup(
@@ -210,16 +214,16 @@ public class YouAreAnAdminPage {
 						.addGroup(groupLayout.createSequentialGroup()
 							.addGap(246)
 							.addGroup(groupLayout.createParallelGroup(Alignment.TRAILING, false)
+								.addComponent(comboBoxExistingGame, Alignment.LEADING, 0, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
 								.addComponent(btnCreateNewGame, Alignment.LEADING, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-								.addComponent(NewGameNameTxt, Alignment.LEADING, GroupLayout.DEFAULT_SIZE, 160, Short.MAX_VALUE)
-								.addComponent(comboBoxExistingGame, 0, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+								.addComponent(NewGameNameTxt, Alignment.LEADING, GroupLayout.DEFAULT_SIZE, 184, Short.MAX_VALUE)
 								.addGroup(Alignment.LEADING, groupLayout.createSequentialGroup()
-									.addComponent(btnDelete)
+									.addComponent(button, GroupLayout.PREFERRED_SIZE, 86, GroupLayout.PREFERRED_SIZE)
 									.addPreferredGap(ComponentPlacement.UNRELATED)
-									.addComponent(btnUpdate, GroupLayout.PREFERRED_SIZE, 75, GroupLayout.PREFERRED_SIZE))))
+									.addComponent(btnUpdate, GroupLayout.PREFERRED_SIZE, 86, GroupLayout.PREFERRED_SIZE))))
 						.addGroup(groupLayout.createSequentialGroup()
 							.addGap(288)
-							.addComponent(btnLogout)))
+							.addComponent(btnLogout, GroupLayout.PREFERRED_SIZE, 87, GroupLayout.PREFERRED_SIZE)))
 					.addContainerGap(28, Short.MAX_VALUE))
 		);
 		groupLayout.setVerticalGroup(
@@ -243,10 +247,10 @@ public class YouAreAnAdminPage {
 					.addGap(18)
 					.addComponent(comboBoxExistingGame, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
 					.addGap(18)
-					.addGroup(groupLayout.createParallelGroup(Alignment.LEADING)
-						.addComponent(btnDelete)
+					.addGroup(groupLayout.createParallelGroup(Alignment.BASELINE)
+						.addComponent(button, GroupLayout.PREFERRED_SIZE, 25, GroupLayout.PREFERRED_SIZE)
 						.addComponent(btnUpdate, GroupLayout.PREFERRED_SIZE, 25, GroupLayout.PREFERRED_SIZE))
-					.addPreferredGap(ComponentPlacement.RELATED, 133, Short.MAX_VALUE)
+					.addPreferredGap(ComponentPlacement.RELATED, 135, Short.MAX_VALUE)
 					.addComponent(btnLogout)
 					.addGap(18)
 					.addGroup(groupLayout.createParallelGroup(Alignment.TRAILING)
