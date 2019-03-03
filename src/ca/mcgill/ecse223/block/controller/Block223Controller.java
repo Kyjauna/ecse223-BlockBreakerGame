@@ -504,7 +504,15 @@ public class Block223Controller {
 
 	public List<TOGridCell> getBlocksAtLevelOfCurrentDesignableGame(int level) throws InvalidInputException {
 		
+		String error="";
+		if (Block223Application.getCurrentUserRole()instanceof Admin == false)
+			error="Admin Privileges are required to access game information. ";
 		
+		if (Block223Application.getCurrentGame()==null)
+			error=error+"A game must be selected to access its information ";
+		
+		if(Block223Application.getCurrentGame().getAdmin()!=Block223Application.getCurrentUserRole())
+			error=error+"Only the admin who created the game can access its information. ";
 		
 		Game game = Block223Application.getCurrentGame();
 		Level gameLevel = game.getLevel(level);
@@ -514,6 +522,7 @@ public class Block223Controller {
 		for(BlockAssignment bA: gameLevel.getBlockAssignments()) {
 			TOGridCell toba = new TOGridCell(bA.getGridHorizontalPosition(),bA.getGridVerticalPosition(), bA.getBlock().getId(), 
 					bA.getBlock().getRed(), bA.getBlock().getGreen(), bA.getBlock().getBlue(), bA.getBlock().getPoints());
+			result.add(toba);
 		}
 		return result;
 	}
