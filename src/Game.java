@@ -4,7 +4,7 @@
 
 import java.io.Serializable;
 
-// line 27 "main.ump"
+// line 50 "Block223Persistence.ump"
 public class Game implements Serializable
 {
 
@@ -25,13 +25,21 @@ public class Game implements Serializable
 
   public void delete()
   {}
+
+  // line 56 "Block223Persistence.ump"
+   public static  void reinitializeUniqueName(List<Game> games){
+    gamesByName = new HashMap<String, Game>();
+    	for (Game game : games) {
+      		gamesByName.put(game.getName(), game);
+   		}
+  }
   
   //------------------------
   // DEVELOPER CODE - PROVIDED AS-IS
   //------------------------
   
-  // line 30 "main.ump"
-  private static final long serialVersionUID = 6L ;
+  // line 53 "Block223Persistence.ump"
+  private static final long serialVersionUID = 60987679845L ;
 
   
 }

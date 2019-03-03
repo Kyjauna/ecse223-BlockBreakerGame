@@ -4,7 +4,7 @@
 
 import java.io.Serializable;
 
-// line 7 "main.ump"
+// line 15 "Block223Persistence.ump"
 public class Admin implements Serializable
 {
 
@@ -30,8 +30,8 @@ public class Admin implements Serializable
   // DEVELOPER CODE - PROVIDED AS-IS
   //------------------------
   
-  // line 10 "main.ump"
-  private static final long serialVersionUID = 2L ;
+  // line 18 "Block223Persistence.ump"
+  private static final long serialVersionUID = 24645635675L ;
 
   
 }

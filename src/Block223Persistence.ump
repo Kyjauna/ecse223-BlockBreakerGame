@@ -8,7 +8,10 @@ class Block223 {
 	public void reinitialize() {
     User.reinitializeUniqueUsername(this.getUsers());
     Game.reinitializeUniqueName(this.getGames());
-    Block.reinitializeAutouniqueID(this.getBlocks());
+    List<Game> games=this.getGames();
+    for (Game game : games) {
+    game.reinitialize();
+    }
   }
 
 }
@@ -52,6 +55,10 @@ class Game {
  	isA Serializable;
  	private static final long serialVersionUID = 60987679845L;
 	
+  	public void reinitialize() {
+  	Block.reinitializeAutouniqueID(this.getBlocks());
+  	}
+  	
   	public static void reinitializeUniqueName(List<Game> games) {
    		gamesByName = new HashMap<String, Game>();
     	for (Game game : games) {

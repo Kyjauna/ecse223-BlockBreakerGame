@@ -4,7 +4,7 @@
 
 import java.io.Serializable;
 
-// line 22 "main.ump"
+// line 43 "Block223Persistence.ump"
 public class BlockAssignment implements Serializable
 {
 
@@ -30,8 +30,8 @@ public class BlockAssignment implements Serializable
   // DEVELOPER CODE - PROVIDED AS-IS
   //------------------------
   
-  // line 25 "main.ump"
-  private static final long serialVersionUID = 5L ;
+  // line 46 "Block223Persistence.ump"
+  private static final long serialVersionUID = 52345676549L ;
 
   
 }

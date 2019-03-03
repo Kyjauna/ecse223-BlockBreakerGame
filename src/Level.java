@@ -4,7 +4,7 @@
 
 import java.io.Serializable;
 
-// line 32 "main.ump"
+// line 63 "Block223Persistence.ump"
 public class Level implements Serializable
 {
 
@@ -30,8 +30,8 @@ public class Level implements Serializable
   // DEVELOPER CODE - PROVIDED AS-IS
   //------------------------
   
-  // line 35 "main.ump"
-  private static final long serialVersionUID = 7L ;
+  // line 66 "Block223Persistence.ump"
+  private static final long serialVersionUID = 71234562345L ;
 
   
 }

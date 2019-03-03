@@ -4,7 +4,7 @@
 
 import java.io.Serializable;
 
-// line 47 "main.ump"
+// line 80 "Block223Persistence.ump"
 public class User implements Serializable
 {
 
@@ -25,13 +25,21 @@ public class User implements Serializable
 
   public void delete()
   {}
+
+  // line 86 "Block223Persistence.ump"
+   public static  void reinitializeUniqueUsername(List<User> users){
+    usersByUsername = new HashMap<String, User>();
+    for (User user : users) {
+      usersByUsername.put(user.getUsername(), user);
+    }
+  }
   
   //------------------------
   // DEVELOPER CODE - PROVIDED AS-IS
   //------------------------
   
-  // line 50 "main.ump"
-  private static final long serialVersionUID = 10L ;
+  // line 83 "Block223Persistence.ump"
+  private static final long serialVersionUID = 10312456789L ;
 
   
 }

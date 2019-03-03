@@ -4,7 +4,7 @@
 
 import java.io.Serializable;
 
-// line 37 "main.ump"
+// line 69 "Block223Persistence.ump"
 public class Paddle implements Serializable
 {
 
@@ -30,8 +30,8 @@ public class Paddle implements Serializable
   // DEVELOPER CODE - PROVIDED AS-IS
   //------------------------
   
-  // line 40 "main.ump"
-  private static final long serialVersionUID = 8L ;
+  // line 72 "Block223Persistence.ump"
+  private static final long serialVersionUID = 81234509876L ;
 
   
 }

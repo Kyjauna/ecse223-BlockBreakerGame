@@ -2,10 +2,12 @@
 /*This code was generated using the UMPLE 1.29.0.4181.a593105a9 modeling language!*/
 
 package ca.mcgill.ecse223.block.model;
+import java.io.Serializable;
 import java.util.*;
 
-// line 90 "../../../../../Block223 v2.ump"
-public class Block
+// line 30 "../../../../../Block223Persistence.ump"
+// line 92 "../../../../../Block223 v2.ump"
+public class Block implements Serializable
 {
 
   //------------------------
@@ -42,7 +44,7 @@ public class Block
 
   public Block(int aRed, int aGreen, int aBlue, int aPoints, Game aGame)
   {
-    // line 106 "../../../../../Block223 v2.ump"
+    // line 108 "../../../../../Block223 v2.ump"
     if (red < 0 || red > 255)
       			 throw new RuntimeException("Red must be between 0 and 255.");
        	
@@ -273,6 +275,17 @@ public class Block
     }
   }
 
+  // line 36 "../../../../../Block223Persistence.ump"
+   public static  void reinitializeAutouniqueID(List<Block> blocks){
+    nextId = 0; 
+    	for (Block block : blocks) {
+      		if (block.getId() > nextId) {
+       		nextId = block.getId();
+      		}
+   		}
+    	nextId++;
+  }
+
 
   public String toString()
   {
@@ -283,5 +296,13 @@ public class Block
             "blue" + ":" + getBlue()+ "," +
             "points" + ":" + getPoints()+ "]" + System.getProperties().getProperty("line.separator") +
             "  " + "game = "+(getGame()!=null?Integer.toHexString(System.identityHashCode(getGame())):"null");
-  }
+  }  
+  //------------------------
+  // DEVELOPER CODE - PROVIDED AS-IS
+  //------------------------
+  
+  // line 33 "../../../../../Block223Persistence.ump"
+  private static final long serialVersionUID = 41234567654L ;
+
+  
 }

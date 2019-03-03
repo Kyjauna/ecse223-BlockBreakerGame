@@ -2,10 +2,12 @@
 /*This code was generated using the UMPLE 1.29.0.4181.a593105a9 modeling language!*/
 
 package ca.mcgill.ecse223.block.model;
+import java.io.Serializable;
 import java.util.*;
 
-// line 50 "../../../../../Block223 v2.ump"
-public class Game
+// line 53 "../../../../../Block223Persistence.ump"
+// line 52 "../../../../../Block223 v2.ump"
+public class Game implements Serializable
 {
 
   //------------------------
@@ -51,7 +53,7 @@ public class Game
 
   public Game(String aName, int aNrBlocksPerLevel, Admin aAdmin, Ball aBall, Paddle aPaddle, Block223 aBlock223)
   {
-    // line 69 "../../../../../Block223 v2.ump"
+    // line 71 "../../../../../Block223 v2.ump"
     if (aName == null || aName == "") 
        		   throw new RuntimeException("The name of a game must be specified.");
        	   
@@ -90,7 +92,7 @@ public class Game
 
   public Game(String aName, int aNrBlocksPerLevel, Admin aAdmin, int aMinBallSpeedXForBall, int aMinBallSpeedYForBall, double aBallSpeedIncreaseFactorForBall, int aMaxPaddleLengthForPaddle, int aMinPaddleLengthForPaddle, Block223 aBlock223)
   {
-    // line 69 "../../../../../Block223 v2.ump"
+    // line 71 "../../../../../Block223 v2.ump"
     if (aName == null || aName == "") 
        		   throw new RuntimeException("The name of a game must be specified.");
        	   
@@ -614,7 +616,20 @@ public class Game
     }
   }
 
-  // line 76 "../../../../../Block223 v2.ump"
+  // line 59 "../../../../../Block223Persistence.ump"
+   public void reinitialize(){
+    Block.reinitializeAutouniqueID(this.getBlocks());
+  }
+
+  // line 63 "../../../../../Block223Persistence.ump"
+   public static  void reinitializeUniqueName(List<Game> games){
+    gamesByName = new HashMap<String, Game>();
+    	for (Game game : games) {
+      		gamesByName.put(game.getName(), game);
+   		}
+  }
+
+  // line 78 "../../../../../Block223 v2.ump"
   public Block findBlock(int id){
     Block foundBlock = null;
 		for (Block B : this.getBlocks()) {
@@ -637,5 +652,13 @@ public class Game
             "  " + "ball = "+(getBall()!=null?Integer.toHexString(System.identityHashCode(getBall())):"null") + System.getProperties().getProperty("line.separator") +
             "  " + "paddle = "+(getPaddle()!=null?Integer.toHexString(System.identityHashCode(getPaddle())):"null") + System.getProperties().getProperty("line.separator") +
             "  " + "block223 = "+(getBlock223()!=null?Integer.toHexString(System.identityHashCode(getBlock223())):"null");
-  }
+  }  
+  //------------------------
+  // DEVELOPER CODE - PROVIDED AS-IS
+  //------------------------
+  
+  // line 56 "../../../../../Block223Persistence.ump"
+  private static final long serialVersionUID = 60987679845L ;
+
+  
 }

@@ -4,7 +4,7 @@
 
 import java.io.Serializable;
 
-// line 12 "main.ump"
+// line 21 "Block223Persistence.ump"
 public class Ball implements Serializable
 {
 
@@ -30,8 +30,8 @@ public class Ball implements Serializable
   // DEVELOPER CODE - PROVIDED AS-IS
   //------------------------
   
-  // line 15 "main.ump"
-  private static final long serialVersionUID = 3L ;
+  // line 24 "Block223Persistence.ump"
+  private static final long serialVersionUID = 33577357567L ;
 
   
 }

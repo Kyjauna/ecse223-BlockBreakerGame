@@ -4,7 +4,7 @@
 
 import java.io.Serializable;
 
-// line 17 "main.ump"
+// line 27 "Block223Persistence.ump"
 public class Block implements Serializable
 {
 
@@ -25,13 +25,24 @@ public class Block implements Serializable
 
   public void delete()
   {}
+
+  // line 33 "Block223Persistence.ump"
+   public static  void reinitializeAutouniqueID(List<Block> blocks){
+    nextId = 0; 
+    	for (Block block : blocks) {
+      		if (block.getId() > nextId) {
+       		nextId = block.getId();
+      		}
+   		}
+    	nextId++;
+  }
   
   //------------------------
   // DEVELOPER CODE - PROVIDED AS-IS
   //------------------------
   
-  // line 20 "main.ump"
-  private static final long serialVersionUID = 4L ;
+  // line 30 "Block223Persistence.ump"
+  private static final long serialVersionUID = 41234567654L ;
 
   
 }

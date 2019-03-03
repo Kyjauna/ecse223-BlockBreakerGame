@@ -2,9 +2,11 @@
 /*This code was generated using the UMPLE 1.29.0.4181.a593105a9 modeling language!*/
 
 package ca.mcgill.ecse223.block.model;
+import java.io.Serializable;
 
-// line 32 "../../../../../Block223 v2.ump"
-public abstract class UserRole
+// line 101 "../../../../../Block223Persistence.ump"
+// line 34 "../../../../../Block223 v2.ump"
+public abstract class UserRole implements Serializable
 {
 
   //------------------------
@@ -23,7 +25,7 @@ public abstract class UserRole
 
   public UserRole(String aPassword, Block223 aBlock223)
   {
-    // line 36 "../../../../../Block223 v2.ump"
+    // line 38 "../../../../../Block223 v2.ump"
     if (aPassword==null||aPassword==""){
        			throw new RuntimeException("The password must be specified.");
        		}
@@ -93,5 +95,13 @@ public abstract class UserRole
     return super.toString() + "["+
             "password" + ":" + getPassword()+ "]" + System.getProperties().getProperty("line.separator") +
             "  " + "block223 = "+(getBlock223()!=null?Integer.toHexString(System.identityHashCode(getBlock223())):"null");
-  }
+  }  
+  //------------------------
+  // DEVELOPER CODE - PROVIDED AS-IS
+  //------------------------
+  
+  // line 104 "../../../../../Block223Persistence.ump"
+  private static final long serialVersionUID = 11789647891L ;
+
+  
 }

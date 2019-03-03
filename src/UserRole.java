@@ -4,7 +4,7 @@
 
 import java.io.Serializable;
 
-// line 52 "main.ump"
+// line 94 "Block223Persistence.ump"
 public class UserRole implements Serializable
 {
 
@@ -30,8 +30,8 @@ public class UserRole implements Serializable
   // DEVELOPER CODE - PROVIDED AS-IS
   //------------------------
   
-  // line 55 "main.ump"
-  private static final long serialVersionUID = 11L ;
+  // line 97 "Block223Persistence.ump"
+  private static final long serialVersionUID = 11789647891L ;
 
   
 }
