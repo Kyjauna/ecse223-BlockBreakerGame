@@ -37,7 +37,10 @@ public class WelcomePage {
 
 	public JFrame frame;
 	private JTextField txtUsername;
+	private JTextField txtUsername_1;
 	private JPasswordField pwdPassword;
+	private JPasswordField pwdPassword_1;
+	private JLabel lblErrormessage;
 
 
 	/**
@@ -105,95 +108,164 @@ public class WelcomePage {
 		pwdPassword = new JPasswordField();
 		pwdPassword.setEchoChar('*');
 		
-		JLabel lblErrormessage = new JLabel("");
-
 		
-		JPanel panel_28 = new JPanel();
-		panel_28.setBackground(new Color(255, 255, 255,0));
-		layeredPane_1.setLayer(panel_28, 5);
-		panel_28.setBounds(266, 312, 96, 36);
-		layeredPane_1.add(panel_28);
+		JLayeredPane layeredPane = new JLayeredPane();
+		layeredPane_1.setLayer(layeredPane, 50);
+		layeredPane.setBounds(0, 0, 624, 485);
+		layeredPane_1.add(layeredPane);
 		
-		JButton btnSignUp = new JButton("SIGN UP");
-		btnSignUp.setForeground(new Color(0, 0, 255));
-		btnSignUp.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent arg0) {
+		JLabel lblNewLabel = new JLabel("BLOCK 223");
+		lblNewLabel.setBounds(171, 41, 278, 67);
+		layeredPane.add(lblNewLabel);
+		lblNewLabel.setForeground(new Color(204, 204, 255));
+		lblNewLabel.setFont(new Font("Monospaced", Font.BOLD, 52));
 				
-				SignUpPage signuppage= new SignUpPage();	//this is how you launch a different page
-				signuppage.frame.setVisible(true);		//don't forget to set the frame etc. to public
-			
-			}
-			
-		});
-
-		btnSignUp.setFont(new Font("Charter", Font.PLAIN, 16));
-		panel_28.add(btnSignUp);
-		
-		JPanel panel_24 = new JPanel();
-		panel_24.setBorder(new LineBorder(new Color(204, 204, 255)));
-		panel_24.setBackground(new Color(0, 0, 153,0));
-		layeredPane_1.setLayer(panel_24, 4);
-		panel_24.setBounds(134, 200, 103, 30);
-		layeredPane_1.add(panel_24);
-		
-		JLabel lblNewLabel_2 = new JLabel("PASSWORD");
-		lblNewLabel_2.setForeground(new Color(204, 204, 255));
-		lblNewLabel_2.setFont(new Font("Charter", Font.PLAIN, 17));
-		panel_24.add(lblNewLabel_2);
-		
-		JPanel panel_23 = new JPanel();
-		panel_23.setBorder(new LineBorder(new Color(204, 204, 255)));
-		panel_23.setBackground(new Color(0, 0, 102,0));
-		layeredPane_1.setLayer(panel_23, 4);
-		panel_23.setBounds(134, 138, 103, 31);
-		layeredPane_1.add(panel_23);
-		
-		JLabel lblNewLabel_1 = new JLabel("USERNAME");
-		lblNewLabel_1.setForeground(new Color(204, 204, 255));
-		lblNewLabel_1.setFont(new Font("Charter", Font.PLAIN, 17));
-		panel_23.add(lblNewLabel_1);
-		
-		JPanel panel_27 = new JPanel();
-		panel_27.setForeground(new Color(0, 255, 51));
-		panel_27.setBackground(new Color(255, 255, 255,0));
-		layeredPane_1.setLayer(panel_27, 5);
-		panel_27.setBounds(266, 256, 96, 36);
-		layeredPane_1.add(panel_27);
-		
-		JButton btnLogin = new JButton("LOGIN");
-		panel_27.add(btnLogin);
-		btnLogin.addActionListener(new ActionListener() {
-			
-		/* actionlistener for login button
-		 * does not yet work because we do not have the admin page set up 
-		 * 
-		 * Sharon just set it up.
-		 */
-			public void actionPerformed(ActionEvent e) {
+				JPanel panel_22 = new JPanel();
+				layeredPane.setLayer(panel_22, 1);
+				panel_22.setBounds(136, 132, 354, 221);
+				layeredPane.add(panel_22);
+				panel_22.setBackground(new Color(0, 0, 102,200));
+				layeredPane_1.setLayer(panel_22, 10);
 				
-				String username=txtUsername.getText();	//getting text from the username text field
-				String password=new String(pwdPassword.getPassword());	//getting text from the password field
-				try {
-					Block223Controller.login(username, password);	//calling controller to perform action associated with the method
-					YouAreAnAdminPage adminPage = new YouAreAnAdminPage();
-					adminPage.frame.setVisible(true);
+				JPanel panel_23 = new JPanel();
+				layeredPane.setLayer(panel_23, 2);
+				panel_23.setBorder(new LineBorder(new Color(204, 204, 255)));
+				panel_23.setBackground(new Color(0, 0, 102,0));
+				layeredPane_1.setLayer(panel_23, 4);
 				
-				} catch (InvalidInputException e1) {
-					lblErrormessage.setText(e1.getMessage());
+				JPanel panel_24 = new JPanel();
+				layeredPane.setLayer(panel_24, 2);
+				panel_24.setBorder(new LineBorder(new Color(204, 204, 255)));
+				panel_24.setBackground(new Color(0, 0, 153,0));
+				layeredPane_1.setLayer(panel_24, 4);
+				
+				txtUsername_1 = new JTextField();
+				layeredPane.setLayer(txtUsername_1, 2);
+				txtUsername_1.setForeground(new Color(0, 0, 153));
+				txtUsername_1.setFont(new Font("Charter", Font.PLAIN, 13));
+				txtUsername_1.setColumns(10);
+				
+				pwdPassword_1 = new JPasswordField();
+				layeredPane.setLayer(pwdPassword_1, 2);
+				pwdPassword_1.setForeground(new Color(0, 0, 153));
+				pwdPassword_1.setFont(new Font("Charter", Font.PLAIN, 13));
+				pwdPassword_1.setColumns(10);
+				
+				JButton btnSignUp = new JButton("SIGN UP");
+				layeredPane.setLayer(btnSignUp, 2);
+				btnSignUp.setForeground(new Color(0, 0, 255));
+				btnSignUp.addActionListener(new ActionListener() {
+					public void actionPerformed(ActionEvent arg0) {
+						
+						SignUpPage signuppage= new SignUpPage();	//this is how you launch a different page
+						signuppage.frame.setVisible(true);		//don't forget to set the frame etc. to public
 					
+					}
 					
-				}
+				});
 				
+				btnSignUp.setFont(new Font("Monospaced", Font.BOLD, 12));
+				btnSignUp.setForeground(new Color(0, 0, 0));
 
 				
-			}
-		});
-		btnLogin.setForeground(new Color(0, 0, 0));
-		btnLogin.setFont(new Font("Dialog", Font.PLAIN, 16));
-		
-		
-		
-		btnLogin.setFont(new Font("Charter", Font.PLAIN, 17));
+				JButton btnLogin = new JButton("LOGIN");
+				layeredPane.setLayer(btnLogin, 2);
+				btnLogin.addActionListener(new ActionListener() {
+					
+				/* actionlistener for login button
+				 * does not yet work because we do not have the admin page set up 
+				 * 
+				 * Sharon just set it up.
+				 */
+					public void actionPerformed(ActionEvent e) {
+						
+						String username=txtUsername.getText();	//getting text from the username text field
+						String password=new String(pwdPassword.getPassword());	//getting text from the password field
+						try {
+							Block223Controller.login(username, password);	//calling controller to perform action associated with the method
+							YouAreAnAdminPage adminPage = new YouAreAnAdminPage();
+							adminPage.frame.setVisible(true);
+						
+						} catch (InvalidInputException e1) {
+							lblErrormessage.setText(e1.getMessage());
+							
+							
+						}
+						
+
+						
+					}
+				});
+				btnLogin.setForeground(new Color(0, 0, 51));
+				btnLogin.setFont(new Font("Monospaced", Font.BOLD, 12));
+				
+				lblErrormessage = new JLabel("");
+				layeredPane.setLayer(lblErrormessage, 2);
+				lblErrormessage.setForeground(new Color(204, 204, 255));
+				lblErrormessage.setFont(new Font("Monospaced", Font.BOLD, 12));
+				
+				GroupLayout gl_panel_22 = new GroupLayout(panel_22);
+				gl_panel_22.setHorizontalGroup(
+					gl_panel_22.createParallelGroup(Alignment.LEADING)
+						.addGroup(gl_panel_22.createSequentialGroup()
+							.addContainerGap()
+							.addGroup(gl_panel_22.createParallelGroup(Alignment.LEADING)
+								.addGroup(gl_panel_22.createSequentialGroup()
+									.addGroup(gl_panel_22.createParallelGroup(Alignment.LEADING)
+										.addComponent(panel_23, GroupLayout.DEFAULT_SIZE, 113, Short.MAX_VALUE)
+										.addComponent(panel_24, Alignment.TRAILING, GroupLayout.DEFAULT_SIZE, 113, Short.MAX_VALUE))
+									.addGroup(gl_panel_22.createParallelGroup(Alignment.LEADING)
+										.addGroup(gl_panel_22.createSequentialGroup()
+											.addGap(28)
+											.addGroup(gl_panel_22.createParallelGroup(Alignment.TRAILING)
+												.addComponent(txtUsername_1, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
+												.addComponent(pwdPassword_1, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)))
+										.addGroup(gl_panel_22.createSequentialGroup()
+											.addPreferredGap(ComponentPlacement.RELATED)
+											.addGroup(gl_panel_22.createParallelGroup(Alignment.LEADING)
+												.addComponent(btnLogin)
+												.addComponent(btnSignUp))
+											.addGap(131)))
+									.addGap(43))
+								.addGroup(gl_panel_22.createSequentialGroup()
+									.addComponent(lblErrormessage, GroupLayout.PREFERRED_SIZE, 300, GroupLayout.PREFERRED_SIZE)
+									.addContainerGap(42, Short.MAX_VALUE))))
+				);
+				gl_panel_22.setVerticalGroup(
+					gl_panel_22.createParallelGroup(Alignment.LEADING)
+						.addGroup(gl_panel_22.createSequentialGroup()
+							.addContainerGap()
+							.addGroup(gl_panel_22.createParallelGroup(Alignment.LEADING)
+								.addGroup(gl_panel_22.createSequentialGroup()
+									.addComponent(panel_23, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+									.addGap(17))
+								.addGroup(gl_panel_22.createSequentialGroup()
+									.addComponent(txtUsername_1, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
+									.addPreferredGap(ComponentPlacement.RELATED)))
+							.addGroup(gl_panel_22.createParallelGroup(Alignment.LEADING)
+								.addComponent(pwdPassword_1, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
+								.addComponent(panel_24, GroupLayout.PREFERRED_SIZE, 32, GroupLayout.PREFERRED_SIZE))
+							.addGap(19)
+							.addComponent(lblErrormessage, GroupLayout.PREFERRED_SIZE, 19, GroupLayout.PREFERRED_SIZE)
+							.addPreferredGap(ComponentPlacement.RELATED)
+							.addComponent(btnLogin, GroupLayout.PREFERRED_SIZE, 31, GroupLayout.PREFERRED_SIZE)
+							.addPreferredGap(ComponentPlacement.UNRELATED)
+							.addComponent(btnSignUp)
+							.addContainerGap())
+				);
+				
+				JLabel lblNewLabel_2 = new JLabel("PASSWORD");
+				panel_24.add(lblNewLabel_2);
+				layeredPane.setLayer(lblNewLabel_2, 2);
+				lblNewLabel_2.setForeground(new Color(204, 204, 255));
+				lblNewLabel_2.setFont(new Font("Monospaced", Font.BOLD, 14));
+				
+				JLabel lblNewLabel_1 = new JLabel("USERNAME");
+				panel_23.add(lblNewLabel_1);
+				layeredPane.setLayer(lblNewLabel_1, 2);
+				lblNewLabel_1.setForeground(new Color(204, 204, 255));
+				lblNewLabel_1.setFont(new Font("Monospaced", Font.BOLD, 14));
+				panel_22.setLayout(gl_panel_22);
 		
 		JPanel panel_26 = new JPanel();
 		panel_26.setBorder(null);
@@ -202,12 +274,6 @@ public class WelcomePage {
 		panel_26.setBounds(249, 200, 125, 36);
 		layeredPane_1.add(panel_26);
 		
-		pwdPassword = new JPasswordField();
-		pwdPassword.setForeground(new Color(0, 0, 153));
-		pwdPassword.setFont(new Font("Charter", Font.PLAIN, 13));
-		panel_26.add(pwdPassword);
-		pwdPassword.setColumns(10);
-		
 		JPanel panel_25 = new JPanel();
 		panel_25.setBorder(null);
 		panel_25.setForeground(new Color(0, 0, 51));
@@ -215,12 +281,6 @@ public class WelcomePage {
 		layeredPane_1.setLayer(panel_25, 5);
 		panel_25.setBounds(250, 135, 124, 36);
 		layeredPane_1.add(panel_25);
-		
-		txtUsername = new JTextField();
-		txtUsername.setForeground(new Color(0, 0, 153));
-		txtUsername.setFont(new Font("Charter", Font.PLAIN, 13));
-		panel_25.add(txtUsername);
-		txtUsername.setColumns(10);
 		
 		JPanel panel = new JPanel();
 		panel.setBounds(0, 0, 125, 122);
@@ -232,22 +292,11 @@ public class WelcomePage {
 		panel_1.setBackground(new Color(0, 0, 255));
 		layeredPane_1.add(panel_1);
 		
-		JPanel panel_22 = new JPanel();
-		panel_22.setBackground(new Color(0, 0, 102,200));
-		layeredPane_1.setLayer(panel_22, 4);
-		panel_22.setBounds(127, 125, 368, 235);
-		layeredPane_1.add(panel_22);
-		
 		JPanel panel_21 = new JPanel();
 		panel_21.setBackground(new Color(0, 0, 102,200));
 		layeredPane_1.setLayer(panel_21, 1);
 		panel_21.setBounds(33, 26, 550, 426);
 		layeredPane_1.add(panel_21);
-		
-		JLabel lblNewLabel = new JLabel("BLOCK 223");
-		lblNewLabel.setForeground(new Color(204, 204, 255));
-		lblNewLabel.setFont(new Font("Charter", Font.PLAIN, 52));
-		panel_21.add(lblNewLabel);
 		
 		JPanel panel_2 = new JPanel();
 		panel_2.setBounds(249, 0, 125, 122);
@@ -348,11 +397,8 @@ public class WelcomePage {
 		panel_6.setBackground(new Color(102, 255, 255));
 		panel_6.setBounds(124, 122, 125, 122);
 		layeredPane_1.add(panel_6);
-       btnSignUp.setForeground(new Color(0, 0, 0));
-		btnSignUp.setFont(new Font("Monospaced", Font.BOLD, 12));
 		
 
 		
 	}
-
 }

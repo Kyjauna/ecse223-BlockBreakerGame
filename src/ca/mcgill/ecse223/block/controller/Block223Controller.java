@@ -19,6 +19,7 @@ import ca.mcgill.ecse223.block.model.Player;
 import ca.mcgill.ecse223.block.model.User;
 import ca.mcgill.ecse223.block.model.UserRole;
 import ca.mcgill.ecse223.block.persistence.Block223Persistence;
+import ca.mcgill.ecse223.block.persistence.PersistenceObjectStream;
 import ca.mcgill.ecse223.block.controller.TOGame;
 
 
@@ -341,6 +342,8 @@ public class Block223Controller {
 	}
 
 	public static void saveGame() throws InvalidInputException {
+		Block223 b=Block223Application.getBlock223();
+		PersistenceObjectStream.serialize(b);
 	}
 
 	public static void register(String username, String playerPassword, String adminPassword)
@@ -370,7 +373,7 @@ public class Block223Controller {
 				Admin admin=new Admin(adminPassword, block223);
 				user.addRole(admin);
 			}
-			Block223Persistence.save(block223);
+			Block223Controller.saveGame();
 		}
 		catch(RuntimeException e) {
 			
@@ -378,7 +381,7 @@ public class Block223Controller {
 				player.delete();
 			throw new InvalidInputException(e.getMessage());
 		}
-		//Block223Persistence.save(block223);
+		saveGame();
 	}
 
 	public static void login(String username, String password) throws InvalidInputException {
