@@ -36,9 +36,7 @@ import javax.swing.border.LineBorder;
 public class WelcomePage {
 
 	public JFrame frame;
-	private JTextField txtUsername;
 	private JTextField txtUsername_1;
-	private JPasswordField pwdPassword;
 	private JPasswordField pwdPassword_1;
 	private JLabel lblErrormessage;
 
@@ -90,23 +88,6 @@ public class WelcomePage {
 					.addContainerGap(89, Short.MAX_VALUE))
 		);
 		layeredPane_1.setLayout(null);
-		JLabel lblHi = new JLabel("BLOCK223");
-		lblHi.setForeground(Color.BLACK);
-		lblHi.setFont(new Font("Monospaced", Font.BOLD, 32));
-		
-		txtUsername = new JTextField();
-		txtUsername.setBackground(Color.WHITE);
-		txtUsername.setFont(new Font("Monospaced", Font.BOLD, 13));
-		txtUsername.setColumns(10);
-		
-		JLabel lblUsername = new JLabel("Username:");
-		lblUsername.setFont(new Font("Monospaced", Font.BOLD, 13));
-		
-		JLabel lblPassword = new JLabel("Password:");
-		lblPassword.setFont(new Font("Monospaced", Font.BOLD, 13));
-		
-		pwdPassword = new JPasswordField();
-		pwdPassword.setEchoChar('*');
 		
 		
 		JLayeredPane layeredPane = new JLayeredPane();
@@ -154,6 +135,8 @@ public class WelcomePage {
 				JButton btnSignUp = new JButton("SIGN UP");
 				layeredPane.setLayer(btnSignUp, 2);
 				btnSignUp.setForeground(new Color(0, 0, 255));
+				btnSignUp.setFont(new Font("Monospaced", Font.BOLD, 12));
+				
 				btnSignUp.addActionListener(new ActionListener() {
 					public void actionPerformed(ActionEvent arg0) {
 						
@@ -164,12 +147,12 @@ public class WelcomePage {
 					
 				});
 				
-				btnSignUp.setFont(new Font("Monospaced", Font.BOLD, 12));
-				btnSignUp.setForeground(new Color(0, 0, 0));
-
-				
 				JButton btnLogin = new JButton("LOGIN");
 				layeredPane.setLayer(btnLogin, 2);
+				btnLogin.setForeground(new Color(0, 0, 51));
+				btnLogin.setFont(new Font("Monospaced", Font.BOLD, 12));
+				
+			
 				btnLogin.addActionListener(new ActionListener() {
 					
 				/* actionlistener for login button
@@ -179,8 +162,8 @@ public class WelcomePage {
 				 */
 					public void actionPerformed(ActionEvent e) {
 						
-						String username=txtUsername.getText();	//getting text from the username text field
-						String password=new String(pwdPassword.getPassword());	//getting text from the password field
+						String username=txtUsername_1.getText();	//getting text from the username text field
+						String password=new String(pwdPassword_1.getPassword());	//getting text from the password field
 						try {
 							Block223Controller.login(username, password);	//calling controller to perform action associated with the method
 							YouAreAnAdminPage adminPage = new YouAreAnAdminPage();
@@ -188,16 +171,11 @@ public class WelcomePage {
 						
 						} catch (InvalidInputException e1) {
 							lblErrormessage.setText(e1.getMessage());
-							
-							
 						}
-						
-
 						
 					}
 				});
-				btnLogin.setForeground(new Color(0, 0, 51));
-				btnLogin.setFont(new Font("Monospaced", Font.BOLD, 12));
+
 				
 				lblErrormessage = new JLabel("");
 				layeredPane.setLayer(lblErrormessage, 2);
@@ -402,3 +380,5 @@ public class WelcomePage {
 		
 	}
 }
+
+
