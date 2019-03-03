@@ -73,7 +73,7 @@ public class WelcomePage {
 		frame.setBounds(100, 100, 623, 507);
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		
-<<<<<<< HEAD
+
 		JDesktopPane layeredPane_1 = new JDesktopPane();
 		GroupLayout groupLayout = new GroupLayout(frame.getContentPane());
 		groupLayout.setHorizontalGroup(
@@ -87,7 +87,6 @@ public class WelcomePage {
 					.addContainerGap(89, Short.MAX_VALUE))
 		);
 		layeredPane_1.setLayout(null);
-=======
 		JLabel lblHi = new JLabel("BLOCK223");
 		lblHi.setForeground(Color.BLACK);
 		lblHi.setFont(new Font("Monospaced", Font.BOLD, 32));
@@ -137,7 +136,7 @@ public class WelcomePage {
 		});
 		btnLogin.setForeground(new Color(0, 0, 0));
 		btnLogin.setFont(new Font("Monospaced", Font.BOLD, 12));
->>>>>>> dedc95f31ab55fa61ccba724bf978d0bcca5f261
+
 		
 		JPanel panel_28 = new JPanel();
 		panel_28.setBackground(new Color(255, 255, 255,0));
@@ -156,7 +155,7 @@ public class WelcomePage {
 			}
 			
 		});
-<<<<<<< HEAD
+
 		btnSignUp.setFont(new Font("Charter", Font.PLAIN, 16));
 		panel_28.add(btnSignUp);
 		
@@ -191,36 +190,8 @@ public class WelcomePage {
 		panel_27.setBounds(266, 256, 96, 36);
 		layeredPane_1.add(panel_27);
 		
-		JLabel lblErrormessage = new JLabel("");
 		
-		JButton btnLogin = new JButton("LOGIN");
-		btnLogin.setForeground(new Color(0, 0, 255));
-		btnLogin.addActionListener(new ActionListener() {
-			
-			/* actionlistener for login button
-			 * does not yet work because we do not have the admin page set up 
-			 * 
-			 * Sharon just set it up.
-			 */
-				public void actionPerformed(ActionEvent e) {
-					
-					String username=txtUsername.getText();	//getting text from the username text field
-					String password=new String(pwdPassword.getPassword());	//getting text from the password field
-					try {
-						Block223Controller.login(username, password);	//calling controller to perform action associated with the method
-						YouAreAnAdminPage adminPage = new YouAreAnAdminPage();
-						adminPage.frame.setVisible(true);
-					
-					} catch (InvalidInputException e1) {
-						lblErrormessage.setText(e1.getMessage());
-						
-						
-					}
-					
-
-					
-				}
-			});
+		
 		btnLogin.setFont(new Font("Charter", Font.PLAIN, 17));
 		panel_27.add(btnLogin);
 		
@@ -377,67 +348,11 @@ public class WelcomePage {
 		panel_6.setBackground(new Color(102, 255, 255));
 		panel_6.setBounds(124, 122, 125, 122);
 		layeredPane_1.add(panel_6);
-=======
-		btnSignUp.setForeground(new Color(0, 0, 0));
+       btnSignUp.setForeground(new Color(0, 0, 0));
 		btnSignUp.setFont(new Font("Monospaced", Font.BOLD, 12));
 		
 
 		
-		GroupLayout groupLayout = new GroupLayout(frame.getContentPane());
-		groupLayout.setHorizontalGroup(
-			groupLayout.createParallelGroup(Alignment.TRAILING)
-				.addGroup(groupLayout.createSequentialGroup()
-					.addGroup(groupLayout.createParallelGroup(Alignment.TRAILING)
-						.addGroup(groupLayout.createSequentialGroup()
-							.addContainerGap()
-							.addComponent(lblHi, GroupLayout.PREFERRED_SIZE, 152, GroupLayout.PREFERRED_SIZE))
-						.addGroup(groupLayout.createParallelGroup(Alignment.LEADING)
-							.addGroup(groupLayout.createSequentialGroup()
-								.addGap(212)
-								.addGroup(groupLayout.createParallelGroup(Alignment.LEADING)
-									.addGroup(groupLayout.createSequentialGroup()
-										.addGroup(groupLayout.createParallelGroup(Alignment.TRAILING)
-											.addComponent(lblPassword)
-											.addComponent(lblUsername))
-										.addPreferredGap(ComponentPlacement.RELATED)
-										.addGroup(groupLayout.createParallelGroup(Alignment.LEADING)
-											.addComponent(txtUsername, GroupLayout.DEFAULT_SIZE, 113, Short.MAX_VALUE)
-											.addComponent(pwdPassword, GroupLayout.PREFERRED_SIZE, 113, GroupLayout.PREFERRED_SIZE)))
-									.addGroup(groupLayout.createSequentialGroup()
-										.addPreferredGap(ComponentPlacement.RELATED)
-										.addComponent(lblErrormessage, GroupLayout.PREFERRED_SIZE, 217, GroupLayout.PREFERRED_SIZE)
-										.addPreferredGap(ComponentPlacement.RELATED))))
-							.addGroup(groupLayout.createSequentialGroup()
-								.addGap(274)
-								.addGroup(groupLayout.createParallelGroup(Alignment.TRAILING, false)
-									.addComponent(btnSignUp, Alignment.LEADING, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-									.addComponent(btnLogin, Alignment.LEADING, GroupLayout.DEFAULT_SIZE, 97, Short.MAX_VALUE))
-								.addPreferredGap(ComponentPlacement.RELATED, 24, Short.MAX_VALUE))))
-					.addGap(287))
-		);
-		groupLayout.setVerticalGroup(
-			groupLayout.createParallelGroup(Alignment.LEADING)
-				.addGroup(groupLayout.createSequentialGroup()
-					.addGap(24)
-					.addComponent(lblHi)
-					.addGap(27)
-					.addGroup(groupLayout.createParallelGroup(Alignment.BASELINE)
-						.addComponent(lblUsername)
-						.addComponent(txtUsername, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
-					.addPreferredGap(ComponentPlacement.RELATED, 20, Short.MAX_VALUE)
-					.addGroup(groupLayout.createParallelGroup(Alignment.BASELINE)
-						.addComponent(lblPassword)
-						.addComponent(pwdPassword, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
-					.addPreferredGap(ComponentPlacement.UNRELATED)
-					.addComponent(lblErrormessage)
-					.addGap(8)
-					.addComponent(btnLogin, GroupLayout.PREFERRED_SIZE, 22, GroupLayout.PREFERRED_SIZE)
-					.addGap(18)
-					.addComponent(btnSignUp, GroupLayout.PREFERRED_SIZE, 22, GroupLayout.PREFERRED_SIZE)
-					.addGap(94))
-		);
->>>>>>> dedc95f31ab55fa61ccba724bf978d0bcca5f261
-		frame.getContentPane().setLayout(groupLayout);
 	}
 
 }
