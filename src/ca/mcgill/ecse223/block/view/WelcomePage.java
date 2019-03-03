@@ -70,7 +70,7 @@ public class WelcomePage {
 	private void initialize() {
 		frame = new JFrame();
 		frame.getContentPane().setBackground(new Color(0, 0, 51));
-		frame.setBounds(100, 100, 623, 507);
+		frame.setBounds(100, 100, 642, 523);
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		
 
@@ -106,36 +106,6 @@ public class WelcomePage {
 		pwdPassword.setEchoChar('*');
 		
 		JLabel lblErrormessage = new JLabel("");
-		
-		JButton btnLogin = new JButton("LOGIN");
-		btnLogin.addActionListener(new ActionListener() {
-			
-		/* actionlistener for login button
-		 * does not yet work because we do not have the admin page set up 
-		 * 
-		 * Sharon just set it up.
-		 */
-			public void actionPerformed(ActionEvent e) {
-				
-				String username=txtUsername.getText();	//getting text from the username text field
-				String password=new String(pwdPassword.getPassword());	//getting text from the password field
-				try {
-					Block223Controller.login(username, password);	//calling controller to perform action associated with the method
-					YouAreAnAdminPage adminPage = new YouAreAnAdminPage();
-					adminPage.frame.setVisible(true);
-				
-				} catch (InvalidInputException e1) {
-					lblErrormessage.setText(e1.getMessage());
-					
-					
-				}
-				
-
-				
-			}
-		});
-		btnLogin.setForeground(new Color(0, 0, 0));
-		btnLogin.setFont(new Font("Monospaced", Font.BOLD, 12));
 
 		
 		JPanel panel_28 = new JPanel();
@@ -156,7 +126,7 @@ public class WelcomePage {
 			
 		});
 
-		btnSignUp.setFont(new Font("Charter", Font.PLAIN, 17));
+		btnSignUp.setFont(new Font("Charter", Font.PLAIN, 16));
 		panel_28.add(btnSignUp);
 		
 		JPanel panel_24 = new JPanel();
@@ -190,10 +160,40 @@ public class WelcomePage {
 		panel_27.setBounds(266, 256, 96, 36);
 		layeredPane_1.add(panel_27);
 		
+		JButton btnLogin = new JButton("LOGIN");
+		panel_27.add(btnLogin);
+		btnLogin.addActionListener(new ActionListener() {
+			
+		/* actionlistener for login button
+		 * does not yet work because we do not have the admin page set up 
+		 * 
+		 * Sharon just set it up.
+		 */
+			public void actionPerformed(ActionEvent e) {
+				
+				String username=txtUsername.getText();	//getting text from the username text field
+				String password=new String(pwdPassword.getPassword());	//getting text from the password field
+				try {
+					Block223Controller.login(username, password);	//calling controller to perform action associated with the method
+					YouAreAnAdminPage adminPage = new YouAreAnAdminPage();
+					adminPage.frame.setVisible(true);
+				
+				} catch (InvalidInputException e1) {
+					lblErrormessage.setText(e1.getMessage());
+					
+					
+				}
+				
+
+				
+			}
+		});
+		btnLogin.setForeground(new Color(0, 0, 0));
+		btnLogin.setFont(new Font("Dialog", Font.PLAIN, 16));
+		
 		
 		
 		btnLogin.setFont(new Font("Charter", Font.PLAIN, 17));
-		panel_27.add(btnLogin);
 		
 		JPanel panel_26 = new JPanel();
 		panel_26.setBorder(null);
@@ -241,7 +241,7 @@ public class WelcomePage {
 		JPanel panel_21 = new JPanel();
 		panel_21.setBackground(new Color(0, 0, 102,200));
 		layeredPane_1.setLayer(panel_21, 1);
-		panel_21.setBounds(42, 32, 550, 425);
+		panel_21.setBounds(33, 26, 550, 426);
 		layeredPane_1.add(panel_21);
 		
 		JLabel lblNewLabel = new JLabel("BLOCK 223");

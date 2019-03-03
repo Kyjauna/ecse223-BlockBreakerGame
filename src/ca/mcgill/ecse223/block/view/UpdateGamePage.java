@@ -3,10 +3,10 @@ package ca.mcgill.ecse223.block.view;
 import java.awt.EventQueue;
 
 import javax.swing.JFrame;
-import javax.swing.JScrollPane;
-import java.awt.BorderLayout;
 import javax.swing.JLabel;
 import java.awt.Color;
+import java.awt.Dimension;
+
 import javax.swing.JButton;
 import javax.swing.JTextField;
 import javax.swing.GroupLayout;
@@ -19,7 +19,6 @@ import ca.mcgill.ecse223.block.controller.Block223Controller;
 import ca.mcgill.ecse223.block.controller.InvalidInputException;
 
 import java.awt.Font;
-import java.awt.TextField;
 
 public class UpdateGamePage {
 
@@ -39,8 +38,9 @@ public class UpdateGamePage {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
-					UpdateGamePage window = new UpdateGamePage();
+					UpdateGamePage window = new UpdateGamePage();	
 					window.frame.setVisible(true);
+					window.frame.setSize(new Dimension(710, 500));
 				} catch (Exception e) {
 					e.printStackTrace();
 				}
@@ -60,6 +60,7 @@ public class UpdateGamePage {
 	 */
 	private void initialize() {
 		frame = new JFrame();
+		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frame.getContentPane().setBackground(new Color(0, 0, 51));
 		
 		/* Build Button */
@@ -93,13 +94,13 @@ public class UpdateGamePage {
 				
 				try {
 					Block223Controller.setGameDetails(numberOfLevels, blocksPerLevel, xBallSpeed, yBallSpeed, speedIncreaseFactor, maxPaddleLength, minPaddleLength);
+					GameLevelPage gamePage = new GameLevelPage(); 	// Launches a new page (of type GameLevel)
+					gamePage.frame.setVisible(true);				// this is the frame from GameLevelPage, so their classes need to be public
+				
 				} catch (InvalidInputException e1) {
 					e1.printStackTrace();
 				}
 				 
-				GameLevelPage gamePage = new GameLevelPage(); 	// Launches a new page (of type GameLevel)
-				gamePage.frame.setVisible(true);				// this is the frame from GameLevelPage, so their classes need to be public
-				
 			}
 		});
 		btnBuild.setFont(new Font("Monospaced", Font.BOLD, 15));
@@ -107,11 +108,11 @@ public class UpdateGamePage {
 		
 		numberOfLevelsTxt = new JTextField();
 		numberOfLevelsTxt.setForeground(new Color(169, 169, 169));
-		try {
+		/* try {
 			numberOfLevelsTxt.setText(""+Block223Controller.getCurrentDesignableGame().getNrLevels());
 		} catch (InvalidInputException e1) {
 			e1.printStackTrace();
-		}
+		} */
 		numberOfLevelsTxt.setColumns(10);
 		
 		blocksPerLevelTxt = new JTextField();
@@ -153,7 +154,7 @@ public class UpdateGamePage {
 		lblNumberOfLevels.setFont(new Font("Monospaced", Font.BOLD, 13));
 		lblNumberOfLevels.setForeground(new Color(204, 255, 255));
 		
-		JLabel lblblocksPerLevle = new JLabel("#BLOCKS per level");
+		JLabel lblblocksPerLevle = new JLabel("#BLOCKS PER LEVEL");
 		lblblocksPerLevle.setFont(new Font("Monospaced", Font.BOLD, 13));
 		lblblocksPerLevle.setForeground(new Color(204, 255, 255));
 		
@@ -206,6 +207,8 @@ public class UpdateGamePage {
 				
 				String stringMaxPaddleLength = maxPaddleLengthTxt.getText();
 				int maxPaddleLength = Integer.parseInt(stringMaxPaddleLength);
+				
+				// INCOMPLETE
 				
 			}
 		});
