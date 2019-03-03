@@ -107,7 +107,11 @@ public class UpdateGamePage {
 		
 		numberOfLevelsTxt = new JTextField();
 		numberOfLevelsTxt.setForeground(new Color(169, 169, 169));
-		numberOfLevelsTxt.setText("45");
+		try {
+			numberOfLevelsTxt.setText(""+Block223Controller.getCurrentDesignableGame().getNrLevels());
+		} catch (InvalidInputException e1) {
+			e1.printStackTrace();
+		}
 		numberOfLevelsTxt.setColumns(10);
 		
 		blocksPerLevelTxt = new JTextField();
@@ -131,18 +135,18 @@ public class UpdateGamePage {
 		speedIncreaseFactorTxt.setColumns(10);
 		
 		minPaddleLengthTxt = new JTextField();
-		minPaddleLengthTxt.setText("10");
+		minPaddleLengthTxt.setText("2");
 		minPaddleLengthTxt.setForeground(new Color(169, 169, 169));
 		minPaddleLengthTxt.setColumns(10);
 		
 		maxPaddleLengthTxt = new JTextField();
-		maxPaddleLengthTxt.setText("2");
+		maxPaddleLengthTxt.setText("10");
 		maxPaddleLengthTxt.setForeground(new Color(169, 169, 169));
 		maxPaddleLengthTxt.setColumns(10);
 		
 		JLabel lblCreateNewGame = new JLabel("UPDATE GAME");
 		lblCreateNewGame.setFont(new Font("Monospaced", Font.BOLD, 25));
-		lblCreateNewGame.setForeground(new Color(153, 255, 255));
+		lblCreateNewGame.setForeground(new Color(204, 255, 255));
 		lblCreateNewGame.setBackground(new Color(70, 130, 180));
 		
 		JLabel lblNumberOfLevels = new JLabel("Number of Levels");
@@ -212,10 +216,6 @@ public class UpdateGamePage {
 		groupLayout.setHorizontalGroup(
 			groupLayout.createParallelGroup(Alignment.LEADING)
 				.addGroup(groupLayout.createSequentialGroup()
-					.addContainerGap(261, Short.MAX_VALUE)
-					.addComponent(lblCreateNewGame, GroupLayout.PREFERRED_SIZE, 179, GroupLayout.PREFERRED_SIZE)
-					.addGap(286))
-				.addGroup(groupLayout.createSequentialGroup()
 					.addGap(115)
 					.addGroup(groupLayout.createParallelGroup(Alignment.TRAILING)
 						.addComponent(btnBuild)
@@ -244,15 +244,16 @@ public class UpdateGamePage {
 								.addComponent(yBallSpeedTxt, GroupLayout.PREFERRED_SIZE, 267, GroupLayout.PREFERRED_SIZE)
 								.addComponent(speedIncreaseFactorTxt, GroupLayout.PREFERRED_SIZE, 267, GroupLayout.PREFERRED_SIZE)
 								.addComponent(minPaddleLengthTxt, GroupLayout.PREFERRED_SIZE, 267, GroupLayout.PREFERRED_SIZE)
-								.addComponent(maxPaddleLengthTxt, GroupLayout.PREFERRED_SIZE, 267, GroupLayout.PREFERRED_SIZE))))
+								.addComponent(maxPaddleLengthTxt, GroupLayout.PREFERRED_SIZE, 267, GroupLayout.PREFERRED_SIZE)
+								.addComponent(lblCreateNewGame, GroupLayout.PREFERRED_SIZE, 179, GroupLayout.PREFERRED_SIZE))))
 					.addGap(181))
 		);
 		groupLayout.setVerticalGroup(
 			groupLayout.createParallelGroup(Alignment.LEADING)
 				.addGroup(groupLayout.createSequentialGroup()
-					.addGap(20)
+					.addGap(23)
 					.addComponent(lblCreateNewGame, GroupLayout.PREFERRED_SIZE, 51, GroupLayout.PREFERRED_SIZE)
-					.addGap(38)
+					.addGap(35)
 					.addGroup(groupLayout.createParallelGroup(Alignment.BASELINE)
 						.addComponent(numberOfLevelsTxt, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
 						.addComponent(lblNumberOfLevels))
@@ -284,7 +285,7 @@ public class UpdateGamePage {
 					.addGroup(groupLayout.createParallelGroup(Alignment.LEADING)
 						.addComponent(btnBuild)
 						.addComponent(btnSave, GroupLayout.PREFERRED_SIZE, 29, GroupLayout.PREFERRED_SIZE))
-					.addContainerGap(64, Short.MAX_VALUE))
+					.addContainerGap(65, Short.MAX_VALUE))
 		);
 		frame.getContentPane().setLayout(groupLayout);
 	}
