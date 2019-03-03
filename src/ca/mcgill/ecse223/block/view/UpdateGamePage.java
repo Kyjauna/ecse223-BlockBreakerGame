@@ -208,20 +208,44 @@ public class UpdateGamePage {
 				String stringMaxPaddleLength = maxPaddleLengthTxt.getText();
 				int maxPaddleLength = Integer.parseInt(stringMaxPaddleLength);
 				
-				// INCOMPLETE
-				
+				try {
+					Block223Controller.setGameDetails(numberOfLevels, blocksPerLevel, xBallSpeed, yBallSpeed, speedIncreaseFactor, maxPaddleLength, minPaddleLength);
+				} catch (InvalidInputException e1) {
+					e1.printStackTrace();
+				}
 			}
 		});
 		
 		btnSave.setFont(new Font("Monospaced", Font.BOLD, 15));
 		btnSave.setBackground(new Color(135, 206, 235));
+		
+		JButton btnCancel = new JButton("CANCEL");
+		btnCancel.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				
+				WelcomePage welcomepage= new WelcomePage();	//this is how you launch a different page
+				welcomepage.frame.setVisible(true);	
+						frame.setVisible(false);
+				
+			
+			}
+			
+		});
+
+		btnCancel.setFont(new Font("Monospaced", Font.BOLD, 15));
+		btnCancel.setBackground(new Color(135, 206, 235));
 		GroupLayout groupLayout = new GroupLayout(frame.getContentPane());
 		groupLayout.setHorizontalGroup(
 			groupLayout.createParallelGroup(Alignment.LEADING)
 				.addGroup(groupLayout.createSequentialGroup()
 					.addGap(115)
 					.addGroup(groupLayout.createParallelGroup(Alignment.TRAILING)
-						.addComponent(btnBuild)
+						.addGroup(groupLayout.createSequentialGroup()
+							.addComponent(btnCancel, GroupLayout.PREFERRED_SIZE, 87, GroupLayout.PREFERRED_SIZE)
+							.addGap(27)
+							.addComponent(btnSave, GroupLayout.PREFERRED_SIZE, 77, GroupLayout.PREFERRED_SIZE)
+							.addGap(31)
+							.addComponent(btnBuild))
 						.addGroup(groupLayout.createSequentialGroup()
 							.addGroup(groupLayout.createParallelGroup(Alignment.TRAILING)
 								.addGroup(groupLayout.createSequentialGroup()
@@ -234,8 +258,7 @@ public class UpdateGamePage {
 										.addComponent(lblMinXBall, GroupLayout.PREFERRED_SIZE, 136, GroupLayout.PREFERRED_SIZE)
 										.addComponent(lblMinYBall, GroupLayout.PREFERRED_SIZE, 136, GroupLayout.PREFERRED_SIZE)
 										.addComponent(lblMaxPaddleLength, GroupLayout.PREFERRED_SIZE, 136, GroupLayout.PREFERRED_SIZE)
-										.addComponent(lblMinPaddleLength, GroupLayout.PREFERRED_SIZE, 136, GroupLayout.PREFERRED_SIZE)
-										.addComponent(btnSave, Alignment.LEADING, GroupLayout.PREFERRED_SIZE, 77, GroupLayout.PREFERRED_SIZE))
+										.addComponent(lblMinPaddleLength, GroupLayout.PREFERRED_SIZE, 136, GroupLayout.PREFERRED_SIZE))
 									.addGap(18))
 								.addGroup(groupLayout.createSequentialGroup()
 									.addComponent(lblSpeedIncreaseFactor, GroupLayout.PREFERRED_SIZE, 153, GroupLayout.PREFERRED_SIZE)
@@ -285,10 +308,11 @@ public class UpdateGamePage {
 						.addComponent(maxPaddleLengthTxt, GroupLayout.PREFERRED_SIZE, 23, GroupLayout.PREFERRED_SIZE)
 						.addComponent(lblMaxPaddleLength, GroupLayout.PREFERRED_SIZE, 18, GroupLayout.PREFERRED_SIZE))
 					.addGap(55)
-					.addGroup(groupLayout.createParallelGroup(Alignment.LEADING)
+					.addGroup(groupLayout.createParallelGroup(Alignment.BASELINE)
 						.addComponent(btnBuild)
-						.addComponent(btnSave, GroupLayout.PREFERRED_SIZE, 29, GroupLayout.PREFERRED_SIZE))
-					.addContainerGap(65, Short.MAX_VALUE))
+						.addComponent(btnSave, GroupLayout.PREFERRED_SIZE, 29, GroupLayout.PREFERRED_SIZE)
+						.addComponent(btnCancel))
+					.addContainerGap(50, Short.MAX_VALUE))
 		);
 		frame.getContentPane().setLayout(groupLayout);
 	}
