@@ -107,11 +107,11 @@ public class UpdateGamePage {
 		
 		numberOfLevelsTxt = new JTextField();
 		numberOfLevelsTxt.setForeground(new Color(169, 169, 169));
-		try {
+		/* try {
 			numberOfLevelsTxt.setText(""+Block223Controller.getCurrentDesignableGame().getNrLevels());
 		} catch (InvalidInputException e1) {
 			e1.printStackTrace();
-		}
+		} */
 		numberOfLevelsTxt.setColumns(10);
 		
 		blocksPerLevelTxt = new JTextField();
@@ -206,6 +206,8 @@ public class UpdateGamePage {
 				
 				String stringMaxPaddleLength = maxPaddleLengthTxt.getText();
 				int maxPaddleLength = Integer.parseInt(stringMaxPaddleLength);
+				
+				// INCOMPLETE
 				
 			}
 		});
