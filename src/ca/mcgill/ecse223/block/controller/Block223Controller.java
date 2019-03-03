@@ -46,7 +46,7 @@ public class Block223Controller {
 		
 		try {
 
-			Game game=new Game(name, 1, (Admin) admin, 1, 1, 1, 10, 10, block223);
+			Game game = new Game(name, 1, (Admin) admin, 1, 1, 1, 10, 10, block223);
 
 		}
 		catch (RuntimeException e) {
