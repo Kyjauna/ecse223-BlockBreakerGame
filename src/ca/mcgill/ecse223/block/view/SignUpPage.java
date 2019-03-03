@@ -7,6 +7,7 @@ import javax.swing.GroupLayout;
 import javax.swing.GroupLayout.Alignment;
 import javax.swing.JLabel;
 import java.awt.Color;
+import java.awt.Dimension;
 import java.awt.Font;
 import javax.swing.LayoutStyle.ComponentPlacement;
 
@@ -35,6 +36,7 @@ public class SignUpPage {
 				try {
 					SignUpPage window = new SignUpPage();
 					window.frame.setVisible(true);
+					window.frame.setPreferredSize(new Dimension(400, 300));
 				} catch (Exception e) {
 					e.printStackTrace();
 				}
