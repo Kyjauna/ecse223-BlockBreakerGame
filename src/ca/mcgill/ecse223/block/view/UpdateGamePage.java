@@ -107,7 +107,11 @@ public class UpdateGamePage {
 		
 		numberOfLevelsTxt = new JTextField();
 		numberOfLevelsTxt.setForeground(new Color(169, 169, 169));
-		numberOfLevelsTxt.setText("45");
+		try {
+			numberOfLevelsTxt.setText(""+Block223Controller.getCurrentDesignableGame().getNrLevels());
+		} catch (InvalidInputException e1) {
+			e1.printStackTrace();
+		}
 		numberOfLevelsTxt.setColumns(10);
 		
 		blocksPerLevelTxt = new JTextField();
