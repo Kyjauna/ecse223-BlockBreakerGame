@@ -156,7 +156,7 @@ public class WelcomePage {
 			
 		});
 
-		btnSignUp.setFont(new Font("Charter", Font.PLAIN, 16));
+		btnSignUp.setFont(new Font("Charter", Font.PLAIN, 17));
 		panel_28.add(btnSignUp);
 		
 		JPanel panel_24 = new JPanel();
