@@ -15,10 +15,7 @@ class Block223 {
  				break;
  			}
  		}
- 		if (foundGame == null)
- 			throw new RuntimeException("No game exists with this name.");
- 		else
- 			return foundGame;
+ 		return foundGame;
  	}
  		
  	User findWithUsername(String username) {

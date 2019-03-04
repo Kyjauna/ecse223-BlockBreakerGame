@@ -381,13 +381,16 @@ public class Block223 implements Serializable
  				break;
  			}
  		}
- 		if (foundGame == null)
- 			throw new RuntimeException("No game exists with this name.");
- 		else
+ 	//	if (foundGame == null)
+ 	
+ 		//	throw new RuntimeException("No game exists with this name.");
+ 		
+ 	//	else
+ 	
  			return foundGame;
   }
 
-  // line 25 "../../../../../Block223 v2.ump"
+  // line 28 "../../../../../Block223 v2.ump"
   public User findWithUsername(String username){
     User foundUser = null;
  		for (User user : this.getUsers()) {
