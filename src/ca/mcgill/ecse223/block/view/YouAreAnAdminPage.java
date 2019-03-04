@@ -236,7 +236,6 @@ public class YouAreAnAdminPage {
 					Block223Controller.deleteGame(gameToRemove);
 					// This removes the selected item from the menu
 					comboBoxExistingGame.removeItem(gameToRemove);
-					// System.out.println("HELLO WORLD");
 
 				} catch (InvalidInputException e1) {
 					lblErrorMessage.setText(e1.getMessage());
@@ -259,6 +258,8 @@ public class YouAreAnAdminPage {
 				// How to get all the information of the game I want to update?
 				try {
 					Block223Controller.selectGame(gameToUpdate);
+					// This works when logged in as an admin but still gives null pointer exception
+					// when testing it out on its own.
 					System.out.println("hello world");
 					// How do I get to the update game page with the correct game???
 					UpdateGamePage updateGame = new UpdateGamePage();
