@@ -435,8 +435,8 @@ public class Block223Controller {
 		if (!(Block223Application.getCurrentUserRole() instanceof Admin))
 			error = "Admin privledges are required to access game information.";
 		
-		if (!(Block223Application.getCurrentGame() == null))
-			error = "A game must be selected to acces its information.";
+		if (Block223Application.getCurrentGame() == null)
+			error = "A game must be selected to access its information.";
 		
 		if(Block223Application.getCurrentGame().getAdmin() != Block223Application.getCurrentUserRole())
 			error = "Only the admin who created the game can acces the information.";
