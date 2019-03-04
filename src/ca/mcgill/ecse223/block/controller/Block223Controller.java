@@ -337,19 +337,20 @@ public class Block223Controller {
 			throws InvalidInputException {
 		
 		String error = "";
-		
-		Block223 block223=Block223Application.getBlock223();
-		
+
 		if (Block223Application.getCurrentUserRole()!=null)
 			error = "Cannot register a new user while a user is logged in. ";
 		
-		if(playerPassword==adminPassword)
-			error = error + "Player and Admin passwords must be different. ";	
+		if(playerPassword.equals(adminPassword))
+			error += "Player and Admin passwords must be different. ";	
 		
 		if (error.length() > 0) {
+			System.out.println(error.trim());
 			throw new InvalidInputException(error.trim());
 		}
 		
+		
+		Block223 block223=Block223Application.getBlock223();
 		Player player = null;
 		
 		try{ 
@@ -367,7 +368,7 @@ public class Block223Controller {
 				player.delete();
 			throw new InvalidInputException(e.getMessage());
 		}
-		//saveGame();
+		saveGame();
 	}
 
 	public static void login(String username, String password) throws InvalidInputException {
@@ -387,13 +388,13 @@ public class Block223Controller {
 		for (int i=0; i<user.numberOfRoles();i++) {
 			String rolePassword= user.getRole(i).getPassword();
 			
-			if (rolePassword==password) {
+			if (rolePassword.equals(password)) {
 				Block223Application.setCurrentUserRole(user.getRole(i));
 				//resetBlock223();
 			}
 		}
 			
-		if(password!=user.getRole(0).getPassword() && password!=user.getRole(1).getPassword())
+		if(password.equals(user.getRole(0).getPassword())==false && password.equals(user.getRole(1).getPassword())==false)
 			error= error+"The username and password do not match. ";
 		
 		if (error.length() > 0)

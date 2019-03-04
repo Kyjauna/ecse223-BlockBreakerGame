@@ -167,12 +167,6 @@ public class WelcomePage {
 				txtUsername_1.setFont(new Font("Charter", Font.PLAIN, 13));
 				txtUsername_1.setColumns(10);
 				
-				pwdPassword_1 = new JPasswordField();
-				layeredPane.setLayer(pwdPassword_1, 2);
-				pwdPassword_1.setForeground(new Color(0, 0, 153));
-				pwdPassword_1.setFont(new Font("Charter", Font.PLAIN, 13));
-				pwdPassword_1.setColumns(10);
-				
 				JButton btnSignUp = new JButton("SIGN UP");
 				layeredPane.setLayer(btnSignUp, 2);
 				btnSignUp.setForeground(new Color(0, 0, 51));
@@ -218,6 +212,12 @@ public class WelcomePage {
 						
 					}
 				});
+				
+				pwdPassword_1 = new JPasswordField();
+				layeredPane.setLayer(pwdPassword_1, 2);
+				pwdPassword_1.setForeground(new Color(0, 0, 153));
+				pwdPassword_1.setFont(new Font("Charter", Font.PLAIN, 13));
+				pwdPassword_1.setColumns(10);
 
 				GroupLayout gl_panel_22 = new GroupLayout(panel_22);
 				gl_panel_22.setHorizontalGroup(
@@ -229,21 +229,16 @@ public class WelcomePage {
 						.addGroup(gl_panel_22.createSequentialGroup()
 							.addGap(24)
 							.addGroup(gl_panel_22.createParallelGroup(Alignment.LEADING)
+								.addComponent(layeredPane_2, GroupLayout.PREFERRED_SIZE, 283, GroupLayout.PREFERRED_SIZE)
 								.addGroup(gl_panel_22.createSequentialGroup()
-									.addComponent(layeredPane_2, GroupLayout.PREFERRED_SIZE, 283, GroupLayout.PREFERRED_SIZE)
-									.addContainerGap())
-								.addGroup(gl_panel_22.createSequentialGroup()
-									.addGroup(gl_panel_22.createParallelGroup(Alignment.TRAILING)
-										.addComponent(panel_23, GroupLayout.DEFAULT_SIZE, 85, Short.MAX_VALUE)
-										.addComponent(panel_24, GroupLayout.DEFAULT_SIZE, 85, Short.MAX_VALUE))
+									.addGroup(gl_panel_22.createParallelGroup(Alignment.LEADING, false)
+										.addComponent(panel_24, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+										.addComponent(panel_23, GroupLayout.DEFAULT_SIZE, 127, Short.MAX_VALUE))
+									.addPreferredGap(ComponentPlacement.UNRELATED)
 									.addGroup(gl_panel_22.createParallelGroup(Alignment.LEADING)
-										.addGroup(gl_panel_22.createSequentialGroup()
-											.addGap(19)
-											.addComponent(txtUsername_1, 142, 142, 142))
-										.addGroup(gl_panel_22.createSequentialGroup()
-											.addGap(18)
-											.addComponent(pwdPassword_1, GroupLayout.DEFAULT_SIZE, 143, Short.MAX_VALUE)))
-									.addGap(84))))
+										.addComponent(txtUsername_1, GroupLayout.PREFERRED_SIZE, 142, GroupLayout.PREFERRED_SIZE)
+										.addComponent(pwdPassword_1, GroupLayout.PREFERRED_SIZE, 142, GroupLayout.PREFERRED_SIZE))))
+							.addContainerGap())
 						.addGroup(gl_panel_22.createSequentialGroup()
 							.addGap(124)
 							.addComponent(btnSignUp, GroupLayout.PREFERRED_SIZE, 90, GroupLayout.PREFERRED_SIZE)

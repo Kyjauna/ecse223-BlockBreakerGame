@@ -23,7 +23,7 @@ class Block223 {
 
 class User {
    before constructor{
-   		if (aUsername==null||aUsername==""){
+   		if (aUsername.equals(null)||aUsername.equals("")){
    			throw new RuntimeException("The username must be specified.");
    		}
 	}
@@ -35,7 +35,7 @@ class UserRole {
    abstract;
    password;
    before constructor{
-      	if (aPassword==null||aPassword==""){
+      	if (aPassword.equals(null)||aPassword.equals("")){
    			throw new RuntimeException("The password must be specified.");
    		}
    }
@@ -68,7 +68,7 @@ class Game {
    1 <@>- 1 Paddle paddle;
    
    before constructor {
-   	   if (aName == null || aName == "") 
+   	   if (aName.equals(null) || aName.equals("")) 
    		   throw new RuntimeException("The name of a game must be specified.");
    	   
    	   if (nrBlocksPerLevel <= 0)

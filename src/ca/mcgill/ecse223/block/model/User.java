@@ -34,7 +34,7 @@ public class User implements Serializable
   public User(String aUsername, Block223 aBlock223, UserRole... allRoles)
   {
     // line 26 "../../../../../Block223 v2.ump"
-    if (aUsername==null||aUsername==""){
+    if (aUsername.equals(null)||aUsername.equals("")){
        			throw new RuntimeException("The username must be specified.");
        		}
     // END OF UMPLE BEFORE INJECTION
