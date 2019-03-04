@@ -39,14 +39,15 @@ public class Block223Controller {
 		
 		Block223 block223 = Block223Application.getBlock223();
 		UserRole admin = Block223Application.getCurrentUserRole();
-		int numberofblocks=1;
+		Game game;
 		try {
-			Game game=new Game(name, numberofblocks, (Admin) admin, 1, 1, 1, 10, 10, block223);
+			game=new Game(name, 1, (Admin) admin, 1, 1, 1, 10, 10, block223);
 			// System.out.println(game.getNrBlocksPerLevel());
 		}
 		catch (RuntimeException e) {
 			throw new InvalidInputException(e.getMessage());
 		}
+		Block223Application.setCurrentGame(game);
 	}
 
 	public static void setGameDetails(int nrLevels, int nrBlocksPerLevel, int minBallSpeedX, int minBallSpeedY,
@@ -62,7 +63,7 @@ public class Block223Controller {
 		if (Block223Application.getCurrentGame() == null)
 			error = error + "A game must be selected to define game settings. ";
 		
-		if (Block223Application.getCurrentGame().getAdmin()!=Block223Application.getCurrentUserRole())
+		if (Block223Application.getCurrentGame().getAdmin()!= Block223Application.getCurrentUserRole())
 			error=error+"Only the admin who created the game can define its game settings. ";
 		
 		if (nrLevels < 1 || nrLevels > 99)
@@ -163,7 +164,7 @@ public class Block223Controller {
 		if(!(Block223Application.getCurrentUserRole() instanceof Admin))
 			error += "Admin privledges are required to add a block.";		
 		
-		if(Block223Application.CurrentGame == null)
+		if(Block223Application.getCurrentGame() == null)
 				error += "A game must be selected to add a block.";
 		
 		if (Block223Application.getCurrentGame().getAdmin() != Block223Application.getCurrentUserRole())
