@@ -45,15 +45,15 @@ public class Block implements Serializable
   public Block(int aRed, int aGreen, int aBlue, int aPoints, Game aGame)
   {
     // line 118 "../../../../../Block223 v2.ump"
-    if (aRed < 0 || aRred > 255)
+    if (aRed < 0 || aRed > 255)
       			 throw new RuntimeException("Red must be between 0 and 255.");
        	
       
-      		 if (aGgreen < 0 || aGreen > 255)
+      		 if (aGreen < 0 || aGreen > 255)
       		 	throw new RuntimeException("Green must be between 0 and 255.");
        		
        
-      	 	if (aBblue < 0 || aBlue > 255)
+      	 	if (aBlue < 0 || aBlue > 255)
        			throw new RuntimeException("blue must be between 0 and 255.");
        	
        

@@ -32,7 +32,7 @@ public class Block223Controller {
 
 		String error="";
 		if (Block223Application.getCurrentUserRole() instanceof Admin == false) 
-			error="Admin priveleges are required to create a game. ";
+			error="Admin privileges are required to create a game. ";
 		
 		if (error.length() > 0)
 			throw new InvalidInputException(error.trim());

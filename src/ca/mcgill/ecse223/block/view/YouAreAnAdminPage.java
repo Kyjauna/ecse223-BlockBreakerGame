@@ -161,17 +161,21 @@ public class YouAreAnAdminPage {
 		
 		/* The comboBox needs to have a list of all the names of the existing games. */
 		
-		List<TOGame> designableGames = null;
-		try {
-			designableGames = Block223Controller.getDesignableGames();
-		} catch (InvalidInputException e2) {
-			lblErrorMessage.setText(e2.getMessage());
-		}
-		String[] designableGame = designableGames.toArray(new String[0]);
-		for (int i = 0; i < designableGames.size(); i++)
-		{
-			comboBoxExistingGame.addItem(designableGame[i]);
-		}
+		/* Refresh something */
+		
+/*		public static void refresh() {
+			List<TOGame> designableGames = null;
+			try {
+				designableGames = Block223Controller.getDesignableGames();
+			} catch (InvalidInputException e2) {
+				lblErrorMessage.setText(e2.getMessage());
+			}
+			String[] designableGame = designableGames.toArray(new String[0]);
+			for (int i = 0; i < designableGames.size(); i++)
+			{
+				comboBoxExistingGame.addItem(designableGame[i]);
+			}
+		} */
 		
 		/* Create New Game Button */
 		
@@ -187,8 +191,8 @@ public class YouAreAnAdminPage {
 					/* Add game name to comboBox when it's created */
 					comboBoxExistingGame.addItem(newGameName);
 					/* Creating a new game will take you to the updateGamePage */
-					UpdateGamePage createGame = new UpdateGamePage();
-					createGame.frame.setVisible(true);
+					DefineGamePage defineGame = new DefineGamePage();
+					defineGame.frame.setVisible(true);
 					
 				} catch (InvalidInputException e1) {
 					lblErrorMessage.setText(e1.getMessage());
