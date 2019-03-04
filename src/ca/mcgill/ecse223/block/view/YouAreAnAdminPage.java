@@ -181,12 +181,11 @@ public class YouAreAnAdminPage {
 				
 				String newGameName = NewGameNameTxt.getText();
 				
-				/* Add game name to comboBox when it's created */
-				comboBoxExistingGame.addItem(newGameName);
-				
 				/* Actually create the game */
 				try {
 					Block223Controller.createGame(newGameName);
+					/* Add game name to comboBox when it's created */
+					comboBoxExistingGame.addItem(newGameName);
 					/* Creating a new game will take you to the updateGamePage */
 					UpdateGamePage createGame = new UpdateGamePage();
 					createGame.frame.setVisible(true);
