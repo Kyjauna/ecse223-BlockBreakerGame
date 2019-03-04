@@ -241,9 +241,9 @@ public class UpdateGamePage {
 		btnCancel.setFont(new Font("Monospaced", Font.BOLD, 15));
 		btnCancel.setBackground(new Color(135, 206, 235));
 		
-		JLabel label = new JLabel("GAME NAME");
-		label.setForeground(new Color(204, 255, 255));
-		label.setFont(new Font("Monospaced", Font.BOLD, 13));
+		JLabel gameName = new JLabel("GAME NAME");
+		gameName.setForeground(new Color(204, 255, 255));
+		gameName.setFont(new Font("Monospaced", Font.BOLD, 13));
 		
 		gameNametextField = new JTextField();
 		gameNametextField.setColumns(10);
