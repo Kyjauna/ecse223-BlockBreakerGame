@@ -207,6 +207,7 @@ public class YouAreAnAdminPage {
 			public void actionPerformed(ActionEvent e) {
 				
 				/* Logging out will take you back to the Welcome Page */
+				Block223Controller.logout();
 				
 				WelcomePage homePage = new WelcomePage();
 				homePage.frame.setVisible(true);
@@ -225,17 +226,18 @@ public class YouAreAnAdminPage {
 				/* Deleting a game will remove the name from the drop down menu; stay on AdminPage */
 				// This gets the selected item
 				String gameToRemove = (String) comboBoxExistingGame.getSelectedItem();
-				
+
 				/* Actually delete a game */
 				try {
 					Block223Controller.deleteGame(gameToRemove);
 					// This removes the selected item from the menu
 					comboBoxExistingGame.removeItem(gameToRemove);
+					System.out.println("HELLO WORLD");
 
 				} catch (InvalidInputException e1) {
 					lblErrorMessage.setText(e1.getMessage());
 				}
-				
+			
 			}
 		});
 		
@@ -247,13 +249,13 @@ public class YouAreAnAdminPage {
 		btnUpdate.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				
-				// System.out.println("hello world");
 				/* Updating an existing game should take you to the UpdateGamePage */
 				String gameToUpdate = (String) comboBoxExistingGame.getSelectedItem();
 				
 				// How to get all the information of the game I want to update?
 				try {
 					Block223Controller.selectGame(gameToUpdate);
+					System.out.println("hello world");
 					// How do I get to the update game page with the correct game???
 					UpdateGamePage updateGame = new UpdateGamePage();
 					updateGame.frame.setVisible(true);
@@ -369,7 +371,7 @@ public class YouAreAnAdminPage {
 						.addComponent(panel_15, GroupLayout.PREFERRED_SIZE, 18, GroupLayout.PREFERRED_SIZE)))
 		);
 		frame.getContentPane().setLayout(groupLayout);
-		frame.setBounds(100, 100, 704, 563);
+		frame.setBounds(100, 100, 704, 562);
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 	}
 }
