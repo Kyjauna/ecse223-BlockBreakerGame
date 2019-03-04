@@ -15,6 +15,9 @@ public class Block223Persistence {
 		if (block223 == null) {
 			block223 = new Block223();
 		}
+		else {
+			block223.reinitialize();
+		}
 		return block223;
 	}
 }

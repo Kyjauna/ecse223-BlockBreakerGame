@@ -354,7 +354,7 @@ public class Block223Controller {
 		}
 		
 		
-		Block223 block223=Block223Application.getBlock223();
+		Block223 block223=Block223Application.resetBlock223();
 		Player player = null;
 		
 		try{ 
@@ -496,7 +496,7 @@ public class Block223Controller {
 	
 	}
 
-	public List<TOGridCell> getBlocksAtLevelOfCurrentDesignableGame(int level) throws InvalidInputException {
+	public static List<TOGridCell> getBlocksAtLevelOfCurrentDesignableGame(int level) throws InvalidInputException {
 		
 		String error="";
 		if (Block223Application.getCurrentUserRole()instanceof Admin == false)
