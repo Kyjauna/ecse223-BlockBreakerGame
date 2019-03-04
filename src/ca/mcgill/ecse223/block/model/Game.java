@@ -6,7 +6,7 @@ import java.io.Serializable;
 import java.util.*;
 
 // line 53 "../../../../../Block223Persistence.ump"
-// line 52 "../../../../../Block223 v2.ump"
+// line 61 "../../../../../Block223 v2.ump"
 public class Game implements Serializable
 {
 
@@ -24,7 +24,7 @@ public class Game implements Serializable
   /**
    * play area is now constant
    */
-  public static final int PLAY_AREA_SIDE = 390;
+  public static final int PLAY_AREA_SIDE = 400;
   public static final int WALL_PADDING = 10;
   public static final int COLUMNS_PADDING = 5;
   public static final int ROW_PADDING = 2;
@@ -53,7 +53,7 @@ public class Game implements Serializable
 
   public Game(String aName, int aNrBlocksPerLevel, Admin aAdmin, Ball aBall, Paddle aPaddle, Block223 aBlock223)
   {
-    // line 71 "../../../../../Block223 v2.ump"
+    // line 80 "../../../../../Block223 v2.ump"
     if (aName.equals(null) || aName.equals("")) 
        		   throw new RuntimeException("The name of a game must be specified.");
        	   
@@ -92,7 +92,7 @@ public class Game implements Serializable
 
   public Game(String aName, int aNrBlocksPerLevel, Admin aAdmin, int aMinBallSpeedXForBall, int aMinBallSpeedYForBall, double aBallSpeedIncreaseFactorForBall, int aMaxPaddleLengthForPaddle, int aMinPaddleLengthForPaddle, Block223 aBlock223)
   {
-    // line 71 "../../../../../Block223 v2.ump"
+    // line 80 "../../../../../Block223 v2.ump"
     if (aName.equals(null) || aName.equals("")) 
        		   throw new RuntimeException("The name of a game must be specified.");
        	   
@@ -629,7 +629,7 @@ public class Game implements Serializable
    		}
   }
 
-  // line 78 "../../../../../Block223 v2.ump"
+  // line 87 "../../../../../Block223 v2.ump"
   public Block findBlock(int id){
     Block foundBlock = null;
 		for (Block B : this.getBlocks()) {

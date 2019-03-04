@@ -376,12 +376,24 @@ public class Block223 implements Serializable
   public Game findGame(String name){
     Game foundGame = null;
  		for (Game game : this.getGames()) {
- 			if (game.getName() == name) {
+ 			if (game.getName().equals(name)){
  				foundGame = game;
  				break;
  			}
  		}
  		return foundGame;
+  }
+
+  // line 22 "../../../../../Block223 v2.ump"
+  public User findWithUsername(String username){
+    User foundUser = null;
+ 		for (User user : this.getUsers()) {
+ 			if (user.getUsername().equals(username)) {
+ 				foundUser = user;
+ 				break;
+ 			}
+ 		}
+ 		return foundUser;
   }
   
   //------------------------

@@ -5,6 +5,7 @@ import ca.mcgill.ecse223.block.model.Block223;
 import ca.mcgill.ecse223.block.model.Game;
 import ca.mcgill.ecse223.block.model.User;
 import ca.mcgill.ecse223.block.model.UserRole;
+import ca.mcgill.ecse223.block.persistence.Block223Persistence;
 import ca.mcgill.ecse223.block.view.WelcomePage;
 
 public class Block223Application {
@@ -28,7 +29,16 @@ public class Block223Application {
 			// for now, we are just creating an empty BTMS
 			block223 = new Block223();
 		}
- 		return block223;
+		return block223;
+	}
+	
+	
+	public static Block223 resetBlock223() {
+		return Block223Persistence.load();
+	}
+	
+	public static void setBlock223(Block223 b) {
+		block223=b;
 	}
 	
 	public static Game getCurrentGame() {

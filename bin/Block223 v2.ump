@@ -7,18 +7,27 @@ class Block223 {
    1 <@>- * UserRole roles;
    1 <@>- * Game games;
 	
-	 	Game findGame(String name) {
+	 Game findGame(String name) {
  		Game foundGame = null;
  		for (Game game : this.getGames()) {
- 			if (game.getName() == name) {
+ 			if (game.getName().equals(name)){
  				foundGame = game;
  				break;
  			}
  		}
  		return foundGame;
-   
- }
-
+ 	}
+ 		
+ 	User findWithUsername(String username) {
+ 		User foundUser = null;
+ 		for (User user : this.getUsers()) {
+ 			if (user.getUsername().equals(username)) {
+ 				foundUser = user;
+ 				break;
+ 			}
+ 		}
+ 		return foundUser;
+	}
 }
 
 class User {

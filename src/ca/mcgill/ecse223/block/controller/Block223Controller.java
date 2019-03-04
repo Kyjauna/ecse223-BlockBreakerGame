@@ -325,7 +325,7 @@ public class Block223Controller {
 
 	public static void saveGame() throws InvalidInputException {
 		Block223 b=Block223Application.getBlock223();
-		PersistenceObjectStream.serialize(b);
+		Block223Persistence.save(b);
 	}
 
 	public static void register(String username, String playerPassword, String adminPassword)
@@ -356,14 +356,13 @@ public class Block223Controller {
 				Admin admin=new Admin(adminPassword, block223);
 				user.addRole(admin);
 			}
-
+			saveGame();
 		}
 		catch(RuntimeException e) {
 			if (e.getMessage().equals("The password must be specified.")||e.getMessage().equals("The username must be specified."))
 				player.delete();
 			throw new InvalidInputException(e.getMessage());
 		}
-		saveGame();
 	}
 
 	public static void login(String username, String password) throws InvalidInputException {
@@ -372,7 +371,9 @@ public class Block223Controller {
 		if(Block223Application.getCurrentUserRole()!=null)
 			error= "Cannot login a user while a user is logged in. ";
 
-		User user=User.getWithUsername(username);
+		
+		Block223 b=Block223Application.resetBlock223();
+		User user=b.findWithUsername(username);
 		
 		if(user==null)
 			error=error+"There is no user with this username. ";

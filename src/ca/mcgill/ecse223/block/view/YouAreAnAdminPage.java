@@ -198,6 +198,7 @@ public class YouAreAnAdminPage {
 			public void actionPerformed(ActionEvent e) {
 				
 				/* Logging out will take you back to the Welcome Page */
+				Block223Controller.logout();
 				
 				WelcomePage homePage = new WelcomePage();
 				frame.setVisible(false);

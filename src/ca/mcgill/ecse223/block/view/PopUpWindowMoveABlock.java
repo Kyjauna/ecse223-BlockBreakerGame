@@ -29,6 +29,7 @@ import java.awt.event.ActionEvent;
 public class PopUpWindowMoveABlock {
 
 	public JFrame frame;
+	public int levelindex;
 
 	/**
 	 * Launch the application.
@@ -49,14 +50,15 @@ public class PopUpWindowMoveABlock {
 	/**
 	 * Create the application.
 	 */
-	public PopUpWindowMoveABlock() {
-		initialize();
+	public PopUpWindowMoveABlock(int levelindex) {
+		this.levelindex=levelindex;
+		initialize(levelindex);
 	}
 
 	/**
 	 * Initialize the contents of the frame.
 	 */
-	private void initialize() {
+	private void initialize(int levelindex) {
 		Font projectfont = null;
 		try {
 			projectfont = Font.createFont(Font.TRUETYPE_FONT, getClass().getResourceAsStream("/ARCADECLASSIC.TTF"));
