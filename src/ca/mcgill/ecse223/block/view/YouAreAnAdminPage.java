@@ -211,6 +211,7 @@ public class YouAreAnAdminPage {
 				WelcomePage homePage = new WelcomePage();
 				homePage.frame.setVisible(true);
 				frame.setVisible(false);
+				Block223Controller.logout();
 				
 			}
 		});
