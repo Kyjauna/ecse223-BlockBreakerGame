@@ -200,6 +200,7 @@ public class YouAreAnAdminPage {
 				/* Logging out will take you back to the Welcome Page */
 				
 				WelcomePage homePage = new WelcomePage();
+				frame.setVisible(false);
 				homePage.frame.setVisible(true);
 				
 			}

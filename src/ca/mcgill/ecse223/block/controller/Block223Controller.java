@@ -39,11 +39,11 @@ public class Block223Controller {
 		
 		Block223 block223 = Block223Application.getBlock223();
 		UserRole admin = Block223Application.getCurrentUserRole();
-		
+		int numberofblocks=1;
 		try {
 
-			Game game=new Game(name, 1, (Admin) admin, 1, 1, 1, 10, 10, block223);
-
+			Game game=new Game(name, numberofblocks, (Admin) admin, 1, 1, 1, 10, 10, block223);
+			System.out.println(game.getNrBlocksPerLevel());
 		}
 		catch (RuntimeException e) {
 			throw new InvalidInputException(e.getMessage());
@@ -292,7 +292,7 @@ public class Block223Controller {
 		
 		try {
 			Level gameLevel=game.getLevel(level);
-			BlockAssignment assignment=gameLevel.findBlockAssignment(oldGridHorizontalPosition, oldGridVerticalPosition, gameLevel);
+			BlockAssignment assignment=gameLevel.findBlockAssignment(oldGridHorizontalPosition, oldGridVerticalPosition);
 
 			assignment.setGridHorizontalPosition(newGridHorizontalPosition);
 			assignment.setGridVerticalPosition(newGridVerticalPosition);
@@ -317,7 +317,7 @@ public class Block223Controller {
 		
 		Game game = Block223Application.getCurrentGame();
 		Level gameLevel = game.getLevel(level);
-		BlockAssignment assignment = gameLevel.findBlockAssignment(gridHorizontalPosition, gridVerticalPosition, gameLevel);
+		BlockAssignment assignment = gameLevel.findBlockAssignment(gridHorizontalPosition, gridVerticalPosition);
 		if (assignment != null) {
 			assignment.delete();
 		}
