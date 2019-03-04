@@ -232,7 +232,7 @@ public class YouAreAnAdminPage {
 					Block223Controller.deleteGame(gameToRemove);
 					// This removes the selected item from the menu
 					comboBoxExistingGame.removeItem(gameToRemove);
-					System.out.println("HELLO WORLD");
+					// System.out.println("HELLO WORLD");
 
 				} catch (InvalidInputException e1) {
 					lblErrorMessage.setText(e1.getMessage());

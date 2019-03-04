@@ -6,7 +6,7 @@ import java.io.Serializable;
 import java.util.*;
 
 // line 53 "../../../../../Block223Persistence.ump"
-// line 67 "../../../../../Block223 v2.ump"
+// line 61 "../../../../../Block223 v2.ump"
 public class Game implements Serializable
 {
 
@@ -53,12 +53,15 @@ public class Game implements Serializable
 
   public Game(String aName, int aNrBlocksPerLevel, Admin aAdmin, Ball aBall, Paddle aPaddle, Block223 aBlock223)
   {
-    // line 86 "../../../../../Block223 v2.ump"
-    if (aName.equals(null) || aName.equals("")) 
+    // line 80 "../../../../../Block223 v2.ump"
+    if (aName.equals(null) || aName.equals("")) {
        		   throw new RuntimeException("The name of a game must be specified.");
-       	   
-       	   if (nrBlocksPerLevel <= 0)
+       }
+    // END OF UMPLE BEFORE INJECTION
+    // line 84 "../../../../../Block223 v2.ump"
+    if (aNrBlocksPerLevel <= 0){
        			throw new RuntimeException("The number of blocks per level must be greater than zero.");
+       }
     // END OF UMPLE BEFORE INJECTION
     nrBlocksPerLevel = aNrBlocksPerLevel;
     if (!setName(aName))
@@ -92,12 +95,15 @@ public class Game implements Serializable
 
   public Game(String aName, int aNrBlocksPerLevel, Admin aAdmin, int aMinBallSpeedXForBall, int aMinBallSpeedYForBall, double aBallSpeedIncreaseFactorForBall, int aMaxPaddleLengthForPaddle, int aMinPaddleLengthForPaddle, Block223 aBlock223)
   {
-    // line 86 "../../../../../Block223 v2.ump"
-    if (aName.equals(null) || aName.equals("")) 
+    // line 80 "../../../../../Block223 v2.ump"
+    if (aName.equals(null) || aName.equals("")) {
        		   throw new RuntimeException("The name of a game must be specified.");
-       	   
-       	   if (nrBlocksPerLevel <= 0)
+       }
+    // END OF UMPLE BEFORE INJECTION
+    // line 84 "../../../../../Block223 v2.ump"
+    if (aNrBlocksPerLevel <= 0){
        			throw new RuntimeException("The number of blocks per level must be greater than zero.");
+       }
     // END OF UMPLE BEFORE INJECTION
     name = aName;
     nrBlocksPerLevel = aNrBlocksPerLevel;
@@ -629,7 +635,7 @@ public class Game implements Serializable
    		}
   }
 
-  // line 93 "../../../../../Block223 v2.ump"
+  // line 88 "../../../../../Block223 v2.ump"
   public Block findBlock(int id){
     Block foundBlock = null;
 		for (Block B : this.getBlocks()) {

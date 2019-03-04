@@ -77,12 +77,13 @@ class Game {
    1 <@>- 1 Paddle paddle;
    
    before constructor {
-   	   if (aName.equals(null) || aName.equals("")) 
+   	   if (aName.equals(null) || aName.equals("")) {
    		   throw new RuntimeException("The name of a game must be specified.");
-   	   
-   	   if (nrBlocksPerLevel <= 0)
+   } }
+   before constructor {   
+   	   if (aNrBlocksPerLevel <= 0){
    			throw new RuntimeException("The number of blocks per level must be greater than zero.");
-   }
+   } }
 		Block findBlock(int id) {
 		Block foundBlock = null;
 		for (Block B : this.getBlocks()) {
@@ -114,19 +115,19 @@ class Block {
    
   before constructor {
    
-    	if (red < 0 || red > 255)
+    	if (aRed < 0 || aRred > 255)
   			 throw new RuntimeException("Red must be between 0 and 255.");
    	
   
-  		 if (green < 0 || green > 255)
+  		 if (aGgreen < 0 || aGreen > 255)
   		 	throw new RuntimeException("Green must be between 0 and 255.");
    		
    
-  	 	if (blue < 0 || blue > 255)
+  	 	if (aBblue < 0 || aBlue > 255)
    			throw new RuntimeException("blue must be between 0 and 255.");
    	
    
-   		if (points < 1 || points > 1000)
+   		if (aPoints < 1 || aPoints > 1000)
    			throw new RuntimeException("Points must be between 1 and 1000");
   }
 }
@@ -162,13 +163,13 @@ class Ball {
    Double ballSpeedIncreaseFactor;
    
      before constructor{
-   		if (minBallSpeedX <= 0){
+   		if (aMinBallSpeedX <= 0){
    			throw new RuntimeException("The minimum speed of the ball must be greater than zero.");
    		}
-   		if (minBallSpeedY <= 0){
+   		if (aMinBallSpeedY <= 0){
    			throw new RuntimeException("The minimum speed of the ball must be greater than zero.");
 		}
-   		if (ballSpeedIncreaseFactor <= 0){
+   		if (aBallSpeedIncreaseFactor <= 0){
    			throw new RuntimeException("The speed increase factor of the ball must be greater than zero.");  
 		}
    }
@@ -183,10 +184,10 @@ class Paddle {
    Integer minPaddleLength;
    
    before constructor{
-      	if (maxPaddleLength <= 0 || maxPaddleLength > 400){
+      	if (aMaxPaddleLength <= 0 || aMaxPaddleLength > 400){
    			throw new RuntimeException("The maximum length of the paddle must be greater than zero and less than or equal to 400");
       	}
-      	if (minPaddleLength <= 0){
+      	if (aMinPaddleLength <= 0){
    			throw new RuntimeException("The minimum length of the paddle must be greater than zero");
       	}
 	}

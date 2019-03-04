@@ -6,7 +6,7 @@ import java.io.Serializable;
 import java.util.*;
 
 // line 30 "../../../../../Block223Persistence.ump"
-// line 107 "../../../../../Block223 v2.ump"
+// line 102 "../../../../../Block223 v2.ump"
 public class Block implements Serializable
 {
 
@@ -44,20 +44,20 @@ public class Block implements Serializable
 
   public Block(int aRed, int aGreen, int aBlue, int aPoints, Game aGame)
   {
-    // line 123 "../../../../../Block223 v2.ump"
-    if (red < 0 || red > 255)
+    // line 118 "../../../../../Block223 v2.ump"
+    if (aRed < 0 || aRred > 255)
       			 throw new RuntimeException("Red must be between 0 and 255.");
        	
       
-      		 if (green < 0 || green > 255)
+      		 if (aGgreen < 0 || aGreen > 255)
       		 	throw new RuntimeException("Green must be between 0 and 255.");
        		
        
-      	 	if (blue < 0 || blue > 255)
+      	 	if (aBblue < 0 || aBlue > 255)
        			throw new RuntimeException("blue must be between 0 and 255.");
        	
        
-       		if (points < 1 || points > 1000)
+       		if (aPoints < 1 || aPoints > 1000)
        			throw new RuntimeException("Points must be between 1 and 1000");
     // END OF UMPLE BEFORE INJECTION
     red = aRed;

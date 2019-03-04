@@ -41,9 +41,8 @@ public class Block223Controller {
 		UserRole admin = Block223Application.getCurrentUserRole();
 		int numberofblocks=1;
 		try {
-
 			Game game=new Game(name, numberofblocks, (Admin) admin, 1, 1, 1, 10, 10, block223);
-			System.out.println(game.getNrBlocksPerLevel());
+			// System.out.println(game.getNrBlocksPerLevel());
 		}
 		catch (RuntimeException e) {
 			throw new InvalidInputException(e.getMessage());
