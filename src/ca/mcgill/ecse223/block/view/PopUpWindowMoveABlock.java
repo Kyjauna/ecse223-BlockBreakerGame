@@ -10,6 +10,7 @@ import javax.swing.JLabel;
 import java.awt.Font;
 import java.awt.FontFormatException;
 import java.io.IOException;
+import java.util.List;
 
 import javax.swing.JSpinner;
 import javax.swing.JButton;
@@ -20,6 +21,7 @@ import javax.swing.SpinnerNumberModel;
 
 import ca.mcgill.ecse223.block.controller.Block223Controller;
 import ca.mcgill.ecse223.block.controller.InvalidInputException;
+import ca.mcgill.ecse223.block.controller.TOGridCell;
 
 import java.awt.GridBagLayout;
 import java.awt.GridBagConstraints;
@@ -77,7 +79,7 @@ public class PopUpWindowMoveABlock {
 		
 		
 		frame = new JFrame();
-		frame.setBounds(100, 100, 276, 248);
+		frame.setBounds(100, 100, 276, 257);
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		
 		JLayeredPane layeredPane_1 = new JLayeredPane();
@@ -86,18 +88,16 @@ public class PopUpWindowMoveABlock {
 			groupLayout.createParallelGroup(Alignment.LEADING)
 				.addGroup(groupLayout.createSequentialGroup()
 					.addComponent(layeredPane_1, GroupLayout.PREFERRED_SIZE, 264, GroupLayout.PREFERRED_SIZE)
-					.addContainerGap(563, Short.MAX_VALUE))
+					.addContainerGap(GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
 		);
 		groupLayout.setVerticalGroup(
 			groupLayout.createParallelGroup(Alignment.LEADING)
-				.addGroup(groupLayout.createSequentialGroup()
-					.addComponent(layeredPane_1, GroupLayout.PREFERRED_SIZE, 208, GroupLayout.PREFERRED_SIZE)
-					.addContainerGap(269, Short.MAX_VALUE))
+				.addComponent(layeredPane_1, GroupLayout.DEFAULT_SIZE, 226, Short.MAX_VALUE)
 		);
 		
 		JPanel panel = new JPanel();
 		layeredPane_1.setLayer(panel, 1);
-		panel.setBounds(0, 0, 263, 195);
+		panel.setBounds(0, 0, 263, 213);
 		layeredPane_1.add(panel);
 		panel.setBackground(Color.WHITE);
 		panel.setLayout(null);
@@ -123,7 +123,7 @@ public class PopUpWindowMoveABlock {
 		panel.add(spinner_3);
 		
 		JSpinner spinner_2 = new JSpinner(numbermodelV);
-		spinner_2.setBounds(221, 126, 30, 22);
+		spinner_2.setBounds(221, 123, 30, 22);
 		panel.add(spinner_2);
 		
 		JLabel lblOldVerticalGrid = new JLabel("Old Vertical Grid Position:");
@@ -132,14 +132,22 @@ public class PopUpWindowMoveABlock {
 		panel.add(lblOldVerticalGrid);
 		
 		JLabel lblNewVerticalGrid = new JLabel("New Vertical Grid Position:");
-		lblNewVerticalGrid.setBounds(12, 97, 189, 17);
+		lblNewVerticalGrid.setBounds(12, 126, 189, 17);
 		lblNewVerticalGrid.setFont(new Font("DialogInput", Font.PLAIN, 12));
 		panel.add(lblNewVerticalGrid);
 		
 		JLabel lblNewHorizontalGrid = new JLabel("New Horizontal Grid Position:");
-		lblNewHorizontalGrid.setBounds(12, 129, 203, 17);
+		lblNewHorizontalGrid.setBounds(12, 97, 203, 17);
 		lblNewHorizontalGrid.setFont(new Font("DialogInput", Font.PLAIN, 12));
 		panel.add(lblNewHorizontalGrid);
+		
+		
+		JLabel lblErrormessage = new JLabel("ErrorMessage");
+		lblErrormessage.setFont(new Font("Monospaced", Font.PLAIN, 10));
+		lblErrormessage.setBounds(12, 184, 239, 29);
+		lblErrormessage.setVisible(false);
+		panel.add(lblErrormessage);
+		frame.getContentPane().setLayout(groupLayout);
 		
 		JLayeredPane layeredPane = new JLayeredPane();
 		layeredPane.setBounds(262, 127, 1, 1);
@@ -164,10 +172,20 @@ public class PopUpWindowMoveABlock {
 		btnNewButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 			
+			Integer oldxvalue=(Integer) spinner.getValue();
+			Integer oldyvalue=(Integer) spinner_1.getValue();
+			try {
+				Block223Controller.removeBlock(levelindex,oldxvalue, oldyvalue);
+				frame.setVisible(false);
+				
+			} catch (InvalidInputException e1) {
+				lblErrormessage.setText(e1.getMessage());
+				lblErrormessage.setVisible(true);
+			}
 			
 			}
 		});
-		btnNewButton.setBounds(22, 161, 81, 25);
+		btnNewButton.setBounds(22, 156, 81, 25);
 		btnNewButton.setFont(projectfont18);
 		panel.add(btnNewButton);
 		
@@ -182,17 +200,18 @@ public class PopUpWindowMoveABlock {
 			
 			try {
 				Block223Controller.moveBlock(levelindex, oldHorizontalPos, oldVerticalPos, newHorizontalPos, newVerticalPos);
+				frame.setVisible(false);
 			} catch (InvalidInputException e1) {
-				// TODO Auto-generated catch block
-				e1.printStackTrace();
+				lblErrormessage.setText(e1.getMessage());
+				lblErrormessage.setVisible(true);
 			}
 			
 			}
 		});
-		btnMove.setBounds(145, 161, 81, 25);
+		btnMove.setBounds(134, 156, 81, 25);
 		btnMove.setFont(projectfont18);
 		panel.add(btnMove);
-		frame.getContentPane().setLayout(groupLayout);
+
 	}
 
 }
