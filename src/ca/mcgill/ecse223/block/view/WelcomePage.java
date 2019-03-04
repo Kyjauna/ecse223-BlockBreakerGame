@@ -22,10 +22,13 @@ import javax.swing.SwingConstants;
 
 import ca.mcgill.ecse223.block.controller.Block223Controller;
 import ca.mcgill.ecse223.block.controller.InvalidInputException;
+import ca.mcgill.ecse223.block.controller.TOUserMode;
+import ca.mcgill.ecse223.block.controller.TOUserMode.Mode;
 
 import javax.swing.JMenuBar;
 import java.awt.event.ActionListener;
 import java.io.IOException;
+import java.util.EnumSet;
 import java.awt.event.ActionEvent;
 import javax.swing.JLayeredPane;
 import java.awt.Panel;
@@ -83,8 +86,6 @@ public class WelcomePage {
 		}
 		Font projectfont52 = projectfont.deriveFont(52f);
 		Font projectfont15 = projectfont.deriveFont(15f);
-		Font projectfont24 = projectfont.deriveFont(24f);
-		Font projectfont10 = projectfont.deriveFont(10f);
 		
 		frame = new JFrame();
 		frame.getContentPane().setBackground(new Color(0, 0, 51));
@@ -167,12 +168,6 @@ public class WelcomePage {
 				txtUsername_1.setFont(new Font("Charter", Font.PLAIN, 13));
 				txtUsername_1.setColumns(10);
 				
-				pwdPassword_1 = new JPasswordField();
-				layeredPane.setLayer(pwdPassword_1, 2);
-				pwdPassword_1.setForeground(new Color(0, 0, 153));
-				pwdPassword_1.setFont(new Font("Charter", Font.PLAIN, 13));
-				pwdPassword_1.setColumns(10);
-				
 				JButton btnSignUp = new JButton("SIGN UP");
 				layeredPane.setLayer(btnSignUp, 2);
 				btnSignUp.setForeground(new Color(0, 0, 51));
@@ -207,9 +202,19 @@ public class WelcomePage {
 						String password=new String(pwdPassword_1.getPassword());	//getting text from the password field
 						try {
 							Block223Controller.login(username, password);	//calling controller to perform action associated with the method
-							YouAreAnAdminPage adminPage = new YouAreAnAdminPage();
-							frame.setVisible(false);
-							adminPage.frame.setVisible(true);
+							TOUserMode mode=Block223Controller.getUserMode();
+							
+							if (mode.getMode() == Mode.Design) {
+								YouAreAnAdminPage adminPage = new YouAreAnAdminPage();
+								frame.setVisible(false);
+								adminPage.frame.setVisible(true);	
+							}
+							
+							if (mode.getMode()==Mode.Play) {
+								PlayerPage playerPage = new PlayerPage();
+								frame.setVisible(false);
+								playerPage.frame.setVisible(true);		
+							}
 						
 						} catch (InvalidInputException e1) {
 							lblErrormessage.setText(e1.getMessage());
@@ -218,6 +223,12 @@ public class WelcomePage {
 						
 					}
 				});
+				
+				pwdPassword_1 = new JPasswordField();
+				layeredPane.setLayer(pwdPassword_1, 2);
+				pwdPassword_1.setForeground(new Color(0, 0, 153));
+				pwdPassword_1.setFont(new Font("Charter", Font.PLAIN, 13));
+				pwdPassword_1.setColumns(10);
 
 				GroupLayout gl_panel_22 = new GroupLayout(panel_22);
 				gl_panel_22.setHorizontalGroup(
@@ -229,21 +240,16 @@ public class WelcomePage {
 						.addGroup(gl_panel_22.createSequentialGroup()
 							.addGap(24)
 							.addGroup(gl_panel_22.createParallelGroup(Alignment.LEADING)
+								.addComponent(layeredPane_2, GroupLayout.PREFERRED_SIZE, 283, GroupLayout.PREFERRED_SIZE)
 								.addGroup(gl_panel_22.createSequentialGroup()
-									.addComponent(layeredPane_2, GroupLayout.PREFERRED_SIZE, 283, GroupLayout.PREFERRED_SIZE)
-									.addContainerGap())
-								.addGroup(gl_panel_22.createSequentialGroup()
-									.addGroup(gl_panel_22.createParallelGroup(Alignment.TRAILING)
-										.addComponent(panel_23, GroupLayout.DEFAULT_SIZE, 85, Short.MAX_VALUE)
-										.addComponent(panel_24, GroupLayout.DEFAULT_SIZE, 85, Short.MAX_VALUE))
+									.addGroup(gl_panel_22.createParallelGroup(Alignment.LEADING, false)
+										.addComponent(panel_24, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+										.addComponent(panel_23, GroupLayout.DEFAULT_SIZE, 127, Short.MAX_VALUE))
+									.addPreferredGap(ComponentPlacement.UNRELATED)
 									.addGroup(gl_panel_22.createParallelGroup(Alignment.LEADING)
-										.addGroup(gl_panel_22.createSequentialGroup()
-											.addGap(19)
-											.addComponent(txtUsername_1, 142, 142, 142))
-										.addGroup(gl_panel_22.createSequentialGroup()
-											.addGap(18)
-											.addComponent(pwdPassword_1, GroupLayout.DEFAULT_SIZE, 143, Short.MAX_VALUE)))
-									.addGap(84))))
+										.addComponent(txtUsername_1, GroupLayout.PREFERRED_SIZE, 142, GroupLayout.PREFERRED_SIZE)
+										.addComponent(pwdPassword_1, GroupLayout.PREFERRED_SIZE, 142, GroupLayout.PREFERRED_SIZE))))
+							.addContainerGap())
 						.addGroup(gl_panel_22.createSequentialGroup()
 							.addGap(124)
 							.addComponent(btnSignUp, GroupLayout.PREFERRED_SIZE, 90, GroupLayout.PREFERRED_SIZE)

@@ -14,7 +14,6 @@ public class Block223Application {
 	public static User CurrentUser;
 	public static UserRole CurrentUserRole;
 	
-	
 	public static void main(String[] args) {
 		// start UI
         java.awt.EventQueue.invokeLater(new Runnable() {
