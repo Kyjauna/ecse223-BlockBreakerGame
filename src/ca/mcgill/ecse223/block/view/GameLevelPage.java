@@ -491,6 +491,8 @@ public class GameLevelPage {
 		btnNextLevel.setFont(projectfont15);
 		btnNextLevel.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
+			level++;
+			GameLevelPage.refresh();
 			}
 		});
 		
@@ -516,6 +518,8 @@ public class GameLevelPage {
 		btnPreviousLevel.setFont(projectfont15);
 		btnPreviousLevel.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
+			level--;
+			GameLevelPage.refresh();
 			}
 		});
 		

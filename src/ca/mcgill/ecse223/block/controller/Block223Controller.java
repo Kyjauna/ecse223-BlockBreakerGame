@@ -240,7 +240,9 @@ public class Block223Controller {
 
 	public static void positionBlock(int id, int level, int gridHorizontalPosition, int gridVerticalPosition)
 			throws InvalidInputException {
+		
 		String error="";
+		
 		if (Block223Application.getCurrentUserRole()instanceof Admin == false)
 			error="Admin Privileges are required to move a block. ";
 		
@@ -251,36 +253,33 @@ public class Block223Controller {
 			error=error+"Only the admin who created the game may move a block. ";
 	
 		Game game=Block223Application.getCurrentGame();
+		Level gameLevel;
 		
 		try {
-			Level gameLevel=game.getLevel(level);
-			BlockAssignment assignment=findBlockAssignment(oldGridHorizontalPosition, oldGridVerticalPosition, gameLevel);
-			assignment.setGridHorizontalPosition(newGridHorizontalPosition);
-			assignment.setGridVerticalPosition(newGridVerticalPosition);
+			gameLevel=game.getLevel(level);
 		}
 		catch (IndexOutOfBoundsException e) {
 			throw new InvalidInputException ("Level"+level+"does not exist for this game.");
 		}
 		
-		int maxNrBlocksPerLevel = (390/20);
-		if(Game.nrBlocksPerLevel = maxNrBlocksPerLevel) {
-			throw new InvalidInputException ("The numer of blocks has reached the maximum number"+ nrBlocksPerLevel + "allowed for this game.");
+		int maxNrBlocksPerLevel = Block223Application.getCurrentGame().getNrBlocksPerLevel();
+		if(gameLevel.numberOfBlockAssignments() == maxNrBlocksPerLevel) {
+			throw new InvalidInputException ("The numer of blocks has reached the maximum number"+ maxNrBlocksPerLevel + "allowed for this game.");
 		}
 		
-		
-		if(BlockAssignment.gridHorizontalPosition == gridHorizontalPosition && BlockAssignment.gridVerticalPosition == gridVerticalPosition) {
-			throw new InvaidInputException("A block already exists at that location"+gridHorizontalPosition+"/"+gridVerticalPosition+".");
+		for (BlockAssignment BA : gameLevel.getBlockAssignments()) {
+			if(BA.getGridHorizontalPosition() == gridHorizontalPosition && BA.getGridVerticalPosition() == gridVerticalPosition) {
+				throw new InvalidInputException("A block already exists at that location"+gridHorizontalPosition+"/"+gridVerticalPosition+".");
+			}
 		}
-			
-		Level currentLevel = game.getLevel(level);
+
+		Block block = game.findBlock(id);
 		
-		Block block = findBlock(id);
-		
-		if(findBlock(id) == null) {
+		if(game.findBlock(id) == null) {
 			throw new InvalidInputException("The block does not exist.");
 		}
 		
-		create(gridHorizontalPosition, gridVerticalPosition, currentLevel, block, game);
+		BlockAssignment newBlock = new BlockAssignment(gridHorizontalPosition, gridVerticalPosition,gameLevel, block, game);
 	}
 
 	public static void moveBlock(int level, int oldGridHorizontalPosition, int oldGridVerticalPosition,
