@@ -41,8 +41,8 @@ public class GameLevelPage {
 	public JTextField GreenValue;
 	public JTextField BlueValue;
 	JLayeredPane layeredPane;
-	JPanel panel_262;
-	int level=0;
+	static JPanel panel_262;
+	static int level=0;
 
 	/**
 	 * Launch the application.
@@ -61,7 +61,7 @@ public class GameLevelPage {
 	}
 
 	
-	public void refresh() {
+	public static void refresh() {
 		List<TOGridCell> BAs = null;
 		try {
 			BAs=Block223Controller.getBlocksAtLevelOfCurrentDesignableGame(level);

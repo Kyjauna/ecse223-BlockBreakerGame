@@ -319,7 +319,7 @@ public class Block223Controller {
 		}
 		
 		
-		Block223 block223=Block223Application.getBlock223();
+		Block223 block223=Block223Application.resetBlock223();
 		Player player = null;
 		
 		try{ 

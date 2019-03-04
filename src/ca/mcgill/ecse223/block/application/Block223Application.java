@@ -26,7 +26,6 @@ public class Block223Application {
 	
 	public static Block223 getBlock223() {
 		if (block223 == null) {
-			// for now, we are just creating an empty BTMS
 			block223 = new Block223();
 		}
 		return block223;
@@ -34,7 +33,8 @@ public class Block223Application {
 	
 	
 	public static Block223 resetBlock223() {
-		return Block223Persistence.load();
+		block223=Block223Persistence.load();
+		return block223;
 	}
 	
 	public static void setBlock223(Block223 b) {
