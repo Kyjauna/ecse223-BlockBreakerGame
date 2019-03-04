@@ -19,6 +19,7 @@ import javax.swing.LayoutStyle.ComponentPlacement;
 import ca.mcgill.ecse223.block.controller.Block223Controller;
 import ca.mcgill.ecse223.block.controller.InvalidInputException;
 //import ca.mcgill.ecse223.block.controller.TOGame;
+import ca.mcgill.ecse223.block.controller.TOGame;
 
 import javax.swing.JTextField;
 import javax.swing.JButton;
@@ -28,6 +29,7 @@ import javax.swing.JDesktopPane;
 // import java.awt.Choice;
 import java.awt.event.ActionListener;
 import java.io.IOException;
+import java.util.List;
 //import java.util.List;
 import java.awt.event.ActionEvent;
 
@@ -63,6 +65,9 @@ public class YouAreAnAdminPage {
 	 * Initialize the contents of the frame.
 	 */
 	private void initialize() {
+		frame = new JFrame();
+		frame.getContentPane().setBackground(new Color(0, 0, 51));
+		
 		Font projectfont = null;
 		try {
 			projectfont = Font.createFont(Font.TRUETYPE_FONT, getClass().getResourceAsStream("/ARCADECLASSIC.TTF"));
@@ -75,11 +80,8 @@ public class YouAreAnAdminPage {
 		}
 		Font projectfont52 = projectfont.deriveFont(52f);
 		Font projectfont15 = projectfont.deriveFont(15f);
-		Font projectfont24 = projectfont.deriveFont(24f);
-		Font projectfont10 = projectfont.deriveFont(10f);
-		
-		frame = new JFrame();
-		frame.getContentPane().setBackground(new Color(0, 0, 51));
+//		Font projectfont24 = projectfont.deriveFont(24f);
+//		Font projectfont10 = projectfont.deriveFont(10f);
 		
 		JLabel lblYouAreAn = new JLabel("YOU ARE AN ADMIN");
 		lblYouAreAn.setFont(projectfont52);
@@ -146,7 +148,7 @@ public class YouAreAnAdminPage {
 		
 		NewGameNameTxt = new JTextField();
 		NewGameNameTxt.setToolTipText("");
-		NewGameNameTxt.setFont(projectfont15);
+		NewGameNameTxt.setFont(new Font("Monospaced", Font.PLAIN, 12));
 		NewGameNameTxt.setForeground(new Color(0, 0, 0));
 		NewGameNameTxt.setColumns(10);
 				
@@ -157,16 +159,23 @@ public class YouAreAnAdminPage {
 		comboBoxExistingGame.setMaximumRowCount(12);
 		comboBoxExistingGame.setFont(new Font("Monospaced", Font.PLAIN, 12));
 		
-		/* 
-		 * 
-		 * The comboBox needs to have a list of all the names of the existing games.
-		 * 
-		 */
+		/* The comboBox needs to have a list of all the names of the existing games. */
 		
+		List<TOGame> designableGames = null;
+		try {
+			designableGames = Block223Controller.getDesignableGames();
+		} catch (InvalidInputException e2) {
+			lblErrorMessage.setText(e2.getMessage());
+		}
+		String[] designableGame = designableGames.toArray(new String[0]);
+		for (int i = 0; i < designableGames.size(); i++)
+		{
+			comboBoxExistingGame.addItem(designableGame[i]);
+		}
 		
 		/* Create New Game Button */
 		
-		JButton btnCreateNewGame = new JButton("CREATE NEW GAME");
+		JButton btnCreateNewGame = new JButton("CREATE   NEW   GAME");
 		btnCreateNewGame.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				
@@ -198,11 +207,10 @@ public class YouAreAnAdminPage {
 			public void actionPerformed(ActionEvent e) {
 				
 				/* Logging out will take you back to the Welcome Page */
-				Block223Controller.logout();
 				
 				WelcomePage homePage = new WelcomePage();
-				frame.setVisible(false);
 				homePage.frame.setVisible(true);
+				frame.setVisible(false);
 				
 			}
 		});
@@ -312,14 +320,14 @@ public class YouAreAnAdminPage {
 						.addGroup(groupLayout.createSequentialGroup()
 							.addGap(288)
 							.addComponent(btnLogout, GroupLayout.PREFERRED_SIZE, 87, GroupLayout.PREFERRED_SIZE)))
-					.addContainerGap(17, Short.MAX_VALUE))
+					.addContainerGap(28, Short.MAX_VALUE))
 				.addGroup(groupLayout.createSequentialGroup()
-					.addContainerGap(162, Short.MAX_VALUE)
+					.addContainerGap(164, Short.MAX_VALUE)
 					.addComponent(lblErrorMessage, GroupLayout.PREFERRED_SIZE, 524, GroupLayout.PREFERRED_SIZE))
-				.addGroup(groupLayout.createSequentialGroup()
-					.addContainerGap(149, Short.MAX_VALUE)
+				.addGroup(Alignment.LEADING, groupLayout.createSequentialGroup()
+					.addGap(137)
 					.addComponent(lblYouAreAn)
-					.addGap(139))
+					.addContainerGap(153, Short.MAX_VALUE))
 		);
 		groupLayout.setVerticalGroup(
 			groupLayout.createParallelGroup(Alignment.LEADING)
@@ -347,7 +355,7 @@ public class YouAreAnAdminPage {
 					.addGroup(groupLayout.createParallelGroup(Alignment.BASELINE)
 						.addComponent(button, GroupLayout.PREFERRED_SIZE, 25, GroupLayout.PREFERRED_SIZE)
 						.addComponent(btnUpdate, GroupLayout.PREFERRED_SIZE, 25, GroupLayout.PREFERRED_SIZE))
-					.addPreferredGap(ComponentPlacement.RELATED, 88, Short.MAX_VALUE)
+					.addPreferredGap(ComponentPlacement.RELATED, 95, Short.MAX_VALUE)
 					.addComponent(btnLogout)
 					.addGap(18)
 					.addGroup(groupLayout.createParallelGroup(Alignment.TRAILING)
