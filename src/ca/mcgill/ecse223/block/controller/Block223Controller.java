@@ -307,19 +307,6 @@ public class Block223Controller {
 		}
 
 	}
-	
-	   
-	   public static BlockAssignment findBlockAssignment(int oldHorizontalGridPosition, int oldVerticalGridPosition, Level level){
-			BlockAssignment foundBA = null;
-			for (BlockAssignment BA : level.getBlockAssignments()) {
-				if (BA.getGridHorizontalPosition() == oldHorizontalGridPosition&&BA.getGridHorizontalPosition()==oldVerticalGridPosition) {
-					foundBA = BA;
-					break;
-				}
-			}
-			return foundBA;
-	   }
-
 	public static void removeBlock(int level, int gridHorizontalPosition, int gridVerticalPosition)
 			throws InvalidInputException {
 		// Should I put this after the error checks
@@ -335,7 +322,7 @@ public class Block223Controller {
 		
 		Game game = Block223Application.getCurrentGame();
 		Level gameLevel = game.getLevel(level);
-		BlockAssignment assignment = findBlockAssignment(gridHorizontalPosition, gridVerticalPosition, gameLevel);
+		BlockAssignment assignment = gameLevel.findBlockAssignment(gridHorizontalPosition, gridVerticalPosition, gameLevel);
 		if (assignment != null) {
 			assignment.delete();
 		}
@@ -348,7 +335,6 @@ public class Block223Controller {
 
 	public static void register(String username, String playerPassword, String adminPassword)
 			throws InvalidInputException {
-
 		
 		String error = "";
 		
@@ -363,25 +349,25 @@ public class Block223Controller {
 		if (error.length() > 0) {
 			throw new InvalidInputException(error.trim());
 		}
+		
 		Player player = null;
 		
 		try{ 
 			player= new Player(playerPassword, block223);
 			User user= new User(username, block223, player);
 			
-			if(adminPassword!=null&&adminPassword!= "") {
+			if(adminPassword!=null && adminPassword!= "") {
 				Admin admin=new Admin(adminPassword, block223);
 				user.addRole(admin);
 			}
-			Block223Controller.saveGame();
+
 		}
 		catch(RuntimeException e) {
-			
-			if (e.getMessage()=="The password must be specified."||e.getMessage()=="The username must be specified.")
+			if (e.getMessage().equals("The password must be specified.")||e.getMessage().equals("The username must be specified."))
 				player.delete();
 			throw new InvalidInputException(e.getMessage());
 		}
-		saveGame();
+		//saveGame();
 	}
 
 	public static void login(String username, String password) throws InvalidInputException {

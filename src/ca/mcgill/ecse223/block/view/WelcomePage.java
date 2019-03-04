@@ -9,6 +9,7 @@ import java.awt.GridBagLayout;
 import javax.swing.GroupLayout;
 import javax.swing.GroupLayout.Alignment;
 import java.awt.Font;
+import java.awt.FontFormatException;
 import java.awt.Color;
 import javax.swing.JTextField;
 import javax.swing.JFormattedTextField;
@@ -24,6 +25,7 @@ import ca.mcgill.ecse223.block.controller.InvalidInputException;
 
 import javax.swing.JMenuBar;
 import java.awt.event.ActionListener;
+import java.io.IOException;
 import java.awt.event.ActionEvent;
 import javax.swing.JLayeredPane;
 import java.awt.Panel;
@@ -69,6 +71,21 @@ public class WelcomePage {
 	 * Initialize the contents of the frame.
 	 */
 	private void initialize() {
+		Font projectfont = null;
+		try {
+			projectfont = Font.createFont(Font.TRUETYPE_FONT, getClass().getResourceAsStream("/ARCADECLASSIC.TTF"));
+		} catch (FontFormatException e1) {
+			// TODO Auto-generated catch block
+			e1.printStackTrace();
+		} catch (IOException e1) {
+			// TODO Auto-generated catch block
+			e1.printStackTrace();
+		}
+		Font projectfont52 = projectfont.deriveFont(52f);
+		Font projectfont15 = projectfont.deriveFont(15f);
+		Font projectfont24 = projectfont.deriveFont(24f);
+		Font projectfont10 = projectfont.deriveFont(10f);
+		
 		frame = new JFrame();
 		frame.getContentPane().setBackground(new Color(0, 0, 51));
 		frame.setBounds(100, 100, 642, 523);
@@ -89,6 +106,30 @@ public class WelcomePage {
 		);
 		layeredPane_1.setLayout(null);
 		
+		JLayeredPane layeredPane_2 = new JLayeredPane();
+		
+		JPanel panel_25 = new JPanel();
+		panel_25.setVisible(false);
+		
+						
+						lblErrormessage = new JLabel("");
+						lblErrormessage.setForeground(new Color(0, 0, 51));
+						lblErrormessage.setFont(new Font("Monospaced", Font.BOLD, 12));
+						lblErrormessage.setText("errormessage");
+						GroupLayout gl_panel_25 = new GroupLayout(panel_25);
+						gl_panel_25.setHorizontalGroup(
+							gl_panel_25.createParallelGroup(Alignment.LEADING)
+								.addGroup(gl_panel_25.createSequentialGroup()
+									.addComponent(lblErrormessage)
+									.addContainerGap(198, Short.MAX_VALUE))
+						);
+						gl_panel_25.setVerticalGroup(
+							gl_panel_25.createParallelGroup(Alignment.LEADING)
+								.addGroup(gl_panel_25.createSequentialGroup()
+									.addComponent(lblErrormessage)
+									.addContainerGap(GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+						);
+						panel_25.setLayout(gl_panel_25);
 		
 		JLayeredPane layeredPane = new JLayeredPane();
 		layeredPane_1.setLayer(layeredPane, 50);
@@ -96,10 +137,10 @@ public class WelcomePage {
 		layeredPane_1.add(layeredPane);
 		
 		JLabel lblNewLabel = new JLabel("BLOCK 223");
-		lblNewLabel.setBounds(171, 41, 278, 67);
+		lblNewLabel.setBounds(178, 41, 278, 67);
 		layeredPane.add(lblNewLabel);
 		lblNewLabel.setForeground(new Color(204, 204, 255));
-		lblNewLabel.setFont(new Font("Monospaced", Font.BOLD, 52));
+		lblNewLabel.setFont(projectfont52);
 				
 				JPanel panel_22 = new JPanel();
 				layeredPane.setLayer(panel_22, 1);
@@ -134,8 +175,8 @@ public class WelcomePage {
 				
 				JButton btnSignUp = new JButton("SIGN UP");
 				layeredPane.setLayer(btnSignUp, 2);
-				btnSignUp.setForeground(new Color(0, 0, 255));
-				btnSignUp.setFont(new Font("Monospaced", Font.BOLD, 12));
+				btnSignUp.setForeground(new Color(0, 0, 51));
+				btnSignUp.setFont(projectfont15);
 				
 				btnSignUp.addActionListener(new ActionListener() {
 					public void actionPerformed(ActionEvent arg0) {
@@ -150,9 +191,8 @@ public class WelcomePage {
 				JButton btnLogin = new JButton("LOGIN");
 				layeredPane.setLayer(btnLogin, 2);
 				btnLogin.setForeground(new Color(0, 0, 51));
-				btnLogin.setFont(new Font("Monospaced", Font.BOLD, 12));
+				btnLogin.setFont(projectfont15);
 				
-			
 				btnLogin.addActionListener(new ActionListener() {
 					
 				/* actionlistener for login button
@@ -160,6 +200,7 @@ public class WelcomePage {
 				 * 
 				 * Sharon just set it up.
 				 */
+
 					public void actionPerformed(ActionEvent e) {
 						
 						String username=txtUsername_1.getText();	//getting text from the username text field
@@ -167,98 +208,95 @@ public class WelcomePage {
 						try {
 							Block223Controller.login(username, password);	//calling controller to perform action associated with the method
 							YouAreAnAdminPage adminPage = new YouAreAnAdminPage();
+							frame.setVisible(false);
 							adminPage.frame.setVisible(true);
 						
 						} catch (InvalidInputException e1) {
 							lblErrormessage.setText(e1.getMessage());
+							panel_25.setVisible(true);
 						}
 						
 					}
 				});
 
-				
-				lblErrormessage = new JLabel("");
-				layeredPane.setLayer(lblErrormessage, 2);
-				lblErrormessage.setForeground(new Color(204, 204, 255));
-				lblErrormessage.setFont(new Font("Monospaced", Font.BOLD, 12));
-				
 				GroupLayout gl_panel_22 = new GroupLayout(panel_22);
 				gl_panel_22.setHorizontalGroup(
 					gl_panel_22.createParallelGroup(Alignment.LEADING)
 						.addGroup(gl_panel_22.createSequentialGroup()
-							.addContainerGap()
+							.addGap(132)
+							.addComponent(btnLogin)
+							.addContainerGap(149, Short.MAX_VALUE))
+						.addGroup(gl_panel_22.createSequentialGroup()
+							.addGap(24)
 							.addGroup(gl_panel_22.createParallelGroup(Alignment.LEADING)
 								.addGroup(gl_panel_22.createSequentialGroup()
-									.addGroup(gl_panel_22.createParallelGroup(Alignment.LEADING)
-										.addComponent(panel_23, GroupLayout.DEFAULT_SIZE, 113, Short.MAX_VALUE)
-										.addComponent(panel_24, Alignment.TRAILING, GroupLayout.DEFAULT_SIZE, 113, Short.MAX_VALUE))
-									.addGroup(gl_panel_22.createParallelGroup(Alignment.LEADING)
-										.addGroup(gl_panel_22.createSequentialGroup()
-											.addGap(28)
-											.addGroup(gl_panel_22.createParallelGroup(Alignment.TRAILING)
-												.addComponent(txtUsername_1, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
-												.addComponent(pwdPassword_1, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)))
-										.addGroup(gl_panel_22.createSequentialGroup()
-											.addPreferredGap(ComponentPlacement.RELATED)
-											.addGroup(gl_panel_22.createParallelGroup(Alignment.LEADING)
-												.addComponent(btnLogin)
-												.addComponent(btnSignUp))
-											.addGap(131)))
-									.addGap(43))
+									.addComponent(layeredPane_2, GroupLayout.PREFERRED_SIZE, 283, GroupLayout.PREFERRED_SIZE)
+									.addContainerGap())
 								.addGroup(gl_panel_22.createSequentialGroup()
-									.addComponent(lblErrormessage, GroupLayout.PREFERRED_SIZE, 300, GroupLayout.PREFERRED_SIZE)
-									.addContainerGap(42, Short.MAX_VALUE))))
+									.addGroup(gl_panel_22.createParallelGroup(Alignment.TRAILING)
+										.addComponent(panel_23, GroupLayout.DEFAULT_SIZE, 85, Short.MAX_VALUE)
+										.addComponent(panel_24, GroupLayout.DEFAULT_SIZE, 85, Short.MAX_VALUE))
+									.addGroup(gl_panel_22.createParallelGroup(Alignment.LEADING)
+										.addGroup(gl_panel_22.createSequentialGroup()
+											.addGap(19)
+											.addComponent(txtUsername_1, 142, 142, 142))
+										.addGroup(gl_panel_22.createSequentialGroup()
+											.addGap(18)
+											.addComponent(pwdPassword_1, GroupLayout.DEFAULT_SIZE, 143, Short.MAX_VALUE)))
+									.addGap(84))))
+						.addGroup(gl_panel_22.createSequentialGroup()
+							.addGap(124)
+							.addComponent(btnSignUp, GroupLayout.PREFERRED_SIZE, 90, GroupLayout.PREFERRED_SIZE)
+							.addContainerGap(140, Short.MAX_VALUE))
 				);
 				gl_panel_22.setVerticalGroup(
 					gl_panel_22.createParallelGroup(Alignment.LEADING)
 						.addGroup(gl_panel_22.createSequentialGroup()
 							.addContainerGap()
 							.addGroup(gl_panel_22.createParallelGroup(Alignment.LEADING)
-								.addGroup(gl_panel_22.createSequentialGroup()
-									.addComponent(panel_23, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-									.addGap(17))
-								.addGroup(gl_panel_22.createSequentialGroup()
-									.addComponent(txtUsername_1, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
-									.addPreferredGap(ComponentPlacement.RELATED)))
+								.addComponent(panel_23, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
+								.addComponent(txtUsername_1, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
+							.addGap(27)
 							.addGroup(gl_panel_22.createParallelGroup(Alignment.LEADING)
-								.addComponent(pwdPassword_1, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
-								.addComponent(panel_24, GroupLayout.PREFERRED_SIZE, 32, GroupLayout.PREFERRED_SIZE))
-							.addGap(19)
-							.addComponent(lblErrormessage, GroupLayout.PREFERRED_SIZE, 19, GroupLayout.PREFERRED_SIZE)
+								.addComponent(panel_24, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
+								.addComponent(pwdPassword_1, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
+							.addGap(18)
+							.addComponent(layeredPane_2, GroupLayout.PREFERRED_SIZE, 28, GroupLayout.PREFERRED_SIZE)
 							.addPreferredGap(ComponentPlacement.RELATED)
-							.addComponent(btnLogin, GroupLayout.PREFERRED_SIZE, 31, GroupLayout.PREFERRED_SIZE)
+							.addComponent(btnLogin, GroupLayout.PREFERRED_SIZE, 26, GroupLayout.PREFERRED_SIZE)
 							.addPreferredGap(ComponentPlacement.UNRELATED)
 							.addComponent(btnSignUp)
-							.addContainerGap())
+							.addGap(8))
 				);
+				GroupLayout gl_layeredPane_2 = new GroupLayout(layeredPane_2);
+				gl_layeredPane_2.setHorizontalGroup(
+					gl_layeredPane_2.createParallelGroup(Alignment.LEADING)
+						.addGroup(gl_layeredPane_2.createSequentialGroup()
+							.addComponent(panel_25, GroupLayout.PREFERRED_SIZE, 282, GroupLayout.PREFERRED_SIZE)
+							.addContainerGap(GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+				);
+				gl_layeredPane_2.setVerticalGroup(
+					gl_layeredPane_2.createParallelGroup(Alignment.LEADING)
+						.addGroup(gl_layeredPane_2.createSequentialGroup()
+							.addComponent(panel_25, GroupLayout.PREFERRED_SIZE, 25, GroupLayout.PREFERRED_SIZE)
+							.addContainerGap(GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+				);
+				layeredPane_2.setLayout(gl_layeredPane_2);
 				
 				JLabel lblNewLabel_2 = new JLabel("PASSWORD");
+				lblNewLabel_2.setVerticalAlignment(SwingConstants.TOP);
 				panel_24.add(lblNewLabel_2);
 				layeredPane.setLayer(lblNewLabel_2, 2);
 				lblNewLabel_2.setForeground(new Color(204, 204, 255));
-				lblNewLabel_2.setFont(new Font("Monospaced", Font.BOLD, 14));
+				lblNewLabel_2.setFont(projectfont15);
 				
 				JLabel lblNewLabel_1 = new JLabel("USERNAME");
+				lblNewLabel_1.setVerticalAlignment(SwingConstants.TOP);
 				panel_23.add(lblNewLabel_1);
 				layeredPane.setLayer(lblNewLabel_1, 2);
 				lblNewLabel_1.setForeground(new Color(204, 204, 255));
-				lblNewLabel_1.setFont(new Font("Monospaced", Font.BOLD, 14));
+				lblNewLabel_1.setFont(projectfont15);
 				panel_22.setLayout(gl_panel_22);
-		
-		JPanel panel_26 = new JPanel();
-		panel_26.setBorder(null);
-		panel_26.setBackground(new Color(0, 0, 153));
-		layeredPane_1.setLayer(panel_26, 5);
-		panel_26.setBounds(249, 200, 125, 36);
-		layeredPane_1.add(panel_26);
-		
-		JPanel panel_25 = new JPanel();
-		panel_25.setBorder(null);
-		panel_25.setForeground(new Color(0, 0, 51));
-		panel_25.setBackground(new Color(0, 0, 153));
-		layeredPane_1.setLayer(panel_25, 5);
-		panel_25.setBounds(250, 135, 124, 36);
-		layeredPane_1.add(panel_25);
 		
 		JPanel panel = new JPanel();
 		panel.setBounds(0, 0, 125, 122);
