@@ -1,5 +1,6 @@
 package ca.mcgill.ecse223.block.view;
 
+import java.awt.Color;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -34,7 +35,7 @@ public class BlockCell {
 	
 		block=new JPanel();
 		block.setBounds(Hpositions.get(HorizontalGridPosition), Vpositions.get(VerticalGridPosition), 20,20);
-		
+		block.setForeground(new Color(red, green, blue));
 	}
 	
 

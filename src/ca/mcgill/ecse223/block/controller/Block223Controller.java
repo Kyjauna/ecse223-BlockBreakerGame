@@ -49,18 +49,6 @@ public class Block223Controller {
 			throw new InvalidInputException(e.getMessage());
 		}
 	}
-	
-	public static Game findGame(String name) {
-		Game foundGame = null;
-		for (Game game : Block223Application.getBlock223().getGames()) {
-			if (game.getName() == name) {
-				foundGame = game;
-				break;
-			}
-		}
-		return foundGame;
-
-	}
 
 	public static void setGameDetails(int nrLevels, int nrBlocksPerLevel, int minBallSpeedX, int minBallSpeedY,
 			Double ballSpeedIncreaseFactor, int maxPaddleLength, int minPaddleLength) throws InvalidInputException {
@@ -103,7 +91,7 @@ public class Block223Controller {
 	public static void deleteGame(String name) throws InvalidInputException {
 		
 		Block223 block223 = Block223Application.getBlock223();
-		Game game = findGame(name);
+		Game game = block223.findGame(name);
 		String error="";
 		// We must check that the user is an admin AND the admin of the game!
 		UserRole admin = Block223Application.getCurrentUserRole(); 
@@ -217,25 +205,11 @@ public class Block223Controller {
 		if(Block223Application.getCurrentGame().getAdmin()!=Block223Application.getCurrentUserRole())
 			error=error+"Only the admin who created the game can delete a block. ";
 		
-		Block block = findBlock(id);
+		Block block = Block223Application.getCurrentGame().findBlock(id);
 		
 		if (block != null) {
 			block.delete();
 		}
-		
-	}
-	
-	public static Block findBlock(int id) {
-		Block foundBlock = null;
-		for (Block B : Block223Application.getCurrentGame().getBlocks()) {
-			if (B.getId() == id) {
-				foundBlock = B;
-				break;
-			}
-			
-		}
-		return foundBlock;
-
 		
 	}
 
@@ -257,9 +231,9 @@ public class Block223Controller {
 			
 		
 		//Game game = Block223Application.getCurrentGame();
-		Block block = findBlock(id);
+		Block block = Block223Application.getCurrentGame().findBlock(id);
 		
-		if (findBlock(id) == null)
+		if (Block223Application.getCurrentGame().findBlock(id) == null)
 			error=error+"The block does not exist. ";
 		
 		block.setRed(red);
@@ -476,11 +450,11 @@ public class Block223Controller {
 		if(Block223Application.getCurrentGame().getAdmin()!=Block223Application.getCurrentUserRole())
 			error=error+"Only the admin who created the game can access its information. ";
 		
-		if (findBlock(id) == null)
+		if (Block223Application.getCurrentGame().findBlock(id) == null)
 			error=error+"The block does not exist. ";
 		
 		//Game game = Block223Application.getCurrentGame();
-		Block block = findBlock(id);
+		Block block = Block223Application.getCurrentGame().findBlock(id);
 		TOBlock tobck1 = new TOBlock(block.getId(), block.getRed(), block.getGreen(), block.getBlue(), block.getPoints());
 		
 		return tobck1;

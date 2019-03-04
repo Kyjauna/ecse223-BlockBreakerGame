@@ -19,6 +19,7 @@ import javax.swing.LayoutStyle.ComponentPlacement;
 import javax.swing.SpinnerNumberModel;
 
 import ca.mcgill.ecse223.block.controller.Block223Controller;
+import ca.mcgill.ecse223.block.controller.InvalidInputException;
 
 import java.awt.GridBagLayout;
 import java.awt.GridBagConstraints;
@@ -34,18 +35,19 @@ public class PopUpWindowMoveABlock {
 	/**
 	 * Launch the application.
 	 */
-	public static void main(String[] args) {
+	public static void PopUpWindowMoveABlock(String[] args) {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
+				
 				try {
-					PopUpWindowMoveABlock window = new PopUpWindowMoveABlock();
-					window.frame.setVisible(true);
+					//PopUpWindowMoveABlock window = new PopUpWindowMoveABlock(levelindex);
+					//window.frame.setVisible(true);
 				} catch (Exception e) {
 					e.printStackTrace();
 				}
 			}
 		});
-	}
+			}
 
 	/**
 	 * Create the application.
@@ -105,12 +107,12 @@ public class PopUpWindowMoveABlock {
 		lblMoveABlock.setFont(projectfont24);
 		panel.add(lblMoveABlock);
 		
+		SpinnerNumberModel numbermodelH = new SpinnerNumberModel(0, 0, 14,1);
+		SpinnerNumberModel numbermodelV = new SpinnerNumberModel(0, 0, 9,1);
+		
 		JSpinner spinner_1 = new JSpinner(numbermodelV);
 		spinner_1.setBounds(221, 64, 30, 22);
 		panel.add(spinner_1);
-		
-		SpinnerNumberModel numbermodelH = new SpinnerNumberModel(0, 0, 14,1);
-		SpinnerNumberModel numbermodelV = new SpinnerNumberModel(0, 0, 9,1);
 		
 		JSpinner spinner = new JSpinner(numbermodelH);
 		spinner.setBounds(221, 36, 30, 22);
@@ -178,7 +180,12 @@ public class PopUpWindowMoveABlock {
 			Integer newHorizontalPos = (Integer) spinner_2.getValue();
 			Integer newVerticalPos = (Integer) spinner_3.getValue();
 			
-			Block223Controller.moveBlock(level, oldHorizontalPos, oldVerticalPos, newHorizontalPos, newVerticalPos);
+			try {
+				Block223Controller.moveBlock(levelindex, oldHorizontalPos, oldVerticalPos, newHorizontalPos, newVerticalPos);
+			} catch (InvalidInputException e1) {
+				// TODO Auto-generated catch block
+				e1.printStackTrace();
+			}
 			
 			}
 		});

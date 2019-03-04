@@ -35,7 +35,7 @@ public class GameLevelPage {
 	public JTextField textField;
 	public JTextField GreenValue;
 	public JTextField BlueValue;
-	int level=1;
+	int level=0;
 
 	/**
 	 * Launch the application.
@@ -553,9 +553,12 @@ public class GameLevelPage {
 		JButton btnMoveBlockAssignment = new JButton("MOVE  BLOCK  ASSIGNMENT");
 		btnMoveBlockAssignment.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
-			frame.setVisible(false);
-			PopUpWindowMoveABlock window = new PopUpWindowMoveABlock();
+			
+			PopUpWindowMoveABlock window = new PopUpWindowMoveABlock(level);
 			window.frame.setVisible(true);
+			
+			
+			
 			}
 		});
 		btnMoveBlockAssignment.setFont(projectfont15);
@@ -2067,7 +2070,7 @@ public class GameLevelPage {
 		panel_262.setBounds(0, 0, 390, 390);
 		layeredPane.add(panel_262);
 		frame.getContentPane().setLayout(groupLayout);
-		frame.setBounds(100, 100, 800, 707);
+		frame.setBounds(100, 100, 800, 730);
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 	}
 }
