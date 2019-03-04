@@ -5,6 +5,7 @@ import ca.mcgill.ecse223.block.model.Block223;
 import ca.mcgill.ecse223.block.model.Game;
 import ca.mcgill.ecse223.block.model.User;
 import ca.mcgill.ecse223.block.model.UserRole;
+import ca.mcgill.ecse223.block.view.WelcomePage;
 
 public class Block223Application {
 
@@ -13,6 +14,15 @@ public class Block223Application {
 	public static User CurrentUser;
 	public static UserRole CurrentUserRole;
 	
+	
+	public static void main(String[] args) {
+		// start UI
+        java.awt.EventQueue.invokeLater(new Runnable() {
+            public void run() {
+                new WelcomePage().frame.setVisible(true);
+            }
+        });
+	}
 	
 	public static Block223 getBlock223() {
 		if (block223 == null) {
