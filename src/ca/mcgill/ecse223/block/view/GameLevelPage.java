@@ -32,6 +32,7 @@ import javax.swing.border.LineBorder;
 import javax.swing.JComboBox;
 import javax.swing.JSpinner;
 import javax.swing.SpinnerModel;
+import javax.swing.SpinnerNumberModel;
 
 public class GameLevelPage {
 
@@ -1065,12 +1066,15 @@ public class GameLevelPage {
 		label.setBounds(0, 79, 56, 16);
 		layeredPane_1.add(label);
 		
-		JSpinner spinner = new JSpinner((SpinnerModel) null);
+		SpinnerNumberModel numbermodelH = new SpinnerNumberModel(0, 0, 14,1);
+		SpinnerNumberModel numbermodelV = new SpinnerNumberModel(0, 0, 9,1);
+		
+		JSpinner spinner = new JSpinner(numbermodelH);
 		spinner.setForeground(Color.WHITE);
 		spinner.setBounds(219, 72, 30, 22);
 		layeredPane_1.add(spinner);
 		
-		JSpinner spinner_1 = new JSpinner((SpinnerModel) null);
+		JSpinner spinner_1 = new JSpinner(numbermodelV);
 		spinner_1.setForeground(Color.WHITE);
 		spinner_1.setBounds(219, 101, 30, 22);
 		layeredPane_1.add(spinner_1);
