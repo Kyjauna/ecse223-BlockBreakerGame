@@ -22,10 +22,13 @@ import javax.swing.SwingConstants;
 
 import ca.mcgill.ecse223.block.controller.Block223Controller;
 import ca.mcgill.ecse223.block.controller.InvalidInputException;
+import ca.mcgill.ecse223.block.controller.TOUserMode;
+import ca.mcgill.ecse223.block.controller.TOUserMode.Mode;
 
 import javax.swing.JMenuBar;
 import java.awt.event.ActionListener;
 import java.io.IOException;
+import java.util.EnumSet;
 import java.awt.event.ActionEvent;
 import javax.swing.JLayeredPane;
 import java.awt.Panel;
@@ -83,8 +86,6 @@ public class WelcomePage {
 		}
 		Font projectfont52 = projectfont.deriveFont(52f);
 		Font projectfont15 = projectfont.deriveFont(15f);
-		Font projectfont24 = projectfont.deriveFont(24f);
-		Font projectfont10 = projectfont.deriveFont(10f);
 		
 		frame = new JFrame();
 		frame.getContentPane().setBackground(new Color(0, 0, 51));
@@ -201,9 +202,19 @@ public class WelcomePage {
 						String password=new String(pwdPassword_1.getPassword());	//getting text from the password field
 						try {
 							Block223Controller.login(username, password);	//calling controller to perform action associated with the method
-							YouAreAnAdminPage adminPage = new YouAreAnAdminPage();
-							frame.setVisible(false);
-							adminPage.frame.setVisible(true);
+							TOUserMode mode=Block223Controller.getUserMode();
+							
+							if (mode.getMode() == Mode.Design) {
+								YouAreAnAdminPage adminPage = new YouAreAnAdminPage();
+								frame.setVisible(false);
+								adminPage.frame.setVisible(true);	
+							}
+							
+							if (mode.getMode()==Mode.Play) {
+								PlayerPage playerPage = new PlayerPage();
+								frame.setVisible(false);
+								playerPage.frame.setVisible(true);		
+							}
 						
 						} catch (InvalidInputException e1) {
 							lblErrormessage.setText(e1.getMessage());

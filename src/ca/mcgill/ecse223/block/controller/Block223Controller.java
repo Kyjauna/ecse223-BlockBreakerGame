@@ -385,7 +385,6 @@ public class Block223Controller {
 			
 			if (rolePassword.equals(password)) {
 				Block223Application.setCurrentUserRole(user.getRole(i));
-				//resetBlock223();
 			}
 		}
 			

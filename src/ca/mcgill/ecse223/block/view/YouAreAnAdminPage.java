@@ -10,6 +10,8 @@ import javax.swing.JLabel;
 import javax.swing.JLayeredPane;
 
 import java.awt.Font;
+import java.awt.FontFormatException;
+
 import javax.swing.JPanel;
 import javax.swing.LayoutStyle.ComponentPlacement;
 
@@ -25,6 +27,7 @@ import javax.swing.JDesktopPane;
 
 // import java.awt.Choice;
 import java.awt.event.ActionListener;
+import java.io.IOException;
 //import java.util.List;
 import java.awt.event.ActionEvent;
 
@@ -60,11 +63,26 @@ public class YouAreAnAdminPage {
 	 * Initialize the contents of the frame.
 	 */
 	private void initialize() {
+		Font projectfont = null;
+		try {
+			projectfont = Font.createFont(Font.TRUETYPE_FONT, getClass().getResourceAsStream("/ARCADECLASSIC.TTF"));
+		} catch (FontFormatException e1) {
+			// TODO Auto-generated catch block
+			e1.printStackTrace();
+		} catch (IOException e1) {
+			// TODO Auto-generated catch block
+			e1.printStackTrace();
+		}
+		Font projectfont52 = projectfont.deriveFont(52f);
+		Font projectfont15 = projectfont.deriveFont(15f);
+		Font projectfont24 = projectfont.deriveFont(24f);
+		Font projectfont10 = projectfont.deriveFont(10f);
+		
 		frame = new JFrame();
 		frame.getContentPane().setBackground(new Color(0, 0, 51));
 		
 		JLabel lblYouAreAn = new JLabel("YOU ARE AN ADMIN");
-		lblYouAreAn.setFont(new Font("Monospaced", Font.BOLD, 30));
+		lblYouAreAn.setFont(projectfont52);
 		lblYouAreAn.setForeground(new Color(204, 255, 255));
 		
 		JPanel panel = new JPanel();
@@ -128,7 +146,7 @@ public class YouAreAnAdminPage {
 		
 		NewGameNameTxt = new JTextField();
 		NewGameNameTxt.setToolTipText("");
-		NewGameNameTxt.setFont(new Font("Monospaced", Font.PLAIN, 12));
+		NewGameNameTxt.setFont(projectfont15);
 		NewGameNameTxt.setForeground(new Color(0, 0, 0));
 		NewGameNameTxt.setColumns(10);
 				
@@ -170,7 +188,7 @@ public class YouAreAnAdminPage {
 				
 			}
 		});
-		btnCreateNewGame.setFont(new Font("Monospaced", Font.PLAIN, 12));
+		btnCreateNewGame.setFont(projectfont15);
 
 		
 		/* Logout Button */
@@ -186,7 +204,7 @@ public class YouAreAnAdminPage {
 				
 			}
 		});
-		btnLogout.setFont(new Font("Monospaced", Font.BOLD, 11));
+		btnLogout.setFont(projectfont15);
 		
 		/* Delete button */
 		
@@ -211,7 +229,7 @@ public class YouAreAnAdminPage {
 			}
 		});
 		
-		button.setFont(new Font("Monospaced", Font.BOLD, 12));
+		button.setFont(projectfont15);
 		
 		/* Update Button */
 		
@@ -236,11 +254,11 @@ public class YouAreAnAdminPage {
 			}
 		});
 		
-		btnUpdate.setFont(new Font("Monospaced", Font.BOLD, 12));
+		btnUpdate.setFont(projectfont15);
 		
 		GroupLayout groupLayout = new GroupLayout(frame.getContentPane());
 		groupLayout.setHorizontalGroup(
-			groupLayout.createParallelGroup(Alignment.LEADING)
+			groupLayout.createParallelGroup(Alignment.TRAILING)
 				.addGroup(groupLayout.createSequentialGroup()
 					.addGroup(groupLayout.createParallelGroup(Alignment.LEADING)
 						.addGroup(groupLayout.createSequentialGroup()
@@ -291,14 +309,15 @@ public class YouAreAnAdminPage {
 									.addComponent(btnUpdate, GroupLayout.PREFERRED_SIZE, 86, GroupLayout.PREFERRED_SIZE))))
 						.addGroup(groupLayout.createSequentialGroup()
 							.addGap(288)
-							.addComponent(btnLogout, GroupLayout.PREFERRED_SIZE, 87, GroupLayout.PREFERRED_SIZE))
-						.addGroup(groupLayout.createSequentialGroup()
-							.addGap(188)
-							.addComponent(lblYouAreAn)))
-					.addContainerGap(28, Short.MAX_VALUE))
-				.addGroup(Alignment.TRAILING, groupLayout.createSequentialGroup()
-					.addContainerGap(164, Short.MAX_VALUE)
+							.addComponent(btnLogout, GroupLayout.PREFERRED_SIZE, 87, GroupLayout.PREFERRED_SIZE)))
+					.addContainerGap(17, Short.MAX_VALUE))
+				.addGroup(groupLayout.createSequentialGroup()
+					.addContainerGap(162, Short.MAX_VALUE)
 					.addComponent(lblErrorMessage, GroupLayout.PREFERRED_SIZE, 524, GroupLayout.PREFERRED_SIZE))
+				.addGroup(groupLayout.createSequentialGroup()
+					.addContainerGap(149, Short.MAX_VALUE)
+					.addComponent(lblYouAreAn)
+					.addGap(139))
 		);
 		groupLayout.setVerticalGroup(
 			groupLayout.createParallelGroup(Alignment.LEADING)
@@ -326,7 +345,7 @@ public class YouAreAnAdminPage {
 					.addGroup(groupLayout.createParallelGroup(Alignment.BASELINE)
 						.addComponent(button, GroupLayout.PREFERRED_SIZE, 25, GroupLayout.PREFERRED_SIZE)
 						.addComponent(btnUpdate, GroupLayout.PREFERRED_SIZE, 25, GroupLayout.PREFERRED_SIZE))
-					.addPreferredGap(ComponentPlacement.RELATED, 109, Short.MAX_VALUE)
+					.addPreferredGap(ComponentPlacement.RELATED, 88, Short.MAX_VALUE)
 					.addComponent(btnLogout)
 					.addGap(18)
 					.addGroup(groupLayout.createParallelGroup(Alignment.TRAILING)
