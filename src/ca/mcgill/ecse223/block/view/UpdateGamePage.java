@@ -112,7 +112,7 @@ public class UpdateGamePage {
 		btnBuild.setBackground(new Color(135, 206, 235));
 		
 		numberOfLevelsTxt = new JTextField();
-		numberOfLevelsTxt.setForeground(new Color(169, 169, 169));
+		numberOfLevelsTxt.setForeground(new Color(0, 0, 153));
 		/* try {
 			numberOfLevelsTxt.setText(""+Block223Controller.getCurrentDesignableGame().getNrLevels());
 		} catch (InvalidInputException e1) {
@@ -121,33 +121,33 @@ public class UpdateGamePage {
 		numberOfLevelsTxt.setColumns(10);
 		
 		blocksPerLevelTxt = new JTextField();
-		blocksPerLevelTxt.setText("28");
-		blocksPerLevelTxt.setForeground(new Color(169, 169, 169));
+		blocksPerLevelTxt.setText("");
+		blocksPerLevelTxt.setForeground(new Color(0, 0, 204));
 		blocksPerLevelTxt.setColumns(10);
 		
 		xBallSpeedTxt = new JTextField();
-		xBallSpeedTxt.setText("5");
-		xBallSpeedTxt.setForeground(new Color(169, 169, 169));
+		xBallSpeedTxt.setText("");
+		xBallSpeedTxt.setForeground(new Color(0, 0, 204));
 		xBallSpeedTxt.setColumns(10);
 		
 		yBallSpeedTxt = new JTextField();
-		yBallSpeedTxt.setText("5");
-		yBallSpeedTxt.setForeground(new Color(169, 169, 169));
+		yBallSpeedTxt.setText("");
+		yBallSpeedTxt.setForeground(new Color(0, 0, 204));
 		yBallSpeedTxt.setColumns(10);
 		
 		speedIncreaseFactorTxt = new JTextField();
-		speedIncreaseFactorTxt.setText("1.5");
-		speedIncreaseFactorTxt.setForeground(new Color(169, 169, 169));
+		speedIncreaseFactorTxt.setText("");
+		speedIncreaseFactorTxt.setForeground(new Color(0, 0, 204));
 		speedIncreaseFactorTxt.setColumns(10);
 		
 		minPaddleLengthTxt = new JTextField();
-		minPaddleLengthTxt.setText("2");
-		minPaddleLengthTxt.setForeground(new Color(169, 169, 169));
+		minPaddleLengthTxt.setText("");
+		minPaddleLengthTxt.setForeground(new Color(0, 0, 204));
 		minPaddleLengthTxt.setColumns(10);
 		
 		maxPaddleLengthTxt = new JTextField();
-		maxPaddleLengthTxt.setText("10");
-		maxPaddleLengthTxt.setForeground(new Color(169, 169, 169));
+		maxPaddleLengthTxt.setText("");
+		maxPaddleLengthTxt.setForeground(new Color(0, 0, 204));
 		maxPaddleLengthTxt.setColumns(10);
 		
 		JLabel lblCreateNewGame = new JLabel("UPDATE GAME");
