@@ -128,7 +128,7 @@ public class Block223Controller {
 	
 		Game game = Block223Application.getBlock223().findGame(name);
 			if ( game == null) 
-				error = "A game with name" +name+ "does not exist.";
+				error = "A game with name " +name+ " does not exist.";
 			if (error.length() > 0) 
 				throw new InvalidInputException(error.trim());
 		Block223Application.setCurrentGame(game);
@@ -265,7 +265,7 @@ public class Block223Controller {
 			gameLevel=game.getLevel(level);
 		}
 		catch (IndexOutOfBoundsException e) {
-			throw new InvalidInputException ("Level"+level+"does not exist for this game.");
+			throw new InvalidInputException ("Level "+level+" does not exist for this game.");
 		}
 		
 		int maxNrBlocksPerLevel = Block223Application.getCurrentGame().getNrBlocksPerLevel();
@@ -313,7 +313,7 @@ public class Block223Controller {
 			assignment.setGridVerticalPosition(newGridVerticalPosition);
 		}
 		catch (IndexOutOfBoundsException e) {
-			throw new InvalidInputException ("Level"+level+"does not exist for this game.");
+			throw new InvalidInputException ("Level "+level+" does not exist for this game.");
 		}
 		
 		for (BlockAssignment BA : gameLevel.getBlockAssignments()) {
