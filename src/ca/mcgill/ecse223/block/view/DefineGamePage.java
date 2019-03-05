@@ -72,7 +72,6 @@ public class DefineGamePage {
 			public void actionPerformed(ActionEvent e) {
 				// this action should take you to the GamePage
 				// These lines assign the values of the game specifications.
-				System.out.println("hello world");
 				String stringNumberOfLevels = numberOfLevelsTxt.getText(); 
 				int numberOfLevels = Integer.parseInt(stringNumberOfLevels);
 				
