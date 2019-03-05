@@ -244,13 +244,13 @@ public class Block223Controller {
 		String error="";
 		
 		if (Block223Application.getCurrentUserRole()instanceof Admin == false)
-			error="Admin Privileges are required to move a block. ";
+			error="Admin Privileges are required to position a block. ";
 		
 		if (Block223Application.getCurrentGame()==null)
-			error=error+"A game must be selected to move a block. ";
+			error=error+"A game must be selected to position a block. ";
 		
 		if(Block223Application.getCurrentGame().getAdmin()!=Block223Application.getCurrentUserRole())
-			error=error+"Only the admin who created the game may move a block. ";
+			error=error+"Only the admin who created the game can position a block. ";
 	
 		Game game=Block223Application.getCurrentGame();
 		Level gameLevel;
@@ -307,6 +307,12 @@ public class Block223Controller {
 		}
 		catch (IndexOutOfBoundsException e) {
 			throw new InvalidInputException ("Level"+level+"does not exist for this game.");
+		}
+		
+		for (BlockAssignment BA : gameLevel.getBlockAssignments()) {
+			if(BA.getGridHorizontalPosition() == gridHorizontalPosition && BA.getGridVerticalPosition() == gridVerticalPosition) {
+				throw new InvalidInputException("A block already exists at that location"+gridHorizontalPosition+"/"+gridVerticalPosition+".");
+			}
 		}
 
 	}
