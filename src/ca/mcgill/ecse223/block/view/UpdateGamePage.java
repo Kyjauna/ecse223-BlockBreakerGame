@@ -64,6 +64,7 @@ public class UpdateGamePage {
 		frame = new JFrame();
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frame.getContentPane().setBackground(new Color(0, 0, 51));
+		frame.setBounds(100, 100, 704, 562);
 		
 		/* Build Button */
 		JLabel lblErrormessage = new JLabel(" ");

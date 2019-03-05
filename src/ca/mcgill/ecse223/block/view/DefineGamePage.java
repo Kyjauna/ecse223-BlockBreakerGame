@@ -40,7 +40,6 @@ public class DefineGamePage {
 				try {
 					DefineGamePage window = new DefineGamePage();	
 					window.frame.setVisible(true);
-					window.frame.setSize(new Dimension(710, 500));
 				} catch (Exception e) {
 					e.printStackTrace();
 				}
@@ -62,6 +61,7 @@ public class DefineGamePage {
 		frame = new JFrame();
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frame.getContentPane().setBackground(new Color(0, 0, 51));
+		frame.setBounds(100, 100, 704, 562);
 		
 		/* Build Button */
 		JLabel lblErrormessage = new JLabel(" ");
@@ -72,8 +72,8 @@ public class DefineGamePage {
 			public void actionPerformed(ActionEvent e) {
 				// this action should take you to the GamePage
 				// These lines assign the values of the game specifications.
-				
-				String stringNumberOfLevels = numberOfLevelsTxt.getText();
+				System.out.println("hello world");
+				String stringNumberOfLevels = numberOfLevelsTxt.getText(); 
 				int numberOfLevels = Integer.parseInt(stringNumberOfLevels);
 				
 				String stringBlocksPerLevel = blocksPerLevelTxt.getText();
@@ -93,18 +93,15 @@ public class DefineGamePage {
 				
 				String stringMaxPaddleLength = maxPaddleLengthTxt.getText();
 				int maxPaddleLength = Integer.parseInt(stringMaxPaddleLength);
-				
+
 				try {
 					Block223Controller.setGameDetails( numberOfLevels, blocksPerLevel, xBallSpeed, yBallSpeed, speedIncreaseFactor, maxPaddleLength, minPaddleLength);
 					GameLevelPage gamePage = new GameLevelPage(); 	// Launches a new page (of type GameLevel)
 					gamePage.frame.setVisible(true);	
 					frame.setVisible(false);
-				
 				} catch (InvalidInputException e1) {
 					lblErrormessage.setText(e1.getMessage());
 				}
-				
-				 
 			}
 		});
 		btnBuild.setFont(new Font("Monospaced", Font.BOLD, 15));
@@ -216,6 +213,7 @@ public class DefineGamePage {
 				
 				try {
 					Block223Controller.setGameDetails( numberOfLevels, blocksPerLevel, xBallSpeed, yBallSpeed, speedIncreaseFactor, maxPaddleLength, minPaddleLength);
+					Block223Controller.saveGame();
 					savedGameMsg.setText("Your game settings have been saved, please proceed to build!");
 					
 				} catch (InvalidInputException e1) {
