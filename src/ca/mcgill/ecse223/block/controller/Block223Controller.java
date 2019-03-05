@@ -128,7 +128,7 @@ public class Block223Controller {
 	
 		Game game = Block223Application.getBlock223().findGame(name);
 			if ( game == null) 
-				error = "A game with name " +name+ " does not exist.";
+				error = "A game with name" +name+ "does not exist.";
 			if (error.length() > 0) 
 				throw new InvalidInputException(error.trim());
 		Block223Application.setCurrentGame(game);
@@ -157,7 +157,7 @@ public class Block223Controller {
 				} catch(RuntimeException e) {
 					error = e.getMessage();
 					if(error.equals("name is not unique"))
-						error = "the name of the game must be unique.";
+						error = "The name of the game must be unique.";
 				}
 				throw new InvalidInputException(error);
 				}
@@ -265,7 +265,7 @@ public class Block223Controller {
 			gameLevel=game.getLevel(level);
 		}
 		catch (IndexOutOfBoundsException e) {
-			throw new InvalidInputException ("Level "+level+" does not exist for this game.");
+			throw new InvalidInputException ("Level"+level+"does not exist for this game.");
 		}
 		
 		int maxNrBlocksPerLevel = Block223Application.getCurrentGame().getNrBlocksPerLevel();
@@ -313,7 +313,7 @@ public class Block223Controller {
 			assignment.setGridVerticalPosition(newGridVerticalPosition);
 		}
 		catch (IndexOutOfBoundsException e) {
-			throw new InvalidInputException ("Level "+level+" does not exist for this game.");
+			throw new InvalidInputException ("Level"+level+"does not exist for this game.");
 		}
 		
 		for (BlockAssignment BA : gameLevel.getBlockAssignments()) {
@@ -345,6 +345,17 @@ public class Block223Controller {
 	}
 
 	public static void saveGame() throws InvalidInputException {
+		
+		String error = "";
+		if (Block223Application.getCurrentUserRole()instanceof Admin == false)
+			error="Admin Privileges are required to define game settings. ";
+		
+		if (Block223Application.getCurrentGame() == null)
+			error = error + "A game must be selected to remove a block. ";
+		
+		if (Block223Application.getCurrentGame().getAdmin()!=Block223Application.getCurrentUserRole())
+			error=error+"Only the admin who created the game may move a block. ";
+		
 		Block223 b=Block223Application.getBlock223();
 		Block223Persistence.save(b);
 	}
@@ -358,7 +369,7 @@ public class Block223Controller {
 			error = "Cannot register a new user while a user is logged in. ";
 		
 		if(playerPassword.equals(adminPassword))
-			error += "Player and Admin passwords must be different. ";	
+			error += "The passwords have to be different. ";	
 		
 		if (error.length() > 0) {
 			System.out.println(error.trim());
@@ -390,14 +401,14 @@ public class Block223Controller {
 		String error = "";
 		
 		if(Block223Application.getCurrentUserRole()!=null)
-			error= "Cannot login a user while a user is logged in. ";
+			error= "Cannot login a user while a user is already logged in. ";
 
 		
 		Block223 b=Block223Application.resetBlock223();
 		User user=b.findWithUsername(username);
 		
 		if(user==null)
-			error=error+"There is no user with this username. ";
+			error=error+"The username and password do not match. ";
 		
 		if (error.length() > 0)
 			throw new InvalidInputException(error.trim());
@@ -452,7 +463,7 @@ public class Block223Controller {
 	public static TOGame getCurrentDesignableGame() throws InvalidInputException {
 		String error = "";
 		if (!(Block223Application.getCurrentUserRole() instanceof Admin))
-			error = "Admin privledges are required to access game information.";
+			error = "Admin priviledges are required to access game information.";
 		
 		if (Block223Application.getCurrentGame() == null)
 			error = "A game must be selected to access its information.";
@@ -498,7 +509,7 @@ public class Block223Controller {
 			error="Admin Privileges are required to access game information. ";
 		
 		if (Block223Application.getCurrentGame()==null)
-			error=error+"A game must be selected to access its information ";
+			error=error+"A game must be selected to access its information. ";
 		
 		if(Block223Application.getCurrentGame().getAdmin()!=Block223Application.getCurrentUserRole())
 			error=error+"Only the admin who created the game can access its information. ";
