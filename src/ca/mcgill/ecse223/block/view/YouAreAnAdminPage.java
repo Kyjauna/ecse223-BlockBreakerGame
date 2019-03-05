@@ -57,10 +57,17 @@ public class YouAreAnAdminPage {
 	}
 		
 	public static void refresh() {
-		comboBoxExistingGame.removeAllItems();
+
+
 		try {
+			if (comboBoxExistingGame.getItemCount()!=0) {
+				comboBoxExistingGame.removeAllItems();
+			}
+			comboBoxExistingGame.addItem("Help");
 			for (TOGame game: Block223Controller.getDesignableGames()) {
+				
 				comboBoxExistingGame.addItem(game.getName());
+			
 			}
 		}
 		catch (InvalidInputException e) {
@@ -191,7 +198,7 @@ public class YouAreAnAdminPage {
 				try {
 					Block223Controller.createGame(newGameName);
 					/* Add game name to comboBox when it's created */
-					comboBoxExistingGame.addItem(newGameName);
+					refresh();
 					/* Creating a new game will take you to the updateGamePage */
 					DefineGamePage defineGame = new DefineGamePage();
 					defineGame.frame.setVisible(true);
