@@ -69,6 +69,90 @@ public class UpdateGamePage {
 		JLabel lblErrormessage = new JLabel(" ");
 		lblErrormessage.setForeground(new Color(255, 255, 0));
 		
+		
+		int levels = 1;
+		try {
+			levels = Block223Controller.getCurrentDesignableGame().getNrLevels();
+		} catch (InvalidInputException e2) {
+			lblErrormessage.setText(e2.getMessage());
+		}
+		int blocks = 1;
+		try {
+			blocks = Block223Controller.getCurrentDesignableGame().getNrBlocksPerLevel();
+		} catch (InvalidInputException e2) {
+			lblErrormessage.setText(e2.getMessage());
+		}
+		int xBallSpeed = 1;
+		try {
+			xBallSpeed = Block223Controller.getCurrentDesignableGame().getMinBallSpeedX();
+		} catch (InvalidInputException e2) {
+			lblErrormessage.setText(e2.getMessage());
+		}
+		int yBallSpeed = 1;
+		try {
+			yBallSpeed = Block223Controller.getCurrentDesignableGame().getMinBallSpeedY();
+		} catch (InvalidInputException e2) {
+			lblErrormessage.setText(e2.getMessage());
+		}
+		double speedIncreaseFactor = 1;
+		try {
+			speedIncreaseFactor = Block223Controller.getCurrentDesignableGame().getBallSpeedIncreaseFactor();
+		} catch (InvalidInputException e2) {
+			lblErrormessage.setText(e2.getMessage());
+		}
+		int minPaddleLength = 10;
+		try {
+			minPaddleLength = Block223Controller.getCurrentDesignableGame().getMinPaddleLength();
+		} catch (InvalidInputException e2) {
+			lblErrormessage.setText(e2.getMessage());
+		}
+		int maxPaddleLength = 10;
+		try {
+			maxPaddleLength = Block223Controller.getCurrentDesignableGame().getMaxPaddleLength();
+		} catch (InvalidInputException e2) {
+			lblErrormessage.setText(e2.getMessage());
+		}
+		
+		numberOfLevelsTxt = new JTextField();
+		numberOfLevelsTxt.setForeground(new Color(0, 0, 153));
+		/* try {
+			numberOfLevelsTxt.setText(""+Block223Controller.getCurrentDesignableGame().getNrLevels());
+		} catch (InvalidInputException e1) {
+			e1.printStackTrace();
+		} */
+		numberOfLevelsTxt.setText(String.valueOf(levels));
+		numberOfLevelsTxt.setColumns(10);
+		
+		blocksPerLevelTxt = new JTextField();
+		blocksPerLevelTxt.setText(String.valueOf(blocks));
+		blocksPerLevelTxt.setForeground(new Color(0, 0, 204));
+		blocksPerLevelTxt.setColumns(10);
+		
+		xBallSpeedTxt = new JTextField();
+		xBallSpeedTxt.setText(String.valueOf(xBallSpeed));
+		xBallSpeedTxt.setForeground(new Color(0, 0, 204));
+		xBallSpeedTxt.setColumns(10);
+		
+		yBallSpeedTxt = new JTextField();
+		yBallSpeedTxt.setText(String.valueOf(yBallSpeed));
+		yBallSpeedTxt.setForeground(new Color(0, 0, 204));
+		yBallSpeedTxt.setColumns(10);
+		
+		speedIncreaseFactorTxt = new JTextField();
+		speedIncreaseFactorTxt.setText(String.valueOf(speedIncreaseFactor));
+		speedIncreaseFactorTxt.setForeground(new Color(0, 0, 204));
+		speedIncreaseFactorTxt.setColumns(10);
+		
+		minPaddleLengthTxt = new JTextField();
+		minPaddleLengthTxt.setText(String.valueOf(minPaddleLength));
+		minPaddleLengthTxt.setForeground(new Color(0, 0, 204));
+		minPaddleLengthTxt.setColumns(10);
+		
+		maxPaddleLengthTxt = new JTextField();
+		maxPaddleLengthTxt.setText(String.valueOf(maxPaddleLength));
+		maxPaddleLengthTxt.setForeground(new Color(0, 0, 204));
+		maxPaddleLengthTxt.setColumns(10);
+		
 		JButton btnBuild = new JButton("BUILD");
 		btnBuild.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
@@ -112,44 +196,7 @@ public class UpdateGamePage {
 		btnBuild.setFont(new Font("Monospaced", Font.BOLD, 15));
 		btnBuild.setBackground(new Color(135, 206, 235));
 		
-		numberOfLevelsTxt = new JTextField();
-		numberOfLevelsTxt.setForeground(new Color(0, 0, 153));
-		/* try {
-			numberOfLevelsTxt.setText(""+Block223Controller.getCurrentDesignableGame().getNrLevels());
-		} catch (InvalidInputException e1) {
-			e1.printStackTrace();
-		} */
-		numberOfLevelsTxt.setColumns(10);
 		
-		blocksPerLevelTxt = new JTextField();
-		blocksPerLevelTxt.setText("");
-		blocksPerLevelTxt.setForeground(new Color(0, 0, 204));
-		blocksPerLevelTxt.setColumns(10);
-		
-		xBallSpeedTxt = new JTextField();
-		xBallSpeedTxt.setText("");
-		xBallSpeedTxt.setForeground(new Color(0, 0, 204));
-		xBallSpeedTxt.setColumns(10);
-		
-		yBallSpeedTxt = new JTextField();
-		yBallSpeedTxt.setText("");
-		yBallSpeedTxt.setForeground(new Color(0, 0, 204));
-		yBallSpeedTxt.setColumns(10);
-		
-		speedIncreaseFactorTxt = new JTextField();
-		speedIncreaseFactorTxt.setText("");
-		speedIncreaseFactorTxt.setForeground(new Color(0, 0, 204));
-		speedIncreaseFactorTxt.setColumns(10);
-		
-		minPaddleLengthTxt = new JTextField();
-		minPaddleLengthTxt.setText("");
-		minPaddleLengthTxt.setForeground(new Color(0, 0, 204));
-		minPaddleLengthTxt.setColumns(10);
-		
-		maxPaddleLengthTxt = new JTextField();
-		maxPaddleLengthTxt.setText("");
-		maxPaddleLengthTxt.setForeground(new Color(0, 0, 204));
-		maxPaddleLengthTxt.setColumns(10);
 		
 		JLabel lblCreateNewGame = new JLabel("UPDATE GAME");
 		lblCreateNewGame.setFont(new Font("Monospaced", Font.BOLD, 25));
@@ -190,34 +237,11 @@ public class UpdateGamePage {
 		btnSave.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				
-				// Save the game settings
-				String gameName=gameNametextField.getText();
-				
-				String stringNumberOfLevels = numberOfLevelsTxt.getText();
-				int numberOfLevels = Integer.parseInt(stringNumberOfLevels);
-				
-				String stringBlocksPerLevel = blocksPerLevelTxt.getText();
-				int blocksPerLevel = Integer.parseInt(stringBlocksPerLevel);
-								
-				String stringXBallSpeed = xBallSpeedTxt.getText();
-				int xBallSpeed = Integer.parseInt(stringXBallSpeed);
-				
-				String stringYBallSpeed = yBallSpeedTxt.getText();
-				int yBallSpeed = Integer.parseInt(stringYBallSpeed);
-				
-				String stringSpeedIncreaseFactor = speedIncreaseFactorTxt.getText();
-				double speedIncreaseFactor = Double.parseDouble(stringSpeedIncreaseFactor);
-				
-				String stringMinPaddleLength = minPaddleLengthTxt.getText();
-				int minPaddleLength = Integer.parseInt(stringMinPaddleLength);
-				
-				String stringMaxPaddleLength = maxPaddleLengthTxt.getText();
-				int maxPaddleLength = Integer.parseInt(stringMaxPaddleLength);
-				
-				try {
-					Block223Controller.updateGame(gameName, numberOfLevels, blocksPerLevel, xBallSpeed, yBallSpeed, speedIncreaseFactor, maxPaddleLength, minPaddleLength);
-				} catch (InvalidInputException e1) {
-					lblErrormessage.setText(e1.getMessage());
+				try
+				{
+					Block223Controller.saveGame();
+				} catch (InvalidInputException e){
+					lblErrormessage.setText(e.getMessage());
 				}
 			
 			}
