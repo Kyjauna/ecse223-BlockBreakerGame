@@ -185,9 +185,14 @@ public class UpdateGamePage {
 				
 				try {
 					Block223Controller.updateGame(gameName, numberOfLevels, blocksPerLevel, xBallSpeed, yBallSpeed, speedIncreaseFactor, maxPaddleLength, minPaddleLength);
+<<<<<<< HEAD
 					GameLevelPage gamePage = new GameLevelPage(); 	// Launches a new page (of type GameLevel)
 					gamePage.frame.setVisible(true);
 					frame.setVisible(false);
+=======
+					GameLevelPage gamePage = new GameLevelPage(0); 	// Launches a new page (of type GameLevel)
+					gamePage.frame.setVisible(true);	
+>>>>>>> a0455a4216bb695ceb49c44499660ec1717b287e
 				} catch (InvalidInputException e1) {
 					lblErrormessage.setText(e1.getMessage());
 				}

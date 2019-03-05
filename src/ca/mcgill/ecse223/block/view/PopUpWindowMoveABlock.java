@@ -109,6 +109,8 @@ public class PopUpWindowMoveABlock {
 		
 		SpinnerNumberModel numbermodelH = new SpinnerNumberModel(0, 0, 14,1);
 		SpinnerNumberModel numbermodelV = new SpinnerNumberModel(0, 0, 9,1);
+		SpinnerNumberModel numbermodel3 = new SpinnerNumberModel(0, 0, 14,1);
+		SpinnerNumberModel numbermodel4 = new SpinnerNumberModel(0, 0, 9,1);
 		
 		JSpinner spinner_1 = new JSpinner(numbermodelV);
 		spinner_1.setBounds(221, 64, 30, 22);
@@ -118,11 +120,11 @@ public class PopUpWindowMoveABlock {
 		spinner.setBounds(221, 36, 30, 22);
 		panel.add(spinner);
 		
-		JSpinner spinner_3 = new JSpinner(numbermodelH);
+		JSpinner spinner_3 = new JSpinner(numbermodel3);
 		spinner_3.setBounds(221, 94, 30, 22);
 		panel.add(spinner_3);
 		
-		JSpinner spinner_2 = new JSpinner(numbermodelV);
+		JSpinner spinner_2 = new JSpinner(numbermodel4);
 		spinner_2.setBounds(221, 123, 30, 22);
 		panel.add(spinner_2);
 		
@@ -185,7 +187,7 @@ public class PopUpWindowMoveABlock {
 			
 			}
 		});
-		btnNewButton.setBounds(22, 156, 81, 25);
+		btnNewButton.setBounds(22, 156, 100, 25);
 		btnNewButton.setFont(projectfont18);
 		panel.add(btnNewButton);
 		
@@ -209,7 +211,7 @@ public class PopUpWindowMoveABlock {
 			
 			}
 		});
-		btnMove.setBounds(134, 156, 81, 25);
+		btnMove.setBounds(147, 156, 81, 25);
 		btnMove.setFont(projectfont18);
 		panel.add(btnMove);
 

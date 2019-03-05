@@ -252,7 +252,6 @@ public class YouAreAnAdminPage {
 					Block223Controller.selectGame(gameToUpdate);
 					// This works when logged in as an admin but still gives null pointer exception
 					// when testing it out on its own.
-					System.out.println("hello world");
 					// How do I get to the update game page with the correct game???
 					UpdateGamePage updateGame = new UpdateGamePage();
 					updateGame.frame.setVisible(true);
