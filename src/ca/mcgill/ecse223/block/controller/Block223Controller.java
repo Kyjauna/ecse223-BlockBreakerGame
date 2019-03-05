@@ -426,9 +426,15 @@ public class Block223Controller {
 		// Is there a line for getCurrentUserRole() ?
 		// I'm pretty sure there is because I need to throw an exception if the role is not AdminRole
 		ArrayList<TOGame> result = new ArrayList<TOGame>();
+		UserRole user = Block223Application.getCurrentUserRole();
+		
+		if (!(user instanceof Admin)) {
+			throw new InvalidInputException("Admin privileges are required to access game information.");
+		}
 		
 		for (Game game: block223.getGames()) {
-			if (game.getAdmin().equals(Block223Application.getCurrentUserRole())) { //CHECK THIS LINE -- based on sequence diagram
+			Admin gameAdmin = game.getAdmin();
+			if (gameAdmin.equals((Admin)user)) { 
 				TOGame togame= new TOGame(game.getName(), game.getLevels().size(), game.getNrBlocksPerLevel(), game.getBall().getMinBallSpeedX(), game.getBall().getMinBallSpeedY(), game.getBall().getBallSpeedIncreaseFactor(), game.getPaddle().getMaxPaddleLength(), game.getPaddle().getMinPaddleLength());
 				result.add(togame);
 			}

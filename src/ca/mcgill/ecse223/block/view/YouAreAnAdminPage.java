@@ -56,25 +56,6 @@ public class YouAreAnAdminPage {
 		});
 	}
 		
-	public static void refresh() {
-
-
-		try {
-			if (comboBoxExistingGame.getItemCount()!=0) {
-				comboBoxExistingGame.removeAllItems();
-			}
-			comboBoxExistingGame.addItem("Help");
-			for (TOGame game: Block223Controller.getDesignableGames()) {
-				
-				comboBoxExistingGame.addItem(game.getName());
-			
-			}
-		}
-		catch (InvalidInputException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-		} 
-	}
 		
 	/**
 	 * Create the application.
@@ -104,6 +85,15 @@ public class YouAreAnAdminPage {
 		Font projectfont15 = projectfont.deriveFont(15f);
 //		Font projectfont24 = projectfont.deriveFont(24f);
 //		Font projectfont10 = projectfont.deriveFont(10f);
+		
+		/* Drop Down Menu */
+		
+		JComboBox<String> comboBoxExistingGame = new JComboBox<String>();
+		comboBoxExistingGame.setBackground(new Color(204, 255, 255));
+		comboBoxExistingGame.setMaximumRowCount(12);
+		comboBoxExistingGame.setFont(new Font("Monospaced", Font.PLAIN, 12));
+		
+		/* The comboBox needs to have a list of all the names of the existing games. */
 		
 		JLabel lblYouAreAn = new JLabel("YOU ARE AN ADMIN");
 		lblYouAreAn.setFont(projectfont52);
@@ -174,17 +164,7 @@ public class YouAreAnAdminPage {
 		NewGameNameTxt.setForeground(new Color(0, 0, 0));
 		NewGameNameTxt.setColumns(10);
 				
-		/* Drop Down Menu */
 		
-		JComboBox<String> comboBoxExistingGame = new JComboBox<String>();
-		comboBoxExistingGame.setBackground(new Color(204, 255, 255));
-		comboBoxExistingGame.setMaximumRowCount(12);
-		comboBoxExistingGame.setFont(new Font("Monospaced", Font.PLAIN, 12));
-		
-		/* The comboBox needs to have a list of all the names of the existing games. */
-		
-		/* Refresh something */
-
 		
 		/* Create New Game Button */
 		
@@ -198,6 +178,7 @@ public class YouAreAnAdminPage {
 				try {
 					Block223Controller.createGame(newGameName);
 					/* Add game name to comboBox when it's created */
+					// comboBoxExistingGame.addItem(newGameName);
 					refresh();
 					/* Creating a new game will take you to the updateGamePage */
 					DefineGamePage defineGame = new DefineGamePage();
@@ -244,8 +225,8 @@ public class YouAreAnAdminPage {
 				try {
 					Block223Controller.deleteGame(gameToRemove);
 					// This removes the selected item from the menu
-					comboBoxExistingGame.removeItem(gameToRemove);
-
+					// comboBoxExistingGame.removeItem(gameToRemove);
+					refresh();
 				} catch (InvalidInputException e1) {
 					lblErrorMessage.setText(e1.getMessage());
 				}
@@ -388,4 +369,20 @@ public class YouAreAnAdminPage {
 		frame.setBounds(100, 100, 704, 562);
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 	}
+	
+	public void refresh() {
+		lblErrorMessage.setText("");
+		try {
+			List <TOGame> availableGames = Block223Controller.getDesignableGames();
+			comboBoxExistingGame.removeAllItems();
+			comboBoxExistingGame.addItem("");
+			for (TOGame game: availableGames) {
+				comboBoxExistingGame.addItem(game.getName());
+			}
+		}
+		catch (InvalidInputException e) {
+				lblErrorMessage.setText(e.getMessage());
+		} 
+	}
+
 }
