@@ -88,7 +88,7 @@ public class YouAreAnAdminPage {
 		
 		/* Drop Down Menu */
 		
-		JComboBox<String> comboBoxExistingGame = new JComboBox<String>();
+		comboBoxExistingGame = new JComboBox<String>();
 		comboBoxExistingGame.setBackground(new Color(204, 255, 255));
 		comboBoxExistingGame.setMaximumRowCount(12);
 		comboBoxExistingGame.setFont(new Font("Monospaced", Font.PLAIN, 12));
@@ -154,7 +154,7 @@ public class YouAreAnAdminPage {
 		layeredPane.setBounds(0, 0, 624, 485);
 		layeredPane_1.add(layeredPane);
 		
-		JLabel lblErrorMessage = new JLabel("");
+		lblErrorMessage = new JLabel("");
 		lblErrorMessage.setForeground(new Color(204, 255, 255));
 		lblErrorMessage.setFont(new Font("Monospaced", Font.BOLD, 12));
 		
