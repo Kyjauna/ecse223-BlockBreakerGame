@@ -40,6 +40,11 @@ public class Block223Controller {
 		Block223 block223 = Block223Application.getBlock223();
 		UserRole admin = Block223Application.getCurrentUserRole();
 		Game game;
+		
+		if (Block223Application.getBlock223().findGame(name) != null) {
+			throw new InvalidInputException("The name of a game must be unique");
+		}
+		
 		try {
 			game=new Game(name, 1, (Admin) admin, 1, 1, 1, 10, 10, block223);
 			// System.out.println(game.getNrBlocksPerLevel());
