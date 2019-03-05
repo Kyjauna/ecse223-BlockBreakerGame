@@ -371,6 +371,7 @@ public class YouAreAnAdminPage {
 		frame.getContentPane().setLayout(groupLayout);
 		frame.setBounds(100, 100, 704, 562);
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		refresh();
 	}
 	
 	public void refresh() {

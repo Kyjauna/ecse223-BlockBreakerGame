@@ -483,12 +483,11 @@ public class GameLevelPage {
 		JPanel panel_255 = new JPanel();
 		
 		RedValue = new JTextField();
-		RedValue.setForeground(new Color(169, 169, 169));
-		RedValue.setText("0-255");
+		RedValue.setForeground(Color.BLACK);
 		RedValue.setColumns(10);
 		
 		textField = new JTextField();
-		textField.setForeground(new Color(169, 169, 169));
+		textField.setForeground(Color.BLACK);
 		textField.setColumns(10);
 		
 		JLabel addblockerror = new JLabel("error");
@@ -541,8 +540,7 @@ public class GameLevelPage {
 		});
 		
 		GreenValue = new JTextField();
-		GreenValue.setText("0-255");
-		GreenValue.setForeground(new Color(169, 169, 169));
+		GreenValue.setForeground(Color.BLACK);
 		GreenValue.setColumns(10);
 		
 		JLabel lblBlue = new JLabel("BLUE");
@@ -550,8 +548,7 @@ public class GameLevelPage {
 		lblBlue.setFont(projectfont15);
 		
 		BlueValue = new JTextField();
-		BlueValue.setText("0-255");
-		BlueValue.setForeground(new Color(169, 169, 169));
+		BlueValue.setForeground(Color.BLACK);
 		BlueValue.setColumns(10);
 		
 		JLabel lblGreen = new JLabel("GREEN");
@@ -1177,7 +1174,7 @@ public class GameLevelPage {
 		lblErrormessage = new JLabel("ErrorMessage");
 		lblErrormessage.setFont(new Font("Monospaced", Font.PLAIN, 11));
 		lblErrormessage.setForeground(Color.WHITE);
-		lblErrormessage.setBounds(10, 125, 345, 16);
+		lblErrormessage.setBounds(10, 125, 540, 16);
 		lblErrormessage.setVisible(false);
 		layeredPane_1.add(lblErrormessage);
 		

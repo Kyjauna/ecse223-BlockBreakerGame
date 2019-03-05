@@ -268,12 +268,12 @@ public class Block223Controller {
 		
 		int maxNrBlocksPerLevel = Block223Application.getCurrentGame().getNrBlocksPerLevel();
 		if(gameLevel.numberOfBlockAssignments() == maxNrBlocksPerLevel) {
-			throw new InvalidInputException ("The numer of blocks has reached the maximum number"+ maxNrBlocksPerLevel + "allowed for this game.");
+			throw new InvalidInputException ("The number of blocks has reached the maximum number "+ maxNrBlocksPerLevel + " allowed for this game.");
 		}
 		
 		for (BlockAssignment BA : gameLevel.getBlockAssignments()) {
 			if(BA.getGridHorizontalPosition() == gridHorizontalPosition && BA.getGridVerticalPosition() == gridVerticalPosition) {
-				throw new InvalidInputException("A block already exists at that location"+gridHorizontalPosition+"/"+gridVerticalPosition+".");
+				throw new InvalidInputException("A block already exists at that location "+gridHorizontalPosition+"/"+gridVerticalPosition+".");
 			}
 		}
 
