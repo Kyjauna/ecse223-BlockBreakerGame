@@ -12,13 +12,16 @@ import java.awt.FontFormatException;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.IOException;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import javax.swing.JPanel;
 import javax.swing.LayoutStyle.ComponentPlacement;
 
 import ca.mcgill.ecse223.block.controller.Block223Controller;
 import ca.mcgill.ecse223.block.controller.InvalidInputException;
+import ca.mcgill.ecse223.block.controller.TOBlock;
 import ca.mcgill.ecse223.block.controller.TOGridCell;
 
 import javax.swing.JButton;
@@ -42,9 +45,10 @@ public class GameLevelPage {
 	public JTextField GreenValue;
 	public JTextField BlueValue;
 	JLayeredPane layeredPane;
-	static JPanel panel_262;
+	JPanel panel_262;
 	static int level=0;
 	JLabel lblErrormessage;
+	JComboBox<String> combobox;
 
 	/**
 	 * Launch the application.
@@ -63,25 +67,57 @@ public class GameLevelPage {
 	}
 
 	
-	public static void refresh() {
+	public void refresh() {
 		List<TOGridCell> BAs = null;
+		List<TOBlock> blocks = null;		
+		Integer x_coordinate=10;
+		Integer y_coordinate=2;
+		
+		Map<Integer, Integer> Hpositions =new HashMap<Integer, Integer>();
+		for( Integer i=0;i<15;i++) {
+			Hpositions.put(i,x_coordinate);
+			x_coordinate=x_coordinate+25;
+		}
+
+		Map<Integer, Integer> Vpositions =new HashMap<Integer, Integer>();
+		for( Integer i=0;i<10;i++) {
+			Vpositions.put(i,y_coordinate);
+			y_coordinate=y_coordinate+22;
+		}
+		
+
 		panel_262.removeAll();
+		combobox.removeAllItems();
+		
 		try {
-			BAs=Block223Controller.getBlocksAtLevelOfCurrentDesignableGame(level);
-		} catch (InvalidInputException e) {
-			System.out.println(e.getMessage());
-		}
-		for (TOGridCell gridcell: BAs) {
-			int red =gridcell.getRed();
-			int blue=gridcell.getBlue();
-			int green=gridcell.getGreen();
-			int points=gridcell.getPoints();
-			int hPos=gridcell.getGridHorizontalPosition();
-			int vPos=gridcell.getGridVerticalPosition();
-			BlockCell physicalblock = new BlockCell(hPos,vPos,red,green,blue, points);
-			panel_262.add(physicalblock.block);
+			blocks=Block223Controller.getBlocksOfCurrentDesignableGame();
+			for (TOBlock block: blocks) {
+				combobox.addItem(block.getId()+",   "+block.getPoints()+",   ("+block.getRed()+", "+block.getGreen()+", "+block.getBlue()+")");
+			}
 			
+			BAs=Block223Controller.getBlocksAtLevelOfCurrentDesignableGame(level);
+			
+			for (TOGridCell gridcell: BAs) {
+				int red =gridcell.getRed();
+				int blue=gridcell.getBlue();
+				int green=gridcell.getGreen();
+				int points=gridcell.getPoints();
+				int hPos=gridcell.getGridHorizontalPosition();
+				int vPos=gridcell.getGridVerticalPosition();
+
+				JPanel physicalBlock = new JPanel();
+				physicalBlock.setBackground(new Color(red,green,blue));
+				panel_262.add(physicalBlock);
+				physicalBlock.setBounds(Hpositions.get(hPos), Vpositions.get(vPos), 20,20);
+				physicalBlock.setVisible(true);
+			
+			}
+		
+		} 
+		catch (InvalidInputException e) {
+			lblErrormessage.setText(e.getMessage());
 		}
+		
 	}
 	/**
 	 * Create the application.
@@ -448,7 +484,7 @@ public class GameLevelPage {
 		
 		RedValue = new JTextField();
 		RedValue.setForeground(new Color(169, 169, 169));
-		RedValue.setText("");
+		RedValue.setText("0-255");
 		RedValue.setColumns(10);
 		
 		textField = new JTextField();
@@ -478,6 +514,7 @@ public class GameLevelPage {
 										
 				try {
 					Block223Controller.addBlock(red, green, blue, points);
+					refresh();
 					} 
 				catch (InvalidInputException e1) {
 					addblockerror.setText(e1.getMessage());
@@ -499,7 +536,7 @@ public class GameLevelPage {
 		btnNextLevel.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 			level++;
-			GameLevelPage.refresh();
+			refresh();
 			}
 		});
 		
@@ -526,7 +563,7 @@ public class GameLevelPage {
 		btnPreviousLevel.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 			level--;
-			GameLevelPage.refresh();
+			refresh();
 			}
 		});
 		
@@ -559,7 +596,7 @@ public class GameLevelPage {
 		btnDefineGameSettings.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 			frame.setVisible(false);
-			DefineGamePage redefine=new DefineGamePage();
+			UpdateGamePage redefine=new UpdateGamePage();
 			redefine.frame.setVisible(true);
 			}
 		});
@@ -797,43 +834,45 @@ public class GameLevelPage {
 											.addComponent(panel_201, GroupLayout.PREFERRED_SIZE, 20, GroupLayout.PREFERRED_SIZE))
 										.addGroup(groupLayout.createSequentialGroup()
 											.addGroup(groupLayout.createParallelGroup(Alignment.TRAILING)
-												.addGroup(groupLayout.createSequentialGroup()
-													.addComponent(lblLevel)
-													.addPreferredGap(ComponentPlacement.RELATED, 286, Short.MAX_VALUE))
-												.addComponent(layeredPane, GroupLayout.PREFERRED_SIZE, 390, GroupLayout.PREFERRED_SIZE)
-												.addGroup(groupLayout.createSequentialGroup()
-													.addComponent(panel_52, GroupLayout.PREFERRED_SIZE, 20, GroupLayout.PREFERRED_SIZE)
-													.addPreferredGap(ComponentPlacement.RELATED)
-													.addComponent(panel_66, GroupLayout.PREFERRED_SIZE, 20, GroupLayout.PREFERRED_SIZE)
-													.addPreferredGap(ComponentPlacement.RELATED)
-													.addComponent(panel_80, GroupLayout.PREFERRED_SIZE, 20, GroupLayout.PREFERRED_SIZE)
-													.addPreferredGap(ComponentPlacement.RELATED)
-													.addGroup(groupLayout.createParallelGroup(Alignment.LEADING)
-														.addComponent(btnMoveBlockAssignment)
-														.addGroup(groupLayout.createSequentialGroup()
-															.addComponent(panel_83, GroupLayout.PREFERRED_SIZE, 20, GroupLayout.PREFERRED_SIZE)
-															.addPreferredGap(ComponentPlacement.RELATED)
-															.addComponent(panel_105, GroupLayout.PREFERRED_SIZE, 20, GroupLayout.PREFERRED_SIZE)
-															.addPreferredGap(ComponentPlacement.RELATED)
-															.addComponent(panel_115, GroupLayout.PREFERRED_SIZE, 20, GroupLayout.PREFERRED_SIZE)
-															.addPreferredGap(ComponentPlacement.RELATED)
-															.addComponent(panel_124, GroupLayout.PREFERRED_SIZE, 20, GroupLayout.PREFERRED_SIZE)
-															.addPreferredGap(ComponentPlacement.RELATED)
-															.addComponent(panel_133, GroupLayout.PREFERRED_SIZE, 20, GroupLayout.PREFERRED_SIZE)
-															.addPreferredGap(ComponentPlacement.RELATED)
-															.addComponent(panel_143, GroupLayout.PREFERRED_SIZE, 20, GroupLayout.PREFERRED_SIZE)
-															.addPreferredGap(ComponentPlacement.RELATED)
-															.addComponent(panel_168, GroupLayout.PREFERRED_SIZE, 20, GroupLayout.PREFERRED_SIZE)
-															.addPreferredGap(ComponentPlacement.RELATED)
-															.addComponent(panel_173, GroupLayout.PREFERRED_SIZE, 20, GroupLayout.PREFERRED_SIZE)
-															.addPreferredGap(ComponentPlacement.RELATED)
-															.addComponent(panel_200, GroupLayout.PREFERRED_SIZE, 20, GroupLayout.PREFERRED_SIZE)
-															.addPreferredGap(ComponentPlacement.RELATED)
-															.addComponent(panel_197, GroupLayout.PREFERRED_SIZE, 20, GroupLayout.PREFERRED_SIZE)
-															.addPreferredGap(ComponentPlacement.RELATED)
-															.addComponent(panel_198, GroupLayout.PREFERRED_SIZE, 20, GroupLayout.PREFERRED_SIZE)
-															.addPreferredGap(ComponentPlacement.RELATED)
-															.addComponent(panel_199, GroupLayout.PREFERRED_SIZE, 20, GroupLayout.PREFERRED_SIZE))))
+												.addGroup(Alignment.LEADING, groupLayout.createParallelGroup(Alignment.TRAILING)
+													.addGroup(groupLayout.createSequentialGroup()
+														.addComponent(lblLevel)
+														.addPreferredGap(ComponentPlacement.RELATED, 286, Short.MAX_VALUE))
+													.addComponent(layeredPane, GroupLayout.PREFERRED_SIZE, 390, GroupLayout.PREFERRED_SIZE)
+													.addGroup(groupLayout.createSequentialGroup()
+														.addComponent(panel_52, GroupLayout.PREFERRED_SIZE, 20, GroupLayout.PREFERRED_SIZE)
+														.addPreferredGap(ComponentPlacement.RELATED)
+														.addComponent(panel_66, GroupLayout.PREFERRED_SIZE, 20, GroupLayout.PREFERRED_SIZE)
+														.addPreferredGap(ComponentPlacement.RELATED)
+														.addComponent(panel_80, GroupLayout.PREFERRED_SIZE, 20, GroupLayout.PREFERRED_SIZE)
+														.addPreferredGap(ComponentPlacement.RELATED)
+														.addComponent(panel_83, GroupLayout.PREFERRED_SIZE, 20, GroupLayout.PREFERRED_SIZE)
+														.addPreferredGap(ComponentPlacement.RELATED)
+														.addComponent(panel_105, GroupLayout.PREFERRED_SIZE, 20, GroupLayout.PREFERRED_SIZE)
+														.addPreferredGap(ComponentPlacement.RELATED)
+														.addComponent(panel_115, GroupLayout.PREFERRED_SIZE, 20, GroupLayout.PREFERRED_SIZE)
+														.addPreferredGap(ComponentPlacement.RELATED)
+														.addComponent(panel_124, GroupLayout.PREFERRED_SIZE, 20, GroupLayout.PREFERRED_SIZE)
+														.addPreferredGap(ComponentPlacement.RELATED)
+														.addComponent(panel_133, GroupLayout.PREFERRED_SIZE, 20, GroupLayout.PREFERRED_SIZE)
+														.addPreferredGap(ComponentPlacement.RELATED)
+														.addComponent(panel_143, GroupLayout.PREFERRED_SIZE, 20, GroupLayout.PREFERRED_SIZE)
+														.addPreferredGap(ComponentPlacement.RELATED)
+														.addComponent(panel_168, GroupLayout.PREFERRED_SIZE, 20, GroupLayout.PREFERRED_SIZE)
+														.addPreferredGap(ComponentPlacement.RELATED)
+														.addComponent(panel_173, GroupLayout.PREFERRED_SIZE, 20, GroupLayout.PREFERRED_SIZE)
+														.addPreferredGap(ComponentPlacement.RELATED)
+														.addComponent(panel_200, GroupLayout.PREFERRED_SIZE, 20, GroupLayout.PREFERRED_SIZE)
+														.addPreferredGap(ComponentPlacement.RELATED)
+														.addComponent(panel_197, GroupLayout.PREFERRED_SIZE, 20, GroupLayout.PREFERRED_SIZE)
+														.addPreferredGap(ComponentPlacement.RELATED)
+														.addComponent(panel_198, GroupLayout.PREFERRED_SIZE, 20, GroupLayout.PREFERRED_SIZE)
+														.addPreferredGap(ComponentPlacement.RELATED)
+														.addComponent(panel_199, GroupLayout.PREFERRED_SIZE, 20, GroupLayout.PREFERRED_SIZE)))
+												.addGroup(Alignment.LEADING, groupLayout.createSequentialGroup()
+													.addGap(104)
+													.addComponent(btnMoveBlockAssignment)
+													.addPreferredGap(ComponentPlacement.RELATED))
 												.addComponent(layeredPane_1, GroupLayout.DEFAULT_SIZE, 398, Short.MAX_VALUE))
 											.addGroup(groupLayout.createParallelGroup(Alignment.LEADING)
 												.addGroup(groupLayout.createSequentialGroup()
@@ -922,22 +961,23 @@ public class GameLevelPage {
 							.addGap(28)
 							.addComponent(btnDefineGameSettings))
 						.addComponent(layeredPane, GroupLayout.PREFERRED_SIZE, 390, GroupLayout.PREFERRED_SIZE))
-					.addGroup(groupLayout.createParallelGroup(Alignment.LEADING)
+					.addGap(10)
+					.addGroup(groupLayout.createParallelGroup(Alignment.TRAILING)
 						.addGroup(groupLayout.createSequentialGroup()
-							.addGap(10)
 							.addComponent(btnNextLevel)
 							.addPreferredGap(ComponentPlacement.UNRELATED)
 							.addComponent(btnPreviousLevel)
 							.addPreferredGap(ComponentPlacement.UNRELATED)
 							.addComponent(btnSave)
 							.addPreferredGap(ComponentPlacement.UNRELATED)
-							.addComponent(btnFinish))
+							.addComponent(btnFinish)
+							.addGap(34))
 						.addGroup(groupLayout.createSequentialGroup()
-							.addGap(26)
-							.addComponent(layeredPane_1, GroupLayout.PREFERRED_SIZE, 141, GroupLayout.PREFERRED_SIZE)))
-					.addPreferredGap(ComponentPlacement.UNRELATED)
-					.addComponent(btnMoveBlockAssignment)
-					.addGap(162)
+							.addComponent(btnMoveBlockAssignment)
+							.addPreferredGap(ComponentPlacement.UNRELATED)
+							.addComponent(layeredPane_1, GroupLayout.PREFERRED_SIZE, 141, GroupLayout.PREFERRED_SIZE)
+							.addPreferredGap(ComponentPlacement.RELATED)))
+					.addGap(166)
 					.addGroup(groupLayout.createParallelGroup(Alignment.LEADING)
 						.addComponent(panel_52, GroupLayout.PREFERRED_SIZE, 20, GroupLayout.PREFERRED_SIZE)
 						.addComponent(panel_66, GroupLayout.PREFERRED_SIZE, 20, GroupLayout.PREFERRED_SIZE)
@@ -1076,9 +1116,9 @@ public class GameLevelPage {
 		separator.setForeground(new Color(224, 255, 255));
 		layeredPane_1.add(separator);
 		
-		JComboBox comboBox = new JComboBox();
-		comboBox.setBounds(10, 33, 171, 33);
-		layeredPane_1.add(comboBox);
+		combobox = new JComboBox<String>();
+		combobox.setBounds(10, 33, 171, 33);
+		layeredPane_1.add(combobox);
 		
 		JLabel label = new JLabel("");
 		label.setBounds(0, 79, 56, 16);
@@ -1110,6 +1150,26 @@ public class GameLevelPage {
 		layeredPane_1.add(lblHorizontalGridPosition);
 		
 		JButton btnNewButton = new JButton("POSITION BLOCK");
+		btnNewButton.addActionListener(new ActionListener() {
+			
+			public void actionPerformed(ActionEvent e) {
+			String result=(String) combobox.getSelectedItem();
+			String iD=result.substring(0, result.indexOf(','));
+			int ID=Integer.parseInt(iD);
+			
+			Integer horizontalpos = (Integer) spinner.getValue();
+			Integer verticalpos = (Integer) spinner_1.getValue();
+			
+			try {
+				Block223Controller.positionBlock(ID, level,horizontalpos ,verticalpos);
+				refresh();
+			} catch (InvalidInputException e1) {
+				lblErrormessage.setText(e1.getMessage());
+				lblErrormessage.setVisible(true);
+			}
+			
+			}
+		});
 		btnNewButton.setBounds(207, 37, 148, 25);
 		btnNewButton.setFont(projectfont15);
 		layeredPane_1.add(btnNewButton);
@@ -1121,11 +1181,37 @@ public class GameLevelPage {
 		lblErrormessage.setVisible(false);
 		layeredPane_1.add(lblErrormessage);
 		
+		JButton btnNewButton_1 = new JButton("DELETE BLOCK");
+		btnNewButton_1.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+					String result=(String) combobox.getSelectedItem();
+					String iD=result.substring(0, result.indexOf(','));
+					int ID=Integer.parseInt(iD);
+					
+					try {
+						Block223Controller.deleteBlock(ID);
+						refresh();
+					} catch (InvalidInputException e1) {
+						lblErrormessage.setText(e1.getMessage());
+						lblErrormessage.setVisible(true);
+						
+						
+					}
+					
+					}
+				});
+
+		btnNewButton_1.setFont(projectfont15);
+		btnNewButton_1.setBounds(261, 89, 125, 25);
+		layeredPane_1.add(btnNewButton_1);
+		
 		panel_262 = new JPanel();
 		panel_262.setBackground(Color.WHITE);
 		panel_262.setBounds(0, 0, 390, 390);
 		layeredPane.add(panel_262);
 		panel_262.setLayout(null);
+		
+		
 		
 		frame.getContentPane().setLayout(groupLayout);
 		frame.setBounds(100, 100, 800, 730);

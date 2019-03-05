@@ -19,7 +19,6 @@ import ca.mcgill.ecse223.block.model.Player;
 import ca.mcgill.ecse223.block.model.User;
 import ca.mcgill.ecse223.block.model.UserRole;
 import ca.mcgill.ecse223.block.persistence.Block223Persistence;
-import ca.mcgill.ecse223.block.persistence.PersistenceObjectStream;
 import ca.mcgill.ecse223.block.controller.TOGame;
 
 
@@ -42,7 +41,6 @@ public class Block223Controller {
 		Game game;
 		try {
 			game=new Game(name, 1, (Admin) admin, 1, 1, 1, 10, 10, block223);
-			// System.out.println(game.getNrBlocksPerLevel());
 		}
 		catch (RuntimeException e) {
 			throw new InvalidInputException(e.getMessage());
@@ -452,7 +450,7 @@ public class Block223Controller {
 			error = "A game must be selected to access its information.";
 		
 		if(Block223Application.getCurrentGame().getAdmin() != Block223Application.getCurrentUserRole())
-			error = "Only the admin who created the game can acces the information.";
+			error = "Only the admin who created the game can access the information.";
 					if (error.length() > 0) {
 						throw new InvalidInputException(error.trim());
 				}
