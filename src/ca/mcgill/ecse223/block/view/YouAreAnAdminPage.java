@@ -15,7 +15,6 @@ import java.awt.FontFormatException;
 import javax.swing.JPanel;
 import javax.swing.LayoutStyle.ComponentPlacement;
 
-import ca.mcgill.ecse223.block.application.Block223Application;
 //import ca.mcgill.ecse223.block.application.Block223Application;
 import ca.mcgill.ecse223.block.controller.Block223Controller;
 import ca.mcgill.ecse223.block.controller.InvalidInputException;
@@ -185,7 +184,6 @@ public class YouAreAnAdminPage {
 					/* Creating a new game will take you to the updateGamePage */
 					DefineGamePage defineGame = new DefineGamePage();
 					defineGame.frame.setVisible(true);
-					frame.setVisible(false);
 					
 				} catch (InvalidInputException e1) {
 					lblErrorMessage.setText(e1.getMessage());
@@ -256,11 +254,10 @@ public class YouAreAnAdminPage {
 					// How do I get to the update game page with the correct game???
 					UpdateGamePage updateGame = new UpdateGamePage();
 					updateGame.frame.setVisible(true);
-					frame.setVisible(false);
 				
 				} catch (InvalidInputException e) {
 					lblErrorMessage.setText(e.getMessage());
-				} 
+				}
 			}
 		});
 		
@@ -371,7 +368,6 @@ public class YouAreAnAdminPage {
 		frame.getContentPane().setLayout(groupLayout);
 		frame.setBounds(100, 100, 704, 562);
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		refresh();
 	}
 	
 	public void refresh() {

@@ -634,6 +634,13 @@ public class GameLevelPage {
 		lblNewLabel_1 = new JLabel("LevelErrorMessage");
 		lblNewLabel_1.setVisible(false);
 		lblNewLabel_1.setForeground(Color.WHITE);
+		
+		JButton btnNewButton_2 = new JButton("Refresh");
+		btnNewButton_2.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+			refresh();
+			}
+		});
 
 		GroupLayout groupLayout = new GroupLayout(frame.getContentPane());
 		groupLayout.setHorizontalGroup(
@@ -843,12 +850,12 @@ public class GameLevelPage {
 											.addGap(6)
 											.addComponent(panel_201, GroupLayout.PREFERRED_SIZE, 20, GroupLayout.PREFERRED_SIZE))
 										.addGroup(groupLayout.createSequentialGroup()
-											.addGroup(groupLayout.createParallelGroup(Alignment.LEADING)
-												.addGroup(Alignment.TRAILING, groupLayout.createSequentialGroup()
+											.addGroup(groupLayout.createParallelGroup(Alignment.TRAILING)
+												.addGroup(groupLayout.createSequentialGroup()
 													.addComponent(lblLevel)
 													.addPreferredGap(ComponentPlacement.RELATED, 286, Short.MAX_VALUE))
-												.addComponent(layeredPane, Alignment.TRAILING, GroupLayout.PREFERRED_SIZE, 390, GroupLayout.PREFERRED_SIZE)
-												.addGroup(Alignment.TRAILING, groupLayout.createSequentialGroup()
+												.addComponent(layeredPane, GroupLayout.PREFERRED_SIZE, 390, GroupLayout.PREFERRED_SIZE)
+												.addGroup(groupLayout.createSequentialGroup()
 													.addComponent(panel_52, GroupLayout.PREFERRED_SIZE, 20, GroupLayout.PREFERRED_SIZE)
 													.addPreferredGap(ComponentPlacement.RELATED)
 													.addComponent(panel_66, GroupLayout.PREFERRED_SIZE, 20, GroupLayout.PREFERRED_SIZE)
@@ -905,16 +912,18 @@ public class GameLevelPage {
 												.addGroup(groupLayout.createSequentialGroup()
 													.addGap(112)
 													.addGroup(groupLayout.createParallelGroup(Alignment.LEADING)
-														.addGroup(groupLayout.createSequentialGroup()
-															.addGap(16)
-															.addComponent(btnNextLevel))
 														.addComponent(btnPreviousLevel)
 														.addGroup(groupLayout.createSequentialGroup()
 															.addGap(36)
 															.addComponent(btnSave))
 														.addGroup(groupLayout.createSequentialGroup()
 															.addGap(23)
-															.addComponent(btnFinish, GroupLayout.PREFERRED_SIZE, 91, GroupLayout.PREFERRED_SIZE))))
+															.addComponent(btnFinish, GroupLayout.PREFERRED_SIZE, 91, GroupLayout.PREFERRED_SIZE))
+														.addGroup(groupLayout.createSequentialGroup()
+															.addGap(16)
+															.addGroup(groupLayout.createParallelGroup(Alignment.LEADING, false)
+																.addComponent(btnNewButton_2, Alignment.TRAILING, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+																.addComponent(btnNextLevel, Alignment.TRAILING, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))))
 												.addGroup(groupLayout.createSequentialGroup()
 													.addGap(100)
 													.addComponent(lblAddBlocks))
@@ -970,7 +979,9 @@ public class GameLevelPage {
 							.addPreferredGap(ComponentPlacement.RELATED)
 							.addComponent(addblockerror)
 							.addGap(28)
-							.addComponent(btnDefineGameSettings))
+							.addComponent(btnDefineGameSettings)
+							.addGap(26)
+							.addComponent(btnNewButton_2))
 						.addComponent(layeredPane, GroupLayout.PREFERRED_SIZE, 390, GroupLayout.PREFERRED_SIZE))
 					.addGap(10)
 					.addGroup(groupLayout.createParallelGroup(Alignment.TRAILING)
