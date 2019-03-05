@@ -103,7 +103,8 @@ public class Block223Controller {
 		if (!(Block223Application.getCurrentUserRole() instanceof Admin)) { 	
 			error="Admin privileges are required to delete a game.";
 		}
-		
+		/*if (Block223Application.getCurrentGame().getAdmin()!= Block223Application.getCurrentUserRole())
+			error=error+"Only the admin who created the game can delete the game. ";*/
 		if (error.length() > 0)
 			throw new InvalidInputException(error.trim());
 		
@@ -117,7 +118,7 @@ public class Block223Controller {
 	public static void selectGame(String name) throws InvalidInputException {
 		String error = "";
 		if(!(Block223Application.getCurrentUserRole() instanceof Admin))
-			error = "Admin privledges are required to select a game.";			
+			error = "Admin privileges are required to select a game.";			
 		
 		if (Block223Application.getCurrentUserRole() != Block223Application.getCurrentGame().getAdmin())
 			error = "Only the admin who created the game can select the game.";
@@ -137,7 +138,7 @@ public class Block223Controller {
 			Double ballSpeedIncreaseFactor, int maxPaddleLength, int minPaddleLength) throws InvalidInputException {
 		String error = "";
 		if(!(Block223Application.getCurrentUserRole() instanceof Admin))
-			error += "Admin privledges are required to define game settings.";		
+			error += "Admin privileges are required to define game settings.";		
 		
 		if(Block223Application.getCurrentGame() == null) 
 				error += "A game must be selected to define game settings.";
@@ -167,7 +168,7 @@ public class Block223Controller {
 	public static void addBlock(int red, int green, int blue, int points) throws InvalidInputException {
 		String error = "";
 		if(!(Block223Application.getCurrentUserRole() instanceof Admin))
-			error += "Admin privledges are required to add a block.";		
+			error += "Admin privileges are required to add a block.";		
 		
 		if(Block223Application.getCurrentGame() == null)
 				error += "A game must be selected to add a block.";
@@ -196,7 +197,7 @@ public class Block223Controller {
 		
 		String error="";
 		if (Block223Application.getCurrentUserRole()instanceof Admin == false)	
-			error="Admin Privileges are required to delete a block. ";
+			error="Admin privileges are required to delete a block. ";
 		
 		if (Block223Application.getCurrentGame()==null)
 			error=error+"A game must be selected to delete a block. ";
@@ -216,7 +217,7 @@ public class Block223Controller {
 		
 		String error="";
 		if (Block223Application.getCurrentUserRole()instanceof Admin == false)	
-			error="Admin Privileges are required to update a block. ";
+			error="Admin privileges are required to update a block. ";
 		
 		if (Block223Application.getCurrentGame()==null)
 			error=error+"A game must be selected to update a block. ";
