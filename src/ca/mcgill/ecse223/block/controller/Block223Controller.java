@@ -102,7 +102,7 @@ public class Block223Controller {
 		
 		if (game != null) {
 			game.delete();
-			Block223Persistence.save(block223);
+			saveGame();
 		}
 		
 	}
@@ -112,8 +112,6 @@ public class Block223Controller {
 		if(!(Block223Application.getCurrentUserRole() instanceof Admin))
 			error = "Admin privledges are required to select a game.";			
 		
-		if (Block223Application.getCurrentUserRole() != Block223Application.getCurrentGame().getAdmin())
-			error = "Only the admin who created the game can select the game.";
 		
 		if (error.length() > 0) 
 			throw new InvalidInputException(error.trim());
@@ -121,6 +119,9 @@ public class Block223Controller {
 		Game game = Block223Application.getBlock223().findGame(name);
 			if ( game == null) 
 				error = "A game with name" +name+ "does not exist.";
+			if (Block223Application.getCurrentUserRole() != game.getAdmin())
+				error = "Only the admin who created the game can select the game.";
+			
 			if (error.length() > 0) 
 				throw new InvalidInputException(error.trim());
 		Block223Application.setCurrentGame(game);

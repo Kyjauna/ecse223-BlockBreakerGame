@@ -72,7 +72,7 @@ public class DefineGamePage {
 			public void actionPerformed(ActionEvent e) {
 				// this action should take you to the GamePage
 				// These lines assign the values of the game specifications.
-				System.out.println("hello world");
+				
 				String stringNumberOfLevels = numberOfLevelsTxt.getText(); 
 				int numberOfLevels = Integer.parseInt(stringNumberOfLevels);
 				
@@ -96,7 +96,7 @@ public class DefineGamePage {
 
 				try {
 					Block223Controller.setGameDetails( numberOfLevels, blocksPerLevel, xBallSpeed, yBallSpeed, speedIncreaseFactor, maxPaddleLength, minPaddleLength);
-					GameLevelPage gamePage = new GameLevelPage(); 	// Launches a new page (of type GameLevel)
+					GameLevelPage gamePage = new GameLevelPage(0); 	// Launches a new page (of type GameLevel)
 					gamePage.frame.setVisible(true);	
 					frame.setVisible(false);
 				} catch (InvalidInputException e1) {
