@@ -63,6 +63,7 @@ public class YouAreAnAdminPage {
 	 */
 	public YouAreAnAdminPage() {
 		initialize();
+		refresh();
 	}
 
 	/**
