@@ -44,6 +44,7 @@ public class GameLevelPage {
 	JLayeredPane layeredPane;
 	static JPanel panel_262;
 	static int level=0;
+	JLabel lblErrormessage;
 
 	/**
 	 * Launch the application.
@@ -64,6 +65,7 @@ public class GameLevelPage {
 	
 	public static void refresh() {
 		List<TOGridCell> BAs = null;
+		panel_262.removeAll();
 		try {
 			BAs=Block223Controller.getBlocksAtLevelOfCurrentDesignableGame(level);
 		} catch (InvalidInputException e) {
@@ -454,29 +456,33 @@ public class GameLevelPage {
 		textField.setColumns(10);
 		
 		JLabel addblockerror = new JLabel("error");
-		addblockerror.setFont(new Font("STIXGeneral", Font.PLAIN, 8));
+		addblockerror.setFont(new Font("STIXGeneral", Font.PLAIN, 11));
 		addblockerror.setForeground(Color.RED);
+		addblockerror.setVisible(false);
 		
 		JButton btnAdd = new JButton("ADD");
 		btnAdd.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-						String redvalue = RedValue.getText();
-						int red = Integer.parseInt(redvalue);
 						
-						String greenvalue = GreenValue.getText();
-						int green = Integer.parseInt(greenvalue);
+				String redvalue = RedValue.getText();
+				int red = Integer.parseInt(redvalue);
 						
-						String bluevalue = BlueValue.getText();
-						int blue = Integer.parseInt(bluevalue);
-						
-						String pointvalue = textField.getText();
-						int points = Integer.parseInt(pointvalue);
+				String greenvalue = GreenValue.getText();
+				int green = Integer.parseInt(greenvalue);
+				
+				String bluevalue = BlueValue.getText();
+				int blue = Integer.parseInt(bluevalue);
+				
+				String pointvalue = textField.getText();
+				int points = Integer.parseInt(pointvalue);
 										
-						try {
-							Block223Controller.addBlock(red, green, blue, points);
-						} catch (InvalidInputException e1) {
-							addblockerror.setText(e1.getMessage());
-						}
+				try {
+					Block223Controller.addBlock(red, green, blue, points);
+					} 
+				catch (InvalidInputException e1) {
+					addblockerror.setText(e1.getMessage());
+					addblockerror.setVisible(true);
+				}
 			}
 			
 		});
@@ -498,7 +504,7 @@ public class GameLevelPage {
 		});
 		
 		GreenValue = new JTextField();
-		GreenValue.setText("");
+		GreenValue.setText("0-255");
 		GreenValue.setForeground(new Color(169, 169, 169));
 		GreenValue.setColumns(10);
 		
@@ -507,7 +513,7 @@ public class GameLevelPage {
 		lblBlue.setFont(projectfont15);
 		
 		BlueValue = new JTextField();
-		BlueValue.setText("");
+		BlueValue.setText("0-255");
 		BlueValue.setForeground(new Color(169, 169, 169));
 		BlueValue.setColumns(10);
 		
@@ -528,6 +534,11 @@ public class GameLevelPage {
 		btnSave.setFont(projectfont15);
 		btnSave.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
+				try {
+					Block223Controller.saveGame();
+				} catch (InvalidInputException e1) {
+
+				}
 			}
 		});
 		
@@ -535,6 +546,10 @@ public class GameLevelPage {
 		btnFinish.setFont(projectfont15);
 		btnFinish.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
+			frame.setVisible(false);
+			YouAreAnAdminPage donegame =new YouAreAnAdminPage();
+			donegame.frame.setVisible(true);
+			
 			}
 		});
 		
@@ -543,6 +558,9 @@ public class GameLevelPage {
 		
 		btnDefineGameSettings.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
+			frame.setVisible(false);
+			DefineGamePage redefine=new DefineGamePage();
+			redefine.frame.setVisible(true);
 			}
 		});
 		
@@ -1096,10 +1114,11 @@ public class GameLevelPage {
 		btnNewButton.setFont(projectfont15);
 		layeredPane_1.add(btnNewButton);
 		
-		JLabel lblErrormessage = new JLabel("ErrorMessage");
+		lblErrormessage = new JLabel("ErrorMessage");
 		lblErrormessage.setFont(new Font("Monospaced", Font.PLAIN, 11));
 		lblErrormessage.setForeground(Color.WHITE);
 		lblErrormessage.setBounds(10, 125, 345, 16);
+		lblErrormessage.setVisible(false);
 		layeredPane_1.add(lblErrormessage);
 		
 		panel_262 = new JPanel();
