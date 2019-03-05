@@ -297,9 +297,10 @@ public class Block223Controller {
 
 		
 		Game game=Block223Application.getCurrentGame();
+		Level gameLevel;
 		
 		try {
-			Level gameLevel=game.getLevel(level);
+			gameLevel=game.getLevel(level);
 			BlockAssignment assignment=gameLevel.findBlockAssignment(oldGridHorizontalPosition, oldGridVerticalPosition);
 
 			assignment.setGridHorizontalPosition(newGridHorizontalPosition);
@@ -310,8 +311,8 @@ public class Block223Controller {
 		}
 		
 		for (BlockAssignment BA : gameLevel.getBlockAssignments()) {
-			if(BA.getGridHorizontalPosition() == gridHorizontalPosition && BA.getGridVerticalPosition() == gridVerticalPosition) {
-				throw new InvalidInputException("A block already exists at that location"+gridHorizontalPosition+"/"+gridVerticalPosition+".");
+			if(BA.getGridHorizontalPosition() == newGridHorizontalPosition && BA.getGridVerticalPosition() == newGridVerticalPosition) {
+				throw new InvalidInputException("A block already exists at that location"+newGridHorizontalPosition+"/"+newGridVerticalPosition+".");
 			}
 		}
 

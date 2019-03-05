@@ -37,6 +37,8 @@ public class YouAreAnAdminPage {
 
 	public JFrame frame;
 	public JTextField NewGameNameTxt;
+	public static JComboBox<String> comboBoxExistingGame;
+	JLabel lblErrorMessage;
 	
 	/**
 	 * Launch the application.
@@ -53,7 +55,20 @@ public class YouAreAnAdminPage {
 			}
 		});
 	}
-
+		
+	public static void refresh() {
+		comboBoxExistingGame.removeAllItems();
+		try {
+			for (TOGame game: Block223Controller.getDesignableGames()) {
+				comboBoxExistingGame.addItem(game.getName());
+			}
+		}
+		catch (InvalidInputException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+		} 
+	}
+		
 	/**
 	 * Create the application.
 	 */
@@ -162,20 +177,7 @@ public class YouAreAnAdminPage {
 		/* The comboBox needs to have a list of all the names of the existing games. */
 		
 		/* Refresh something */
-		
-/*		public static void refresh() {
-			List<TOGame> designableGames = null;
-			try {
-				designableGames = Block223Controller.getDesignableGames();
-			} catch (InvalidInputException e2) {
-				lblErrorMessage.setText(e2.getMessage());
-			}
-			String[] designableGame = designableGames.toArray(new String[0]);
-			for (int i = 0; i < designableGames.size(); i++)
-			{
-				comboBoxExistingGame.addItem(designableGame[i]);
-			}
-		} */
+
 		
 		/* Create New Game Button */
 		
