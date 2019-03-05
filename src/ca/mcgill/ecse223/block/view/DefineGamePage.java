@@ -230,10 +230,9 @@ public class DefineGamePage {
 		btnCancel.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				
-				WelcomePage welcomepage= new WelcomePage();	//this is how you launch a different page
-				welcomepage.frame.setVisible(true);	
-						frame.setVisible(false);
-				
+				YouAreAnAdminPage adminPage = new YouAreAnAdminPage();
+				adminPage.frame.setVisible(true);
+				frame.setVisible(false);
 			
 			}
 			
