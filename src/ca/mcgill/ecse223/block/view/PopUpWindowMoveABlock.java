@@ -177,7 +177,6 @@ public class PopUpWindowMoveABlock {
 			try {
 				Block223Controller.removeBlock(levelindex,oldxvalue, oldyvalue);
 				frame.setVisible(false);
-				GameLevelPage.refresh();
 				
 			} catch (InvalidInputException e1) {
 				lblErrormessage.setText(e1.getMessage());
@@ -202,7 +201,6 @@ public class PopUpWindowMoveABlock {
 			try {
 				Block223Controller.moveBlock(levelindex, oldHorizontalPos, oldVerticalPos, newHorizontalPos, newVerticalPos);
 				frame.setVisible(false);
-				GameLevelPage.refresh();
 				
 			} catch (InvalidInputException e1) {
 				lblErrormessage.setText(e1.getMessage());
