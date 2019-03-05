@@ -197,7 +197,7 @@ public class Level implements Serializable
   public BlockAssignment findBlockAssignment(int oldHorizontalGridPosition, int oldVerticalGridPosition){
     BlockAssignment foundBA = null;
 			for (BlockAssignment BA : this.getBlockAssignments()) {
-				if (BA.getGridHorizontalPosition() == oldHorizontalGridPosition&&BA.getGridHorizontalPosition()==oldVerticalGridPosition) {
+				if (BA.getGridHorizontalPosition() == oldHorizontalGridPosition&&BA.getGridVerticalPosition()==oldVerticalGridPosition) {
 					foundBA = BA;
 					break;
 				}

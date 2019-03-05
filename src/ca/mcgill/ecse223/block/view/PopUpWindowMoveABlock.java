@@ -33,6 +33,7 @@ public class PopUpWindowMoveABlock {
 
 	public JFrame frame;
 	public int levelindex;
+	public GameLevelPage parent;
 
 	/**
 	 * Launch the application.
@@ -42,8 +43,8 @@ public class PopUpWindowMoveABlock {
 			public void run() {
 				
 				try {
-					//PopUpWindowMoveABlock window = new PopUpWindowMoveABlock(levelindex);
-					//window.frame.setVisible(true);
+					PopUpWindowMoveABlock window = new PopUpWindowMoveABlock(0);
+					window.frame.setVisible(true);
 				} catch (Exception e) {
 					e.printStackTrace();
 				}
@@ -56,13 +57,13 @@ public class PopUpWindowMoveABlock {
 	 */
 	public PopUpWindowMoveABlock(int levelindex) {
 		this.levelindex=levelindex;
-		initialize(levelindex);
+		initialize();
 	}
 
 	/**
 	 * Initialize the contents of the frame.
 	 */
-	private void initialize(int levelindex) {
+	private void initialize() {
 		Font projectfont = null;
 		try {
 			projectfont = Font.createFont(Font.TRUETYPE_FONT, getClass().getResourceAsStream("/ARCADECLASSIC.TTF"));
@@ -179,6 +180,8 @@ public class PopUpWindowMoveABlock {
 			try {
 				Block223Controller.removeBlock(levelindex,oldxvalue, oldyvalue);
 				frame.setVisible(false);
+//				GameLevelPage page = new GameLevelPage(levelindex);
+//				page.frame.setVisible(true);
 				
 			} catch (InvalidInputException e1) {
 				lblErrormessage.setText(e1.getMessage());
@@ -197,12 +200,22 @@ public class PopUpWindowMoveABlock {
 			
 			Integer oldHorizontalPos = (Integer) spinner.getValue();
 			Integer oldVerticalPos = (Integer) spinner_1.getValue();
-			Integer newHorizontalPos = (Integer) spinner_2.getValue();
-			Integer newVerticalPos = (Integer) spinner_3.getValue();
-			
+			Integer newHorizontalPos = (Integer) spinner_3.getValue();
+			Integer newVerticalPos = (Integer) spinner_2.getValue();
+			if (oldHorizontalPos==null)
+				oldHorizontalPos=0;
+			if (oldVerticalPos==null)
+				oldVerticalPos=0;
+			if (newHorizontalPos==null)
+				newHorizontalPos=0;
+			if (newVerticalPos==null)
+				newVerticalPos=0;
 			try {
 				Block223Controller.moveBlock(levelindex, oldHorizontalPos, oldVerticalPos, newHorizontalPos, newVerticalPos);
 				frame.setVisible(false);
+//				GameLevelPage page = new GameLevelPage(levelindex);
+//				page.frame.setVisible(true);
+				
 				
 			} catch (InvalidInputException e1) {
 				lblErrormessage.setText(e1.getMessage());

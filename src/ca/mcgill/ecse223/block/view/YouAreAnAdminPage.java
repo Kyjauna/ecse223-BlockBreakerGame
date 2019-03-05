@@ -184,6 +184,7 @@ public class YouAreAnAdminPage {
 					/* Creating a new game will take you to the updateGamePage */
 					DefineGamePage defineGame = new DefineGamePage();
 					defineGame.frame.setVisible(true);
+					frame.setVisible(false);
 					
 				} catch (InvalidInputException e1) {
 					lblErrorMessage.setText(e1.getMessage());
@@ -254,6 +255,7 @@ public class YouAreAnAdminPage {
 					// How do I get to the update game page with the correct game???
 					UpdateGamePage updateGame = new UpdateGamePage();
 					updateGame.frame.setVisible(true);
+					frame.setVisible(false);
 				
 				} catch (InvalidInputException e) {
 					lblErrorMessage.setText(e.getMessage());

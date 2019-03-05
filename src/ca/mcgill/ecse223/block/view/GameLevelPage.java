@@ -36,6 +36,8 @@ import javax.swing.JComboBox;
 import javax.swing.JSpinner;
 import javax.swing.SpinnerModel;
 import javax.swing.SpinnerNumberModel;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
 
 public class GameLevelPage {
 
@@ -91,6 +93,8 @@ public class GameLevelPage {
 		
 		combobox.removeAllItems();
 		panel_262.removeAll();
+		panel_262.revalidate();
+		panel_262.repaint();
 		
 		try {
 			blocks=Block223Controller.getBlocksOfCurrentDesignableGame();
@@ -152,6 +156,12 @@ public class GameLevelPage {
 		Font projectfont32 = projectfont.deriveFont(32f);
 		
 		frame = new JFrame();
+		frame.getContentPane().addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent arg0) {
+			refresh();
+			}
+		});
 		frame.getContentPane().setBackground(new Color(0, 0, 51));
 		
 		lblLevel=new JLabel("");
@@ -541,10 +551,11 @@ public class GameLevelPage {
 			public void actionPerformed(ActionEvent arg0) {
 			try {
 				if (level!= Block223Controller.getCurrentDesignableGame().getNrLevels()) level++;
+				refresh();
 			} catch (InvalidInputException e) {
 				
 			}
-			refresh();
+			
 			}
 		});
 		
@@ -596,7 +607,7 @@ public class GameLevelPage {
 			}
 		});
 		
-		JButton btnDefineGameSettings = new JButton("DEFINE GAME SETTINGS");
+		JButton btnDefineGameSettings = new JButton("UPDATE GAME SETTINGS");
 		btnDefineGameSettings.setFont(projectfont15);
 		
 		btnDefineGameSettings.addActionListener(new ActionListener() {
@@ -624,7 +635,7 @@ public class GameLevelPage {
 			
 			btnMoveBlockAssignment.addActionListener(new ActionListener() {
 				public void actionPerformed(ActionEvent arg0) {
-				
+				//frame.setVisible(false);
 				PopUpWindowMoveABlock window = new PopUpWindowMoveABlock(level);
 				window.frame.setVisible(true);
 				
@@ -634,13 +645,6 @@ public class GameLevelPage {
 		lblNewLabel_1 = new JLabel("LevelErrorMessage");
 		lblNewLabel_1.setVisible(false);
 		lblNewLabel_1.setForeground(Color.WHITE);
-		
-		JButton btnNewButton_2 = new JButton("Refresh");
-		btnNewButton_2.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-			refresh();
-			}
-		});
 
 		GroupLayout groupLayout = new GroupLayout(frame.getContentPane());
 		groupLayout.setHorizontalGroup(
@@ -850,46 +854,47 @@ public class GameLevelPage {
 											.addGap(6)
 											.addComponent(panel_201, GroupLayout.PREFERRED_SIZE, 20, GroupLayout.PREFERRED_SIZE))
 										.addGroup(groupLayout.createSequentialGroup()
-											.addGroup(groupLayout.createParallelGroup(Alignment.TRAILING)
+											.addGroup(groupLayout.createParallelGroup(Alignment.LEADING)
+												.addGroup(groupLayout.createParallelGroup(Alignment.TRAILING)
+													.addGroup(groupLayout.createSequentialGroup()
+														.addComponent(lblLevel)
+														.addPreferredGap(ComponentPlacement.RELATED, 286, Short.MAX_VALUE))
+													.addComponent(layeredPane, GroupLayout.PREFERRED_SIZE, 390, GroupLayout.PREFERRED_SIZE)
+													.addGroup(groupLayout.createSequentialGroup()
+														.addComponent(panel_52, GroupLayout.PREFERRED_SIZE, 20, GroupLayout.PREFERRED_SIZE)
+														.addPreferredGap(ComponentPlacement.RELATED)
+														.addComponent(panel_66, GroupLayout.PREFERRED_SIZE, 20, GroupLayout.PREFERRED_SIZE)
+														.addPreferredGap(ComponentPlacement.RELATED)
+														.addComponent(panel_80, GroupLayout.PREFERRED_SIZE, 20, GroupLayout.PREFERRED_SIZE)
+														.addPreferredGap(ComponentPlacement.RELATED)
+														.addComponent(panel_83, GroupLayout.PREFERRED_SIZE, 20, GroupLayout.PREFERRED_SIZE)
+														.addPreferredGap(ComponentPlacement.RELATED)
+														.addComponent(panel_105, GroupLayout.PREFERRED_SIZE, 20, GroupLayout.PREFERRED_SIZE)
+														.addPreferredGap(ComponentPlacement.RELATED)
+														.addComponent(panel_115, GroupLayout.PREFERRED_SIZE, 20, GroupLayout.PREFERRED_SIZE)
+														.addPreferredGap(ComponentPlacement.RELATED)
+														.addComponent(panel_124, GroupLayout.PREFERRED_SIZE, 20, GroupLayout.PREFERRED_SIZE)
+														.addPreferredGap(ComponentPlacement.RELATED)
+														.addComponent(panel_133, GroupLayout.PREFERRED_SIZE, 20, GroupLayout.PREFERRED_SIZE)
+														.addPreferredGap(ComponentPlacement.RELATED)
+														.addComponent(panel_143, GroupLayout.PREFERRED_SIZE, 20, GroupLayout.PREFERRED_SIZE)
+														.addPreferredGap(ComponentPlacement.RELATED)
+														.addComponent(panel_168, GroupLayout.PREFERRED_SIZE, 20, GroupLayout.PREFERRED_SIZE)
+														.addPreferredGap(ComponentPlacement.RELATED)
+														.addComponent(panel_173, GroupLayout.PREFERRED_SIZE, 20, GroupLayout.PREFERRED_SIZE)
+														.addPreferredGap(ComponentPlacement.RELATED)
+														.addComponent(panel_200, GroupLayout.PREFERRED_SIZE, 20, GroupLayout.PREFERRED_SIZE)
+														.addPreferredGap(ComponentPlacement.RELATED)
+														.addComponent(panel_197, GroupLayout.PREFERRED_SIZE, 20, GroupLayout.PREFERRED_SIZE)
+														.addPreferredGap(ComponentPlacement.RELATED)
+														.addComponent(panel_198, GroupLayout.PREFERRED_SIZE, 20, GroupLayout.PREFERRED_SIZE)
+														.addPreferredGap(ComponentPlacement.RELATED)
+														.addComponent(panel_199, GroupLayout.PREFERRED_SIZE, 20, GroupLayout.PREFERRED_SIZE))
+													.addComponent(layeredPane_1, GroupLayout.DEFAULT_SIZE, 398, Short.MAX_VALUE))
 												.addGroup(groupLayout.createSequentialGroup()
-													.addComponent(lblLevel)
-													.addPreferredGap(ComponentPlacement.RELATED, 286, Short.MAX_VALUE))
-												.addComponent(layeredPane, GroupLayout.PREFERRED_SIZE, 390, GroupLayout.PREFERRED_SIZE)
-												.addGroup(groupLayout.createSequentialGroup()
-													.addComponent(panel_52, GroupLayout.PREFERRED_SIZE, 20, GroupLayout.PREFERRED_SIZE)
-													.addPreferredGap(ComponentPlacement.RELATED)
-													.addComponent(panel_66, GroupLayout.PREFERRED_SIZE, 20, GroupLayout.PREFERRED_SIZE)
-													.addPreferredGap(ComponentPlacement.RELATED)
-													.addComponent(panel_80, GroupLayout.PREFERRED_SIZE, 20, GroupLayout.PREFERRED_SIZE)
-													.addPreferredGap(ComponentPlacement.RELATED)
-													.addComponent(panel_83, GroupLayout.PREFERRED_SIZE, 20, GroupLayout.PREFERRED_SIZE)
-													.addPreferredGap(ComponentPlacement.RELATED)
-													.addComponent(panel_105, GroupLayout.PREFERRED_SIZE, 20, GroupLayout.PREFERRED_SIZE)
-													.addPreferredGap(ComponentPlacement.RELATED)
-													.addComponent(panel_115, GroupLayout.PREFERRED_SIZE, 20, GroupLayout.PREFERRED_SIZE)
-													.addPreferredGap(ComponentPlacement.RELATED)
-													.addComponent(panel_124, GroupLayout.PREFERRED_SIZE, 20, GroupLayout.PREFERRED_SIZE)
-													.addPreferredGap(ComponentPlacement.RELATED)
-													.addComponent(panel_133, GroupLayout.PREFERRED_SIZE, 20, GroupLayout.PREFERRED_SIZE)
-													.addPreferredGap(ComponentPlacement.RELATED)
-													.addComponent(panel_143, GroupLayout.PREFERRED_SIZE, 20, GroupLayout.PREFERRED_SIZE)
-													.addPreferredGap(ComponentPlacement.RELATED)
-													.addComponent(panel_168, GroupLayout.PREFERRED_SIZE, 20, GroupLayout.PREFERRED_SIZE)
-													.addPreferredGap(ComponentPlacement.RELATED)
-													.addComponent(panel_173, GroupLayout.PREFERRED_SIZE, 20, GroupLayout.PREFERRED_SIZE)
-													.addPreferredGap(ComponentPlacement.RELATED)
-													.addComponent(panel_200, GroupLayout.PREFERRED_SIZE, 20, GroupLayout.PREFERRED_SIZE)
-													.addPreferredGap(ComponentPlacement.RELATED)
-													.addComponent(panel_197, GroupLayout.PREFERRED_SIZE, 20, GroupLayout.PREFERRED_SIZE)
-													.addPreferredGap(ComponentPlacement.RELATED)
-													.addComponent(panel_198, GroupLayout.PREFERRED_SIZE, 20, GroupLayout.PREFERRED_SIZE)
-													.addPreferredGap(ComponentPlacement.RELATED)
-													.addComponent(panel_199, GroupLayout.PREFERRED_SIZE, 20, GroupLayout.PREFERRED_SIZE))
-												.addGroup(groupLayout.createSequentialGroup()
-													.addGap(104)
+													.addGap(114)
 													.addComponent(btnMoveBlockAssignment)
-													.addPreferredGap(ComponentPlacement.RELATED))
-												.addComponent(layeredPane_1, GroupLayout.DEFAULT_SIZE, 398, Short.MAX_VALUE))
+													.addPreferredGap(ComponentPlacement.RELATED)))
 											.addGroup(groupLayout.createParallelGroup(Alignment.LEADING)
 												.addGroup(groupLayout.createSequentialGroup()
 													.addGap(52)
@@ -921,15 +926,10 @@ public class GameLevelPage {
 															.addComponent(btnFinish, GroupLayout.PREFERRED_SIZE, 91, GroupLayout.PREFERRED_SIZE))
 														.addGroup(groupLayout.createSequentialGroup()
 															.addGap(16)
-															.addGroup(groupLayout.createParallelGroup(Alignment.LEADING, false)
-																.addComponent(btnNewButton_2, Alignment.TRAILING, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-																.addComponent(btnNextLevel, Alignment.TRAILING, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))))
+															.addComponent(btnNextLevel))))
 												.addGroup(groupLayout.createSequentialGroup()
 													.addGap(100)
 													.addComponent(lblAddBlocks))
-												.addGroup(groupLayout.createSequentialGroup()
-													.addGap(44)
-													.addComponent(lblNewLabel, GroupLayout.PREFERRED_SIZE, 291, GroupLayout.PREFERRED_SIZE))
 												.addGroup(groupLayout.createSequentialGroup()
 													.addGap(29)
 													.addComponent(addblockerror, GroupLayout.PREFERRED_SIZE, 338, GroupLayout.PREFERRED_SIZE))
@@ -940,13 +940,16 @@ public class GameLevelPage {
 													.addGap(62)
 													.addGroup(groupLayout.createParallelGroup(Alignment.LEADING)
 														.addComponent(lblNewLabel_1, GroupLayout.PREFERRED_SIZE, 245, GroupLayout.PREFERRED_SIZE)
-														.addComponent(panel_196, GroupLayout.PREFERRED_SIZE, 20, GroupLayout.PREFERRED_SIZE))))
+														.addComponent(panel_196, GroupLayout.PREFERRED_SIZE, 20, GroupLayout.PREFERRED_SIZE)))
+												.addGroup(groupLayout.createSequentialGroup()
+													.addPreferredGap(ComponentPlacement.RELATED)
+													.addComponent(lblNewLabel, GroupLayout.PREFERRED_SIZE, 407, GroupLayout.PREFERRED_SIZE)))
 											.addGap(335))))))))
 		);
 		groupLayout.setVerticalGroup(
 			groupLayout.createParallelGroup(Alignment.LEADING)
 				.addGroup(groupLayout.createSequentialGroup()
-					.addGroup(groupLayout.createParallelGroup(Alignment.LEADING, false)
+					.addGroup(groupLayout.createParallelGroup(Alignment.LEADING)
 						.addGroup(groupLayout.createSequentialGroup()
 							.addGap(28)
 							.addComponent(lblLevel))
@@ -979,9 +982,7 @@ public class GameLevelPage {
 							.addPreferredGap(ComponentPlacement.RELATED)
 							.addComponent(addblockerror)
 							.addGap(28)
-							.addComponent(btnDefineGameSettings)
-							.addGap(26)
-							.addComponent(btnNewButton_2))
+							.addComponent(btnDefineGameSettings))
 						.addComponent(layeredPane, GroupLayout.PREFERRED_SIZE, 390, GroupLayout.PREFERRED_SIZE))
 					.addGap(10)
 					.addGroup(groupLayout.createParallelGroup(Alignment.TRAILING)
@@ -1224,8 +1225,23 @@ public class GameLevelPage {
 				});
 
 		btnNewButton_1.setFont(projectfont15);
-		btnNewButton_1.setBounds(261, 89, 125, 25);
+		btnNewButton_1.setBounds(261, 70, 125, 25);
 		layeredPane_1.add(btnNewButton_1);
+		
+		JButton button = new JButton("UPDATE BLOCK");
+		button.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				String result=(String) combobox.getSelectedItem();
+				String iD=result.substring(0, result.indexOf(','));
+				int ID=Integer.parseInt(iD);
+				
+				PopUpWindowUpdate update = new PopUpWindowUpdate(ID);
+				update.frame.setVisible(true);
+			}
+		});
+		button.setFont(projectfont15);
+		button.setBounds(261, 104, 125, 24);
+		layeredPane_1.add(button);
 		
 		panel_262 = new JPanel();
 		panel_262.setBackground(Color.WHITE);

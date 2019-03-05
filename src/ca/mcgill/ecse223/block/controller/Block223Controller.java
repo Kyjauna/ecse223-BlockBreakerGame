@@ -72,6 +72,9 @@ public class Block223Controller {
 		if (nrLevels < 1 || nrLevels > 99)
 			error = error + "The number of levels must be between 1 and 99. ";
 		
+		if (error.length() > 0)
+			throw new InvalidInputException(error.trim());
+		
 		Game game = Block223Application.getCurrentGame();
 		game.setNrBlocksPerLevel(nrBlocksPerLevel);
 		Ball gameBall = game.getBall();
@@ -118,7 +121,6 @@ public class Block223Controller {
 		if(!(Block223Application.getCurrentUserRole() instanceof Admin))
 			error = "Admin privileges are required to select a game.";			
 		
-		
 		if (error.length() > 0) 
 			throw new InvalidInputException(error.trim());
 	
@@ -145,6 +147,9 @@ public class Block223Controller {
 		if (Block223Application.getCurrentGame().getAdmin() != Block223Application.getCurrentUserRole())
 			error += "Only the admin who created the game can define its game settings.";
 		
+		if ((Block223Application.getBlock223().findGame(name))!=null)
+			error= error + "The name of the game must be unique."; 
+		
 		if (error.length() > 0) 
 			throw new InvalidInputException(error.trim());
 		
@@ -153,15 +158,13 @@ public class Block223Controller {
 			if(!(currentName.equals(name))) {
 				try {
 					game.setName(name);
-				} catch(RuntimeException e) {
-					error = e.getMessage();
-					if(error.equals("name is not unique"))
-						error = "The name of the game must be unique.";
+					setGameDetails(nrLevels, nrBlocksPerLevel, minBallSpeedX, minBallSpeedY, ballSpeedIncreaseFactor, maxPaddleLength, minPaddleLength);
+				} 
+				catch(InvalidInputException e) {
+					throw new InvalidInputException(e.getMessage());
 				}
-				throw new InvalidInputException(error);
-				}
-				setGameDetails(nrLevels, nrBlocksPerLevel, minBallSpeedX, minBallSpeedY, ballSpeedIncreaseFactor, maxPaddleLength, minPaddleLength);
 				
+			}		
 	}
 
 	public static void addBlock(int red, int green, int blue, int points) throws InvalidInputException {
@@ -203,6 +206,8 @@ public class Block223Controller {
 		
 		if(Block223Application.getCurrentGame().getAdmin()!=Block223Application.getCurrentUserRole())
 			error=error+"Only the admin who created the game can delete a block. ";
+		if (error.length() > 0)
+			throw new InvalidInputException(error.trim());
 		
 		Block block = Block223Application.getCurrentGame().findBlock(id);
 		
@@ -223,6 +228,9 @@ public class Block223Controller {
 		
 		if (Block223Application.getCurrentGame().getAdmin()!=Block223Application.getCurrentUserRole())
 			error=error+"Only the admin who created the game can update a block. ";
+		
+		if (error.length() > 0)
+			throw new InvalidInputException(error.trim());
 		
 		for (Block B : Block223Application.getCurrentGame().getBlocks())
 			if (B.getRed()== red && B.getBlue()== blue && B.getGreen() == green)
@@ -256,7 +264,10 @@ public class Block223Controller {
 		
 		if(Block223Application.getCurrentGame().getAdmin()!=Block223Application.getCurrentUserRole())
 			error=error+"Only the admin who created the game can position a block. ";
-	
+		
+		if (error.length() > 0)
+			throw new InvalidInputException(error.trim());
+		
 		Game game=Block223Application.getCurrentGame();
 		Level gameLevel;
 		
@@ -300,25 +311,31 @@ public class Block223Controller {
 		if(Block223Application.getCurrentGame().getAdmin()!=Block223Application.getCurrentUserRole())
 			error=error+"Only the admin who created the game may move a block. ";
 
+		if (error.length() > 0)
+			throw new InvalidInputException(error.trim());
 		
 		Game game=Block223Application.getCurrentGame();
 		Level gameLevel;
 		
 		try {
 			gameLevel=game.getLevel(level);
-			BlockAssignment assignment=gameLevel.findBlockAssignment(oldGridHorizontalPosition, oldGridVerticalPosition);
+			BlockAssignment assignment = gameLevel.findBlockAssignment(oldGridHorizontalPosition, oldGridVerticalPosition);
 
+			for (BlockAssignment BA : gameLevel.getBlockAssignments()) {
+				if(BA.getGridHorizontalPosition() == newGridHorizontalPosition && BA.getGridVerticalPosition() == newGridVerticalPosition) {
+					throw new InvalidInputException("A block already exists at that location"+newGridHorizontalPosition+"/"+newGridVerticalPosition+".");
+				}
+			}
+			
+			
+			if (assignment != null) {
 			assignment.setGridHorizontalPosition(newGridHorizontalPosition);
 			assignment.setGridVerticalPosition(newGridVerticalPosition);
+			}
+			
 		}
 		catch (IndexOutOfBoundsException e) {
 			throw new InvalidInputException ("Level"+level+"does not exist for this game.");
-		}
-		
-		for (BlockAssignment BA : gameLevel.getBlockAssignments()) {
-			if(BA.getGridHorizontalPosition() == newGridHorizontalPosition && BA.getGridVerticalPosition() == newGridVerticalPosition) {
-				throw new InvalidInputException("A block already exists at that location"+newGridHorizontalPosition+"/"+newGridVerticalPosition+".");
-			}
 		}
 
 	}
@@ -334,6 +351,9 @@ public class Block223Controller {
 		
 		if (Block223Application.getCurrentGame().getAdmin()!=Block223Application.getCurrentUserRole())
 			error=error+"Only the admin who created the game may move a block. ";
+		
+		if (error.length() > 0)
+			throw new InvalidInputException(error.trim());
 		
 		Game game = Block223Application.getCurrentGame();
 		Level gameLevel = game.getLevel(level);
@@ -355,6 +375,9 @@ public class Block223Controller {
 		if (Block223Application.getCurrentGame().getAdmin()!=Block223Application.getCurrentUserRole())
 			error=error+"Only the admin who created the game may move a block. ";
 		
+		if (error.length() > 0)
+			throw new InvalidInputException(error.trim());
+		
 		Block223 b=Block223Application.getBlock223();
 		Block223Persistence.save(b);
 	}
@@ -371,7 +394,6 @@ public class Block223Controller {
 			error += "The passwords have to be different. ";	
 		
 		if (error.length() > 0) {
-			System.out.println(error.trim());
 			throw new InvalidInputException(error.trim());
 		}
 		
@@ -469,9 +491,10 @@ public class Block223Controller {
 		
 		if(Block223Application.getCurrentGame().getAdmin() != Block223Application.getCurrentUserRole())
 			error = "Only the admin who created the game can access the information.";
-					if (error.length() > 0) {
-						throw new InvalidInputException(error.trim());
-				}
+		
+		if (error.length() > 0) {
+			throw new InvalidInputException(error.trim());
+		}
 
 		Game game = Block223Application.getCurrentGame();
 		TOGame to = new TOGame(game.getName(), game.getLevels().size(),game.getNrBlocksPerLevel(), game.getBall().getMinBallSpeedX(), game.getBall().getMinBallSpeedY(), game.getBall().getBallSpeedIncreaseFactor(), game.getPaddle().getMaxPaddleLength(), game.getPaddle().getMinPaddleLength());
@@ -489,6 +512,9 @@ public class Block223Controller {
 		
 		if(Block223Application.getCurrentGame().getAdmin()!=Block223Application.getCurrentUserRole())
 			error=error+"Only the admin who created the game can access its information. ";
+		
+		if (error.length() > 0)
+			throw new InvalidInputException(error.trim());
 		
 		Game game = Block223Application.getCurrentGame();
 		ArrayList<TOBlock> result = new ArrayList<>();
@@ -516,6 +542,9 @@ public class Block223Controller {
 		if (Block223Application.getCurrentGame().findBlock(id) == null)
 			error=error+"The block does not exist. ";
 		
+		if (error.length() > 0)
+			throw new InvalidInputException(error.trim());
+		
 		//Game game = Block223Application.getCurrentGame();
 		Block block = Block223Application.getCurrentGame().findBlock(id);
 		TOBlock tobck1 = new TOBlock(block.getId(), block.getRed(), block.getGreen(), block.getBlue(), block.getPoints());
@@ -535,6 +564,9 @@ public class Block223Controller {
 		
 		if(Block223Application.getCurrentGame().getAdmin()!=Block223Application.getCurrentUserRole())
 			error=error+"Only the admin who created the game can access its information. ";
+		
+		if (error.length() > 0)
+			throw new InvalidInputException(error.trim());
 		
 		Game game = Block223Application.getCurrentGame();
 		Level gameLevel = game.getLevel(level);

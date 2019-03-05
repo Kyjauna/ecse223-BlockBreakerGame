@@ -185,7 +185,7 @@ public class UpdateGamePage {
 				
 				try {
 					Block223Controller.updateGame(gameName, numberOfLevels, blocksPerLevel, xBallSpeed, yBallSpeed, speedIncreaseFactor, maxPaddleLength, minPaddleLength);
-
+					frame.setVisible(false);
 					GameLevelPage gamePage = new GameLevelPage(0); 	// Launches a new page (of type GameLevel)
 					gamePage.frame.setVisible(true);	
 
@@ -273,7 +273,13 @@ public class UpdateGamePage {
 		gameName.setForeground(new Color(204, 255, 255));
 		gameName.setFont(new Font("Monospaced", Font.BOLD, 13));
 		
-		gameNametextField = new JTextField();
+		try {
+			gameNametextField = new JTextField(Block223Controller.getCurrentDesignableGame().getName());
+		} catch (InvalidInputException e1) {
+			lblErrormessage.setText(e1.getMessage());
+			lblErrormessage.setVisible(true);
+			
+		}
 		gameNametextField.setColumns(10);
 		
 
@@ -287,12 +293,12 @@ public class UpdateGamePage {
 							.addGap(115)
 							.addGroup(groupLayout.createParallelGroup(Alignment.TRAILING)
 								.addGroup(groupLayout.createSequentialGroup()
-									.addComponent(btnCancel, GroupLayout.PREFERRED_SIZE, 87, GroupLayout.PREFERRED_SIZE)
-									.addGap(33)
-									.addComponent(btnSave, GroupLayout.PREFERRED_SIZE, 77, GroupLayout.PREFERRED_SIZE)
-									.addGap(27)
-									.addComponent(btnBuild)
-									.addPreferredGap(ComponentPlacement.RELATED))
+									.addComponent(btnCancel, GroupLayout.PREFERRED_SIZE, 107, GroupLayout.PREFERRED_SIZE)
+									.addGap(26)
+									.addComponent(btnSave, GroupLayout.PREFERRED_SIZE, 98, GroupLayout.PREFERRED_SIZE)
+									.addGap(32)
+									.addComponent(btnBuild, GroupLayout.PREFERRED_SIZE, 96, GroupLayout.PREFERRED_SIZE)
+									.addGap(15))
 								.addGroup(groupLayout.createSequentialGroup()
 									.addGroup(groupLayout.createParallelGroup(Alignment.TRAILING)
 										.addGroup(groupLayout.createSequentialGroup()
@@ -322,9 +328,9 @@ public class UpdateGamePage {
 										.addComponent(lblCreateNewGame, GroupLayout.PREFERRED_SIZE, 179, GroupLayout.PREFERRED_SIZE)
 										.addComponent(gameNametextField)))))
 						.addGroup(groupLayout.createSequentialGroup()
-							.addGap(183)
+							.addGap(121)
 							.addComponent(lblErrormessage, GroupLayout.PREFERRED_SIZE, 471, GroupLayout.PREFERRED_SIZE)))
-					.addContainerGap(61, Short.MAX_VALUE))
+					.addContainerGap(32, Short.MAX_VALUE))
 		);
 		groupLayout.setVerticalGroup(
 			groupLayout.createParallelGroup(Alignment.LEADING)
@@ -365,18 +371,12 @@ public class UpdateGamePage {
 						.addComponent(lblMaxPaddleLength, GroupLayout.PREFERRED_SIZE, 18, GroupLayout.PREFERRED_SIZE))
 					.addGap(24)
 					.addComponent(lblErrormessage, GroupLayout.PREFERRED_SIZE, 26, GroupLayout.PREFERRED_SIZE)
-					.addPreferredGap(ComponentPlacement.RELATED)
-					.addGroup(groupLayout.createParallelGroup(Alignment.LEADING)
-						.addGroup(groupLayout.createSequentialGroup()
-							.addGap(26)
-							.addComponent(btnCancel))
-						.addGroup(groupLayout.createSequentialGroup()
-							.addGap(26)
-							.addComponent(btnSave, GroupLayout.PREFERRED_SIZE, 29, GroupLayout.PREFERRED_SIZE))
-						.addGroup(groupLayout.createSequentialGroup()
-							.addGap(29)
-							.addComponent(btnBuild, GroupLayout.PREFERRED_SIZE, 24, GroupLayout.PREFERRED_SIZE)))
-					.addContainerGap(29, Short.MAX_VALUE))
+					.addGap(26)
+					.addGroup(groupLayout.createParallelGroup(Alignment.BASELINE)
+						.addComponent(btnCancel)
+						.addComponent(btnSave, GroupLayout.PREFERRED_SIZE, 29, GroupLayout.PREFERRED_SIZE)
+						.addComponent(btnBuild, 0, 0, Short.MAX_VALUE))
+					.addContainerGap(50, Short.MAX_VALUE))
 		);
 		frame.getContentPane().setLayout(groupLayout);
 	}
