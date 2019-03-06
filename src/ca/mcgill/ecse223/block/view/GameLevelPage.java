@@ -38,6 +38,8 @@ import javax.swing.SpinnerModel;
 import javax.swing.SpinnerNumberModel;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import java.awt.event.WindowFocusListener;
+import java.awt.event.WindowEvent;
 
 public class GameLevelPage {
 
@@ -156,12 +158,14 @@ public class GameLevelPage {
 		Font projectfont32 = projectfont.deriveFont(32f);
 		
 		frame = new JFrame();
-		frame.getContentPane().addMouseListener(new MouseAdapter() {
-			@Override
-			public void mouseClicked(MouseEvent arg0) {
+		frame.addWindowFocusListener(new WindowFocusListener() {
+			public void windowGainedFocus(WindowEvent arg0) {
 			refresh();
 			}
+			public void windowLostFocus(WindowEvent arg0) {
+			}
 		});
+
 		frame.getContentPane().setBackground(new Color(0, 0, 51));
 		
 		lblLevel=new JLabel("");

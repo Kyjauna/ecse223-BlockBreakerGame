@@ -5,7 +5,7 @@ package ca.mcgill.ecse223.block.model;
 import java.io.Serializable;
 
 // line 81 "../../../../../Block223Persistence.ump"
-// line 52 "../../../../../Block223 v2.ump"
+// line 57 "../../../../../Block223 v2.ump"
 public class Player extends UserRole implements Serializable
 {
 
@@ -20,11 +20,6 @@ public class Player extends UserRole implements Serializable
   public Player(String aPassword, Block223 aBlock223)
   {
     super(aPassword, aBlock223);
-    // line 54 "../../../../../Block223 v2.ump"
-    if (aPassword.equals(null)||aPassword.equals("")){
-       			throw new RuntimeException("The password must be specified.");
-       		}
-    // END OF UMPLE BEFORE INJECTION
   }
 
   //------------------------

@@ -124,12 +124,13 @@ public class SignUpPage {
 		JButton btnCreateAccount = new JButton("CREATE ACCOUNT");
 		btnCreateAccount.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
+				
 				String username= txtUsername.getText();
 				String playerpassword=new String(pwdPassword.getPassword());
 				String adminpassword=new String(pwdPassword_1.getPassword());
 				
-				System.out.println(username+playerpassword+adminpassword);
 				try {
+					
 					Block223Controller.register(username, playerpassword, adminpassword);
 					frame.setVisible(false);
 				} 

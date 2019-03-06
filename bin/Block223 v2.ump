@@ -43,6 +43,11 @@ class User {
 class UserRole {
    abstract;
    password;
+   before constructor{
+         	if (aPassword==null||aPassword.equals("")){
+   			throw new RuntimeException("The password must be specified.");
+   		}
+   }
 }
 
 class Admin {
@@ -50,11 +55,6 @@ class Admin {
 }
 
 class Player {
-before constructor{
-      	if (aPassword.equals(null)||aPassword.equals("")){
-   			throw new RuntimeException("The password must be specified.");
-   		}
-   }
    isA UserRole;
 }
 
