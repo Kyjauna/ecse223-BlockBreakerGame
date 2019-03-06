@@ -36,10 +36,10 @@ public class Paddle implements Serializable
   {
     // line 187 "../../../../../Block223 v2.ump"
     if (aMaxPaddleLength <= 0 || aMaxPaddleLength > 400){
-       			throw new RuntimeException("The maximum length of the paddle must be greater than zero and less than or equal to 400");
+       			throw new RuntimeException("The maximum length of the paddle must be greater than zero and less than or equal to 400.");
           	}
           	if (aMinPaddleLength <= 0){
-       			throw new RuntimeException("The minimum length of the paddle must be greater than zero");
+       			throw new RuntimeException("The minimum length of the paddle must be greater than zero.");
           	}
     // END OF UMPLE BEFORE INJECTION
     maxPaddleLength = aMaxPaddleLength;
@@ -55,10 +55,10 @@ public class Paddle implements Serializable
   {
     // line 187 "../../../../../Block223 v2.ump"
     if (aMaxPaddleLength <= 0 || aMaxPaddleLength > 400){
-       			throw new RuntimeException("The maximum length of the paddle must be greater than zero and less than or equal to 400");
+       			throw new RuntimeException("The maximum length of the paddle must be greater than zero and less than or equal to 400.");
           	}
           	if (aMinPaddleLength <= 0){
-       			throw new RuntimeException("The minimum length of the paddle must be greater than zero");
+       			throw new RuntimeException("The minimum length of the paddle must be greater than zero.");
           	}
     // END OF UMPLE BEFORE INJECTION
     maxPaddleLength = aMaxPaddleLength;

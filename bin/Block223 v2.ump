@@ -124,11 +124,11 @@ class Block {
    		
    
   	 	if (aBlue < 0 || aBlue > 255)
-   			throw new RuntimeException("blue must be between 0 and 255.");
+   			throw new RuntimeException("Blue must be between 0 and 255.");
    	
    
    		if (aPoints < 1 || aPoints > 1000)
-   			throw new RuntimeException("Points must be between 1 and 1000");
+   			throw new RuntimeException("Points must be between 1 and 1000.");
   }
 }
 
@@ -185,10 +185,10 @@ class Paddle {
    
    before constructor{
       	if (aMaxPaddleLength <= 0 || aMaxPaddleLength > 400){
-   			throw new RuntimeException("The maximum length of the paddle must be greater than zero and less than or equal to 400");
+   			throw new RuntimeException("The maximum length of the paddle must be greater than zero and less than or equal to 400.");
       	}
       	if (aMinPaddleLength <= 0){
-   			throw new RuntimeException("The minimum length of the paddle must be greater than zero");
+   			throw new RuntimeException("The minimum length of the paddle must be greater than zero.");
       	}
 	}
 }
