@@ -16,7 +16,7 @@ public class Player extends UserRole implements Serializable
 
   //Player Associations
   private List<PlayableGame> playableGames;
-  private List<Score> scores;
+  private List<Entry> entries;
 
   //------------------------
   // CONSTRUCTOR
@@ -26,7 +26,7 @@ public class Player extends UserRole implements Serializable
   {
     super(aPassword, aBlock223);
     playableGames = new ArrayList<PlayableGame>();
-    scores = new ArrayList<Score>();
+    entries = new ArrayList<Entry>();
   }
 
   //------------------------
@@ -63,33 +63,33 @@ public class Player extends UserRole implements Serializable
     return index;
   }
   /* Code from template association_GetMany */
-  public Score getScore(int index)
+  public Entry getEntry(int index)
   {
-    Score aScore = scores.get(index);
-    return aScore;
+    Entry aEntry = entries.get(index);
+    return aEntry;
   }
 
-  public List<Score> getScores()
+  public List<Entry> getEntries()
   {
-    List<Score> newScores = Collections.unmodifiableList(scores);
-    return newScores;
+    List<Entry> newEntries = Collections.unmodifiableList(entries);
+    return newEntries;
   }
 
-  public int numberOfScores()
+  public int numberOfEntries()
   {
-    int number = scores.size();
+    int number = entries.size();
     return number;
   }
 
-  public boolean hasScores()
+  public boolean hasEntries()
   {
-    boolean has = scores.size() > 0;
+    boolean has = entries.size() > 0;
     return has;
   }
 
-  public int indexOfScore(Score aScore)
+  public int indexOfEntry(Entry aEntry)
   {
-    int index = scores.indexOf(aScore);
+    int index = entries.indexOf(aEntry);
     return index;
   }
   /* Code from template association_MinimumNumberOfMethod */
@@ -165,74 +165,74 @@ public class Player extends UserRole implements Serializable
     return wasAdded;
   }
   /* Code from template association_MinimumNumberOfMethod */
-  public static int minimumNumberOfScores()
+  public static int minimumNumberOfEntries()
   {
     return 0;
   }
   /* Code from template association_AddManyToOne */
-  public Score addScore(int aEarnedPoints, Game aGame)
+  public Entry addEntry(int aScore, HallOfFame aHallOfFame)
   {
-    return new Score(aEarnedPoints, this, aGame);
+    return new Entry(aScore, this, aHallOfFame);
   }
 
-  public boolean addScore(Score aScore)
+  public boolean addEntry(Entry aEntry)
   {
     boolean wasAdded = false;
-    if (scores.contains(aScore)) { return false; }
-    Player existingPlayer = aScore.getPlayer();
+    if (entries.contains(aEntry)) { return false; }
+    Player existingPlayer = aEntry.getPlayer();
     boolean isNewPlayer = existingPlayer != null && !this.equals(existingPlayer);
     if (isNewPlayer)
     {
-      aScore.setPlayer(this);
+      aEntry.setPlayer(this);
     }
     else
     {
-      scores.add(aScore);
+      entries.add(aEntry);
     }
     wasAdded = true;
     return wasAdded;
   }
 
-  public boolean removeScore(Score aScore)
+  public boolean removeEntry(Entry aEntry)
   {
     boolean wasRemoved = false;
-    //Unable to remove aScore, as it must always have a player
-    if (!this.equals(aScore.getPlayer()))
+    //Unable to remove aEntry, as it must always have a player
+    if (!this.equals(aEntry.getPlayer()))
     {
-      scores.remove(aScore);
+      entries.remove(aEntry);
       wasRemoved = true;
     }
     return wasRemoved;
   }
   /* Code from template association_AddIndexControlFunctions */
-  public boolean addScoreAt(Score aScore, int index)
+  public boolean addEntryAt(Entry aEntry, int index)
   {  
     boolean wasAdded = false;
-    if(addScore(aScore))
+    if(addEntry(aEntry))
     {
       if(index < 0 ) { index = 0; }
-      if(index > numberOfScores()) { index = numberOfScores() - 1; }
-      scores.remove(aScore);
-      scores.add(index, aScore);
+      if(index > numberOfEntries()) { index = numberOfEntries() - 1; }
+      entries.remove(aEntry);
+      entries.add(index, aEntry);
       wasAdded = true;
     }
     return wasAdded;
   }
 
-  public boolean addOrMoveScoreAt(Score aScore, int index)
+  public boolean addOrMoveEntryAt(Entry aEntry, int index)
   {
     boolean wasAdded = false;
-    if(scores.contains(aScore))
+    if(entries.contains(aEntry))
     {
       if(index < 0 ) { index = 0; }
-      if(index > numberOfScores()) { index = numberOfScores() - 1; }
-      scores.remove(aScore);
-      scores.add(index, aScore);
+      if(index > numberOfEntries()) { index = numberOfEntries() - 1; }
+      entries.remove(aEntry);
+      entries.add(index, aEntry);
       wasAdded = true;
     } 
     else 
     {
-      wasAdded = addScoreAt(aScore, index);
+      wasAdded = addEntryAt(aEntry, index);
     }
     return wasAdded;
   }
@@ -244,10 +244,10 @@ public class Player extends UserRole implements Serializable
       PlayableGame aPlayableGame = playableGames.get(i - 1);
       aPlayableGame.delete();
     }
-    for(int i=scores.size(); i > 0; i--)
+    for(int i=entries.size(); i > 0; i--)
     {
-      Score aScore = scores.get(i - 1);
-      aScore.delete();
+      Entry aEntry = entries.get(i - 1);
+      aEntry.delete();
     }
     super.delete();
   }

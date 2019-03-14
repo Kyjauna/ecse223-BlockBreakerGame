@@ -6,7 +6,7 @@ import java.io.Serializable;
 import java.util.*;
 
 // line 53 "../../../../../Block223Persistence.ump"
-// line 17 "../../../../../I4.Updated.Domain.Model.ump"
+// line 18 "../../../../../I4.Updated.Domain.Model.ump"
 // line 62 "../../../../../Block223 v2.ump"
 public class Game implements Serializable
 {
@@ -49,7 +49,6 @@ public class Game implements Serializable
   private Paddle paddle;
   private List<PlayableGame> playableGames;
   private HallOfFame hallOfFame;
-  private List<Score> scores;
   private Block223 block223;
 
   //------------------------
@@ -98,7 +97,6 @@ public class Game implements Serializable
       throw new RuntimeException("Unable to create Game due to aHallOfFame");
     }
     hallOfFame = aHallOfFame;
-    scores = new ArrayList<Score>();
     boolean didAddBlock223 = setBlock223(aBlock223);
     if (!didAddBlock223)
     {
@@ -133,7 +131,6 @@ public class Game implements Serializable
     paddle = new Paddle(aCurrentPaddleXPositionForPaddle, aCurrentPaddleYPositionForPaddle, aCurrentPaddleLengthForPaddle, aMaxPaddleLengthForPaddle, aMinPaddleLengthForPaddle, this);
     playableGames = new ArrayList<PlayableGame>();
     hallOfFame = new HallOfFame(this);
-    scores = new ArrayList<Score>();
     boolean didAddBlock223 = setBlock223(aBlock223);
     if (!didAddBlock223)
     {
@@ -340,36 +337,6 @@ public class Game implements Serializable
   public HallOfFame getHallOfFame()
   {
     return hallOfFame;
-  }
-  /* Code from template association_GetMany */
-  public Score getScore(int index)
-  {
-    Score aScore = scores.get(index);
-    return aScore;
-  }
-
-  public List<Score> getScores()
-  {
-    List<Score> newScores = Collections.unmodifiableList(scores);
-    return newScores;
-  }
-
-  public int numberOfScores()
-  {
-    int number = scores.size();
-    return number;
-  }
-
-  public boolean hasScores()
-  {
-    boolean has = scores.size() > 0;
-    return has;
-  }
-
-  public int indexOfScore(Score aScore)
-  {
-    int index = scores.indexOf(aScore);
-    return index;
   }
   /* Code from template association_GetOne */
   public Block223 getBlock223()
@@ -719,78 +686,6 @@ public class Game implements Serializable
     }
     return wasAdded;
   }
-  /* Code from template association_MinimumNumberOfMethod */
-  public static int minimumNumberOfScores()
-  {
-    return 0;
-  }
-  /* Code from template association_AddManyToOne */
-  public Score addScore(int aEarnedPoints, Player aPlayer)
-  {
-    return new Score(aEarnedPoints, aPlayer, this);
-  }
-
-  public boolean addScore(Score aScore)
-  {
-    boolean wasAdded = false;
-    if (scores.contains(aScore)) { return false; }
-    Game existingGame = aScore.getGame();
-    boolean isNewGame = existingGame != null && !this.equals(existingGame);
-    if (isNewGame)
-    {
-      aScore.setGame(this);
-    }
-    else
-    {
-      scores.add(aScore);
-    }
-    wasAdded = true;
-    return wasAdded;
-  }
-
-  public boolean removeScore(Score aScore)
-  {
-    boolean wasRemoved = false;
-    //Unable to remove aScore, as it must always have a game
-    if (!this.equals(aScore.getGame()))
-    {
-      scores.remove(aScore);
-      wasRemoved = true;
-    }
-    return wasRemoved;
-  }
-  /* Code from template association_AddIndexControlFunctions */
-  public boolean addScoreAt(Score aScore, int index)
-  {  
-    boolean wasAdded = false;
-    if(addScore(aScore))
-    {
-      if(index < 0 ) { index = 0; }
-      if(index > numberOfScores()) { index = numberOfScores() - 1; }
-      scores.remove(aScore);
-      scores.add(index, aScore);
-      wasAdded = true;
-    }
-    return wasAdded;
-  }
-
-  public boolean addOrMoveScoreAt(Score aScore, int index)
-  {
-    boolean wasAdded = false;
-    if(scores.contains(aScore))
-    {
-      if(index < 0 ) { index = 0; }
-      if(index > numberOfScores()) { index = numberOfScores() - 1; }
-      scores.remove(aScore);
-      scores.add(index, aScore);
-      wasAdded = true;
-    } 
-    else 
-    {
-      wasAdded = addScoreAt(aScore, index);
-    }
-    return wasAdded;
-  }
   /* Code from template association_SetOneToMany */
   public boolean setBlock223(Block223 aBlock223)
   {
@@ -863,11 +758,6 @@ public class Game implements Serializable
     if (existingHallOfFame != null)
     {
       existingHallOfFame.delete();
-    }
-    for(int i=scores.size(); i > 0; i--)
-    {
-      Score aScore = scores.get(i - 1);
-      aScore.delete();
     }
     Block223 placeholderBlock223 = block223;
     this.block223 = null;

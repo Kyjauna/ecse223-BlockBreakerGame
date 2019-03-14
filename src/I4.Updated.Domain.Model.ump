@@ -12,16 +12,16 @@ class PlayableGame {
 
 class HallOfFame {
 	1 <@>- 1 Game;
+	1 -- * Entry;
 }
 
 class Game {
 	boolean isPublished;
 }
 
-class Score {
+class Entry {
 	* -- 1 Player;
-	* -- 1 Game;
-	Integer earnedPoints;
+	Integer score;
 }
 
 class Paddle {
