@@ -1,0 +1,38 @@
+namespace ca.mcgill.ecse223.block.model;
+
+class Block223 {
+	1 <@>- * PlayableGame;
+}
+
+class PlayableGame {
+	* -- 1 Game;
+	* -- 1 Player;
+	autounique Integer gameId;
+}
+
+class HallOfFame {
+	1 <@>- 1 Game;
+}
+
+class Game {
+	boolean isPublished;
+}
+
+class Score {
+	* -- 1 Player;
+	* -- 1 Game;
+	Integer earnedPoints;
+}
+
+class Paddle {
+	Integer currentPaddleXPosition;
+	Integer currentPaddleYPosition;
+	Integer currentPaddleLength;
+}
+
+class Ball {
+	Integer currentBallXPosition;
+	Integer currentBallYPosition;
+}
+
+

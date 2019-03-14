@@ -6,7 +6,8 @@ import java.io.Serializable;
 import java.util.*;
 
 // line 3 "../../../../../Block223Persistence.ump"
-// line 5 "../../../../../Block223 v2.ump"
+// line 3 "../../../../../I4.Updated.Domain.Model.ump"
+// line 6 "../../../../../Block223 v2.ump"
 public class Block223 implements Serializable
 {
 
@@ -15,6 +16,7 @@ public class Block223 implements Serializable
   //------------------------
 
   //Block223 Associations
+  private List<PlayableGame> playableGames;
   private List<User> users;
   private List<UserRole> roles;
   private List<Game> games;
@@ -25,6 +27,7 @@ public class Block223 implements Serializable
 
   public Block223()
   {
+    playableGames = new ArrayList<PlayableGame>();
     users = new ArrayList<User>();
     roles = new ArrayList<UserRole>();
     games = new ArrayList<Game>();
@@ -33,6 +36,36 @@ public class Block223 implements Serializable
   //------------------------
   // INTERFACE
   //------------------------
+  /* Code from template association_GetMany */
+  public PlayableGame getPlayableGame(int index)
+  {
+    PlayableGame aPlayableGame = playableGames.get(index);
+    return aPlayableGame;
+  }
+
+  public List<PlayableGame> getPlayableGames()
+  {
+    List<PlayableGame> newPlayableGames = Collections.unmodifiableList(playableGames);
+    return newPlayableGames;
+  }
+
+  public int numberOfPlayableGames()
+  {
+    int number = playableGames.size();
+    return number;
+  }
+
+  public boolean hasPlayableGames()
+  {
+    boolean has = playableGames.size() > 0;
+    return has;
+  }
+
+  public int indexOfPlayableGame(PlayableGame aPlayableGame)
+  {
+    int index = playableGames.indexOf(aPlayableGame);
+    return index;
+  }
   /* Code from template association_GetMany */
   public User getUser(int index)
   {
@@ -122,6 +155,78 @@ public class Block223 implements Serializable
   {
     int index = games.indexOf(aGame);
     return index;
+  }
+  /* Code from template association_MinimumNumberOfMethod */
+  public static int minimumNumberOfPlayableGames()
+  {
+    return 0;
+  }
+  /* Code from template association_AddManyToOne */
+  public PlayableGame addPlayableGame(Game aGame, Player aPlayer)
+  {
+    return new PlayableGame(aGame, aPlayer, this);
+  }
+
+  public boolean addPlayableGame(PlayableGame aPlayableGame)
+  {
+    boolean wasAdded = false;
+    if (playableGames.contains(aPlayableGame)) { return false; }
+    Block223 existingBlock223 = aPlayableGame.getBlock223();
+    boolean isNewBlock223 = existingBlock223 != null && !this.equals(existingBlock223);
+    if (isNewBlock223)
+    {
+      aPlayableGame.setBlock223(this);
+    }
+    else
+    {
+      playableGames.add(aPlayableGame);
+    }
+    wasAdded = true;
+    return wasAdded;
+  }
+
+  public boolean removePlayableGame(PlayableGame aPlayableGame)
+  {
+    boolean wasRemoved = false;
+    //Unable to remove aPlayableGame, as it must always have a block223
+    if (!this.equals(aPlayableGame.getBlock223()))
+    {
+      playableGames.remove(aPlayableGame);
+      wasRemoved = true;
+    }
+    return wasRemoved;
+  }
+  /* Code from template association_AddIndexControlFunctions */
+  public boolean addPlayableGameAt(PlayableGame aPlayableGame, int index)
+  {  
+    boolean wasAdded = false;
+    if(addPlayableGame(aPlayableGame))
+    {
+      if(index < 0 ) { index = 0; }
+      if(index > numberOfPlayableGames()) { index = numberOfPlayableGames() - 1; }
+      playableGames.remove(aPlayableGame);
+      playableGames.add(index, aPlayableGame);
+      wasAdded = true;
+    }
+    return wasAdded;
+  }
+
+  public boolean addOrMovePlayableGameAt(PlayableGame aPlayableGame, int index)
+  {
+    boolean wasAdded = false;
+    if(playableGames.contains(aPlayableGame))
+    {
+      if(index < 0 ) { index = 0; }
+      if(index > numberOfPlayableGames()) { index = numberOfPlayableGames() - 1; }
+      playableGames.remove(aPlayableGame);
+      playableGames.add(index, aPlayableGame);
+      wasAdded = true;
+    } 
+    else 
+    {
+      wasAdded = addPlayableGameAt(aPlayableGame, index);
+    }
+    return wasAdded;
   }
   /* Code from template association_MinimumNumberOfMethod */
   public static int minimumNumberOfUsers()
@@ -270,9 +375,9 @@ public class Block223 implements Serializable
     return 0;
   }
   /* Code from template association_AddManyToOne */
-  public Game addGame(String aName, int aNrBlocksPerLevel, Admin aAdmin, Ball aBall, Paddle aPaddle)
+  public Game addGame(boolean aIsPublished, String aName, int aNrBlocksPerLevel, Admin aAdmin, Ball aBall, Paddle aPaddle, HallOfFame aHallOfFame)
   {
-    return new Game(aName, aNrBlocksPerLevel, aAdmin, aBall, aPaddle, this);
+    return new Game(aIsPublished, aName, aNrBlocksPerLevel, aAdmin, aBall, aPaddle, aHallOfFame, this);
   }
 
   public boolean addGame(Game aGame)
@@ -339,6 +444,13 @@ public class Block223 implements Serializable
 
   public void delete()
   {
+    while (playableGames.size() > 0)
+    {
+      PlayableGame aPlayableGame = playableGames.get(playableGames.size() - 1);
+      aPlayableGame.delete();
+      playableGames.remove(aPlayableGame);
+    }
+    
     while (users.size() > 0)
     {
       User aUser = users.get(users.size() - 1);
@@ -372,7 +484,7 @@ public class Block223 implements Serializable
     }
   }
 
-  // line 11 "../../../../../Block223 v2.ump"
+  // line 12 "../../../../../Block223 v2.ump"
   public Game findGame(String name){
     Game foundGame = null;
  		for (Game game : this.getGames()) {
@@ -384,7 +496,7 @@ public class Block223 implements Serializable
  		return foundGame;
   }
 
-  // line 22 "../../../../../Block223 v2.ump"
+  // line 23 "../../../../../Block223 v2.ump"
   public User findWithUsername(String username){
     User foundUser = null;
  		for (User user : this.getUsers()) {
