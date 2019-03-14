@@ -45,7 +45,7 @@ public class Block223Controller {
 		}
 		
 		try {
-			game=new Game(name, 1, (Admin) admin, 1, 1, 1, 10, 10, block223);
+			game=new Game(false, name, 1, (Admin) admin, 100, 200, 1, 1, 0.95, 190, 300, 20 ,20,5 , block223);
 		}
 		catch (RuntimeException e) {
 			throw new InvalidInputException(e.getMessage());
