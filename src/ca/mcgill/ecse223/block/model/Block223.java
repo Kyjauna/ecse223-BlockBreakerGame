@@ -162,9 +162,9 @@ public class Block223 implements Serializable
     return 0;
   }
   /* Code from template association_AddManyToOne */
-  public PlayableGame addPlayableGame(Game aGame, Player aPlayer)
+  public PlayableGame addPlayableGame(int aNumberOfLives, Game aGame, Player aPlayer)
   {
-    return new PlayableGame(aGame, aPlayer, this);
+    return new PlayableGame(aNumberOfLives, aGame, aPlayer, this);
   }
 
   public boolean addPlayableGame(PlayableGame aPlayableGame)

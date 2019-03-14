@@ -6,7 +6,7 @@ import java.io.Serializable;
 import java.util.*;
 
 // line 76 "../../../../../Block223Persistence.ump"
-// line 27 "../../../../../I4.Updated.Domain.Model.ump"
+// line 28 "../../../../../I4.Updated.Domain.Model.ump"
 // line 180 "../../../../../Block223 v2.ump"
 public class Paddle implements Serializable
 {
