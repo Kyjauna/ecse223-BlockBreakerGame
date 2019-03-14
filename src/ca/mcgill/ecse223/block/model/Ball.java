@@ -165,6 +165,12 @@ public class Ball implements Serializable
     }
   }
 
+  // line 39 "../../../../../I4.Updated.Domain.Model.ump"
+  public void updateBallPosition(){
+    currentBallXPosition=currentBallXPosition+minBallSpeedX;
+	currentBallYPosition=currentBallYPosition+minBallSpeedY;
+  }
+
 
   public String toString()
   {

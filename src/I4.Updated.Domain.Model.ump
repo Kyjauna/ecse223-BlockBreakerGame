@@ -34,6 +34,13 @@ class Paddle {
 class Ball {
 	Integer currentBallXPosition;
 	Integer currentBallYPosition;
+	
+	updateBallPosition(){
+	currentBallXPosition=currentBallXPosition+minBallSpeedX;
+	currentBallYPosition=currentBallYPosition+minBallSpeedY;
+
+	}
+	
 }
 
 
