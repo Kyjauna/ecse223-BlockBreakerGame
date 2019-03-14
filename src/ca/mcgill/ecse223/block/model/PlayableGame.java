@@ -8,8 +8,17 @@ public class PlayableGame
 {
 
   //------------------------
+  // STATIC VARIABLES
+  //------------------------
+
+  private static int nextGameId = 1;
+
+  //------------------------
   // MEMBER VARIABLES
   //------------------------
+
+  //Autounique Attributes
+  private int gameId;
 
   //PlayableGame Associations
   private Game game;
@@ -22,6 +31,7 @@ public class PlayableGame
 
   public PlayableGame(Game aGame, Player aPlayer, Block223 aBlock223)
   {
+    gameId = nextGameId++;
     boolean didAddGame = setGame(aGame);
     if (!didAddGame)
     {
@@ -42,6 +52,11 @@ public class PlayableGame
   //------------------------
   // INTERFACE
   //------------------------
+
+  public int getGameId()
+  {
+    return gameId;
+  }
   /* Code from template association_GetOne */
   public Game getGame()
   {
@@ -136,13 +151,14 @@ public class PlayableGame
       placeholderBlock223.removePlayableGame(this);
     }
   }
-  
-  //------------------------
-  // DEVELOPER CODE - PROVIDED AS-IS
-  //------------------------
-  
-  // line 10 "../../../../../I4.Updated.Domain.Model.ump"
-  autounique Integer gameId ;
 
-  
+
+  public String toString()
+  {
+    return super.toString() + "["+
+            "gameId" + ":" + getGameId()+ "]" + System.getProperties().getProperty("line.separator") +
+            "  " + "game = "+(getGame()!=null?Integer.toHexString(System.identityHashCode(getGame())):"null") + System.getProperties().getProperty("line.separator") +
+            "  " + "player = "+(getPlayer()!=null?Integer.toHexString(System.identityHashCode(getPlayer())):"null") + System.getProperties().getProperty("line.separator") +
+            "  " + "block223 = "+(getBlock223()!=null?Integer.toHexString(System.identityHashCode(getBlock223())):"null");
+  }
 }

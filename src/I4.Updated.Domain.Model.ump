@@ -7,7 +7,7 @@ class Block223 {
 class PlayableGame {
 	* -- 1 Game;
 	* -- 1 Player;
-	autounique Integer gameId;
+	autounique gameId;
 }
 
 class HallOfFame {
