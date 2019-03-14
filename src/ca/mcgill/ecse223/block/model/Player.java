@@ -98,9 +98,9 @@ public class Player extends UserRole implements Serializable
     return 0;
   }
   /* Code from template association_AddManyToOne */
-  public PlayableGame addPlayableGame(Game aGame, Block223 aBlock223)
+  public PlayableGame addPlayableGame(int aNumberOfLives, Game aGame, Block223 aBlock223)
   {
-    return new PlayableGame(aGame, this, aBlock223);
+    return new PlayableGame(aNumberOfLives, aGame, this, aBlock223);
   }
 
   public boolean addPlayableGame(PlayableGame aPlayableGame)

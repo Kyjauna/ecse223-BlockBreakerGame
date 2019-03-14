@@ -8,6 +8,7 @@ class PlayableGame {
 	* -- 1 Game;
 	* -- 1 Player;
 	autounique gameId;
+	Integer numberOfLives;
 }
 
 class HallOfFame {

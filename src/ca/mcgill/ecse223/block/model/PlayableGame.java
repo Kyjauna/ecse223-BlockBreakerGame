@@ -17,6 +17,9 @@ public class PlayableGame
   // MEMBER VARIABLES
   //------------------------
 
+  //PlayableGame Attributes
+  private int numberOfLives;
+
   //Autounique Attributes
   private int gameId;
 
@@ -29,8 +32,9 @@ public class PlayableGame
   // CONSTRUCTOR
   //------------------------
 
-  public PlayableGame(Game aGame, Player aPlayer, Block223 aBlock223)
+  public PlayableGame(int aNumberOfLives, Game aGame, Player aPlayer, Block223 aBlock223)
   {
+    numberOfLives = aNumberOfLives;
     gameId = nextGameId++;
     boolean didAddGame = setGame(aGame);
     if (!didAddGame)
@@ -52,6 +56,19 @@ public class PlayableGame
   //------------------------
   // INTERFACE
   //------------------------
+
+  public boolean setNumberOfLives(int aNumberOfLives)
+  {
+    boolean wasSet = false;
+    numberOfLives = aNumberOfLives;
+    wasSet = true;
+    return wasSet;
+  }
+
+  public int getNumberOfLives()
+  {
+    return numberOfLives;
+  }
 
   public int getGameId()
   {
@@ -156,7 +173,8 @@ public class PlayableGame
   public String toString()
   {
     return super.toString() + "["+
-            "gameId" + ":" + getGameId()+ "]" + System.getProperties().getProperty("line.separator") +
+            "gameId" + ":" + getGameId()+ "," +
+            "numberOfLives" + ":" + getNumberOfLives()+ "]" + System.getProperties().getProperty("line.separator") +
             "  " + "game = "+(getGame()!=null?Integer.toHexString(System.identityHashCode(getGame())):"null") + System.getProperties().getProperty("line.separator") +
             "  " + "player = "+(getPlayer()!=null?Integer.toHexString(System.identityHashCode(getPlayer())):"null") + System.getProperties().getProperty("line.separator") +
             "  " + "block223 = "+(getBlock223()!=null?Integer.toHexString(System.identityHashCode(getBlock223())):"null");

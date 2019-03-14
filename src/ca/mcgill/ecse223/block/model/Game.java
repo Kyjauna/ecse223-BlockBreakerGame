@@ -620,9 +620,9 @@ public class Game implements Serializable
     return 0;
   }
   /* Code from template association_AddManyToOne */
-  public PlayableGame addPlayableGame(Player aPlayer, Block223 aBlock223)
+  public PlayableGame addPlayableGame(int aNumberOfLives, Player aPlayer, Block223 aBlock223)
   {
-    return new PlayableGame(this, aPlayer, aBlock223);
+    return new PlayableGame(aNumberOfLives, this, aPlayer, aBlock223);
   }
 
   public boolean addPlayableGame(PlayableGame aPlayableGame)
