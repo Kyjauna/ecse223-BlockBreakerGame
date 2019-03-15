@@ -65,10 +65,7 @@ class PlayableGame {
 		
 		}
 	}
-	private boolean isBlockHit{
-	
-	}
-	
+
 	private boolean isWallOrPaddleHit{
 	
 	}
@@ -82,6 +79,18 @@ class PlayableGame {
 	}
 	
 	private boolean isLastBlockHit{
+	
+	}
+	
+	private boolean doBlockHit{
+	
+	}
+	
+	private boolean isBlockHit{
+	
+	}
+	
+	private boolean isLastLevel{
 	
 	}
 	
