@@ -177,7 +177,7 @@ public class PlayableGame
       case Playing:
         if (!(isBlockHit())&&!(isWallHit())&&!(isPaddleHit())&&!(isOutOfBounds()))
         {
-        // line 30 "../../../../../PlayableGameStateMachine.ump"
+        // line 24 "../../../../../PlayableGameStateMachine.ump"
           doMoveBall();
           setStatemachine(Statemachine.Playing);
           wasEventProcessed = true;
@@ -185,7 +185,7 @@ public class PlayableGame
         }
         if (isBlockHit()&&!(isLastBlockHit()))
         {
-        // line 35 "../../../../../PlayableGameStateMachine.ump"
+        // line 29 "../../../../../PlayableGameStateMachine.ump"
           doBlockHit();
           setStatemachine(Statemachine.Playing);
           wasEventProcessed = true;
@@ -193,7 +193,7 @@ public class PlayableGame
         }
         if (isOutOfBounds()&&!(isOnLastLife()))
         {
-        // line 40 "../../../../../PlayableGameStateMachine.ump"
+        // line 34 "../../../../../PlayableGameStateMachine.ump"
           doOutOfBounds();
           setStatemachine(Statemachine.Suspended);
           wasEventProcessed = true;
@@ -215,11 +215,11 @@ public class PlayableGame
     switch(statemachine)
     {
       case Idle:
-        // line 15 "../../../../../PlayableGameStateMachine.ump"
+        // line 9 "../../../../../PlayableGameStateMachine.ump"
         setUpGame();
         break;
       case Finished:
-        // line 76 "../../../../../PlayableGameStateMachine.ump"
+        // line 70 "../../../../../PlayableGameStateMachine.ump"
         addToHallOfFame();
         break;
     }
@@ -514,87 +514,87 @@ public class PlayableGame
     }
   }
 
-  // line 83 "../../../../../PlayableGameStateMachine.ump"
+  // line 77 "../../../../../PlayableGameStateMachine.ump"
    private boolean isWallHit(){
     return false;
   }
 
-  // line 88 "../../../../../PlayableGameStateMachine.ump"
+  // line 82 "../../../../../PlayableGameStateMachine.ump"
    private void doWallHit(){
     
   }
 
-  // line 91 "../../../../../PlayableGameStateMachine.ump"
+  // line 85 "../../../../../PlayableGameStateMachine.ump"
    private boolean isPaddleHit(){
     return false;
   }
 
-  // line 96 "../../../../../PlayableGameStateMachine.ump"
+  // line 90 "../../../../../PlayableGameStateMachine.ump"
    private void doPaddleHit(){
     
   }
 
-  // line 99 "../../../../../PlayableGameStateMachine.ump"
+  // line 93 "../../../../../PlayableGameStateMachine.ump"
    private boolean isOutOfBounds(){
     return false;
   }
 
-  // line 104 "../../../../../PlayableGameStateMachine.ump"
+  // line 98 "../../../../../PlayableGameStateMachine.ump"
    private void doOutOfBounds(){
     
   }
 
-  // line 107 "../../../../../PlayableGameStateMachine.ump"
+  // line 101 "../../../../../PlayableGameStateMachine.ump"
    private boolean isOnLastLife(){
     return false;
   }
 
-  // line 111 "../../../../../PlayableGameStateMachine.ump"
+  // line 105 "../../../../../PlayableGameStateMachine.ump"
    private boolean isLastBlockHit(){
     return false;
   }
 
-  // line 116 "../../../../../PlayableGameStateMachine.ump"
+  // line 110 "../../../../../PlayableGameStateMachine.ump"
    private void doBlockHit(){
     
   }
 
-  // line 119 "../../../../../PlayableGameStateMachine.ump"
+  // line 113 "../../../../../PlayableGameStateMachine.ump"
    private boolean isBlockHit(){
     return false;
   }
 
-  // line 123 "../../../../../PlayableGameStateMachine.ump"
+  // line 117 "../../../../../PlayableGameStateMachine.ump"
    private boolean isLastLevel(){
     return false;
   }
 
-  // line 127 "../../../../../PlayableGameStateMachine.ump"
+  // line 121 "../../../../../PlayableGameStateMachine.ump"
    private boolean isLeftKeyPushed(){
     return false;
   }
 
-  // line 131 "../../../../../PlayableGameStateMachine.ump"
+  // line 125 "../../../../../PlayableGameStateMachine.ump"
    private boolean isTestGame(){
     return false;
   }
 
-  // line 136 "../../../../../PlayableGameStateMachine.ump"
+  // line 130 "../../../../../PlayableGameStateMachine.ump"
    private void addToHallOfFame(){
     
   }
 
-  // line 140 "../../../../../PlayableGameStateMachine.ump"
+  // line 134 "../../../../../PlayableGameStateMachine.ump"
    private void doMovePaddle(){
     
   }
 
-  // line 144 "../../../../../PlayableGameStateMachine.ump"
+  // line 138 "../../../../../PlayableGameStateMachine.ump"
    private void doMoveBall(){
     
   }
 
-  // line 148 "../../../../../PlayableGameStateMachine.ump"
+  // line 142 "../../../../../PlayableGameStateMachine.ump"
    private void setUpGame(){
     
   }
