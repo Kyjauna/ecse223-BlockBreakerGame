@@ -6,7 +6,7 @@ import java.io.Serializable;
 import java.util.*;
 
 // line 53 "../../../../../Block223Persistence.ump"
-// line 19 "../../../../../I4.Updated.Domain.Model.ump"
+// line 20 "../../../../../I4.Updated.Domain.Model.ump"
 // line 62 "../../../../../Block223 v2.ump"
 public class Game implements Serializable
 {
@@ -104,7 +104,7 @@ public class Game implements Serializable
     }
   }
 
-  public Game(boolean aIsPublished, String aName, int aNrBlocksPerLevel, Admin aAdmin, int aCurrentBallXPositionForBall, int aCurrentBallYPositionForBall, int aMinBallSpeedXForBall, int aMinBallSpeedYForBall, double aBallSpeedIncreaseFactorForBall, int aCurrentPaddleXPositionForPaddle, int aCurrentPaddleYPositionForPaddle, int aCurrentPaddleLengthForPaddle, int aMaxPaddleLengthForPaddle, int aMinPaddleLengthForPaddle, Block223 aBlock223)
+  public Game(boolean aIsPublished, String aName, int aNrBlocksPerLevel, Admin aAdmin, int aMinBallSpeedXForBall, int aMinBallSpeedYForBall, double aBallSpeedIncreaseFactorForBall, int aMaxPaddleLengthForPaddle, int aMinPaddleLengthForPaddle, Block223 aBlock223)
   {
     // line 81 "../../../../../Block223 v2.ump"
     if (aName.equals(null) || aName.equals("")) {
@@ -127,8 +127,8 @@ public class Game implements Serializable
     blocks = new ArrayList<Block>();
     levels = new ArrayList<Level>();
     blockAssignments = new ArrayList<BlockAssignment>();
-    ball = new Ball(aCurrentBallXPositionForBall, aCurrentBallYPositionForBall, aMinBallSpeedXForBall, aMinBallSpeedYForBall, aBallSpeedIncreaseFactorForBall, this);
-    paddle = new Paddle(aCurrentPaddleXPositionForPaddle, aCurrentPaddleYPositionForPaddle, aCurrentPaddleLengthForPaddle, aMaxPaddleLengthForPaddle, aMinPaddleLengthForPaddle, this);
+    ball = new Ball(aMinBallSpeedXForBall, aMinBallSpeedYForBall, aBallSpeedIncreaseFactorForBall, this);
+    paddle = new Paddle(aMaxPaddleLengthForPaddle, aMinPaddleLengthForPaddle, this);
     playableGames = new ArrayList<PlayableGame>();
     hallOfFame = new HallOfFame(this);
     boolean didAddBlock223 = setBlock223(aBlock223);
@@ -620,9 +620,9 @@ public class Game implements Serializable
     return 0;
   }
   /* Code from template association_AddManyToOne */
-  public PlayableGame addPlayableGame(int aNumberOfLives, Player aPlayer, Block223 aBlock223)
+  public PlayableGame addPlayableGame(int aNumberOfLives, boolean aIsInTestMode, Player aPlayer, Block223 aBlock223)
   {
-    return new PlayableGame(aNumberOfLives, this, aPlayer, aBlock223);
+    return new PlayableGame(aNumberOfLives, aIsInTestMode, this, aPlayer, aBlock223);
   }
 
   public boolean addPlayableGame(PlayableGame aPlayableGame)

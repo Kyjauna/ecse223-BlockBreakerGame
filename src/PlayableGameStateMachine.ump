@@ -1,0 +1,43 @@
+namespace ca.mcgill.ecse223.block.model;
+
+class PlayableGame {
+	
+	statemachine{
+      
+		Idle{
+			
+			spacebarPushed()->Playing;
+        
+        }
+		
+		Suspended{
+			
+			spacebarPushed()->Playing;
+		
+		}
+		
+		Playing{
+			
+			spacebarPushed()->Suspended;
+          
+			moveBall() [!isBlockHit()&&!isWallOrPaddleHit()&&!isOutOfBounds()] ->Playing; 
+            
+			moveBall() [isBlockHit()&&!isLastBlockHit()] ->Playing;
+			
+			moveBall() [isOutOfBounds()] ->Suspended;
+          
+			moveBall() [isWallOrPaddleHit()] ->Suspended;
+          
+			moveBall() [isLastBlockHit()&&!isLastLevel()] ->Suspended;
+          
+			moveBall() [isLastBlockHit()&&isLastLevel] ->Finished;
+		
+		
+		}
+		
+		Finished{
+		
+		
+		}
+	}
+}

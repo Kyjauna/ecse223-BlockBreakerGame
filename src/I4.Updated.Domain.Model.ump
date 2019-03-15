@@ -9,6 +9,7 @@ class PlayableGame {
 	* -- 1 Player;
 	autounique gameId;
 	Integer numberOfLives;
+	boolean isInTestMode;
 }
 
 class HallOfFame {
@@ -25,22 +26,32 @@ class Entry {
 	Integer score;
 }
 
-class Paddle {
+class PaddleOccurance {
+	* -- 1 Paddle;
+	* -- 1 PlayableGame;
 	Integer currentPaddleXPosition;
 	Integer currentPaddleYPosition;
 	Integer currentPaddleLength;
 }
 
-class Ball {
-	Integer currentBallXPosition;
-	Integer currentBallYPosition;
+class BallOccurance {
+	* -- 1 Ball;
+	* -- 1 PlayableGame;
+	Integer currentBallOXPosition;
+	Integer currentBallOYPosition;
 	
 	updateBallPosition(){
-	currentBallXPosition=currentBallXPosition+minBallSpeedX;
-	currentBallYPosition=currentBallYPosition+minBallSpeedY;
+	currentBallOXPosition=currentBallOXPosition+this.getBall().getMinBallSpeedX();
+	currentBallOYPosition=currentBallOYPosition+this.getBall().getMinBallSpeedY();
 
 	}
-	
 }
+	
+class BlockAssingmentOccurance{
+	* -- 1 PlayableGame;
+	* -- 1 BlockAssignment;
+
+}
+
 
 

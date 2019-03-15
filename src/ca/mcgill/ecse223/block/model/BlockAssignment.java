@@ -3,6 +3,7 @@
 
 package ca.mcgill.ecse223.block.model;
 import java.io.Serializable;
+import java.util.*;
 
 // line 46 "../../../../../Block223Persistence.ump"
 // line 152 "../../../../../Block223 v2.ump"
@@ -20,6 +21,7 @@ public class BlockAssignment implements Serializable
   //BlockAssignment Associations
   private Level level;
   private Block block;
+  private List<BlockAssingmentOccurance> blockAssingmentOccurances;
   private Game game;
 
   //------------------------
@@ -40,6 +42,7 @@ public class BlockAssignment implements Serializable
     {
       throw new RuntimeException("Unable to create blockAssignment due to block");
     }
+    blockAssingmentOccurances = new ArrayList<BlockAssingmentOccurance>();
     boolean didAddGame = setGame(aGame);
     if (!didAddGame)
     {
@@ -86,6 +89,36 @@ public class BlockAssignment implements Serializable
   {
     return block;
   }
+  /* Code from template association_GetMany */
+  public BlockAssingmentOccurance getBlockAssingmentOccurance(int index)
+  {
+    BlockAssingmentOccurance aBlockAssingmentOccurance = blockAssingmentOccurances.get(index);
+    return aBlockAssingmentOccurance;
+  }
+
+  public List<BlockAssingmentOccurance> getBlockAssingmentOccurances()
+  {
+    List<BlockAssingmentOccurance> newBlockAssingmentOccurances = Collections.unmodifiableList(blockAssingmentOccurances);
+    return newBlockAssingmentOccurances;
+  }
+
+  public int numberOfBlockAssingmentOccurances()
+  {
+    int number = blockAssingmentOccurances.size();
+    return number;
+  }
+
+  public boolean hasBlockAssingmentOccurances()
+  {
+    boolean has = blockAssingmentOccurances.size() > 0;
+    return has;
+  }
+
+  public int indexOfBlockAssingmentOccurance(BlockAssingmentOccurance aBlockAssingmentOccurance)
+  {
+    int index = blockAssingmentOccurances.indexOf(aBlockAssingmentOccurance);
+    return index;
+  }
   /* Code from template association_GetOne */
   public Game getGame()
   {
@@ -129,6 +162,78 @@ public class BlockAssignment implements Serializable
     wasSet = true;
     return wasSet;
   }
+  /* Code from template association_MinimumNumberOfMethod */
+  public static int minimumNumberOfBlockAssingmentOccurances()
+  {
+    return 0;
+  }
+  /* Code from template association_AddManyToOne */
+  public BlockAssingmentOccurance addBlockAssingmentOccurance(PlayableGame aPlayableGame)
+  {
+    return new BlockAssingmentOccurance(aPlayableGame, this);
+  }
+
+  public boolean addBlockAssingmentOccurance(BlockAssingmentOccurance aBlockAssingmentOccurance)
+  {
+    boolean wasAdded = false;
+    if (blockAssingmentOccurances.contains(aBlockAssingmentOccurance)) { return false; }
+    BlockAssignment existingBlockAssignment = aBlockAssingmentOccurance.getBlockAssignment();
+    boolean isNewBlockAssignment = existingBlockAssignment != null && !this.equals(existingBlockAssignment);
+    if (isNewBlockAssignment)
+    {
+      aBlockAssingmentOccurance.setBlockAssignment(this);
+    }
+    else
+    {
+      blockAssingmentOccurances.add(aBlockAssingmentOccurance);
+    }
+    wasAdded = true;
+    return wasAdded;
+  }
+
+  public boolean removeBlockAssingmentOccurance(BlockAssingmentOccurance aBlockAssingmentOccurance)
+  {
+    boolean wasRemoved = false;
+    //Unable to remove aBlockAssingmentOccurance, as it must always have a blockAssignment
+    if (!this.equals(aBlockAssingmentOccurance.getBlockAssignment()))
+    {
+      blockAssingmentOccurances.remove(aBlockAssingmentOccurance);
+      wasRemoved = true;
+    }
+    return wasRemoved;
+  }
+  /* Code from template association_AddIndexControlFunctions */
+  public boolean addBlockAssingmentOccuranceAt(BlockAssingmentOccurance aBlockAssingmentOccurance, int index)
+  {  
+    boolean wasAdded = false;
+    if(addBlockAssingmentOccurance(aBlockAssingmentOccurance))
+    {
+      if(index < 0 ) { index = 0; }
+      if(index > numberOfBlockAssingmentOccurances()) { index = numberOfBlockAssingmentOccurances() - 1; }
+      blockAssingmentOccurances.remove(aBlockAssingmentOccurance);
+      blockAssingmentOccurances.add(index, aBlockAssingmentOccurance);
+      wasAdded = true;
+    }
+    return wasAdded;
+  }
+
+  public boolean addOrMoveBlockAssingmentOccuranceAt(BlockAssingmentOccurance aBlockAssingmentOccurance, int index)
+  {
+    boolean wasAdded = false;
+    if(blockAssingmentOccurances.contains(aBlockAssingmentOccurance))
+    {
+      if(index < 0 ) { index = 0; }
+      if(index > numberOfBlockAssingmentOccurances()) { index = numberOfBlockAssingmentOccurances() - 1; }
+      blockAssingmentOccurances.remove(aBlockAssingmentOccurance);
+      blockAssingmentOccurances.add(index, aBlockAssingmentOccurance);
+      wasAdded = true;
+    } 
+    else 
+    {
+      wasAdded = addBlockAssingmentOccuranceAt(aBlockAssingmentOccurance, index);
+    }
+    return wasAdded;
+  }
   /* Code from template association_SetOneToMany */
   public boolean setGame(Game aGame)
   {
@@ -162,6 +267,11 @@ public class BlockAssignment implements Serializable
     if(placeholderBlock != null)
     {
       placeholderBlock.removeBlockAssignment(this);
+    }
+    for(int i=blockAssingmentOccurances.size(); i > 0; i--)
+    {
+      BlockAssingmentOccurance aBlockAssingmentOccurance = blockAssingmentOccurances.get(i - 1);
+      aBlockAssingmentOccurance.delete();
     }
     Game placeholderGame = game;
     this.game = null;
