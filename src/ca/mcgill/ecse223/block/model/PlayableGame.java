@@ -13,14 +13,15 @@ public class PlayableGame
   //------------------------
 
   private static int nextGameId = 1;
-  public static final int NumberOfLives = 3;
 
   //------------------------
   // MEMBER VARIABLES
   //------------------------
 
   //PlayableGame Attributes
+  private int numberOfLives;
   private boolean isInTestMode;
+  private int currentScore;
 
   //Autounique Attributes
   private int gameId;
@@ -37,9 +38,11 @@ public class PlayableGame
   // CONSTRUCTOR
   //------------------------
 
-  public PlayableGame(boolean aIsInTestMode, Game aGame, Player aPlayer, Block223 aBlock223)
+  public PlayableGame(boolean aIsInTestMode, int aCurrentScore, Game aGame, Player aPlayer, Block223 aBlock223)
   {
+    numberOfLives = 3;
     isInTestMode = aIsInTestMode;
+    currentScore = aCurrentScore;
     gameId = nextGameId++;
     boolean didAddGame = setGame(aGame);
     if (!didAddGame)
@@ -65,6 +68,14 @@ public class PlayableGame
   // INTERFACE
   //------------------------
 
+  public boolean setNumberOfLives(int aNumberOfLives)
+  {
+    boolean wasSet = false;
+    numberOfLives = aNumberOfLives;
+    wasSet = true;
+    return wasSet;
+  }
+
   public boolean setIsInTestMode(boolean aIsInTestMode)
   {
     boolean wasSet = false;
@@ -73,9 +84,27 @@ public class PlayableGame
     return wasSet;
   }
 
+  public boolean setCurrentScore(int aCurrentScore)
+  {
+    boolean wasSet = false;
+    currentScore = aCurrentScore;
+    wasSet = true;
+    return wasSet;
+  }
+
+  public int getNumberOfLives()
+  {
+    return numberOfLives;
+  }
+
   public boolean getIsInTestMode()
   {
     return isInTestMode;
+  }
+
+  public int getCurrentScore()
+  {
+    return currentScore;
   }
 
   public int getGameId()
@@ -503,7 +532,9 @@ public class PlayableGame
   {
     return super.toString() + "["+
             "gameId" + ":" + getGameId()+ "," +
-            "isInTestMode" + ":" + getIsInTestMode()+ "]" + System.getProperties().getProperty("line.separator") +
+            "numberOfLives" + ":" + getNumberOfLives()+ "," +
+            "isInTestMode" + ":" + getIsInTestMode()+ "," +
+            "currentScore" + ":" + getCurrentScore()+ "]" + System.getProperties().getProperty("line.separator") +
             "  " + "game = "+(getGame()!=null?Integer.toHexString(System.identityHashCode(getGame())):"null") + System.getProperties().getProperty("line.separator") +
             "  " + "player = "+(getPlayer()!=null?Integer.toHexString(System.identityHashCode(getPlayer())):"null") + System.getProperties().getProperty("line.separator") +
             "  " + "block223 = "+(getBlock223()!=null?Integer.toHexString(System.identityHashCode(getBlock223())):"null");

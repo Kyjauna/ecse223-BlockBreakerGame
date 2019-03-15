@@ -65,27 +65,31 @@ class PlayableGame {
 		
 		}
 	}
-	private boolean isBlockHit{
+	private boolean isBlockHit(){
 	
 	}
 	
-	private boolean isWallOrPaddleHit{
+	private boolean isWallOrPaddleHit(){
 	
 	}
 	
-	private boolean isOutOfBounds{
+	private boolean isOutOfBounds(){
 	
 	}
 	
-	private boolean isOnLastLife{
+	private boolean isOnLastLife(){
 	
 	}
 	
-	private boolean isLastBlockHit{
+	private boolean isLastBlockHit(){
 	
 	}
 	
-	private boolean isLeftKeyPushed{
+	private boolean isLeftKeyPushed(){
+	
+	}
+	
+	private boolean isTestGame(){
 	
 	}
 }
