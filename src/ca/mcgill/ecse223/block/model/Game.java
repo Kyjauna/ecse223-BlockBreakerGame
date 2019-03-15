@@ -6,7 +6,7 @@ import java.io.Serializable;
 import java.util.*;
 
 // line 53 "../../../../../Block223Persistence.ump"
-// line 20 "../../../../../I4.Updated.Domain.Model.ump"
+// line 15 "../../../../../I4.Updated.Domain.Model.ump"
 // line 62 "../../../../../Block223 v2.ump"
 public class Game implements Serializable
 {
@@ -48,14 +48,14 @@ public class Game implements Serializable
   private Ball ball;
   private Paddle paddle;
   private List<PlayableGame> playableGames;
-  private HallOfFame hallOfFame;
+  private List<Entry> entries;
   private Block223 block223;
 
   //------------------------
   // CONSTRUCTOR
   //------------------------
 
-  public Game(boolean aIsPublished, String aName, int aNrBlocksPerLevel, Admin aAdmin, Ball aBall, Paddle aPaddle, HallOfFame aHallOfFame, Block223 aBlock223)
+  public Game(boolean aIsPublished, String aName, int aNrBlocksPerLevel, Admin aAdmin, Ball aBall, Paddle aPaddle, Block223 aBlock223)
   {
     // line 81 "../../../../../Block223 v2.ump"
     if (aName.equals(null) || aName.equals("")) {
@@ -92,11 +92,7 @@ public class Game implements Serializable
     }
     paddle = aPaddle;
     playableGames = new ArrayList<PlayableGame>();
-    if (aHallOfFame == null || aHallOfFame.getGame() != null)
-    {
-      throw new RuntimeException("Unable to create Game due to aHallOfFame");
-    }
-    hallOfFame = aHallOfFame;
+    entries = new ArrayList<Entry>();
     boolean didAddBlock223 = setBlock223(aBlock223);
     if (!didAddBlock223)
     {
@@ -130,7 +126,7 @@ public class Game implements Serializable
     ball = new Ball(aMinBallSpeedXForBall, aMinBallSpeedYForBall, aBallSpeedIncreaseFactorForBall, this);
     paddle = new Paddle(aMaxPaddleLengthForPaddle, aMinPaddleLengthForPaddle, this);
     playableGames = new ArrayList<PlayableGame>();
-    hallOfFame = new HallOfFame(this);
+    entries = new ArrayList<Entry>();
     boolean didAddBlock223 = setBlock223(aBlock223);
     if (!didAddBlock223)
     {
@@ -333,10 +329,35 @@ public class Game implements Serializable
     int index = playableGames.indexOf(aPlayableGame);
     return index;
   }
-  /* Code from template association_GetOne */
-  public HallOfFame getHallOfFame()
+  /* Code from template association_GetMany */
+  public Entry getEntry(int index)
   {
-    return hallOfFame;
+    Entry aEntry = entries.get(index);
+    return aEntry;
+  }
+
+  public List<Entry> getEntries()
+  {
+    List<Entry> newEntries = Collections.unmodifiableList(entries);
+    return newEntries;
+  }
+
+  public int numberOfEntries()
+  {
+    int number = entries.size();
+    return number;
+  }
+
+  public boolean hasEntries()
+  {
+    boolean has = entries.size() > 0;
+    return has;
+  }
+
+  public int indexOfEntry(Entry aEntry)
+  {
+    int index = entries.indexOf(aEntry);
+    return index;
   }
   /* Code from template association_GetOne */
   public Block223 getBlock223()
@@ -620,9 +641,9 @@ public class Game implements Serializable
     return 0;
   }
   /* Code from template association_AddManyToOne */
-  public PlayableGame addPlayableGame(int aNumberOfLives, boolean aIsInTestMode, Player aPlayer, Block223 aBlock223)
+  public PlayableGame addPlayableGame(boolean aIsInTestMode, Player aPlayer, Block223 aBlock223)
   {
-    return new PlayableGame(aNumberOfLives, aIsInTestMode, this, aPlayer, aBlock223);
+    return new PlayableGame(aIsInTestMode, this, aPlayer, aBlock223);
   }
 
   public boolean addPlayableGame(PlayableGame aPlayableGame)
@@ -683,6 +704,78 @@ public class Game implements Serializable
     else 
     {
       wasAdded = addPlayableGameAt(aPlayableGame, index);
+    }
+    return wasAdded;
+  }
+  /* Code from template association_MinimumNumberOfMethod */
+  public static int minimumNumberOfEntries()
+  {
+    return 0;
+  }
+  /* Code from template association_AddManyToOne */
+  public Entry addEntry(int aScore, Player aPlayer)
+  {
+    return new Entry(aScore, this, aPlayer);
+  }
+
+  public boolean addEntry(Entry aEntry)
+  {
+    boolean wasAdded = false;
+    if (entries.contains(aEntry)) { return false; }
+    Game existingGame = aEntry.getGame();
+    boolean isNewGame = existingGame != null && !this.equals(existingGame);
+    if (isNewGame)
+    {
+      aEntry.setGame(this);
+    }
+    else
+    {
+      entries.add(aEntry);
+    }
+    wasAdded = true;
+    return wasAdded;
+  }
+
+  public boolean removeEntry(Entry aEntry)
+  {
+    boolean wasRemoved = false;
+    //Unable to remove aEntry, as it must always have a game
+    if (!this.equals(aEntry.getGame()))
+    {
+      entries.remove(aEntry);
+      wasRemoved = true;
+    }
+    return wasRemoved;
+  }
+  /* Code from template association_AddIndexControlFunctions */
+  public boolean addEntryAt(Entry aEntry, int index)
+  {  
+    boolean wasAdded = false;
+    if(addEntry(aEntry))
+    {
+      if(index < 0 ) { index = 0; }
+      if(index > numberOfEntries()) { index = numberOfEntries() - 1; }
+      entries.remove(aEntry);
+      entries.add(index, aEntry);
+      wasAdded = true;
+    }
+    return wasAdded;
+  }
+
+  public boolean addOrMoveEntryAt(Entry aEntry, int index)
+  {
+    boolean wasAdded = false;
+    if(entries.contains(aEntry))
+    {
+      if(index < 0 ) { index = 0; }
+      if(index > numberOfEntries()) { index = numberOfEntries() - 1; }
+      entries.remove(aEntry);
+      entries.add(index, aEntry);
+      wasAdded = true;
+    } 
+    else 
+    {
+      wasAdded = addEntryAt(aEntry, index);
     }
     return wasAdded;
   }
@@ -753,12 +846,13 @@ public class Game implements Serializable
       PlayableGame aPlayableGame = playableGames.get(i - 1);
       aPlayableGame.delete();
     }
-    HallOfFame existingHallOfFame = hallOfFame;
-    hallOfFame = null;
-    if (existingHallOfFame != null)
+    while (entries.size() > 0)
     {
-      existingHallOfFame.delete();
+      Entry aEntry = entries.get(entries.size() - 1);
+      aEntry.delete();
+      entries.remove(aEntry);
     }
+    
     Block223 placeholderBlock223 = block223;
     this.block223 = null;
     if(placeholderBlock223 != null)
@@ -803,7 +897,6 @@ public class Game implements Serializable
             "  " + "admin = "+(getAdmin()!=null?Integer.toHexString(System.identityHashCode(getAdmin())):"null") + System.getProperties().getProperty("line.separator") +
             "  " + "ball = "+(getBall()!=null?Integer.toHexString(System.identityHashCode(getBall())):"null") + System.getProperties().getProperty("line.separator") +
             "  " + "paddle = "+(getPaddle()!=null?Integer.toHexString(System.identityHashCode(getPaddle())):"null") + System.getProperties().getProperty("line.separator") +
-            "  " + "hallOfFame = "+(getHallOfFame()!=null?Integer.toHexString(System.identityHashCode(getHallOfFame())):"null") + System.getProperties().getProperty("line.separator") +
             "  " + "block223 = "+(getBlock223()!=null?Integer.toHexString(System.identityHashCode(getBlock223())):"null");
   }  
   //------------------------

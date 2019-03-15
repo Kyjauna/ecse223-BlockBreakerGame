@@ -5,9 +5,10 @@ class PlayableGame {
 	statemachine{
       
 		Idle{
-			
-			spacebarPushed()->Playing;
-        
+		
+			entry/ {setupGame();}
+			setupComplete()-> Suspended;
+		
         }
 		
 		Suspended{
@@ -20,22 +21,44 @@ class PlayableGame {
 			
 			spacebarPushed()->Suspended;
           
-			moveBall() [!isBlockHit()&&!isWallOrPaddleHit()&&!isOutOfBounds()] ->Playing; 
+			moveBall() [!isBlockHit()&&!isWallOrPaddleHit()&&!isOutOfBounds()] /{
+			doMoveBall();
+			}
+			->Playing; 
             
-			moveBall() [isBlockHit()&&!isLastBlockHit()] ->Playing;
+			moveBall() [isBlockHit()&&!isLastBlockHit()] /{
+			doBlockHit();
+			}
+			->Playing;
 			
-			moveBall() [isOutOfBounds()] ->Suspended;
+			moveBall() [isOutOfBounds()&&!isOnLastLife] /{
+			doWallOrPaddleHit();
+			}
+			->Suspended;
           
 			moveBall() [isWallOrPaddleHit()] ->Suspended;
           
-			moveBall() [isLastBlockHit()&&!isLastLevel()] ->Suspended;
+			moveBall() [isLastBlockHit()&&!isLastLevel()] /{
+			doBlockHit();
+			->Suspended;
           
-			moveBall() [isLastBlockHit()&&isLastLevel] ->Finished;
-		
+			moveBall() [isLastBlockHit()&&isLastLevel] /{
+			doBlockHit();
+			}
+			->Finished;
+			
+			moveBall() [isOutOfBounds()&&isOnLastLife] -> Finished;
+			
+			ArrowKeyPushed()[isLeftKeyPushed()]/{
+			doMovePaddle();
+			}
+			->Playing;
 		
 		}
 		
 		Finished{
+		
+			entry/ {addToHallOfFame();}
 		
 		
 		}

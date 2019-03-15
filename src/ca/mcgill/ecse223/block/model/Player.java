@@ -98,9 +98,9 @@ public class Player extends UserRole implements Serializable
     return 0;
   }
   /* Code from template association_AddManyToOne */
-  public PlayableGame addPlayableGame(int aNumberOfLives, boolean aIsInTestMode, Game aGame, Block223 aBlock223)
+  public PlayableGame addPlayableGame(boolean aIsInTestMode, Game aGame, Block223 aBlock223)
   {
-    return new PlayableGame(aNumberOfLives, aIsInTestMode, aGame, this, aBlock223);
+    return new PlayableGame(aIsInTestMode, aGame, this, aBlock223);
   }
 
   public boolean addPlayableGame(PlayableGame aPlayableGame)
@@ -170,9 +170,9 @@ public class Player extends UserRole implements Serializable
     return 0;
   }
   /* Code from template association_AddManyToOne */
-  public Entry addEntry(int aScore, HallOfFame aHallOfFame)
+  public Entry addEntry(int aScore, Game aGame)
   {
-    return new Entry(aScore, this, aHallOfFame);
+    return new Entry(aScore, aGame, this);
   }
 
   public boolean addEntry(Entry aEntry)

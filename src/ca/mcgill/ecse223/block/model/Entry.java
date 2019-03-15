@@ -3,7 +3,7 @@
 
 package ca.mcgill.ecse223.block.model;
 
-// line 24 "../../../../../I4.Updated.Domain.Model.ump"
+// line 19 "../../../../../I4.Updated.Domain.Model.ump"
 public class Entry
 {
 
@@ -15,25 +15,25 @@ public class Entry
   private int score;
 
   //Entry Associations
+  private Game game;
   private Player player;
-  private HallOfFame hallOfFame;
 
   //------------------------
   // CONSTRUCTOR
   //------------------------
 
-  public Entry(int aScore, Player aPlayer, HallOfFame aHallOfFame)
+  public Entry(int aScore, Game aGame, Player aPlayer)
   {
     score = aScore;
+    boolean didAddGame = setGame(aGame);
+    if (!didAddGame)
+    {
+      throw new RuntimeException("Unable to create entry due to game");
+    }
     boolean didAddPlayer = setPlayer(aPlayer);
     if (!didAddPlayer)
     {
       throw new RuntimeException("Unable to create entry due to player");
-    }
-    boolean didAddHallOfFame = setHallOfFame(aHallOfFame);
-    if (!didAddHallOfFame)
-    {
-      throw new RuntimeException("Unable to create entry due to hallOfFame");
     }
   }
 
@@ -54,14 +54,33 @@ public class Entry
     return score;
   }
   /* Code from template association_GetOne */
+  public Game getGame()
+  {
+    return game;
+  }
+  /* Code from template association_GetOne */
   public Player getPlayer()
   {
     return player;
   }
-  /* Code from template association_GetOne */
-  public HallOfFame getHallOfFame()
+  /* Code from template association_SetOneToMany */
+  public boolean setGame(Game aGame)
   {
-    return hallOfFame;
+    boolean wasSet = false;
+    if (aGame == null)
+    {
+      return wasSet;
+    }
+
+    Game existingGame = game;
+    game = aGame;
+    if (existingGame != null && !existingGame.equals(aGame))
+    {
+      existingGame.removeEntry(this);
+    }
+    game.addEntry(this);
+    wasSet = true;
+    return wasSet;
   }
   /* Code from template association_SetOneToMany */
   public boolean setPlayer(Player aPlayer)
@@ -82,39 +101,20 @@ public class Entry
     wasSet = true;
     return wasSet;
   }
-  /* Code from template association_SetOneToMany */
-  public boolean setHallOfFame(HallOfFame aHallOfFame)
-  {
-    boolean wasSet = false;
-    if (aHallOfFame == null)
-    {
-      return wasSet;
-    }
-
-    HallOfFame existingHallOfFame = hallOfFame;
-    hallOfFame = aHallOfFame;
-    if (existingHallOfFame != null && !existingHallOfFame.equals(aHallOfFame))
-    {
-      existingHallOfFame.removeEntry(this);
-    }
-    hallOfFame.addEntry(this);
-    wasSet = true;
-    return wasSet;
-  }
 
   public void delete()
   {
+    Game existingGame = game;
+    game = null;
+    if (existingGame != null)
+    {
+      existingGame.delete();
+    }
     Player placeholderPlayer = player;
     this.player = null;
     if(placeholderPlayer != null)
     {
       placeholderPlayer.removeEntry(this);
-    }
-    HallOfFame placeholderHallOfFame = hallOfFame;
-    this.hallOfFame = null;
-    if(placeholderHallOfFame != null)
-    {
-      placeholderHallOfFame.removeEntry(this);
     }
   }
 
@@ -123,7 +123,7 @@ public class Entry
   {
     return super.toString() + "["+
             "score" + ":" + getScore()+ "]" + System.getProperties().getProperty("line.separator") +
-            "  " + "player = "+(getPlayer()!=null?Integer.toHexString(System.identityHashCode(getPlayer())):"null") + System.getProperties().getProperty("line.separator") +
-            "  " + "hallOfFame = "+(getHallOfFame()!=null?Integer.toHexString(System.identityHashCode(getHallOfFame())):"null");
+            "  " + "game = "+(getGame()!=null?Integer.toHexString(System.identityHashCode(getGame())):"null") + System.getProperties().getProperty("line.separator") +
+            "  " + "player = "+(getPlayer()!=null?Integer.toHexString(System.identityHashCode(getPlayer())):"null");
   }
 }

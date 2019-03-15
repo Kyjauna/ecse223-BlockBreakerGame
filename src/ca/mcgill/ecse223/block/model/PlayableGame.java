@@ -13,13 +13,13 @@ public class PlayableGame
   //------------------------
 
   private static int nextGameId = 1;
+  public static final int NumberOfLives = 3;
 
   //------------------------
   // MEMBER VARIABLES
   //------------------------
 
   //PlayableGame Attributes
-  private int numberOfLives;
   private boolean isInTestMode;
 
   //Autounique Attributes
@@ -37,9 +37,8 @@ public class PlayableGame
   // CONSTRUCTOR
   //------------------------
 
-  public PlayableGame(int aNumberOfLives, boolean aIsInTestMode, Game aGame, Player aPlayer, Block223 aBlock223)
+  public PlayableGame(boolean aIsInTestMode, Game aGame, Player aPlayer, Block223 aBlock223)
   {
-    numberOfLives = aNumberOfLives;
     isInTestMode = aIsInTestMode;
     gameId = nextGameId++;
     boolean didAddGame = setGame(aGame);
@@ -66,25 +65,12 @@ public class PlayableGame
   // INTERFACE
   //------------------------
 
-  public boolean setNumberOfLives(int aNumberOfLives)
-  {
-    boolean wasSet = false;
-    numberOfLives = aNumberOfLives;
-    wasSet = true;
-    return wasSet;
-  }
-
   public boolean setIsInTestMode(boolean aIsInTestMode)
   {
     boolean wasSet = false;
     isInTestMode = aIsInTestMode;
     wasSet = true;
     return wasSet;
-  }
-
-  public int getNumberOfLives()
-  {
-    return numberOfLives;
   }
 
   public boolean getIsInTestMode()
@@ -517,7 +503,6 @@ public class PlayableGame
   {
     return super.toString() + "["+
             "gameId" + ":" + getGameId()+ "," +
-            "numberOfLives" + ":" + getNumberOfLives()+ "," +
             "isInTestMode" + ":" + getIsInTestMode()+ "]" + System.getProperties().getProperty("line.separator") +
             "  " + "game = "+(getGame()!=null?Integer.toHexString(System.identityHashCode(getGame())):"null") + System.getProperties().getProperty("line.separator") +
             "  " + "player = "+(getPlayer()!=null?Integer.toHexString(System.identityHashCode(getPlayer())):"null") + System.getProperties().getProperty("line.separator") +

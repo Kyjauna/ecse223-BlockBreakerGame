@@ -53,7 +53,7 @@ public class Paddle implements Serializable
     game = aGame;
   }
 
-  public Paddle(int aMaxPaddleLength, int aMinPaddleLength, boolean aIsPublishedForGame, String aNameForGame, int aNrBlocksPerLevelForGame, Admin aAdminForGame, Ball aBallForGame, HallOfFame aHallOfFameForGame, Block223 aBlock223ForGame)
+  public Paddle(int aMaxPaddleLength, int aMinPaddleLength, boolean aIsPublishedForGame, String aNameForGame, int aNrBlocksPerLevelForGame, Admin aAdminForGame, Ball aBallForGame, Block223 aBlock223ForGame)
   {
     // line 188 "../../../../../Block223 v2.ump"
     if (aMaxPaddleLength <= 0 || aMaxPaddleLength > 400){
@@ -66,7 +66,7 @@ public class Paddle implements Serializable
     maxPaddleLength = aMaxPaddleLength;
     minPaddleLength = aMinPaddleLength;
     paddleOccurances = new ArrayList<PaddleOccurance>();
-    game = new Game(aIsPublishedForGame, aNameForGame, aNrBlocksPerLevelForGame, aAdminForGame, aBallForGame, this, aHallOfFameForGame, aBlock223ForGame);
+    game = new Game(aIsPublishedForGame, aNameForGame, aNrBlocksPerLevelForGame, aAdminForGame, aBallForGame, this, aBlock223ForGame);
   }
 
   //------------------------

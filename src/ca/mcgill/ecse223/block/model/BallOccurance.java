@@ -3,7 +3,7 @@
 
 package ca.mcgill.ecse223.block.model;
 
-// line 37 "../../../../../I4.Updated.Domain.Model.ump"
+// line 33 "../../../../../I4.Updated.Domain.Model.ump"
 public class BallOccurance
 {
 
@@ -133,7 +133,7 @@ public class BallOccurance
     }
   }
 
-  // line 44 "../../../../../I4.Updated.Domain.Model.ump"
+  // line 40 "../../../../../I4.Updated.Domain.Model.ump"
   public void updateBallPosition(){
     currentBallOXPosition=currentBallOXPosition+this.getBall().getMinBallSpeedX();
 	currentBallOYPosition=currentBallOYPosition+this.getBall().getMinBallSpeedY();

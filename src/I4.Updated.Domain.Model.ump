@@ -8,13 +8,8 @@ class PlayableGame {
 	* -- 1 Game;
 	* -- 1 Player;
 	autounique gameId;
-	Integer numberOfLives;
+	const Integer NumberOfLives=3;
 	boolean isInTestMode;
-}
-
-class HallOfFame {
-	1 <@>- 1 Game;
-	1 -- * Entry;
 }
 
 class Game {
@@ -22,6 +17,7 @@ class Game {
 }
 
 class Entry {
+	* <@>- 1 Game;
 	* -- 1 Player;
 	Integer score;
 }

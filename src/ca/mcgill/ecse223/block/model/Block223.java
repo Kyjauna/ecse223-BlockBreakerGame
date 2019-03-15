@@ -162,9 +162,9 @@ public class Block223 implements Serializable
     return 0;
   }
   /* Code from template association_AddManyToOne */
-  public PlayableGame addPlayableGame(int aNumberOfLives, boolean aIsInTestMode, Game aGame, Player aPlayer)
+  public PlayableGame addPlayableGame(boolean aIsInTestMode, Game aGame, Player aPlayer)
   {
-    return new PlayableGame(aNumberOfLives, aIsInTestMode, aGame, aPlayer, this);
+    return new PlayableGame(aIsInTestMode, aGame, aPlayer, this);
   }
 
   public boolean addPlayableGame(PlayableGame aPlayableGame)
@@ -375,9 +375,9 @@ public class Block223 implements Serializable
     return 0;
   }
   /* Code from template association_AddManyToOne */
-  public Game addGame(boolean aIsPublished, String aName, int aNrBlocksPerLevel, Admin aAdmin, Ball aBall, Paddle aPaddle, HallOfFame aHallOfFame)
+  public Game addGame(boolean aIsPublished, String aName, int aNrBlocksPerLevel, Admin aAdmin, Ball aBall, Paddle aPaddle)
   {
-    return new Game(aIsPublished, aName, aNrBlocksPerLevel, aAdmin, aBall, aPaddle, aHallOfFame, this);
+    return new Game(aIsPublished, aName, aNrBlocksPerLevel, aAdmin, aBall, aPaddle, this);
   }
 
   public boolean addGame(Game aGame)

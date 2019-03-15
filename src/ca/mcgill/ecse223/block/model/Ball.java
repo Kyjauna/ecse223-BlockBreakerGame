@@ -57,7 +57,7 @@ public class Ball implements Serializable
     game = aGame;
   }
 
-  public Ball(int aMinBallSpeedX, int aMinBallSpeedY, double aBallSpeedIncreaseFactor, boolean aIsPublishedForGame, String aNameForGame, int aNrBlocksPerLevelForGame, Admin aAdminForGame, Paddle aPaddleForGame, HallOfFame aHallOfFameForGame, Block223 aBlock223ForGame)
+  public Ball(int aMinBallSpeedX, int aMinBallSpeedY, double aBallSpeedIncreaseFactor, boolean aIsPublishedForGame, String aNameForGame, int aNrBlocksPerLevelForGame, Admin aAdminForGame, Paddle aPaddleForGame, Block223 aBlock223ForGame)
   {
     // line 167 "../../../../../Block223 v2.ump"
     if (aMinBallSpeedX <= 0){
@@ -74,7 +74,7 @@ public class Ball implements Serializable
     minBallSpeedY = aMinBallSpeedY;
     ballSpeedIncreaseFactor = aBallSpeedIncreaseFactor;
     ballOccurances = new ArrayList<BallOccurance>();
-    game = new Game(aIsPublishedForGame, aNameForGame, aNrBlocksPerLevelForGame, aAdminForGame, this, aPaddleForGame, aHallOfFameForGame, aBlock223ForGame);
+    game = new Game(aIsPublishedForGame, aNameForGame, aNrBlocksPerLevelForGame, aAdminForGame, this, aPaddleForGame, aBlock223ForGame);
   }
 
   //------------------------
