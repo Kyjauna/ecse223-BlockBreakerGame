@@ -36,6 +36,8 @@ class BallOccurance {
 	* -- 1 PlayableGame;
 	Integer currentBallOXPosition;
 	Integer currentBallOYPosition;
+	Integer currentBallOXDirection;
+	Integer currentBallOYDirection;
 	
 	updateBallPosition(){
 	currentBallOXPosition=currentBallOXPosition+this.getBall().getMinBallSpeedX();
@@ -47,7 +49,6 @@ class BallOccurance {
 class BlockAssingmentOccurance{
 	* -- 1 PlayableGame;
 	* -- 1 BlockAssignment;
-
 }
 
 

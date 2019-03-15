@@ -351,9 +351,9 @@ public class PlayableGame
     return 0;
   }
   /* Code from template association_AddManyToOne */
-  public BallOccurance addBallOccurance(int aCurrentBallOXPosition, int aCurrentBallOYPosition, Ball aBall)
+  public BallOccurance addBallOccurance(int aCurrentBallOXPosition, int aCurrentBallOYPosition, int aCurrentBallOXDirection, int aCurrentBallOYDirection, Ball aBall)
   {
-    return new BallOccurance(aCurrentBallOXPosition, aCurrentBallOYPosition, aBall, this);
+    return new BallOccurance(aCurrentBallOXPosition, aCurrentBallOYPosition, aCurrentBallOXDirection, aCurrentBallOYDirection, aBall, this);
   }
 
   public boolean addBallOccurance(BallOccurance aBallOccurance)

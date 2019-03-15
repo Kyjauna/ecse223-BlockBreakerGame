@@ -160,9 +160,9 @@ public class Ball implements Serializable
     return 0;
   }
   /* Code from template association_AddManyToOne */
-  public BallOccurance addBallOccurance(int aCurrentBallOXPosition, int aCurrentBallOYPosition, PlayableGame aPlayableGame)
+  public BallOccurance addBallOccurance(int aCurrentBallOXPosition, int aCurrentBallOYPosition, int aCurrentBallOXDirection, int aCurrentBallOYDirection, PlayableGame aPlayableGame)
   {
-    return new BallOccurance(aCurrentBallOXPosition, aCurrentBallOYPosition, this, aPlayableGame);
+    return new BallOccurance(aCurrentBallOXPosition, aCurrentBallOYPosition, aCurrentBallOXDirection, aCurrentBallOYDirection, this, aPlayableGame);
   }
 
   public boolean addBallOccurance(BallOccurance aBallOccurance)

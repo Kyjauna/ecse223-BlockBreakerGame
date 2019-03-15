@@ -14,6 +14,8 @@ public class BallOccurance
   //BallOccurance Attributes
   private int currentBallOXPosition;
   private int currentBallOYPosition;
+  private int currentBallOXDirection;
+  private int currentBallOYDirection;
 
   //BallOccurance Associations
   private Ball ball;
@@ -23,10 +25,12 @@ public class BallOccurance
   // CONSTRUCTOR
   //------------------------
 
-  public BallOccurance(int aCurrentBallOXPosition, int aCurrentBallOYPosition, Ball aBall, PlayableGame aPlayableGame)
+  public BallOccurance(int aCurrentBallOXPosition, int aCurrentBallOYPosition, int aCurrentBallOXDirection, int aCurrentBallOYDirection, Ball aBall, PlayableGame aPlayableGame)
   {
     currentBallOXPosition = aCurrentBallOXPosition;
     currentBallOYPosition = aCurrentBallOYPosition;
+    currentBallOXDirection = aCurrentBallOXDirection;
+    currentBallOYDirection = aCurrentBallOYDirection;
     boolean didAddBall = setBall(aBall);
     if (!didAddBall)
     {
@@ -59,6 +63,22 @@ public class BallOccurance
     return wasSet;
   }
 
+  public boolean setCurrentBallOXDirection(int aCurrentBallOXDirection)
+  {
+    boolean wasSet = false;
+    currentBallOXDirection = aCurrentBallOXDirection;
+    wasSet = true;
+    return wasSet;
+  }
+
+  public boolean setCurrentBallOYDirection(int aCurrentBallOYDirection)
+  {
+    boolean wasSet = false;
+    currentBallOYDirection = aCurrentBallOYDirection;
+    wasSet = true;
+    return wasSet;
+  }
+
   public int getCurrentBallOXPosition()
   {
     return currentBallOXPosition;
@@ -67,6 +87,16 @@ public class BallOccurance
   public int getCurrentBallOYPosition()
   {
     return currentBallOYPosition;
+  }
+
+  public int getCurrentBallOXDirection()
+  {
+    return currentBallOXDirection;
+  }
+
+  public int getCurrentBallOYDirection()
+  {
+    return currentBallOYDirection;
   }
   /* Code from template association_GetOne */
   public Ball getBall()
@@ -133,7 +163,7 @@ public class BallOccurance
     }
   }
 
-  // line 41 "../../../../../I4.Updated.Domain.Model.ump"
+  // line 43 "../../../../../I4.Updated.Domain.Model.ump"
   public void updateBallPosition(){
     currentBallOXPosition=currentBallOXPosition+this.getBall().getMinBallSpeedX();
 	currentBallOYPosition=currentBallOYPosition+this.getBall().getMinBallSpeedY();
@@ -144,7 +174,9 @@ public class BallOccurance
   {
     return super.toString() + "["+
             "currentBallOXPosition" + ":" + getCurrentBallOXPosition()+ "," +
-            "currentBallOYPosition" + ":" + getCurrentBallOYPosition()+ "]" + System.getProperties().getProperty("line.separator") +
+            "currentBallOYPosition" + ":" + getCurrentBallOYPosition()+ "," +
+            "currentBallOXDirection" + ":" + getCurrentBallOXDirection()+ "," +
+            "currentBallOYDirection" + ":" + getCurrentBallOYDirection()+ "]" + System.getProperties().getProperty("line.separator") +
             "  " + "ball = "+(getBall()!=null?Integer.toHexString(System.identityHashCode(getBall())):"null") + System.getProperties().getProperty("line.separator") +
             "  " + "playableGame = "+(getPlayableGame()!=null?Integer.toHexString(System.identityHashCode(getPlayableGame())):"null");
   }
