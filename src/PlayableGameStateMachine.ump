@@ -42,12 +42,15 @@ class PlayableGame {
 			doBlockHit();
 			->Suspended;
           
-			moveBall() [isLastBlockHit()&&isLastLevel] /{
+			moveBall() [isLastBlockHit()&&isLastLevel()] /{
 			doBlockHit();
 			}
 			->Finished;
 			
-			moveBall() [isOutOfBounds()&&isOnLastLife] -> Finished;
+			moveBall() [isOutOfBounds()&&isOnLastLife()] {
+			doOutofBounds();
+			}
+			-> Finished;
 			
 			ArrowKeyPushed()[isLeftKeyPushed()]/{
 			doMovePaddle();
