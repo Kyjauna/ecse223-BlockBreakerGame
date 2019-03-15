@@ -3,7 +3,7 @@
 
 package ca.mcgill.ecse223.block.model;
 
-// line 34 "../../../../../I4.Updated.Domain.Model.ump"
+// line 49 "../../../../../I4.Updated.Domain.Model.ump"
 public class BallOccurance
 {
 
@@ -32,11 +32,23 @@ public class BallOccurance
     {
       throw new RuntimeException("Unable to create ballOccurance due to ball");
     }
-    boolean didAddPlayableGame = setPlayableGame(aPlayableGame);
-    if (!didAddPlayableGame)
+    if (aPlayableGame == null || aPlayableGame.getBallOccurance() != null)
     {
-      throw new RuntimeException("Unable to create ballOccurance due to playableGame");
+      throw new RuntimeException("Unable to create BallOccurance due to aPlayableGame");
     }
+    playableGame = aPlayableGame;
+  }
+
+  public BallOccurance(int aCurrentBallOXPosition, int aCurrentBallOYPosition, Ball aBall, boolean aIsInTestModeForPlayableGame, int aCurrentScoreForPlayableGame, Game aGameForPlayableGame, Player aPlayerForPlayableGame, Block223 aBlock223ForPlayableGame, PaddleOccurance aPaddleOccuranceForPlayableGame)
+  {
+    currentBallOXPosition = aCurrentBallOXPosition;
+    currentBallOYPosition = aCurrentBallOYPosition;
+    boolean didAddBall = setBall(aBall);
+    if (!didAddBall)
+    {
+      throw new RuntimeException("Unable to create ballOccurance due to ball");
+    }
+    playableGame = new PlayableGame(aIsInTestModeForPlayableGame, aCurrentScoreForPlayableGame, aGameForPlayableGame, aPlayerForPlayableGame, aBlock223ForPlayableGame, aPaddleOccuranceForPlayableGame, this);
   }
 
   //------------------------
@@ -97,25 +109,6 @@ public class BallOccurance
     wasSet = true;
     return wasSet;
   }
-  /* Code from template association_SetOneToMany */
-  public boolean setPlayableGame(PlayableGame aPlayableGame)
-  {
-    boolean wasSet = false;
-    if (aPlayableGame == null)
-    {
-      return wasSet;
-    }
-
-    PlayableGame existingPlayableGame = playableGame;
-    playableGame = aPlayableGame;
-    if (existingPlayableGame != null && !existingPlayableGame.equals(aPlayableGame))
-    {
-      existingPlayableGame.removeBallOccurance(this);
-    }
-    playableGame.addBallOccurance(this);
-    wasSet = true;
-    return wasSet;
-  }
 
   public void delete()
   {
@@ -125,15 +118,15 @@ public class BallOccurance
     {
       placeholderBall.removeBallOccurance(this);
     }
-    PlayableGame placeholderPlayableGame = playableGame;
-    this.playableGame = null;
-    if(placeholderPlayableGame != null)
+    PlayableGame existingPlayableGame = playableGame;
+    playableGame = null;
+    if (existingPlayableGame != null)
     {
-      placeholderPlayableGame.removeBallOccurance(this);
+      existingPlayableGame.delete();
     }
   }
 
-  // line 41 "../../../../../I4.Updated.Domain.Model.ump"
+  // line 56 "../../../../../I4.Updated.Domain.Model.ump"
   public void updateBallPosition(){
     currentBallOXPosition=currentBallOXPosition+this.getBall().getMinBallSpeedX();
 	currentBallOYPosition=currentBallOYPosition+this.getBall().getMinBallSpeedY();

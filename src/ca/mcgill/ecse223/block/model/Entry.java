@@ -3,7 +3,7 @@
 
 package ca.mcgill.ecse223.block.model;
 
-// line 20 "../../../../../I4.Updated.Domain.Model.ump"
+// line 35 "../../../../../I4.Updated.Domain.Model.ump"
 public class Entry
 {
 

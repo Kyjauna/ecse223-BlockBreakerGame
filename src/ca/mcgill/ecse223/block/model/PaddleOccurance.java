@@ -3,7 +3,7 @@
 
 package ca.mcgill.ecse223.block.model;
 
-// line 26 "../../../../../I4.Updated.Domain.Model.ump"
+// line 41 "../../../../../I4.Updated.Domain.Model.ump"
 public class PaddleOccurance
 {
 
@@ -34,11 +34,24 @@ public class PaddleOccurance
     {
       throw new RuntimeException("Unable to create paddleOccurance due to paddle");
     }
-    boolean didAddPlayableGame = setPlayableGame(aPlayableGame);
-    if (!didAddPlayableGame)
+    if (aPlayableGame == null || aPlayableGame.getPaddleOccurance() != null)
     {
-      throw new RuntimeException("Unable to create paddleOccurance due to playableGame");
+      throw new RuntimeException("Unable to create PaddleOccurance due to aPlayableGame");
     }
+    playableGame = aPlayableGame;
+  }
+
+  public PaddleOccurance(int aCurrentPaddleXPosition, int aCurrentPaddleYPosition, int aCurrentPaddleLength, Paddle aPaddle, boolean aIsInTestModeForPlayableGame, int aCurrentScoreForPlayableGame, Game aGameForPlayableGame, Player aPlayerForPlayableGame, Block223 aBlock223ForPlayableGame, BallOccurance aBallOccuranceForPlayableGame)
+  {
+    currentPaddleXPosition = aCurrentPaddleXPosition;
+    currentPaddleYPosition = aCurrentPaddleYPosition;
+    currentPaddleLength = aCurrentPaddleLength;
+    boolean didAddPaddle = setPaddle(aPaddle);
+    if (!didAddPaddle)
+    {
+      throw new RuntimeException("Unable to create paddleOccurance due to paddle");
+    }
+    playableGame = new PlayableGame(aIsInTestModeForPlayableGame, aCurrentScoreForPlayableGame, aGameForPlayableGame, aPlayerForPlayableGame, aBlock223ForPlayableGame, this, aBallOccuranceForPlayableGame);
   }
 
   //------------------------
@@ -112,25 +125,6 @@ public class PaddleOccurance
     wasSet = true;
     return wasSet;
   }
-  /* Code from template association_SetOneToMany */
-  public boolean setPlayableGame(PlayableGame aPlayableGame)
-  {
-    boolean wasSet = false;
-    if (aPlayableGame == null)
-    {
-      return wasSet;
-    }
-
-    PlayableGame existingPlayableGame = playableGame;
-    playableGame = aPlayableGame;
-    if (existingPlayableGame != null && !existingPlayableGame.equals(aPlayableGame))
-    {
-      existingPlayableGame.removePaddleOccurance(this);
-    }
-    playableGame.addPaddleOccurance(this);
-    wasSet = true;
-    return wasSet;
-  }
 
   public void delete()
   {
@@ -140,11 +134,11 @@ public class PaddleOccurance
     {
       placeholderPaddle.removePaddleOccurance(this);
     }
-    PlayableGame placeholderPlayableGame = playableGame;
-    this.playableGame = null;
-    if(placeholderPlayableGame != null)
+    PlayableGame existingPlayableGame = playableGame;
+    playableGame = null;
+    if (existingPlayableGame != null)
     {
-      placeholderPlayableGame.removePaddleOccurance(this);
+      existingPlayableGame.delete();
     }
   }
 

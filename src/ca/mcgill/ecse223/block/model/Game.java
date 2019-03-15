@@ -6,7 +6,7 @@ import java.io.Serializable;
 import java.util.*;
 
 // line 53 "../../../../../Block223Persistence.ump"
-// line 16 "../../../../../I4.Updated.Domain.Model.ump"
+// line 31 "../../../../../I4.Updated.Domain.Model.ump"
 // line 63 "../../../../../Block223 v2.ump"
 public class Game implements Serializable
 {
@@ -641,9 +641,9 @@ public class Game implements Serializable
     return 0;
   }
   /* Code from template association_AddManyToOne */
-  public PlayableGame addPlayableGame(boolean aIsInTestMode, int aCurrentScore, Player aPlayer, Block223 aBlock223)
+  public PlayableGame addPlayableGame(boolean aIsInTestMode, int aCurrentScore, Player aPlayer, Block223 aBlock223, PaddleOccurance aPaddleOccurance, BallOccurance aBallOccurance)
   {
-    return new PlayableGame(aIsInTestMode, aCurrentScore, this, aPlayer, aBlock223);
+    return new PlayableGame(aIsInTestMode, aCurrentScore, this, aPlayer, aBlock223, aPaddleOccurance, aBallOccurance);
   }
 
   public boolean addPlayableGame(PlayableGame aPlayableGame)

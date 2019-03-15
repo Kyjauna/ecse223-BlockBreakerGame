@@ -4,7 +4,7 @@
 package ca.mcgill.ecse223.block.model;
 import java.util.*;
 
-// line 7 "../../../../../I4.Updated.Domain.Model.ump"
+// line 22 "../../../../../I4.Updated.Domain.Model.ump"
 public class PlayableGame
 {
 
@@ -30,15 +30,15 @@ public class PlayableGame
   private Game game;
   private Player player;
   private Block223 block223;
-  private List<PaddleOccurance> paddleOccurances;
-  private List<BallOccurance> ballOccurances;
+  private PaddleOccurance paddleOccurance;
+  private BallOccurance ballOccurance;
   private List<BlockAssingmentOccurance> blockAssingmentOccurances;
 
   //------------------------
   // CONSTRUCTOR
   //------------------------
 
-  public PlayableGame(boolean aIsInTestMode, int aCurrentScore, Game aGame, Player aPlayer, Block223 aBlock223)
+  public PlayableGame(boolean aIsInTestMode, int aCurrentScore, Game aGame, Player aPlayer, Block223 aBlock223, PaddleOccurance aPaddleOccurance, BallOccurance aBallOccurance)
   {
     numberOfLives = 3;
     isInTestMode = aIsInTestMode;
@@ -59,8 +59,42 @@ public class PlayableGame
     {
       throw new RuntimeException("Unable to create playableGame due to block223");
     }
-    paddleOccurances = new ArrayList<PaddleOccurance>();
-    ballOccurances = new ArrayList<BallOccurance>();
+    if (aPaddleOccurance == null || aPaddleOccurance.getPlayableGame() != null)
+    {
+      throw new RuntimeException("Unable to create PlayableGame due to aPaddleOccurance");
+    }
+    paddleOccurance = aPaddleOccurance;
+    if (aBallOccurance == null || aBallOccurance.getPlayableGame() != null)
+    {
+      throw new RuntimeException("Unable to create PlayableGame due to aBallOccurance");
+    }
+    ballOccurance = aBallOccurance;
+    blockAssingmentOccurances = new ArrayList<BlockAssingmentOccurance>();
+  }
+
+  public PlayableGame(boolean aIsInTestMode, int aCurrentScore, Game aGame, Player aPlayer, Block223 aBlock223, int aCurrentPaddleXPositionForPaddleOccurance, int aCurrentPaddleYPositionForPaddleOccurance, int aCurrentPaddleLengthForPaddleOccurance, Paddle aPaddleForPaddleOccurance, int aCurrentBallOXPositionForBallOccurance, int aCurrentBallOYPositionForBallOccurance, Ball aBallForBallOccurance)
+  {
+    numberOfLives = 3;
+    isInTestMode = aIsInTestMode;
+    currentScore = aCurrentScore;
+    gameId = nextGameId++;
+    boolean didAddGame = setGame(aGame);
+    if (!didAddGame)
+    {
+      throw new RuntimeException("Unable to create playableGame due to game");
+    }
+    boolean didAddPlayer = setPlayer(aPlayer);
+    if (!didAddPlayer)
+    {
+      throw new RuntimeException("Unable to create playableGame due to player");
+    }
+    boolean didAddBlock223 = setBlock223(aBlock223);
+    if (!didAddBlock223)
+    {
+      throw new RuntimeException("Unable to create playableGame due to block223");
+    }
+    paddleOccurance = new PaddleOccurance(aCurrentPaddleXPositionForPaddleOccurance, aCurrentPaddleYPositionForPaddleOccurance, aCurrentPaddleLengthForPaddleOccurance, aPaddleForPaddleOccurance, this);
+    ballOccurance = new BallOccurance(aCurrentBallOXPositionForBallOccurance, aCurrentBallOYPositionForBallOccurance, aBallForBallOccurance, this);
     blockAssingmentOccurances = new ArrayList<BlockAssingmentOccurance>();
   }
 
@@ -126,65 +160,15 @@ public class PlayableGame
   {
     return block223;
   }
-  /* Code from template association_GetMany */
-  public PaddleOccurance getPaddleOccurance(int index)
+  /* Code from template association_GetOne */
+  public PaddleOccurance getPaddleOccurance()
   {
-    PaddleOccurance aPaddleOccurance = paddleOccurances.get(index);
-    return aPaddleOccurance;
+    return paddleOccurance;
   }
-
-  public List<PaddleOccurance> getPaddleOccurances()
+  /* Code from template association_GetOne */
+  public BallOccurance getBallOccurance()
   {
-    List<PaddleOccurance> newPaddleOccurances = Collections.unmodifiableList(paddleOccurances);
-    return newPaddleOccurances;
-  }
-
-  public int numberOfPaddleOccurances()
-  {
-    int number = paddleOccurances.size();
-    return number;
-  }
-
-  public boolean hasPaddleOccurances()
-  {
-    boolean has = paddleOccurances.size() > 0;
-    return has;
-  }
-
-  public int indexOfPaddleOccurance(PaddleOccurance aPaddleOccurance)
-  {
-    int index = paddleOccurances.indexOf(aPaddleOccurance);
-    return index;
-  }
-  /* Code from template association_GetMany */
-  public BallOccurance getBallOccurance(int index)
-  {
-    BallOccurance aBallOccurance = ballOccurances.get(index);
-    return aBallOccurance;
-  }
-
-  public List<BallOccurance> getBallOccurances()
-  {
-    List<BallOccurance> newBallOccurances = Collections.unmodifiableList(ballOccurances);
-    return newBallOccurances;
-  }
-
-  public int numberOfBallOccurances()
-  {
-    int number = ballOccurances.size();
-    return number;
-  }
-
-  public boolean hasBallOccurances()
-  {
-    boolean has = ballOccurances.size() > 0;
-    return has;
-  }
-
-  public int indexOfBallOccurance(BallOccurance aBallOccurance)
-  {
-    int index = ballOccurances.indexOf(aBallOccurance);
-    return index;
+    return ballOccurance;
   }
   /* Code from template association_GetMany */
   public BlockAssingmentOccurance getBlockAssingmentOccurance(int index)
@@ -272,150 +256,6 @@ public class PlayableGame
     block223.addPlayableGame(this);
     wasSet = true;
     return wasSet;
-  }
-  /* Code from template association_MinimumNumberOfMethod */
-  public static int minimumNumberOfPaddleOccurances()
-  {
-    return 0;
-  }
-  /* Code from template association_AddManyToOne */
-  public PaddleOccurance addPaddleOccurance(int aCurrentPaddleXPosition, int aCurrentPaddleYPosition, int aCurrentPaddleLength, Paddle aPaddle)
-  {
-    return new PaddleOccurance(aCurrentPaddleXPosition, aCurrentPaddleYPosition, aCurrentPaddleLength, aPaddle, this);
-  }
-
-  public boolean addPaddleOccurance(PaddleOccurance aPaddleOccurance)
-  {
-    boolean wasAdded = false;
-    if (paddleOccurances.contains(aPaddleOccurance)) { return false; }
-    PlayableGame existingPlayableGame = aPaddleOccurance.getPlayableGame();
-    boolean isNewPlayableGame = existingPlayableGame != null && !this.equals(existingPlayableGame);
-    if (isNewPlayableGame)
-    {
-      aPaddleOccurance.setPlayableGame(this);
-    }
-    else
-    {
-      paddleOccurances.add(aPaddleOccurance);
-    }
-    wasAdded = true;
-    return wasAdded;
-  }
-
-  public boolean removePaddleOccurance(PaddleOccurance aPaddleOccurance)
-  {
-    boolean wasRemoved = false;
-    //Unable to remove aPaddleOccurance, as it must always have a playableGame
-    if (!this.equals(aPaddleOccurance.getPlayableGame()))
-    {
-      paddleOccurances.remove(aPaddleOccurance);
-      wasRemoved = true;
-    }
-    return wasRemoved;
-  }
-  /* Code from template association_AddIndexControlFunctions */
-  public boolean addPaddleOccuranceAt(PaddleOccurance aPaddleOccurance, int index)
-  {  
-    boolean wasAdded = false;
-    if(addPaddleOccurance(aPaddleOccurance))
-    {
-      if(index < 0 ) { index = 0; }
-      if(index > numberOfPaddleOccurances()) { index = numberOfPaddleOccurances() - 1; }
-      paddleOccurances.remove(aPaddleOccurance);
-      paddleOccurances.add(index, aPaddleOccurance);
-      wasAdded = true;
-    }
-    return wasAdded;
-  }
-
-  public boolean addOrMovePaddleOccuranceAt(PaddleOccurance aPaddleOccurance, int index)
-  {
-    boolean wasAdded = false;
-    if(paddleOccurances.contains(aPaddleOccurance))
-    {
-      if(index < 0 ) { index = 0; }
-      if(index > numberOfPaddleOccurances()) { index = numberOfPaddleOccurances() - 1; }
-      paddleOccurances.remove(aPaddleOccurance);
-      paddleOccurances.add(index, aPaddleOccurance);
-      wasAdded = true;
-    } 
-    else 
-    {
-      wasAdded = addPaddleOccuranceAt(aPaddleOccurance, index);
-    }
-    return wasAdded;
-  }
-  /* Code from template association_MinimumNumberOfMethod */
-  public static int minimumNumberOfBallOccurances()
-  {
-    return 0;
-  }
-  /* Code from template association_AddManyToOne */
-  public BallOccurance addBallOccurance(int aCurrentBallOXPosition, int aCurrentBallOYPosition, Ball aBall)
-  {
-    return new BallOccurance(aCurrentBallOXPosition, aCurrentBallOYPosition, aBall, this);
-  }
-
-  public boolean addBallOccurance(BallOccurance aBallOccurance)
-  {
-    boolean wasAdded = false;
-    if (ballOccurances.contains(aBallOccurance)) { return false; }
-    PlayableGame existingPlayableGame = aBallOccurance.getPlayableGame();
-    boolean isNewPlayableGame = existingPlayableGame != null && !this.equals(existingPlayableGame);
-    if (isNewPlayableGame)
-    {
-      aBallOccurance.setPlayableGame(this);
-    }
-    else
-    {
-      ballOccurances.add(aBallOccurance);
-    }
-    wasAdded = true;
-    return wasAdded;
-  }
-
-  public boolean removeBallOccurance(BallOccurance aBallOccurance)
-  {
-    boolean wasRemoved = false;
-    //Unable to remove aBallOccurance, as it must always have a playableGame
-    if (!this.equals(aBallOccurance.getPlayableGame()))
-    {
-      ballOccurances.remove(aBallOccurance);
-      wasRemoved = true;
-    }
-    return wasRemoved;
-  }
-  /* Code from template association_AddIndexControlFunctions */
-  public boolean addBallOccuranceAt(BallOccurance aBallOccurance, int index)
-  {  
-    boolean wasAdded = false;
-    if(addBallOccurance(aBallOccurance))
-    {
-      if(index < 0 ) { index = 0; }
-      if(index > numberOfBallOccurances()) { index = numberOfBallOccurances() - 1; }
-      ballOccurances.remove(aBallOccurance);
-      ballOccurances.add(index, aBallOccurance);
-      wasAdded = true;
-    }
-    return wasAdded;
-  }
-
-  public boolean addOrMoveBallOccuranceAt(BallOccurance aBallOccurance, int index)
-  {
-    boolean wasAdded = false;
-    if(ballOccurances.contains(aBallOccurance))
-    {
-      if(index < 0 ) { index = 0; }
-      if(index > numberOfBallOccurances()) { index = numberOfBallOccurances() - 1; }
-      ballOccurances.remove(aBallOccurance);
-      ballOccurances.add(index, aBallOccurance);
-      wasAdded = true;
-    } 
-    else 
-    {
-      wasAdded = addBallOccuranceAt(aBallOccurance, index);
-    }
-    return wasAdded;
   }
   /* Code from template association_MinimumNumberOfMethod */
   public static int minimumNumberOfBlockAssingmentOccurances()
@@ -510,15 +350,17 @@ public class PlayableGame
     {
       placeholderBlock223.removePlayableGame(this);
     }
-    for(int i=paddleOccurances.size(); i > 0; i--)
+    PaddleOccurance existingPaddleOccurance = paddleOccurance;
+    paddleOccurance = null;
+    if (existingPaddleOccurance != null)
     {
-      PaddleOccurance aPaddleOccurance = paddleOccurances.get(i - 1);
-      aPaddleOccurance.delete();
+      existingPaddleOccurance.delete();
     }
-    for(int i=ballOccurances.size(); i > 0; i--)
+    BallOccurance existingBallOccurance = ballOccurance;
+    ballOccurance = null;
+    if (existingBallOccurance != null)
     {
-      BallOccurance aBallOccurance = ballOccurances.get(i - 1);
-      aBallOccurance.delete();
+      existingBallOccurance.delete();
     }
     for(int i=blockAssingmentOccurances.size(); i > 0; i--)
     {
@@ -537,6 +379,8 @@ public class PlayableGame
             "currentScore" + ":" + getCurrentScore()+ "]" + System.getProperties().getProperty("line.separator") +
             "  " + "game = "+(getGame()!=null?Integer.toHexString(System.identityHashCode(getGame())):"null") + System.getProperties().getProperty("line.separator") +
             "  " + "player = "+(getPlayer()!=null?Integer.toHexString(System.identityHashCode(getPlayer())):"null") + System.getProperties().getProperty("line.separator") +
-            "  " + "block223 = "+(getBlock223()!=null?Integer.toHexString(System.identityHashCode(getBlock223())):"null");
+            "  " + "block223 = "+(getBlock223()!=null?Integer.toHexString(System.identityHashCode(getBlock223())):"null") + System.getProperties().getProperty("line.separator") +
+            "  " + "paddleOccurance = "+(getPaddleOccurance()!=null?Integer.toHexString(System.identityHashCode(getPaddleOccurance())):"null") + System.getProperties().getProperty("line.separator") +
+            "  " + "ballOccurance = "+(getBallOccurance()!=null?Integer.toHexString(System.identityHashCode(getBallOccurance())):"null");
   }
 }

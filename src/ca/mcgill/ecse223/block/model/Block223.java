@@ -165,9 +165,9 @@ public class Block223 implements Serializable
     return 0;
   }
   /* Code from template association_AddManyToOne */
-  public PlayableGame addPlayableGame(boolean aIsInTestMode, int aCurrentScore, Game aGame, Player aPlayer)
+  public PlayableGame addPlayableGame(boolean aIsInTestMode, int aCurrentScore, Game aGame, Player aPlayer, PaddleOccurance aPaddleOccurance, BallOccurance aBallOccurance)
   {
-    return new PlayableGame(aIsInTestMode, aCurrentScore, aGame, aPlayer, this);
+    return new PlayableGame(aIsInTestMode, aCurrentScore, aGame, aPlayer, this, aPaddleOccurance, aBallOccurance);
   }
 
   public boolean addPlayableGame(PlayableGame aPlayableGame)
@@ -485,6 +485,20 @@ public class Block223 implements Serializable
     for (Game game : games) {
     game.reinitialize();
     }
+  }
+
+  // line 8 "../../../../../I4.Updated.Domain.Model.ump"
+  public User findWithPassword(String password){
+    User foundUser = null;
+ 		for (User user : this.getUsers()) {
+ 			for (UserRole userrole : user.getRoles()){
+ 				if (userrole.getPassword().equals(password)) {
+ 					foundUser = user;
+ 					break;
+ 				}
+ 			}
+ 		}
+ 		return foundUser;
   }
 
   // line 13 "../../../../../Block223 v2.ump"
