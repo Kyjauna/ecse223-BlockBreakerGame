@@ -8,8 +8,9 @@ class PlayableGame {
 	* -- 1 Game;
 	* -- 1 Player;
 	autounique gameId;
-	const Integer NumberOfLives=3;
+	Integer numberOfLives=3;
 	boolean isInTestMode;
+	Integer currentScore;
 }
 
 class Game {
