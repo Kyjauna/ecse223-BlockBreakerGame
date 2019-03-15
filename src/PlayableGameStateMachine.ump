@@ -40,6 +40,7 @@ class PlayableGame {
           
 			moveBall() [isLastBlockHit()&&!isLastLevel()] /{
 			doBlockHit();
+			}
 			->Suspended;
           
 			moveBall() [isLastBlockHit()&&isLastLevel()] /{
@@ -56,14 +57,35 @@ class PlayableGame {
 			doMovePaddle();
 			}
 			->Playing;
-		
-		}
-		
+					
 		Finished{
 		
 			entry/ {addToHallOfFame();}
 		
 		
 		}
+	}
+	private boolean isBlockHit{
+	
+	}
+	
+	private boolean isWallOrPaddleHit{
+	
+	}
+	
+	private boolean isOutOfBounds{
+	
+	}
+	
+	private boolean isOnLastLife{
+	
+	}
+	
+	private boolean isLastBlockHit{
+	
+	}
+	
+	private boolean isLeftKeyPushed{
+	
 	}
 }
