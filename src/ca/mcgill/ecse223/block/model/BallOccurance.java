@@ -3,7 +3,7 @@
 
 package ca.mcgill.ecse223.block.model;
 
-// line 49 "../../../../../I4.Updated.Domain.Model.ump"
+// line 48 "../../../../../I4.Updated.Domain.Model.ump"
 public class BallOccurance
 {
 
@@ -32,23 +32,11 @@ public class BallOccurance
     {
       throw new RuntimeException("Unable to create ballOccurance due to ball");
     }
-    if (aPlayableGame == null || aPlayableGame.getBallOccurance() != null)
+    boolean didAddPlayableGame = setPlayableGame(aPlayableGame);
+    if (!didAddPlayableGame)
     {
-      throw new RuntimeException("Unable to create BallOccurance due to aPlayableGame");
+      throw new RuntimeException("Unable to create ballOccurance due to playableGame");
     }
-    playableGame = aPlayableGame;
-  }
-
-  public BallOccurance(int aCurrentBallOXPosition, int aCurrentBallOYPosition, Ball aBall, boolean aIsInTestModeForPlayableGame, int aCurrentScoreForPlayableGame, Game aGameForPlayableGame, Player aPlayerForPlayableGame, Block223 aBlock223ForPlayableGame, PaddleOccurance aPaddleOccuranceForPlayableGame)
-  {
-    currentBallOXPosition = aCurrentBallOXPosition;
-    currentBallOYPosition = aCurrentBallOYPosition;
-    boolean didAddBall = setBall(aBall);
-    if (!didAddBall)
-    {
-      throw new RuntimeException("Unable to create ballOccurance due to ball");
-    }
-    playableGame = new PlayableGame(aIsInTestModeForPlayableGame, aCurrentScoreForPlayableGame, aGameForPlayableGame, aPlayerForPlayableGame, aBlock223ForPlayableGame, aPaddleOccuranceForPlayableGame, this);
   }
 
   //------------------------
@@ -109,6 +97,34 @@ public class BallOccurance
     wasSet = true;
     return wasSet;
   }
+  /* Code from template association_SetOneToOptionalOne */
+  public boolean setPlayableGame(PlayableGame aNewPlayableGame)
+  {
+    boolean wasSet = false;
+    if (aNewPlayableGame == null)
+    {
+      //Unable to setPlayableGame to null, as ballOccurance must always be associated to a playableGame
+      return wasSet;
+    }
+    
+    BallOccurance existingBallOccurance = aNewPlayableGame.getBallOccurance();
+    if (existingBallOccurance != null && !equals(existingBallOccurance))
+    {
+      //Unable to setPlayableGame, the current playableGame already has a ballOccurance, which would be orphaned if it were re-assigned
+      return wasSet;
+    }
+    
+    PlayableGame anOldPlayableGame = playableGame;
+    playableGame = aNewPlayableGame;
+    playableGame.setBallOccurance(this);
+
+    if (anOldPlayableGame != null)
+    {
+      anOldPlayableGame.setBallOccurance(null);
+    }
+    wasSet = true;
+    return wasSet;
+  }
 
   public void delete()
   {
@@ -122,11 +138,11 @@ public class BallOccurance
     playableGame = null;
     if (existingPlayableGame != null)
     {
-      existingPlayableGame.delete();
+      existingPlayableGame.setBallOccurance(null);
     }
   }
 
-  // line 56 "../../../../../I4.Updated.Domain.Model.ump"
+  // line 55 "../../../../../I4.Updated.Domain.Model.ump"
   public void updateBallPosition(){
     currentBallOXPosition=currentBallOXPosition+this.getBall().getMinBallSpeedX();
 	currentBallOYPosition=currentBallOYPosition+this.getBall().getMinBallSpeedY();

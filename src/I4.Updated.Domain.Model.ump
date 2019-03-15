@@ -40,15 +40,14 @@ class Entry {
 
 class PaddleOccurance {
 	* -- 1 Paddle;
-	1 -- 1 PlayableGame;
+	0..1 -- 1 PlayableGame;
 	Integer currentPaddleXPosition;
-	Integer currentPaddleYPosition;
 	Integer currentPaddleLength;
 }
 
 class BallOccurance {
 	* -- 1 Ball;
-	1 -- 1 PlayableGame;
+	0..1 -- 1 PlayableGame;
 	Integer currentBallOXPosition;
 	Integer currentBallOYPosition;
 	

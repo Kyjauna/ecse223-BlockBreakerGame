@@ -4,6 +4,7 @@
 package ca.mcgill.ecse223.block.model;
 import java.util.*;
 
+// line 3 "../../../../../PlayableGameStateMachine.ump"
 // line 22 "../../../../../I4.Updated.Domain.Model.ump"
 public class PlayableGame
 {
@@ -26,6 +27,10 @@ public class PlayableGame
   //Autounique Attributes
   private int gameId;
 
+  //PlayableGame State Machines
+  public enum Statemachine { Idle, Suspended, Playing, Finished }
+  private Statemachine statemachine;
+
   //PlayableGame Associations
   private Game game;
   private Player player;
@@ -38,7 +43,7 @@ public class PlayableGame
   // CONSTRUCTOR
   //------------------------
 
-  public PlayableGame(boolean aIsInTestMode, int aCurrentScore, Game aGame, Player aPlayer, Block223 aBlock223, PaddleOccurance aPaddleOccurance, BallOccurance aBallOccurance)
+  public PlayableGame(boolean aIsInTestMode, int aCurrentScore, Game aGame, Player aPlayer, Block223 aBlock223)
   {
     numberOfLives = 3;
     isInTestMode = aIsInTestMode;
@@ -59,43 +64,8 @@ public class PlayableGame
     {
       throw new RuntimeException("Unable to create playableGame due to block223");
     }
-    if (aPaddleOccurance == null || aPaddleOccurance.getPlayableGame() != null)
-    {
-      throw new RuntimeException("Unable to create PlayableGame due to aPaddleOccurance");
-    }
-    paddleOccurance = aPaddleOccurance;
-    if (aBallOccurance == null || aBallOccurance.getPlayableGame() != null)
-    {
-      throw new RuntimeException("Unable to create PlayableGame due to aBallOccurance");
-    }
-    ballOccurance = aBallOccurance;
     blockAssingmentOccurances = new ArrayList<BlockAssingmentOccurance>();
-  }
-
-  public PlayableGame(boolean aIsInTestMode, int aCurrentScore, Game aGame, Player aPlayer, Block223 aBlock223, int aCurrentPaddleXPositionForPaddleOccurance, int aCurrentPaddleYPositionForPaddleOccurance, int aCurrentPaddleLengthForPaddleOccurance, Paddle aPaddleForPaddleOccurance, int aCurrentBallOXPositionForBallOccurance, int aCurrentBallOYPositionForBallOccurance, Ball aBallForBallOccurance)
-  {
-    numberOfLives = 3;
-    isInTestMode = aIsInTestMode;
-    currentScore = aCurrentScore;
-    gameId = nextGameId++;
-    boolean didAddGame = setGame(aGame);
-    if (!didAddGame)
-    {
-      throw new RuntimeException("Unable to create playableGame due to game");
-    }
-    boolean didAddPlayer = setPlayer(aPlayer);
-    if (!didAddPlayer)
-    {
-      throw new RuntimeException("Unable to create playableGame due to player");
-    }
-    boolean didAddBlock223 = setBlock223(aBlock223);
-    if (!didAddBlock223)
-    {
-      throw new RuntimeException("Unable to create playableGame due to block223");
-    }
-    paddleOccurance = new PaddleOccurance(aCurrentPaddleXPositionForPaddleOccurance, aCurrentPaddleYPositionForPaddleOccurance, aCurrentPaddleLengthForPaddleOccurance, aPaddleForPaddleOccurance, this);
-    ballOccurance = new BallOccurance(aCurrentBallOXPositionForBallOccurance, aCurrentBallOYPositionForBallOccurance, aBallForBallOccurance, this);
-    blockAssingmentOccurances = new ArrayList<BlockAssingmentOccurance>();
+    setStatemachine(Statemachine.Idle);
   }
 
   //------------------------
@@ -145,6 +115,115 @@ public class PlayableGame
   {
     return gameId;
   }
+
+  public String getStatemachineFullName()
+  {
+    String answer = statemachine.toString();
+    return answer;
+  }
+
+  public Statemachine getStatemachine()
+  {
+    return statemachine;
+  }
+
+  public boolean setupComplete()
+  {
+    boolean wasEventProcessed = false;
+    
+    Statemachine aStatemachine = statemachine;
+    switch (aStatemachine)
+    {
+      case Idle:
+        setStatemachine(Statemachine.Suspended);
+        wasEventProcessed = true;
+        break;
+      default:
+        // Other states do respond to this event
+    }
+
+    return wasEventProcessed;
+  }
+
+  public boolean spacebarPushed()
+  {
+    boolean wasEventProcessed = false;
+    
+    Statemachine aStatemachine = statemachine;
+    switch (aStatemachine)
+    {
+      case Suspended:
+        setStatemachine(Statemachine.Playing);
+        wasEventProcessed = true;
+        break;
+      case Playing:
+        setStatemachine(Statemachine.Suspended);
+        wasEventProcessed = true;
+        break;
+      default:
+        // Other states do respond to this event
+    }
+
+    return wasEventProcessed;
+  }
+
+  public boolean moveBall()
+  {
+    boolean wasEventProcessed = false;
+    
+    Statemachine aStatemachine = statemachine;
+    switch (aStatemachine)
+    {
+      case Playing:
+        if (!(isBlockHit())&&!(isWallHit())&&!(isPaddleHit())&&!(isOutOfBounds()))
+        {
+        // line 30 "../../../../../PlayableGameStateMachine.ump"
+          doMoveBall();
+          setStatemachine(Statemachine.Playing);
+          wasEventProcessed = true;
+          break;
+        }
+        if (isBlockHit()&&!(isLastBlockHit()))
+        {
+        // line 35 "../../../../../PlayableGameStateMachine.ump"
+          doBlockHit();
+          setStatemachine(Statemachine.Playing);
+          wasEventProcessed = true;
+          break;
+        }
+        if (isOutOfBounds()&&!(isOnLastLife()))
+        {
+        // line 40 "../../../../../PlayableGameStateMachine.ump"
+          doOutOfBounds();
+          setStatemachine(Statemachine.Suspended);
+          wasEventProcessed = true;
+          break;
+        }
+        break;
+      default:
+        // Other states do respond to this event
+    }
+
+    return wasEventProcessed;
+  }
+
+  private void setStatemachine(Statemachine aStatemachine)
+  {
+    statemachine = aStatemachine;
+
+    // entry actions and do activities
+    switch(statemachine)
+    {
+      case Idle:
+        // line 15 "../../../../../PlayableGameStateMachine.ump"
+        setUpGame();
+        break;
+      case Finished:
+        // line 76 "../../../../../PlayableGameStateMachine.ump"
+        addToHallOfFame();
+        break;
+    }
+  }
   /* Code from template association_GetOne */
   public Game getGame()
   {
@@ -165,10 +244,22 @@ public class PlayableGame
   {
     return paddleOccurance;
   }
+
+  public boolean hasPaddleOccurance()
+  {
+    boolean has = paddleOccurance != null;
+    return has;
+  }
   /* Code from template association_GetOne */
   public BallOccurance getBallOccurance()
   {
     return ballOccurance;
+  }
+
+  public boolean hasBallOccurance()
+  {
+    boolean has = ballOccurance != null;
+    return has;
   }
   /* Code from template association_GetMany */
   public BlockAssingmentOccurance getBlockAssingmentOccurance(int index)
@@ -254,6 +345,60 @@ public class PlayableGame
       existingBlock223.removePlayableGame(this);
     }
     block223.addPlayableGame(this);
+    wasSet = true;
+    return wasSet;
+  }
+  /* Code from template association_SetOptionalOneToOne */
+  public boolean setPaddleOccurance(PaddleOccurance aNewPaddleOccurance)
+  {
+    boolean wasSet = false;
+    if (paddleOccurance != null && !paddleOccurance.equals(aNewPaddleOccurance) && equals(paddleOccurance.getPlayableGame()))
+    {
+      //Unable to setPaddleOccurance, as existing paddleOccurance would become an orphan
+      return wasSet;
+    }
+
+    paddleOccurance = aNewPaddleOccurance;
+    PlayableGame anOldPlayableGame = aNewPaddleOccurance != null ? aNewPaddleOccurance.getPlayableGame() : null;
+
+    if (!this.equals(anOldPlayableGame))
+    {
+      if (anOldPlayableGame != null)
+      {
+        anOldPlayableGame.paddleOccurance = null;
+      }
+      if (paddleOccurance != null)
+      {
+        paddleOccurance.setPlayableGame(this);
+      }
+    }
+    wasSet = true;
+    return wasSet;
+  }
+  /* Code from template association_SetOptionalOneToOne */
+  public boolean setBallOccurance(BallOccurance aNewBallOccurance)
+  {
+    boolean wasSet = false;
+    if (ballOccurance != null && !ballOccurance.equals(aNewBallOccurance) && equals(ballOccurance.getPlayableGame()))
+    {
+      //Unable to setBallOccurance, as existing ballOccurance would become an orphan
+      return wasSet;
+    }
+
+    ballOccurance = aNewBallOccurance;
+    PlayableGame anOldPlayableGame = aNewBallOccurance != null ? aNewBallOccurance.getPlayableGame() : null;
+
+    if (!this.equals(anOldPlayableGame))
+    {
+      if (anOldPlayableGame != null)
+      {
+        anOldPlayableGame.ballOccurance = null;
+      }
+      if (ballOccurance != null)
+      {
+        ballOccurance.setPlayableGame(this);
+      }
+    }
     wasSet = true;
     return wasSet;
   }
@@ -367,6 +512,91 @@ public class PlayableGame
       BlockAssingmentOccurance aBlockAssingmentOccurance = blockAssingmentOccurances.get(i - 1);
       aBlockAssingmentOccurance.delete();
     }
+  }
+
+  // line 83 "../../../../../PlayableGameStateMachine.ump"
+   private boolean isWallHit(){
+    return false;
+  }
+
+  // line 88 "../../../../../PlayableGameStateMachine.ump"
+   private void doWallHit(){
+    
+  }
+
+  // line 91 "../../../../../PlayableGameStateMachine.ump"
+   private boolean isPaddleHit(){
+    return false;
+  }
+
+  // line 96 "../../../../../PlayableGameStateMachine.ump"
+   private void doPaddleHit(){
+    
+  }
+
+  // line 99 "../../../../../PlayableGameStateMachine.ump"
+   private boolean isOutOfBounds(){
+    return false;
+  }
+
+  // line 104 "../../../../../PlayableGameStateMachine.ump"
+   private void doOutOfBounds(){
+    
+  }
+
+  // line 107 "../../../../../PlayableGameStateMachine.ump"
+   private boolean isOnLastLife(){
+    return false;
+  }
+
+  // line 111 "../../../../../PlayableGameStateMachine.ump"
+   private boolean isLastBlockHit(){
+    return false;
+  }
+
+  // line 116 "../../../../../PlayableGameStateMachine.ump"
+   private void doBlockHit(){
+    
+  }
+
+  // line 119 "../../../../../PlayableGameStateMachine.ump"
+   private boolean isBlockHit(){
+    return false;
+  }
+
+  // line 123 "../../../../../PlayableGameStateMachine.ump"
+   private boolean isLastLevel(){
+    return false;
+  }
+
+  // line 127 "../../../../../PlayableGameStateMachine.ump"
+   private boolean isLeftKeyPushed(){
+    return false;
+  }
+
+  // line 131 "../../../../../PlayableGameStateMachine.ump"
+   private boolean isTestGame(){
+    return false;
+  }
+
+  // line 136 "../../../../../PlayableGameStateMachine.ump"
+   private void addToHallOfFame(){
+    
+  }
+
+  // line 140 "../../../../../PlayableGameStateMachine.ump"
+   private void doMovePaddle(){
+    
+  }
+
+  // line 144 "../../../../../PlayableGameStateMachine.ump"
+   private void doMoveBall(){
+    
+  }
+
+  // line 148 "../../../../../PlayableGameStateMachine.ump"
+   private void setUpGame(){
+    
   }
 
 

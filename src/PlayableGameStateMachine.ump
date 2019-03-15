@@ -1,12 +1,18 @@
 namespace ca.mcgill.ecse223.block.model;
 
 class PlayableGame {
+	//* -- 1 Game;
+	//* -- 1 Player;
+	//autounique gameId;
+	//Integer numberOfLives=3;
+	//boolean isInTestMode;
+	//Integer currentScore;
 	
 	statemachine{
       
 		Idle{
 		
-			entry/ {setupGame();}
+			entry/ {setUpGame();}
 			setupComplete()-> Suspended;
 		
         }
@@ -31,12 +37,18 @@ class PlayableGame {
 			}
 			->Playing;
 			
-			moveBall() [isOutOfBounds()&&!isOnLastLife] /{
-			doWallOrPaddleHit();
+			moveBall() [isOutOfBounds()&&!isOnLastLife()] /{
+			doOutOfBounds();
 			}
 			->Suspended;
           
-			moveBall() [isWallHit() || isPaddleHit()] ->Suspended;
+			moveBall() [isWallHit() || isPaddleHit()] 
+			doWallHit();
+			->Playing;
+			
+			moveBall() [isPaddleHit()] 
+			doPaddleHit();
+			->Playing;
           
 			moveBall() [isLastBlockHit()&&!isLastLevel()] /{
 			doBlockHit();
@@ -57,60 +69,81 @@ class PlayableGame {
 			doMovePaddle();
 			}
 			->Playing;
+		}
 					
 		Finished{
 		
-			entry/ {addToHallOfFame();}
+			entry /{addToHallOfFame();}
 		
 		
 		}
 	}
 
-	private boolean isWallHit{
-	
+	private boolean isWallHit(){
+	return false;
 	}
 	
-	private boolean doWallHit{
-	
+	private void doWallHit(){
+
 	}
 	
-	private boolean isPaddleHit{
-	
+	private boolean isPaddleHit(){
+	return false;
 	}
 	
-	private boolean doPaddleHit{
+	private void doPaddleHit(){
 	
 	}
 	
 	private boolean isOutOfBounds(){
+	return false;
+	}
+	
+	private void doOutOfBounds(){
 	
 	}
 	
 	private boolean isOnLastLife(){
-	
+	return false;
 	}
 	
 	private boolean isLastBlockHit(){
-	
+	return false;
 	}
 	
-	private boolean doBlockHit{
-	
+	private void doBlockHit(){
+
 	}
 	
-	private boolean isBlockHit{
-	
+	private boolean isBlockHit(){
+	return false;
 	}
 	
-	private boolean isLastLevel{
-	
+	private boolean isLastLevel(){
+	return false;
 	}
 	
-	private boolean isLeftKeyPushed{
-	
+	private boolean isLeftKeyPushed(){
+	return false;
 	}
 	
 	private boolean isTestGame(){
+	return false;
+	}
+	
+	private void addToHallOfFame(){
+	
+	}
+	
+	private void doMovePaddle(){
+	
+	}
+	
+	private void doMoveBall(){
+	
+	}
+	
+	private void setUpGame(){
 	
 	}
 }

@@ -5,12 +5,9 @@ package ca.mcgill.ecse223.block.model;
 import java.io.Serializable;
 import java.util.*;
 
-/**
- * use PlayableGameStateMachine.ump;
- */
 // line 3 "../../../../../Block223Persistence.ump"
 // line 3 "../../../../../I4.Updated.Domain.Model.ump"
-// line 7 "../../../../../Block223 v2.ump"
+// line 8 "../../../../../Block223 v2.ump"
 public class Block223 implements Serializable
 {
 
@@ -165,9 +162,9 @@ public class Block223 implements Serializable
     return 0;
   }
   /* Code from template association_AddManyToOne */
-  public PlayableGame addPlayableGame(boolean aIsInTestMode, int aCurrentScore, Game aGame, Player aPlayer, PaddleOccurance aPaddleOccurance, BallOccurance aBallOccurance)
+  public PlayableGame addPlayableGame(boolean aIsInTestMode, int aCurrentScore, Game aGame, Player aPlayer)
   {
-    return new PlayableGame(aIsInTestMode, aCurrentScore, aGame, aPlayer, this, aPaddleOccurance, aBallOccurance);
+    return new PlayableGame(aIsInTestMode, aCurrentScore, aGame, aPlayer, this);
   }
 
   public boolean addPlayableGame(PlayableGame aPlayableGame)
@@ -501,7 +498,7 @@ public class Block223 implements Serializable
  		return foundUser;
   }
 
-  // line 13 "../../../../../Block223 v2.ump"
+  // line 14 "../../../../../Block223 v2.ump"
   public Game findGame(String name){
     Game foundGame = null;
  		for (Game game : this.getGames()) {
@@ -513,7 +510,7 @@ public class Block223 implements Serializable
  		return foundGame;
   }
 
-  // line 24 "../../../../../Block223 v2.ump"
+  // line 25 "../../../../../Block223 v2.ump"
   public User findWithUsername(String username){
     User foundUser = null;
  		for (User user : this.getUsers()) {

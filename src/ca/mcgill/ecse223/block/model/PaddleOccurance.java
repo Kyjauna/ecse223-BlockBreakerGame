@@ -13,7 +13,6 @@ public class PaddleOccurance
 
   //PaddleOccurance Attributes
   private int currentPaddleXPosition;
-  private int currentPaddleYPosition;
   private int currentPaddleLength;
 
   //PaddleOccurance Associations
@@ -24,34 +23,20 @@ public class PaddleOccurance
   // CONSTRUCTOR
   //------------------------
 
-  public PaddleOccurance(int aCurrentPaddleXPosition, int aCurrentPaddleYPosition, int aCurrentPaddleLength, Paddle aPaddle, PlayableGame aPlayableGame)
+  public PaddleOccurance(int aCurrentPaddleXPosition, int aCurrentPaddleLength, Paddle aPaddle, PlayableGame aPlayableGame)
   {
     currentPaddleXPosition = aCurrentPaddleXPosition;
-    currentPaddleYPosition = aCurrentPaddleYPosition;
     currentPaddleLength = aCurrentPaddleLength;
     boolean didAddPaddle = setPaddle(aPaddle);
     if (!didAddPaddle)
     {
       throw new RuntimeException("Unable to create paddleOccurance due to paddle");
     }
-    if (aPlayableGame == null || aPlayableGame.getPaddleOccurance() != null)
+    boolean didAddPlayableGame = setPlayableGame(aPlayableGame);
+    if (!didAddPlayableGame)
     {
-      throw new RuntimeException("Unable to create PaddleOccurance due to aPlayableGame");
+      throw new RuntimeException("Unable to create paddleOccurance due to playableGame");
     }
-    playableGame = aPlayableGame;
-  }
-
-  public PaddleOccurance(int aCurrentPaddleXPosition, int aCurrentPaddleYPosition, int aCurrentPaddleLength, Paddle aPaddle, boolean aIsInTestModeForPlayableGame, int aCurrentScoreForPlayableGame, Game aGameForPlayableGame, Player aPlayerForPlayableGame, Block223 aBlock223ForPlayableGame, BallOccurance aBallOccuranceForPlayableGame)
-  {
-    currentPaddleXPosition = aCurrentPaddleXPosition;
-    currentPaddleYPosition = aCurrentPaddleYPosition;
-    currentPaddleLength = aCurrentPaddleLength;
-    boolean didAddPaddle = setPaddle(aPaddle);
-    if (!didAddPaddle)
-    {
-      throw new RuntimeException("Unable to create paddleOccurance due to paddle");
-    }
-    playableGame = new PlayableGame(aIsInTestModeForPlayableGame, aCurrentScoreForPlayableGame, aGameForPlayableGame, aPlayerForPlayableGame, aBlock223ForPlayableGame, this, aBallOccuranceForPlayableGame);
   }
 
   //------------------------
@@ -62,14 +47,6 @@ public class PaddleOccurance
   {
     boolean wasSet = false;
     currentPaddleXPosition = aCurrentPaddleXPosition;
-    wasSet = true;
-    return wasSet;
-  }
-
-  public boolean setCurrentPaddleYPosition(int aCurrentPaddleYPosition)
-  {
-    boolean wasSet = false;
-    currentPaddleYPosition = aCurrentPaddleYPosition;
     wasSet = true;
     return wasSet;
   }
@@ -85,11 +62,6 @@ public class PaddleOccurance
   public int getCurrentPaddleXPosition()
   {
     return currentPaddleXPosition;
-  }
-
-  public int getCurrentPaddleYPosition()
-  {
-    return currentPaddleYPosition;
   }
 
   public int getCurrentPaddleLength()
@@ -125,6 +97,34 @@ public class PaddleOccurance
     wasSet = true;
     return wasSet;
   }
+  /* Code from template association_SetOneToOptionalOne */
+  public boolean setPlayableGame(PlayableGame aNewPlayableGame)
+  {
+    boolean wasSet = false;
+    if (aNewPlayableGame == null)
+    {
+      //Unable to setPlayableGame to null, as paddleOccurance must always be associated to a playableGame
+      return wasSet;
+    }
+    
+    PaddleOccurance existingPaddleOccurance = aNewPlayableGame.getPaddleOccurance();
+    if (existingPaddleOccurance != null && !equals(existingPaddleOccurance))
+    {
+      //Unable to setPlayableGame, the current playableGame already has a paddleOccurance, which would be orphaned if it were re-assigned
+      return wasSet;
+    }
+    
+    PlayableGame anOldPlayableGame = playableGame;
+    playableGame = aNewPlayableGame;
+    playableGame.setPaddleOccurance(this);
+
+    if (anOldPlayableGame != null)
+    {
+      anOldPlayableGame.setPaddleOccurance(null);
+    }
+    wasSet = true;
+    return wasSet;
+  }
 
   public void delete()
   {
@@ -138,7 +138,7 @@ public class PaddleOccurance
     playableGame = null;
     if (existingPlayableGame != null)
     {
-      existingPlayableGame.delete();
+      existingPlayableGame.setPaddleOccurance(null);
     }
   }
 
@@ -147,7 +147,6 @@ public class PaddleOccurance
   {
     return super.toString() + "["+
             "currentPaddleXPosition" + ":" + getCurrentPaddleXPosition()+ "," +
-            "currentPaddleYPosition" + ":" + getCurrentPaddleYPosition()+ "," +
             "currentPaddleLength" + ":" + getCurrentPaddleLength()+ "]" + System.getProperties().getProperty("line.separator") +
             "  " + "paddle = "+(getPaddle()!=null?Integer.toHexString(System.identityHashCode(getPaddle())):"null") + System.getProperties().getProperty("line.separator") +
             "  " + "playableGame = "+(getPlayableGame()!=null?Integer.toHexString(System.identityHashCode(getPlayableGame())):"null");
