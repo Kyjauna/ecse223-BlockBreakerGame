@@ -2,6 +2,21 @@ namespace ca.mcgill.ecse223.block.model;
 
 class Block223 {
 	1 <@>- * PlayableGame;
+	
+		 	
+	 User findWithPassword(String password) {
+ 		User foundUser = null;
+ 		for (User user : this.getUsers()) {
+ 			for (UserRole userrole : user.getRoles()){
+ 				if (userrole.getPassword().equals(password)) {
+ 					foundUser = user;
+ 					break;
+ 				}
+ 			}
+ 		}
+ 		return foundUser;
+ 	}
+
 }
 
 class PlayableGame {
@@ -25,15 +40,14 @@ class Entry {
 
 class PaddleOccurance {
 	* -- 1 Paddle;
-	* -- 1 PlayableGame;
+	0..1 -- 1 PlayableGame;
 	Integer currentPaddleXPosition;
-	Integer currentPaddleYPosition;
 	Integer currentPaddleLength;
 }
 
 class BallOccurance {
 	* -- 1 Ball;
-	* -- 1 PlayableGame;
+	0..1 -- 1 PlayableGame;
 	Integer currentBallOXPosition;
 	Integer currentBallOYPosition;
 	Integer currentBallOXDirection;
@@ -50,6 +64,7 @@ class BlockAssingmentOccurance{
 	* -- 1 PlayableGame;
 	* -- 1 BlockAssignment;
 }
+
 
 
 

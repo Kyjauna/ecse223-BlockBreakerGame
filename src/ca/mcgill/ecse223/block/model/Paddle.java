@@ -6,7 +6,7 @@ import java.io.Serializable;
 import java.util.*;
 
 // line 76 "../../../../../Block223Persistence.ump"
-// line 181 "../../../../../Block223 v2.ump"
+// line 182 "../../../../../Block223 v2.ump"
 public class Paddle implements Serializable
 {
 
@@ -35,7 +35,7 @@ public class Paddle implements Serializable
 
   public Paddle(int aMaxPaddleLength, int aMinPaddleLength, Game aGame)
   {
-    // line 189 "../../../../../Block223 v2.ump"
+    // line 190 "../../../../../Block223 v2.ump"
     if (aMaxPaddleLength <= 0 || aMaxPaddleLength > 400){
        			throw new RuntimeException("The maximum length of the paddle must be greater than zero and less than or equal to 400.");
           	}
@@ -55,7 +55,7 @@ public class Paddle implements Serializable
 
   public Paddle(int aMaxPaddleLength, int aMinPaddleLength, boolean aIsPublishedForGame, String aNameForGame, int aNrBlocksPerLevelForGame, Admin aAdminForGame, Ball aBallForGame, Block223 aBlock223ForGame)
   {
-    // line 189 "../../../../../Block223 v2.ump"
+    // line 190 "../../../../../Block223 v2.ump"
     if (aMaxPaddleLength <= 0 || aMaxPaddleLength > 400){
        			throw new RuntimeException("The maximum length of the paddle must be greater than zero and less than or equal to 400.");
           	}
@@ -139,9 +139,9 @@ public class Paddle implements Serializable
     return 0;
   }
   /* Code from template association_AddManyToOne */
-  public PaddleOccurance addPaddleOccurance(int aCurrentPaddleXPosition, int aCurrentPaddleYPosition, int aCurrentPaddleLength, PlayableGame aPlayableGame)
+  public PaddleOccurance addPaddleOccurance(int aCurrentPaddleXPosition, int aCurrentPaddleLength, PlayableGame aPlayableGame)
   {
-    return new PaddleOccurance(aCurrentPaddleXPosition, aCurrentPaddleYPosition, aCurrentPaddleLength, this, aPlayableGame);
+    return new PaddleOccurance(aCurrentPaddleXPosition, aCurrentPaddleLength, this, aPlayableGame);
   }
 
   public boolean addPaddleOccurance(PaddleOccurance aPaddleOccurance)

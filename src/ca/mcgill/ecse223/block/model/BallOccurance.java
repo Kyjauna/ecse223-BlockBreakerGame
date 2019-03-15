@@ -3,7 +3,7 @@
 
 package ca.mcgill.ecse223.block.model;
 
-// line 34 "../../../../../I4.Updated.Domain.Model.ump"
+// line 48 "../../../../../I4.Updated.Domain.Model.ump"
 public class BallOccurance
 {
 
@@ -127,22 +127,31 @@ public class BallOccurance
     wasSet = true;
     return wasSet;
   }
-  /* Code from template association_SetOneToMany */
-  public boolean setPlayableGame(PlayableGame aPlayableGame)
+  /* Code from template association_SetOneToOptionalOne */
+  public boolean setPlayableGame(PlayableGame aNewPlayableGame)
   {
     boolean wasSet = false;
-    if (aPlayableGame == null)
+    if (aNewPlayableGame == null)
     {
+      //Unable to setPlayableGame to null, as ballOccurance must always be associated to a playableGame
       return wasSet;
     }
-
-    PlayableGame existingPlayableGame = playableGame;
-    playableGame = aPlayableGame;
-    if (existingPlayableGame != null && !existingPlayableGame.equals(aPlayableGame))
+    
+    BallOccurance existingBallOccurance = aNewPlayableGame.getBallOccurance();
+    if (existingBallOccurance != null && !equals(existingBallOccurance))
     {
-      existingPlayableGame.removeBallOccurance(this);
+      //Unable to setPlayableGame, the current playableGame already has a ballOccurance, which would be orphaned if it were re-assigned
+      return wasSet;
     }
-    playableGame.addBallOccurance(this);
+    
+    PlayableGame anOldPlayableGame = playableGame;
+    playableGame = aNewPlayableGame;
+    playableGame.setBallOccurance(this);
+
+    if (anOldPlayableGame != null)
+    {
+      anOldPlayableGame.setBallOccurance(null);
+    }
     wasSet = true;
     return wasSet;
   }
@@ -155,15 +164,16 @@ public class BallOccurance
     {
       placeholderBall.removeBallOccurance(this);
     }
-    PlayableGame placeholderPlayableGame = playableGame;
-    this.playableGame = null;
-    if(placeholderPlayableGame != null)
+    PlayableGame existingPlayableGame = playableGame;
+    playableGame = null;
+    if (existingPlayableGame != null)
     {
-      placeholderPlayableGame.removeBallOccurance(this);
+      existingPlayableGame.setBallOccurance(null);
     }
   }
 
-  // line 43 "../../../../../I4.Updated.Domain.Model.ump"
+  // line 55 "../../../../../I4.Updated.Domain.Model.ump"
+
   public void updateBallPosition(){
     currentBallOXPosition=currentBallOXPosition+this.getBall().getMinBallSpeedX();
 	currentBallOYPosition=currentBallOYPosition+this.getBall().getMinBallSpeedY();

@@ -3,7 +3,9 @@
 
 package ca.mcgill.ecse223.block.model;
 
-// line 49 "../../../../../I4.Updated.Domain.Model.ump"
+
+// line 61 "../../../../../I4.Updated.Domain.Model.ump"
+
 public class BlockAssingmentOccurance
 {
 

@@ -3,7 +3,7 @@
 
 package ca.mcgill.ecse223.block.model;
 
-// line 26 "../../../../../I4.Updated.Domain.Model.ump"
+// line 41 "../../../../../I4.Updated.Domain.Model.ump"
 public class PaddleOccurance
 {
 
@@ -13,7 +13,6 @@ public class PaddleOccurance
 
   //PaddleOccurance Attributes
   private int currentPaddleXPosition;
-  private int currentPaddleYPosition;
   private int currentPaddleLength;
 
   //PaddleOccurance Associations
@@ -24,10 +23,9 @@ public class PaddleOccurance
   // CONSTRUCTOR
   //------------------------
 
-  public PaddleOccurance(int aCurrentPaddleXPosition, int aCurrentPaddleYPosition, int aCurrentPaddleLength, Paddle aPaddle, PlayableGame aPlayableGame)
+  public PaddleOccurance(int aCurrentPaddleXPosition, int aCurrentPaddleLength, Paddle aPaddle, PlayableGame aPlayableGame)
   {
     currentPaddleXPosition = aCurrentPaddleXPosition;
-    currentPaddleYPosition = aCurrentPaddleYPosition;
     currentPaddleLength = aCurrentPaddleLength;
     boolean didAddPaddle = setPaddle(aPaddle);
     if (!didAddPaddle)
@@ -53,14 +51,6 @@ public class PaddleOccurance
     return wasSet;
   }
 
-  public boolean setCurrentPaddleYPosition(int aCurrentPaddleYPosition)
-  {
-    boolean wasSet = false;
-    currentPaddleYPosition = aCurrentPaddleYPosition;
-    wasSet = true;
-    return wasSet;
-  }
-
   public boolean setCurrentPaddleLength(int aCurrentPaddleLength)
   {
     boolean wasSet = false;
@@ -72,11 +62,6 @@ public class PaddleOccurance
   public int getCurrentPaddleXPosition()
   {
     return currentPaddleXPosition;
-  }
-
-  public int getCurrentPaddleYPosition()
-  {
-    return currentPaddleYPosition;
   }
 
   public int getCurrentPaddleLength()
@@ -112,22 +97,31 @@ public class PaddleOccurance
     wasSet = true;
     return wasSet;
   }
-  /* Code from template association_SetOneToMany */
-  public boolean setPlayableGame(PlayableGame aPlayableGame)
+  /* Code from template association_SetOneToOptionalOne */
+  public boolean setPlayableGame(PlayableGame aNewPlayableGame)
   {
     boolean wasSet = false;
-    if (aPlayableGame == null)
+    if (aNewPlayableGame == null)
     {
+      //Unable to setPlayableGame to null, as paddleOccurance must always be associated to a playableGame
       return wasSet;
     }
-
-    PlayableGame existingPlayableGame = playableGame;
-    playableGame = aPlayableGame;
-    if (existingPlayableGame != null && !existingPlayableGame.equals(aPlayableGame))
+    
+    PaddleOccurance existingPaddleOccurance = aNewPlayableGame.getPaddleOccurance();
+    if (existingPaddleOccurance != null && !equals(existingPaddleOccurance))
     {
-      existingPlayableGame.removePaddleOccurance(this);
+      //Unable to setPlayableGame, the current playableGame already has a paddleOccurance, which would be orphaned if it were re-assigned
+      return wasSet;
     }
-    playableGame.addPaddleOccurance(this);
+    
+    PlayableGame anOldPlayableGame = playableGame;
+    playableGame = aNewPlayableGame;
+    playableGame.setPaddleOccurance(this);
+
+    if (anOldPlayableGame != null)
+    {
+      anOldPlayableGame.setPaddleOccurance(null);
+    }
     wasSet = true;
     return wasSet;
   }
@@ -140,11 +134,11 @@ public class PaddleOccurance
     {
       placeholderPaddle.removePaddleOccurance(this);
     }
-    PlayableGame placeholderPlayableGame = playableGame;
-    this.playableGame = null;
-    if(placeholderPlayableGame != null)
+    PlayableGame existingPlayableGame = playableGame;
+    playableGame = null;
+    if (existingPlayableGame != null)
     {
-      placeholderPlayableGame.removePaddleOccurance(this);
+      existingPlayableGame.setPaddleOccurance(null);
     }
   }
 
@@ -153,7 +147,6 @@ public class PaddleOccurance
   {
     return super.toString() + "["+
             "currentPaddleXPosition" + ":" + getCurrentPaddleXPosition()+ "," +
-            "currentPaddleYPosition" + ":" + getCurrentPaddleYPosition()+ "," +
             "currentPaddleLength" + ":" + getCurrentPaddleLength()+ "]" + System.getProperties().getProperty("line.separator") +
             "  " + "paddle = "+(getPaddle()!=null?Integer.toHexString(System.identityHashCode(getPaddle())):"null") + System.getProperties().getProperty("line.separator") +
             "  " + "playableGame = "+(getPlayableGame()!=null?Integer.toHexString(System.identityHashCode(getPlayableGame())):"null");

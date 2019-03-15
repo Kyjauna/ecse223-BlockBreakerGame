@@ -6,8 +6,8 @@ import java.io.Serializable;
 import java.util.*;
 
 // line 53 "../../../../../Block223Persistence.ump"
-// line 16 "../../../../../I4.Updated.Domain.Model.ump"
-// line 63 "../../../../../Block223 v2.ump"
+// line 31 "../../../../../I4.Updated.Domain.Model.ump"
+// line 64 "../../../../../Block223 v2.ump"
 public class Game implements Serializable
 {
 
@@ -57,12 +57,12 @@ public class Game implements Serializable
 
   public Game(boolean aIsPublished, String aName, int aNrBlocksPerLevel, Admin aAdmin, Ball aBall, Paddle aPaddle, Block223 aBlock223)
   {
-    // line 82 "../../../../../Block223 v2.ump"
+    // line 83 "../../../../../Block223 v2.ump"
     if (aName.equals(null) || aName.equals("")) {
        		   throw new RuntimeException("The name of a game must be specified.");
        }
     // END OF UMPLE BEFORE INJECTION
-    // line 86 "../../../../../Block223 v2.ump"
+    // line 87 "../../../../../Block223 v2.ump"
     if (aNrBlocksPerLevel <= 0){
        			throw new RuntimeException("The number of blocks per level must be greater than zero.");
        }
@@ -102,12 +102,12 @@ public class Game implements Serializable
 
   public Game(boolean aIsPublished, String aName, int aNrBlocksPerLevel, Admin aAdmin, int aMinBallSpeedXForBall, int aMinBallSpeedYForBall, double aBallSpeedIncreaseFactorForBall, int aMaxPaddleLengthForPaddle, int aMinPaddleLengthForPaddle, Block223 aBlock223)
   {
-    // line 82 "../../../../../Block223 v2.ump"
+    // line 83 "../../../../../Block223 v2.ump"
     if (aName.equals(null) || aName.equals("")) {
        		   throw new RuntimeException("The name of a game must be specified.");
        }
     // END OF UMPLE BEFORE INJECTION
-    // line 86 "../../../../../Block223 v2.ump"
+    // line 87 "../../../../../Block223 v2.ump"
     if (aNrBlocksPerLevel <= 0){
        			throw new RuntimeException("The number of blocks per level must be greater than zero.");
        }
@@ -874,7 +874,7 @@ public class Game implements Serializable
    		}
   }
 
-  // line 90 "../../../../../Block223 v2.ump"
+  // line 91 "../../../../../Block223 v2.ump"
   public Block findBlock(int id){
     Block foundBlock = null;
 		for (Block B : this.getBlocks()) {

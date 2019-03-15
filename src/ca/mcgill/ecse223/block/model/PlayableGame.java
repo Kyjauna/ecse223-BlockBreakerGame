@@ -4,7 +4,8 @@
 package ca.mcgill.ecse223.block.model;
 import java.util.*;
 
-// line 7 "../../../../../I4.Updated.Domain.Model.ump"
+// line 3 "../../../../../PlayableGameStateMachine.ump"
+// line 22 "../../../../../I4.Updated.Domain.Model.ump"
 public class PlayableGame
 {
 
@@ -26,12 +27,16 @@ public class PlayableGame
   //Autounique Attributes
   private int gameId;
 
+  //PlayableGame State Machines
+  public enum Statemachine { Idle, Suspended, Playing, Finished }
+  private Statemachine statemachine;
+
   //PlayableGame Associations
   private Game game;
   private Player player;
   private Block223 block223;
-  private List<PaddleOccurance> paddleOccurances;
-  private List<BallOccurance> ballOccurances;
+  private PaddleOccurance paddleOccurance;
+  private BallOccurance ballOccurance;
   private List<BlockAssingmentOccurance> blockAssingmentOccurances;
 
   //------------------------
@@ -59,9 +64,8 @@ public class PlayableGame
     {
       throw new RuntimeException("Unable to create playableGame due to block223");
     }
-    paddleOccurances = new ArrayList<PaddleOccurance>();
-    ballOccurances = new ArrayList<BallOccurance>();
     blockAssingmentOccurances = new ArrayList<BlockAssingmentOccurance>();
+    setStatemachine(Statemachine.Idle);
   }
 
   //------------------------
@@ -111,6 +115,115 @@ public class PlayableGame
   {
     return gameId;
   }
+
+  public String getStatemachineFullName()
+  {
+    String answer = statemachine.toString();
+    return answer;
+  }
+
+  public Statemachine getStatemachine()
+  {
+    return statemachine;
+  }
+
+  public boolean setupComplete()
+  {
+    boolean wasEventProcessed = false;
+    
+    Statemachine aStatemachine = statemachine;
+    switch (aStatemachine)
+    {
+      case Idle:
+        setStatemachine(Statemachine.Suspended);
+        wasEventProcessed = true;
+        break;
+      default:
+        // Other states do respond to this event
+    }
+
+    return wasEventProcessed;
+  }
+
+  public boolean spacebarPushed()
+  {
+    boolean wasEventProcessed = false;
+    
+    Statemachine aStatemachine = statemachine;
+    switch (aStatemachine)
+    {
+      case Suspended:
+        setStatemachine(Statemachine.Playing);
+        wasEventProcessed = true;
+        break;
+      case Playing:
+        setStatemachine(Statemachine.Suspended);
+        wasEventProcessed = true;
+        break;
+      default:
+        // Other states do respond to this event
+    }
+
+    return wasEventProcessed;
+  }
+
+  public boolean moveBall()
+  {
+    boolean wasEventProcessed = false;
+    
+    Statemachine aStatemachine = statemachine;
+    switch (aStatemachine)
+    {
+      case Playing:
+        if (!(isBlockHit())&&!(isWallHit())&&!(isPaddleHit())&&!(isOutOfBounds()))
+        {
+        // line 24 "../../../../../PlayableGameStateMachine.ump"
+          doMoveBall();
+          setStatemachine(Statemachine.Playing);
+          wasEventProcessed = true;
+          break;
+        }
+        if (isBlockHit()&&!(isLastBlockHit()))
+        {
+        // line 29 "../../../../../PlayableGameStateMachine.ump"
+          doBlockHit();
+          setStatemachine(Statemachine.Playing);
+          wasEventProcessed = true;
+          break;
+        }
+        if (isOutOfBounds()&&!(isOnLastLife()))
+        {
+        // line 34 "../../../../../PlayableGameStateMachine.ump"
+          doOutOfBounds();
+          setStatemachine(Statemachine.Suspended);
+          wasEventProcessed = true;
+          break;
+        }
+        break;
+      default:
+        // Other states do respond to this event
+    }
+
+    return wasEventProcessed;
+  }
+
+  private void setStatemachine(Statemachine aStatemachine)
+  {
+    statemachine = aStatemachine;
+
+    // entry actions and do activities
+    switch(statemachine)
+    {
+      case Idle:
+        // line 9 "../../../../../PlayableGameStateMachine.ump"
+        setUpGame();
+        break;
+      case Finished:
+        // line 70 "../../../../../PlayableGameStateMachine.ump"
+        addToHallOfFame();
+        break;
+    }
+  }
   /* Code from template association_GetOne */
   public Game getGame()
   {
@@ -126,65 +239,27 @@ public class PlayableGame
   {
     return block223;
   }
-  /* Code from template association_GetMany */
-  public PaddleOccurance getPaddleOccurance(int index)
+  /* Code from template association_GetOne */
+  public PaddleOccurance getPaddleOccurance()
   {
-    PaddleOccurance aPaddleOccurance = paddleOccurances.get(index);
-    return aPaddleOccurance;
+    return paddleOccurance;
   }
 
-  public List<PaddleOccurance> getPaddleOccurances()
+  public boolean hasPaddleOccurance()
   {
-    List<PaddleOccurance> newPaddleOccurances = Collections.unmodifiableList(paddleOccurances);
-    return newPaddleOccurances;
-  }
-
-  public int numberOfPaddleOccurances()
-  {
-    int number = paddleOccurances.size();
-    return number;
-  }
-
-  public boolean hasPaddleOccurances()
-  {
-    boolean has = paddleOccurances.size() > 0;
+    boolean has = paddleOccurance != null;
     return has;
   }
-
-  public int indexOfPaddleOccurance(PaddleOccurance aPaddleOccurance)
+  /* Code from template association_GetOne */
+  public BallOccurance getBallOccurance()
   {
-    int index = paddleOccurances.indexOf(aPaddleOccurance);
-    return index;
-  }
-  /* Code from template association_GetMany */
-  public BallOccurance getBallOccurance(int index)
-  {
-    BallOccurance aBallOccurance = ballOccurances.get(index);
-    return aBallOccurance;
+    return ballOccurance;
   }
 
-  public List<BallOccurance> getBallOccurances()
+  public boolean hasBallOccurance()
   {
-    List<BallOccurance> newBallOccurances = Collections.unmodifiableList(ballOccurances);
-    return newBallOccurances;
-  }
-
-  public int numberOfBallOccurances()
-  {
-    int number = ballOccurances.size();
-    return number;
-  }
-
-  public boolean hasBallOccurances()
-  {
-    boolean has = ballOccurances.size() > 0;
+    boolean has = ballOccurance != null;
     return has;
-  }
-
-  public int indexOfBallOccurance(BallOccurance aBallOccurance)
-  {
-    int index = ballOccurances.indexOf(aBallOccurance);
-    return index;
   }
   /* Code from template association_GetMany */
   public BlockAssingmentOccurance getBlockAssingmentOccurance(int index)
@@ -273,149 +348,61 @@ public class PlayableGame
     wasSet = true;
     return wasSet;
   }
-  /* Code from template association_MinimumNumberOfMethod */
-  public static int minimumNumberOfPaddleOccurances()
+  /* Code from template association_SetOptionalOneToOne */
+  public boolean setPaddleOccurance(PaddleOccurance aNewPaddleOccurance)
   {
-    return 0;
-  }
-  /* Code from template association_AddManyToOne */
-  public PaddleOccurance addPaddleOccurance(int aCurrentPaddleXPosition, int aCurrentPaddleYPosition, int aCurrentPaddleLength, Paddle aPaddle)
-  {
-    return new PaddleOccurance(aCurrentPaddleXPosition, aCurrentPaddleYPosition, aCurrentPaddleLength, aPaddle, this);
-  }
+    boolean wasSet = false;
+    if (paddleOccurance != null && !paddleOccurance.equals(aNewPaddleOccurance) && equals(paddleOccurance.getPlayableGame()))
+    {
+      //Unable to setPaddleOccurance, as existing paddleOccurance would become an orphan
+      return wasSet;
+    }
 
-  public boolean addPaddleOccurance(PaddleOccurance aPaddleOccurance)
-  {
-    boolean wasAdded = false;
-    if (paddleOccurances.contains(aPaddleOccurance)) { return false; }
-    PlayableGame existingPlayableGame = aPaddleOccurance.getPlayableGame();
-    boolean isNewPlayableGame = existingPlayableGame != null && !this.equals(existingPlayableGame);
-    if (isNewPlayableGame)
-    {
-      aPaddleOccurance.setPlayableGame(this);
-    }
-    else
-    {
-      paddleOccurances.add(aPaddleOccurance);
-    }
-    wasAdded = true;
-    return wasAdded;
-  }
+    paddleOccurance = aNewPaddleOccurance;
+    PlayableGame anOldPlayableGame = aNewPaddleOccurance != null ? aNewPaddleOccurance.getPlayableGame() : null;
 
-  public boolean removePaddleOccurance(PaddleOccurance aPaddleOccurance)
-  {
-    boolean wasRemoved = false;
-    //Unable to remove aPaddleOccurance, as it must always have a playableGame
-    if (!this.equals(aPaddleOccurance.getPlayableGame()))
+    if (!this.equals(anOldPlayableGame))
     {
-      paddleOccurances.remove(aPaddleOccurance);
-      wasRemoved = true;
+      if (anOldPlayableGame != null)
+      {
+        anOldPlayableGame.paddleOccurance = null;
+      }
+      if (paddleOccurance != null)
+      {
+        paddleOccurance.setPlayableGame(this);
+      }
     }
-    return wasRemoved;
-  }
-  /* Code from template association_AddIndexControlFunctions */
-  public boolean addPaddleOccuranceAt(PaddleOccurance aPaddleOccurance, int index)
-  {  
-    boolean wasAdded = false;
-    if(addPaddleOccurance(aPaddleOccurance))
-    {
-      if(index < 0 ) { index = 0; }
-      if(index > numberOfPaddleOccurances()) { index = numberOfPaddleOccurances() - 1; }
-      paddleOccurances.remove(aPaddleOccurance);
-      paddleOccurances.add(index, aPaddleOccurance);
-      wasAdded = true;
-    }
-    return wasAdded;
-  }
 
-  public boolean addOrMovePaddleOccuranceAt(PaddleOccurance aPaddleOccurance, int index)
-  {
-    boolean wasAdded = false;
-    if(paddleOccurances.contains(aPaddleOccurance))
-    {
-      if(index < 0 ) { index = 0; }
-      if(index > numberOfPaddleOccurances()) { index = numberOfPaddleOccurances() - 1; }
-      paddleOccurances.remove(aPaddleOccurance);
-      paddleOccurances.add(index, aPaddleOccurance);
-      wasAdded = true;
-    } 
-    else 
-    {
-      wasAdded = addPaddleOccuranceAt(aPaddleOccurance, index);
-    }
-    return wasAdded;
-  }
-  /* Code from template association_MinimumNumberOfMethod */
-  public static int minimumNumberOfBallOccurances()
-  {
-    return 0;
-  }
-  /* Code from template association_AddManyToOne */
-  public BallOccurance addBallOccurance(int aCurrentBallOXPosition, int aCurrentBallOYPosition, int aCurrentBallOXDirection, int aCurrentBallOYDirection, Ball aBall)
-  {
-    return new BallOccurance(aCurrentBallOXPosition, aCurrentBallOYPosition, aCurrentBallOXDirection, aCurrentBallOYDirection, aBall, this);
-  }
+    wasSet = true;
+    return wasSet;
 
-  public boolean addBallOccurance(BallOccurance aBallOccurance)
-  {
-    boolean wasAdded = false;
-    if (ballOccurances.contains(aBallOccurance)) { return false; }
-    PlayableGame existingPlayableGame = aBallOccurance.getPlayableGame();
-    boolean isNewPlayableGame = existingPlayableGame != null && !this.equals(existingPlayableGame);
-    if (isNewPlayableGame)
-    {
-      aBallOccurance.setPlayableGame(this);
-    }
-    else
-    {
-      ballOccurances.add(aBallOccurance);
-    }
-    wasAdded = true;
-    return wasAdded;
   }
+  /* Code from template association_SetOptionalOneToOne */
+  public boolean setBallOccurance(BallOccurance aNewBallOccurance)
+  {
+    boolean wasSet = false;
+    if (ballOccurance != null && !ballOccurance.equals(aNewBallOccurance) && equals(ballOccurance.getPlayableGame()))
+    {
+      //Unable to setBallOccurance, as existing ballOccurance would become an orphan
+      return wasSet;
+    }
 
-  public boolean removeBallOccurance(BallOccurance aBallOccurance)
-  {
-    boolean wasRemoved = false;
-    //Unable to remove aBallOccurance, as it must always have a playableGame
-    if (!this.equals(aBallOccurance.getPlayableGame()))
-    {
-      ballOccurances.remove(aBallOccurance);
-      wasRemoved = true;
-    }
-    return wasRemoved;
-  }
-  /* Code from template association_AddIndexControlFunctions */
-  public boolean addBallOccuranceAt(BallOccurance aBallOccurance, int index)
-  {  
-    boolean wasAdded = false;
-    if(addBallOccurance(aBallOccurance))
-    {
-      if(index < 0 ) { index = 0; }
-      if(index > numberOfBallOccurances()) { index = numberOfBallOccurances() - 1; }
-      ballOccurances.remove(aBallOccurance);
-      ballOccurances.add(index, aBallOccurance);
-      wasAdded = true;
-    }
-    return wasAdded;
-  }
+    ballOccurance = aNewBallOccurance;
+    PlayableGame anOldPlayableGame = aNewBallOccurance != null ? aNewBallOccurance.getPlayableGame() : null;
 
-  public boolean addOrMoveBallOccuranceAt(BallOccurance aBallOccurance, int index)
-  {
-    boolean wasAdded = false;
-    if(ballOccurances.contains(aBallOccurance))
+    if (!this.equals(anOldPlayableGame))
     {
-      if(index < 0 ) { index = 0; }
-      if(index > numberOfBallOccurances()) { index = numberOfBallOccurances() - 1; }
-      ballOccurances.remove(aBallOccurance);
-      ballOccurances.add(index, aBallOccurance);
-      wasAdded = true;
-    } 
-    else 
-    {
-      wasAdded = addBallOccuranceAt(aBallOccurance, index);
+      if (anOldPlayableGame != null)
+      {
+        anOldPlayableGame.ballOccurance = null;
+      }
+      if (ballOccurance != null)
+      {
+        ballOccurance.setPlayableGame(this);
+      }
     }
-    return wasAdded;
+    wasSet = true;
+    return wasSet;
   }
   /* Code from template association_MinimumNumberOfMethod */
   public static int minimumNumberOfBlockAssingmentOccurances()
@@ -510,21 +497,108 @@ public class PlayableGame
     {
       placeholderBlock223.removePlayableGame(this);
     }
-    for(int i=paddleOccurances.size(); i > 0; i--)
+    PaddleOccurance existingPaddleOccurance = paddleOccurance;
+    paddleOccurance = null;
+    if (existingPaddleOccurance != null)
     {
-      PaddleOccurance aPaddleOccurance = paddleOccurances.get(i - 1);
-      aPaddleOccurance.delete();
+      existingPaddleOccurance.delete();
     }
-    for(int i=ballOccurances.size(); i > 0; i--)
+    BallOccurance existingBallOccurance = ballOccurance;
+    ballOccurance = null;
+    if (existingBallOccurance != null)
     {
-      BallOccurance aBallOccurance = ballOccurances.get(i - 1);
-      aBallOccurance.delete();
+      existingBallOccurance.delete();
     }
     for(int i=blockAssingmentOccurances.size(); i > 0; i--)
     {
       BlockAssingmentOccurance aBlockAssingmentOccurance = blockAssingmentOccurances.get(i - 1);
       aBlockAssingmentOccurance.delete();
     }
+  }
+
+  // line 77 "../../../../../PlayableGameStateMachine.ump"
+   private boolean isWallHit(){
+    return false;
+  }
+
+  // line 82 "../../../../../PlayableGameStateMachine.ump"
+   private void doWallHit(){
+    
+  }
+
+  // line 85 "../../../../../PlayableGameStateMachine.ump"
+   private boolean isPaddleHit(){
+    return false;
+  }
+
+  // line 90 "../../../../../PlayableGameStateMachine.ump"
+   private void doPaddleHit(){
+    
+  }
+
+  // line 93 "../../../../../PlayableGameStateMachine.ump"
+   private boolean isOutOfBounds(){
+    return false;
+  }
+
+  // line 98 "../../../../../PlayableGameStateMachine.ump"
+   private void doOutOfBounds(){
+    
+  }
+
+  // line 101 "../../../../../PlayableGameStateMachine.ump"
+   private boolean isOnLastLife(){
+    return false;
+  }
+
+  // line 105 "../../../../../PlayableGameStateMachine.ump"
+   private boolean isLastBlockHit(){
+    return false;
+  }
+
+  // line 110 "../../../../../PlayableGameStateMachine.ump"
+   private void doBlockHit(){
+    
+  }
+
+  // line 113 "../../../../../PlayableGameStateMachine.ump"
+   private boolean isBlockHit(){
+    return false;
+  }
+
+  // line 117 "../../../../../PlayableGameStateMachine.ump"
+   private boolean isLastLevel(){
+    return false;
+  }
+
+  // line 121 "../../../../../PlayableGameStateMachine.ump"
+   private boolean isLeftKeyPushed(){
+    return false;
+  }
+
+  // line 125 "../../../../../PlayableGameStateMachine.ump"
+   private boolean isTestGame(){
+    return false;
+  }
+
+  // line 130 "../../../../../PlayableGameStateMachine.ump"
+   private void addToHallOfFame(){
+    
+  }
+
+  // line 134 "../../../../../PlayableGameStateMachine.ump"
+   private void doMovePaddle(){
+    
+  }
+
+  // line 138 "../../../../../PlayableGameStateMachine.ump"
+   private void doMoveBall(){
+    
+  }
+
+  // line 142 "../../../../../PlayableGameStateMachine.ump"
+   private void setUpGame(){
+    
   }
 
 
@@ -537,6 +611,8 @@ public class PlayableGame
             "currentScore" + ":" + getCurrentScore()+ "]" + System.getProperties().getProperty("line.separator") +
             "  " + "game = "+(getGame()!=null?Integer.toHexString(System.identityHashCode(getGame())):"null") + System.getProperties().getProperty("line.separator") +
             "  " + "player = "+(getPlayer()!=null?Integer.toHexString(System.identityHashCode(getPlayer())):"null") + System.getProperties().getProperty("line.separator") +
-            "  " + "block223 = "+(getBlock223()!=null?Integer.toHexString(System.identityHashCode(getBlock223())):"null");
+            "  " + "block223 = "+(getBlock223()!=null?Integer.toHexString(System.identityHashCode(getBlock223())):"null") + System.getProperties().getProperty("line.separator") +
+            "  " + "paddleOccurance = "+(getPaddleOccurance()!=null?Integer.toHexString(System.identityHashCode(getPaddleOccurance())):"null") + System.getProperties().getProperty("line.separator") +
+            "  " + "ballOccurance = "+(getBallOccurance()!=null?Integer.toHexString(System.identityHashCode(getBallOccurance())):"null");
   }
 }
