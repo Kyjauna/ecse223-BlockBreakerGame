@@ -21,7 +21,7 @@ class PlayableGame {
 			
 			spacebarPushed()->Suspended;
           
-			moveBall() [!isBlockHit()&&!isWallOrPaddleHit()&&!isOutOfBounds()] /{
+			moveBall() [!isBlockHit()&&!isWallHit()&&!isPaddleHit()&&!isOutOfBounds()] /{
 			doMoveBall();
 			}
 			->Playing; 
@@ -36,7 +36,7 @@ class PlayableGame {
 			}
 			->Suspended;
           
-			moveBall() [isWallOrPaddleHit()] ->Suspended;
+			moveBall() [isWallHit() || isPaddleHit()] ->Suspended;
           
 			moveBall() [isLastBlockHit()&&!isLastLevel()] /{
 			doBlockHit();
@@ -66,7 +66,19 @@ class PlayableGame {
 		}
 	}
 
-	private boolean isWallOrPaddleHit{
+	private boolean isWallHit{
+	
+	}
+	
+	private boolean doWallHit{
+	
+	}
+	
+	private boolean isPaddleHit{
+	
+	}
+	
+	private boolean doPaddleHit{
 	
 	}
 	
