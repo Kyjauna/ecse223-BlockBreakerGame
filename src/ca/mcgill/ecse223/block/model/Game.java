@@ -58,7 +58,7 @@ public class Game implements Serializable
   public Game(boolean aIsPublished, String aName, int aNrBlocksPerLevel, Admin aAdmin, Ball aBall, Paddle aPaddle, Block223 aBlock223)
   {
     // line 83 "../../../../../Block223 v2.ump"
-    if (aName.equals(null) || aName.equals("")) {
+    if (aName==null || aName.equals("")) {
        		   throw new RuntimeException("The name of a game must be specified.");
        }
     // END OF UMPLE BEFORE INJECTION
@@ -103,7 +103,7 @@ public class Game implements Serializable
   public Game(boolean aIsPublished, String aName, int aNrBlocksPerLevel, Admin aAdmin, int aMinBallSpeedXForBall, int aMinBallSpeedYForBall, double aBallSpeedIncreaseFactorForBall, int aMaxPaddleLengthForPaddle, int aMinPaddleLengthForPaddle, Block223 aBlock223)
   {
     // line 83 "../../../../../Block223 v2.ump"
-    if (aName.equals(null) || aName.equals("")) {
+    if (aName==null || aName.equals("")) {
        		   throw new RuntimeException("The name of a game must be specified.");
        }
     // END OF UMPLE BEFORE INJECTION

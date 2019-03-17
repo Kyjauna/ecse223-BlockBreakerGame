@@ -372,10 +372,8 @@ public class PlayableGame
         paddleOccurance.setPlayableGame(this);
       }
     }
-
     wasSet = true;
     return wasSet;
-
   }
   /* Code from template association_SetOptionalOneToOne */
   public boolean setBallOccurance(BallOccurance aNewBallOccurance)

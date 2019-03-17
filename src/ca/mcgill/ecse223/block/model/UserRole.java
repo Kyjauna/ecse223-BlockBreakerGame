@@ -27,7 +27,7 @@ public abstract class UserRole implements Serializable
   {
     // line 50 "../../../../../Block223 v2.ump"
     if (aPassword==null||aPassword.equals("")){
-       			throw new RuntimeException("The password must be specified.");
+       				throw new RuntimeException("The password must be specified.");
        		}
     // END OF UMPLE BEFORE INJECTION
     password = aPassword;

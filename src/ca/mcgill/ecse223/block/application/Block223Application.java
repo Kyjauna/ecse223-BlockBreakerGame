@@ -10,10 +10,10 @@ import ca.mcgill.ecse223.block.view.WelcomePage;
 
 public class Block223Application {
 
-	private static Block223 block223;
-	public static Game CurrentGame;
-	public static User CurrentUser;
-	public static UserRole CurrentUserRole;
+	private static Block223 block223=null;
+	public static Game CurrentGame=null;
+	public static User CurrentUser=null;
+	public static UserRole CurrentUserRole=null;
 	
 	public static void main(String[] args) {
 		// start UI
@@ -31,7 +31,6 @@ public class Block223Application {
 		return block223;
 	}
 	
-	
 	public static Block223 resetBlock223() {
 		block223=Block223Persistence.load();
 		return block223;
@@ -44,6 +43,7 @@ public class Block223Application {
 	public static Game getCurrentGame() {
 		return CurrentGame;
 	}
+	
 	public static void setCurrentGame(Game game) {
 		CurrentGame=game;
 	}

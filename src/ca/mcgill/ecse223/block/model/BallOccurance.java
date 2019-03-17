@@ -172,8 +172,7 @@ public class BallOccurance
     }
   }
 
-  // line 55 "../../../../../I4.Updated.Domain.Model.ump"
-
+  // line 57 "../../../../../I4.Updated.Domain.Model.ump"
   public void updateBallPosition(){
     currentBallOXPosition=currentBallOXPosition+this.getBall().getMinBallSpeedX();
 	currentBallOYPosition=currentBallOYPosition+this.getBall().getMinBallSpeedY();
