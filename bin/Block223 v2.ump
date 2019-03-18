@@ -187,8 +187,8 @@ class Paddle {
    Integer minPaddleLength;
    
    before constructor{
-      	if (aMaxPaddleLength <= 0 || aMaxPaddleLength > 400){
-   			throw new RuntimeException("The maximum length of the paddle must be greater than zero and less than or equal to 400.");
+      	if (aMaxPaddleLength <= 0 || aMaxPaddleLength > 390){
+   			throw new RuntimeException("The maximum length of the paddle must be greater than zero and less than or equal to 390.");
       	}
       	if (aMinPaddleLength <= 0){
    			throw new RuntimeException("The minimum length of the paddle must be greater than zero.");

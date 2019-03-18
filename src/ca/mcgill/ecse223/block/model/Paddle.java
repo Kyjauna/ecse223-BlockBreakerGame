@@ -36,8 +36,8 @@ public class Paddle implements Serializable
   public Paddle(int aMaxPaddleLength, int aMinPaddleLength, Game aGame)
   {
     // line 190 "../../../../../Block223 v2.ump"
-    if (aMaxPaddleLength <= 0 || aMaxPaddleLength > 400){
-       			throw new RuntimeException("The maximum length of the paddle must be greater than zero and less than or equal to 400.");
+    if (aMaxPaddleLength <= 0 || aMaxPaddleLength > 390){
+       			throw new RuntimeException("The maximum length of the paddle must be greater than zero and less than or equal to 390.");
           	}
           	if (aMinPaddleLength <= 0){
        			throw new RuntimeException("The minimum length of the paddle must be greater than zero.");
@@ -56,8 +56,8 @@ public class Paddle implements Serializable
   public Paddle(int aMaxPaddleLength, int aMinPaddleLength, boolean aIsPublishedForGame, String aNameForGame, int aNrBlocksPerLevelForGame, Admin aAdminForGame, Ball aBallForGame, Block223 aBlock223ForGame)
   {
     // line 190 "../../../../../Block223 v2.ump"
-    if (aMaxPaddleLength <= 0 || aMaxPaddleLength > 400){
-       			throw new RuntimeException("The maximum length of the paddle must be greater than zero and less than or equal to 400.");
+    if (aMaxPaddleLength <= 0 || aMaxPaddleLength > 390){
+       			throw new RuntimeException("The maximum length of the paddle must be greater than zero and less than or equal to 390.");
           	}
           	if (aMinPaddleLength <= 0){
        			throw new RuntimeException("The minimum length of the paddle must be greater than zero.");

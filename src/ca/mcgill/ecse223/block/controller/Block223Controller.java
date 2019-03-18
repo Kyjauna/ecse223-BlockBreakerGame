@@ -71,6 +71,12 @@ public class Block223Controller {
 		
 		if (nrLevels < 1 || nrLevels > 99)
 			error = error + "The number of levels must be between 1 and 99. ";
+      	
+		if (minPaddleLength <= 0)
+   			throw new InvalidInputException("The minimum length of the paddle must be greater than zero.");
+		
+		if (maxPaddleLength <= 0 || maxPaddleLength > 390)
+   			throw new InvalidInputException("The maximum length of the paddle must be greater than zero and less than or equal to 390.");
 		
 		if (error.length() > 0)
 			throw new InvalidInputException(error.trim());
