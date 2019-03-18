@@ -78,8 +78,16 @@ public class Block223Controller {
 		if (maxPaddleLength <= 0 || maxPaddleLength > 390)
    			throw new InvalidInputException("The maximum length of the paddle must be greater than zero and less than or equal to 390.");
 		
+	 	if (nrBlocksPerLevel <= 0)
+	   			throw new InvalidInputException("The number of blocks per level must be greater than zero.");
+		
+	 	if (ballSpeedIncreaseFactor <= 0)
+   			throw new InvalidInputException("The speed increase factor of the ball must be greater than zero.");  
+	 	
 		if (error.length() > 0)
 			throw new InvalidInputException(error.trim());
+		
+		if (Block223Application.getCurrentGame().get)
 		
 		Game game = Block223Application.getCurrentGame();
 		game.setNrBlocksPerLevel(nrBlocksPerLevel);
