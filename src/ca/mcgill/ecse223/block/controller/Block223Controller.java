@@ -45,7 +45,7 @@ public class Block223Controller {
 		}
 		
 		try {
-			game=new Game(false, name, 1, (Admin) admin, 1, 1, 1, 1, 1, block223);
+			game=new Game(name, 1, (Admin) admin, 1, 1, 1, 1, 1, block223);
 		}
 		catch (RuntimeException e) {
 			throw new InvalidInputException(e.getMessage());
@@ -443,18 +443,15 @@ public class Block223Controller {
 			throw new InvalidInputException(error.trim());
 		}
 		
-//		if(!(block223.findWithUsername(username) == null))
-//			throw new InvalidInputException("The username has already been taken.");
-		
-		
 		Player player = null;
+		Admin admin = null;
 		
 		try{ 
 			player= new Player(playerPassword, block223);
 			User user= new User(username, block223, player);
 			
 			if(!(adminPassword==null||adminPassword.equals(""))) {
-				Admin admin=new Admin(adminPassword, block223);
+				admin=new Admin(adminPassword, block223);
 				user.addRole(admin);
 			}
 			
@@ -464,8 +461,13 @@ public class Block223Controller {
 			if (e.getMessage().equals("The username must be specified.")) {
 				player.delete();
 				throw new InvalidInputException(e.getMessage());}
-			if (e.getMessage().equals("Cannot create due to duplicate username"))
-				throw new InvalidInputException("The username has already been taken.");
+			if (e.getMessage().equals("Cannot create due to duplicate username")) {
+				player.delete();
+				throw new InvalidInputException("The username has already been taken.");}
+			
+			else if(player!=null) {player.delete();}
+			
+			else if(admin!=null) {admin.delete();}
 			throw new InvalidInputException(e.getMessage());
 
 			
@@ -654,5 +656,25 @@ public class Block223Controller {
 		}
 			
 	}
+	
+	
+	// play mode
+
+	public static List<TOPlayableGame> getPlayableGames() throws InvalidInputException {
+		return null;
+	}
+
+	public static List<TOCurrentlyPlayedGame> getCurrentPlayableGame() throws InvalidInputException {
+		return null;
+	}
+
+	public static TOHallOfFame getHallOfFame(int start, int end) throws InvalidInputException {
+		return null;
+	}
+
+	public static TOHallOfFame getHallOfFameWithMostRecentEntry(int numberOfEntries) throws InvalidInputException {
+		return null;
+	}
+
 
 }

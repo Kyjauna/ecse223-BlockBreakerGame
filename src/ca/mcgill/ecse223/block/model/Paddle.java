@@ -5,8 +5,8 @@ package ca.mcgill.ecse223.block.model;
 import java.io.Serializable;
 import java.util.*;
 
-// line 76 "../../../../../Block223Persistence.ump"
-// line 182 "../../../../../Block223 v2.ump"
+// line 59 "../../../../../Block223Persistence.ump"
+// line 178 "../../../../../Block223 v3.ump"
 public class Paddle implements Serializable
 {
 
@@ -26,7 +26,6 @@ public class Paddle implements Serializable
   private int minPaddleLength;
 
   //Paddle Associations
-  private List<PaddleOccurance> paddleOccurances;
   private Game game;
 
   //------------------------
@@ -35,7 +34,7 @@ public class Paddle implements Serializable
 
   public Paddle(int aMaxPaddleLength, int aMinPaddleLength, Game aGame)
   {
-    // line 190 "../../../../../Block223 v2.ump"
+    // line 185 "../../../../../Block223 v3.ump"
     if (aMaxPaddleLength <= 0 || aMaxPaddleLength > 390){
        			throw new RuntimeException("The maximum length of the paddle must be greater than zero and less than or equal to 390.");
           	}
@@ -45,7 +44,6 @@ public class Paddle implements Serializable
     // END OF UMPLE BEFORE INJECTION
     maxPaddleLength = aMaxPaddleLength;
     minPaddleLength = aMinPaddleLength;
-    paddleOccurances = new ArrayList<PaddleOccurance>();
     if (aGame == null || aGame.getPaddle() != null)
     {
       throw new RuntimeException("Unable to create Paddle due to aGame");
@@ -53,9 +51,9 @@ public class Paddle implements Serializable
     game = aGame;
   }
 
-  public Paddle(int aMaxPaddleLength, int aMinPaddleLength, boolean aIsPublishedForGame, String aNameForGame, int aNrBlocksPerLevelForGame, Admin aAdminForGame, Ball aBallForGame, Block223 aBlock223ForGame)
+  public Paddle(int aMaxPaddleLength, int aMinPaddleLength, String aNameForGame, int aNrBlocksPerLevelForGame, Admin aAdminForGame, Ball aBallForGame, Block223 aBlock223ForGame)
   {
-    // line 190 "../../../../../Block223 v2.ump"
+    // line 185 "../../../../../Block223 v3.ump"
     if (aMaxPaddleLength <= 0 || aMaxPaddleLength > 390){
        			throw new RuntimeException("The maximum length of the paddle must be greater than zero and less than or equal to 390.");
           	}
@@ -65,8 +63,7 @@ public class Paddle implements Serializable
     // END OF UMPLE BEFORE INJECTION
     maxPaddleLength = aMaxPaddleLength;
     minPaddleLength = aMinPaddleLength;
-    paddleOccurances = new ArrayList<PaddleOccurance>();
-    game = new Game(aIsPublishedForGame, aNameForGame, aNrBlocksPerLevelForGame, aAdminForGame, aBallForGame, this, aBlock223ForGame);
+    game = new Game(aNameForGame, aNrBlocksPerLevelForGame, aAdminForGame, aBallForGame, this, aBlock223ForGame);
   }
 
   //------------------------
@@ -98,121 +95,14 @@ public class Paddle implements Serializable
   {
     return minPaddleLength;
   }
-  /* Code from template association_GetMany */
-  public PaddleOccurance getPaddleOccurance(int index)
-  {
-    PaddleOccurance aPaddleOccurance = paddleOccurances.get(index);
-    return aPaddleOccurance;
-  }
-
-  public List<PaddleOccurance> getPaddleOccurances()
-  {
-    List<PaddleOccurance> newPaddleOccurances = Collections.unmodifiableList(paddleOccurances);
-    return newPaddleOccurances;
-  }
-
-  public int numberOfPaddleOccurances()
-  {
-    int number = paddleOccurances.size();
-    return number;
-  }
-
-  public boolean hasPaddleOccurances()
-  {
-    boolean has = paddleOccurances.size() > 0;
-    return has;
-  }
-
-  public int indexOfPaddleOccurance(PaddleOccurance aPaddleOccurance)
-  {
-    int index = paddleOccurances.indexOf(aPaddleOccurance);
-    return index;
-  }
   /* Code from template association_GetOne */
   public Game getGame()
   {
     return game;
   }
-  /* Code from template association_MinimumNumberOfMethod */
-  public static int minimumNumberOfPaddleOccurances()
-  {
-    return 0;
-  }
-  /* Code from template association_AddManyToOne */
-  public PaddleOccurance addPaddleOccurance(int aCurrentPaddleXPosition, int aCurrentPaddleLength, PlayableGame aPlayableGame)
-  {
-    return new PaddleOccurance(aCurrentPaddleXPosition, aCurrentPaddleLength, this, aPlayableGame);
-  }
-
-  public boolean addPaddleOccurance(PaddleOccurance aPaddleOccurance)
-  {
-    boolean wasAdded = false;
-    if (paddleOccurances.contains(aPaddleOccurance)) { return false; }
-    Paddle existingPaddle = aPaddleOccurance.getPaddle();
-    boolean isNewPaddle = existingPaddle != null && !this.equals(existingPaddle);
-    if (isNewPaddle)
-    {
-      aPaddleOccurance.setPaddle(this);
-    }
-    else
-    {
-      paddleOccurances.add(aPaddleOccurance);
-    }
-    wasAdded = true;
-    return wasAdded;
-  }
-
-  public boolean removePaddleOccurance(PaddleOccurance aPaddleOccurance)
-  {
-    boolean wasRemoved = false;
-    //Unable to remove aPaddleOccurance, as it must always have a paddle
-    if (!this.equals(aPaddleOccurance.getPaddle()))
-    {
-      paddleOccurances.remove(aPaddleOccurance);
-      wasRemoved = true;
-    }
-    return wasRemoved;
-  }
-  /* Code from template association_AddIndexControlFunctions */
-  public boolean addPaddleOccuranceAt(PaddleOccurance aPaddleOccurance, int index)
-  {  
-    boolean wasAdded = false;
-    if(addPaddleOccurance(aPaddleOccurance))
-    {
-      if(index < 0 ) { index = 0; }
-      if(index > numberOfPaddleOccurances()) { index = numberOfPaddleOccurances() - 1; }
-      paddleOccurances.remove(aPaddleOccurance);
-      paddleOccurances.add(index, aPaddleOccurance);
-      wasAdded = true;
-    }
-    return wasAdded;
-  }
-
-  public boolean addOrMovePaddleOccuranceAt(PaddleOccurance aPaddleOccurance, int index)
-  {
-    boolean wasAdded = false;
-    if(paddleOccurances.contains(aPaddleOccurance))
-    {
-      if(index < 0 ) { index = 0; }
-      if(index > numberOfPaddleOccurances()) { index = numberOfPaddleOccurances() - 1; }
-      paddleOccurances.remove(aPaddleOccurance);
-      paddleOccurances.add(index, aPaddleOccurance);
-      wasAdded = true;
-    } 
-    else 
-    {
-      wasAdded = addPaddleOccuranceAt(aPaddleOccurance, index);
-    }
-    return wasAdded;
-  }
 
   public void delete()
   {
-    for(int i=paddleOccurances.size(); i > 0; i--)
-    {
-      PaddleOccurance aPaddleOccurance = paddleOccurances.get(i - 1);
-      aPaddleOccurance.delete();
-    }
     Game existingGame = game;
     game = null;
     if (existingGame != null)
@@ -233,8 +123,8 @@ public class Paddle implements Serializable
   // DEVELOPER CODE - PROVIDED AS-IS
   //------------------------
   
-  // line 79 "../../../../../Block223Persistence.ump"
-  private static final long serialVersionUID = 81234509876L ;
+  // line 62 "../../../../../Block223Persistence.ump"
+  private static final long serialVersionUID = 8062668971918939261L ;
 
   
 }
