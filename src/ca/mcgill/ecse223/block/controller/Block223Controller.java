@@ -308,10 +308,10 @@ public class Block223Controller {
 		Level gameLevel;
 		
 		try {
-			gameLevel=game.getLevel(level);
+			gameLevel=game.getLevel(level-1);
 		}
 		catch (IndexOutOfBoundsException e) {
-			throw new InvalidInputException ("Level"+level+"does not exist for this game.");
+			throw new InvalidInputException ("Level"+(level-1)+"does not exist for this game.");
 		}
 		
 		int maxNrBlocksPerLevel = Block223Application.getCurrentGame().getNrBlocksPerLevel();
@@ -354,7 +354,7 @@ public class Block223Controller {
 		Level gameLevel;
 		
 		try {
-			gameLevel=game.getLevel(level);
+			gameLevel=game.getLevel(level-1);
 			BlockAssignment assignment = gameLevel.findBlockAssignment(oldGridHorizontalPosition, oldGridVerticalPosition);
 
 			for (BlockAssignment BA : gameLevel.getBlockAssignments()) {
@@ -363,10 +363,9 @@ public class Block223Controller {
 				}
 			}
 			
-			
 			if (assignment != null) {
-			assignment.setGridHorizontalPosition(newGridHorizontalPosition);
-			assignment.setGridVerticalPosition(newGridVerticalPosition);
+				assignment.setGridHorizontalPosition(newGridHorizontalPosition);
+				assignment.setGridVerticalPosition(newGridVerticalPosition);
 			}
 			
 		}
@@ -393,7 +392,7 @@ public class Block223Controller {
 			throw new InvalidInputException(error.trim());
 		
 		Game game = Block223Application.getCurrentGame();
-		Level gameLevel = game.getLevel(level);
+		Level gameLevel = game.getLevel(level-1);
 		BlockAssignment assignment = gameLevel.findBlockAssignment(gridHorizontalPosition, gridVerticalPosition);
 		if (assignment != null) {
 			assignment.delete();
@@ -564,7 +563,7 @@ public class Block223Controller {
 	
 		String error="";
 		if (Block223Application.getCurrentUserRole()instanceof Admin == false)
-			error="Admin Privileges are required to access game information. ";
+			error="Admin privileges are required to access game information. ";
 	
 		if(Block223Application.getCurrentGame().getAdmin()!=Block223Application.getCurrentUserRole())
 			error=error+"Only the admin who created the game can access its information. ";
