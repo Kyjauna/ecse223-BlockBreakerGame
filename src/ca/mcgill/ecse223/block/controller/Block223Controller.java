@@ -84,10 +84,14 @@ public class Block223Controller {
 	 	if (ballSpeedIncreaseFactor <= 0)
    			throw new InvalidInputException("The speed increase factor of the ball must be greater than zero.");  
 	 	
+	 	if (minBallSpeedY <= 0 && minBallSpeedX <= 0)
+   			throw new InvalidInputException("The minimum speed of the ball must be greater than zero.");  
+	 	
 		if (error.length() > 0)
 			throw new InvalidInputException(error.trim());
 		
-		if (Block223Application.getCurrentGame().get)
+		if (checkNumberOfBAs(nrBlocksPerLevel)) 
+			throw new InvalidInputException("The maximum number of blocks per level cannot be less than the number of existing blocks in a level.");
 		
 		Game game = Block223Application.getCurrentGame();
 		game.setNrBlocksPerLevel(nrBlocksPerLevel);
@@ -106,6 +110,15 @@ public class Block223Controller {
 			Level level = game.getLevel(game.numberOfLevels()-1);
 			level.delete();
 		}
+	}
+	
+	public static boolean checkNumberOfBAs(int nrBlocksPerLevel) {
+		for (Level level: Block223Application.getCurrentGame().getLevels()) {
+			int currentNumberofBlocks=level.numberOfBlockAssignments();
+			if (currentNumberofBlocks > nrBlocksPerLevel)
+				return true;
+		}
+		return false;
 	}
 
 	public static void deleteGame(String name) throws InvalidInputException {
