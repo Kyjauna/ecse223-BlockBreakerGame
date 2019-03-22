@@ -109,6 +109,13 @@ class Game {
 		
 	}
 
+		Block getRandomBlock(){
+			Random rgen = new Random();
+			List<Block> blocks=this.getBlocks();
+			int index = rgen.nextInt(this.numberOfBlocks());
+			return this.getBlock(index);
+		}
+	
 }
 
 class Block {

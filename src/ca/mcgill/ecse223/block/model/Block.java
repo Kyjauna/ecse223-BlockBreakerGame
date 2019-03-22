@@ -6,7 +6,7 @@ import java.io.Serializable;
 import java.util.*;
 
 // line 33 "../../../../../Block223Persistence.ump"
-// line 114 "../../../../../Block223 v3.ump"
+// line 121 "../../../../../Block223 v3.ump"
 public class Block implements Serializable
 {
 
@@ -45,7 +45,7 @@ public class Block implements Serializable
 
   public Block(int aRed, int aGreen, int aBlue, int aPoints, Game aGame)
   {
-    // line 128 "../../../../../Block223 v3.ump"
+    // line 135 "../../../../../Block223 v3.ump"
     if (aRed < 0 || aRed > 255)
       			 throw new RuntimeException("Red must be between 0 and 255.");
        	

@@ -248,8 +248,41 @@ class PlayedGame {
   
   // Actions
   
-  private void doSetup() {
-    // TODO implement
+   private void doSetup() {	
+	   	Random rgen=new Random();
+	   	doReset();
+	    Game game=getGame();
+	    Level level = game.getLevel(currentLevel-1);
+	    List<BlockAssignment> assignments= level.getBlockAssignments();
+	    
+	    for (BlockAssignment a: assignments){
+	    	PlayedBlockAssignment pblock=new PlayedBlockAssignment(game.WALL_PADDING+(Block.SIZE+game.COLUMNS_PADDING)*(a.getGridHorizontalPosition()-1),
+	    			game.WALL_PADDING+(Block.SIZE+game.ROW_PADDING)*(a.getGridVerticalPosition()-1), a.getBlock(), this);
+	    }
+	    
+	    while (numberOfBlocks()<game.getNrBlocksPerLevel()) {
+	   		int x=rgen.nextInt(15)+1;
+			int y=rgen.nextInt(10)+1;
+			while (level.findBlockAssignment(x,y)!=null) {
+				x++;
+				if (x==15) {
+					y++;
+					x=1;
+				}
+			}
+	    	PlayedBlockAssignment pblock=new PlayedBlockAssignment(Game.WALL_PADDING+(Block.SIZE+Game.COLUMNS_PADDING)*(x-1),
+	    			Game.WALL_PADDING+(Block.SIZE+Game.ROW_PADDING)*(y-1), game.getRandomBlock(), this);
+	    
+	    }
+	
+	}
+  
+  private void doReset(){
+  	resetCurrentBallX();
+  	resetCurrentBallY();
+  	resetBallDirectionX();
+  	resetBallDirectionY();
+  	resetCurrentPaddleX();
   }
   
   private void doHitPaddleOrWall() {
