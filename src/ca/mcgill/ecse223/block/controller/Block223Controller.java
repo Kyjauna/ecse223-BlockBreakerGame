@@ -13,8 +13,10 @@ import ca.mcgill.ecse223.block.model.Block;
 import ca.mcgill.ecse223.block.model.Block223;
 import ca.mcgill.ecse223.block.model.BlockAssignment;
 import ca.mcgill.ecse223.block.model.Game;
+import ca.mcgill.ecse223.block.model.HallOfFameEntry;
 import ca.mcgill.ecse223.block.model.Level;
 import ca.mcgill.ecse223.block.model.Paddle;
+import ca.mcgill.ecse223.block.model.PlayedGame;
 import ca.mcgill.ecse223.block.model.Player;
 import ca.mcgill.ecse223.block.model.User;
 import ca.mcgill.ecse223.block.model.UserRole;
@@ -676,11 +678,59 @@ public class Block223Controller {
 	}
 
 	public static TOHallOfFame getHallOfFame(int start, int end) throws InvalidInputException {
-		return null;
+		UserRole userRole=Block223Application.getCurrentUserRole();
+		
+		if (!(userRole instanceof Player))
+			throw new InvalidInputException("Player privileges are required to access a game's hall of fame.");
+		
+		if (Block223Application.getCurrentPlayableGame == null || Block223Application.getCurrentPlayableGame(""))
+			throw new InvalidInputException("A game must be selected to view its hall of fame.");
+		
+		PlayedGame pgame = Block223Application.getCurrentPlayableGame();
+		Game game = pgame.getGame();
+		TOHallOfFame result = new TOHallOfFame(game.getName());
+		
+		for (int i = start ; i<= end; i++) {
+			TOHallOfFameEntry entry = new TOHallOfFameEntry(i+1, game.getHallOfFameEntry(i).getPlayername(), game.getHallOfFameEntry(i).getScore(), result);
+		}
+		
+		return result;
+		
+		
 	}
 
 	public static TOHallOfFame getHallOfFameWithMostRecentEntry(int numberOfEntries) throws InvalidInputException {
-		return null;
+		UserRole userRole=Block223Application.getCurrentUserRole();
+		
+		if (!(userRole instanceof Player))
+			throw new InvalidInputException("Player privileges are required to access a game's hall of fame.");
+		
+		if (Block223Application.getCurrentPlayableGame == null || Block223Application.getCurrentPlayableGame(""))
+			throw new InvalidInputException("A game must be selected to view its hall of fame.");
+		
+		PlayedGame pgame = Block223Application.getCurrentPlayableGame();
+		Game game = pgame.getGame();
+		TOHallOfFame result = new TOHallOfFame(game.getName()); 
+		HallOfFameEntry mostRecent = game.getMostRecentEntry();
+		int indexR = game.indexOfHallOfFameEntry(mostRecent);
+		
+		int start = indexR - (game.numberOfHallOfFameEntries() / 2 );
+		if (start < 1 ) {
+			start = 1;
+		}
+		int end = game.numberOfHallOfFameEntries();
+			if(end > game.numberOfHallOfFameEntries()) {
+				end = game.numberOfHallOfFameEntries();
+			}
+			
+		start = start -1;
+		end = end -1;
+		 		
+		for (int i = start ; i<= end; i++) {
+			TOHallOfFameEntry entry = new TOHallOfFameEntry(i+1, game.getHallOfFameEntry(i).getPlayername(), game.getHallOfFameEntry(i).getScore(), result);		}
+		
+		
+		return result;
 	}
 
 
