@@ -21,6 +21,7 @@ import ca.mcgill.ecse223.block.model.Player;
 import ca.mcgill.ecse223.block.model.User;
 import ca.mcgill.ecse223.block.model.UserRole;
 import ca.mcgill.ecse223.block.persistence.Block223Persistence;
+import ca.mcgill.ecse223.block.view.Block223PlayModeInterface;
 import ca.mcgill.ecse223.block.controller.TOGame;
 
 
@@ -518,6 +519,20 @@ public class Block223Controller {
 		Block223Application.setCurrentUserRole(null);
 	}
 
+	public static void selectPlayableGame(String name, int id) throws InvalidInputException  {
+	}
+
+	public static void startGame(Block223PlayModeInterface ui) throws InvalidInputException {
+	}
+
+	public static void testGame(Block223PlayModeInterface ui) throws InvalidInputException {
+	
+	}
+
+	public static void publishGame () throws InvalidInputException {
+	
+	}
+	
 
 	// ****************************
 	// Query methods

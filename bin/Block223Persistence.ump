@@ -8,7 +8,7 @@ class Block223 {
 	public void reinitialize() {
     User.reinitializeUniqueUsername(this.getUsers());
     Game.reinitializeUniqueName(this.getGames());
-    //PlayedGame.reinitializeAutouniquePgameID(this.getPlayedGames());
+    PlayedGame.reinitializeAutouniquePgameID(this.getPlayedGames());
     
     
     List<Game> games=this.getGames();
