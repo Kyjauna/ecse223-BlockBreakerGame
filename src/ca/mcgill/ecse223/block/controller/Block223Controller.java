@@ -426,7 +426,7 @@ public class Block223Controller {
 	public static void register(String username, String playerPassword, String adminPassword)
 			throws InvalidInputException {
 		
-		Block223 block223=Block223Application.resetBlock223();
+		Block223 block223=Block223Application.getBlock223();
 
 		String error = "";
 				

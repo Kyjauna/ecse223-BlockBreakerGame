@@ -5,11 +5,8 @@ package ca.mcgill.ecse223.block.model;
 import java.io.Serializable;
 import java.util.*;
 
-/**
- * the reinitialize methods need to be added
- */
 // line 1 "../../../../../Block223PlayMode.ump"
-// line 5 "../../../../../Block223Persistence.ump"
+// line 3 "../../../../../Block223Persistence.ump"
 // line 7 "../../../../../Block223 v3.ump"
 public class Block223 implements Serializable
 {
@@ -588,6 +585,17 @@ public class Block223 implements Serializable
     
   }
 
+  // line 9 "../../../../../Block223Persistence.ump"
+   public void reinitialize(){
+    User.reinitializeUniqueUsername(this.getUsers());
+    Game.reinitializeUniqueName(this.getGames());
+    PlayedGame.reinitializeAutouniquePgameID(this.getPlayedGames());
+    List<Game> games=this.getGames();
+    for (Game game : games) {
+    game.reinitialize();
+    }
+  }
+
   // line 13 "../../../../../Block223 v3.ump"
   public Game findGame(String name){
     Game foundGame = null;
@@ -616,8 +624,8 @@ public class Block223 implements Serializable
   // DEVELOPER CODE - PROVIDED AS-IS
   //------------------------
   
-  // line 8 "../../../../../Block223Persistence.ump"
-  private static final long serialVersionUID = 6181302407834705923L ;
+  // line 6 "../../../../../Block223Persistence.ump"
+  private static final long serialVersionUID = 15645756832L ;
 
   
 }

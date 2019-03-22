@@ -26,7 +26,7 @@ public class Block223Application {
 	
 	public static Block223 getBlock223() {
 		if (block223 == null) {
-			block223 = new Block223();
+			block223 =Block223Persistence.load();
 		}
 		return block223;
 	}
