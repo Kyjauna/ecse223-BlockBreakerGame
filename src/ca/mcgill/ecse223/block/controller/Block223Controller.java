@@ -683,7 +683,7 @@ public class Block223Controller {
 		if (!(userRole instanceof Player))
 			throw new InvalidInputException("Player privileges are required to access a game's hall of fame.");
 		
-		if (Block223Application.getCurrentPlayableGame == null || Block223Application.getCurrentPlayableGame(""))
+		if (Block223Application.getCurrentPlayableGame() == null)
 			throw new InvalidInputException("A game must be selected to view its hall of fame.");
 		
 		PlayedGame pgame = Block223Application.getCurrentPlayableGame();
@@ -692,6 +692,7 @@ public class Block223Controller {
 		
 		for (int i = start ; i<= end; i++) {
 			TOHallOfFameEntry entry = new TOHallOfFameEntry(i+1, game.getHallOfFameEntry(i).getPlayername(), game.getHallOfFameEntry(i).getScore(), result);
+			result.addEntry(entry);
 		}
 		
 		return result;
@@ -705,19 +706,23 @@ public class Block223Controller {
 		if (!(userRole instanceof Player))
 			throw new InvalidInputException("Player privileges are required to access a game's hall of fame.");
 		
-		if (Block223Application.getCurrentPlayableGame == null || Block223Application.getCurrentPlayableGame(""))
+		if (Block223Application.getCurrentPlayableGame() == null)
 			throw new InvalidInputException("A game must be selected to view its hall of fame.");
 		
 		PlayedGame pgame = Block223Application.getCurrentPlayableGame();
 		Game game = pgame.getGame();
+		
 		TOHallOfFame result = new TOHallOfFame(game.getName()); 
 		HallOfFameEntry mostRecent = game.getMostRecentEntry();
+		
 		int indexR = game.indexOfHallOfFameEntry(mostRecent);
 		
 		int start = indexR - (game.numberOfHallOfFameEntries() / 2 );
+		
 		if (start < 1 ) {
 			start = 1;
 		}
+		
 		int end = game.numberOfHallOfFameEntries();
 			if(end > game.numberOfHallOfFameEntries()) {
 				end = game.numberOfHallOfFameEntries();
@@ -727,11 +732,12 @@ public class Block223Controller {
 		end = end -1;
 		 		
 		for (int i = start ; i<= end; i++) {
-			TOHallOfFameEntry entry = new TOHallOfFameEntry(i+1, game.getHallOfFameEntry(i).getPlayername(), game.getHallOfFameEntry(i).getScore(), result);		}
-		
-		
-		return result;
+			TOHallOfFameEntry entry = new TOHallOfFameEntry(i+1, game.getHallOfFameEntry(i).getPlayername(), game.getHallOfFameEntry(i).getScore(), result);		
+		result.addEntry(entry);
 	}
+		return result;
+}
+
 
 
 }
