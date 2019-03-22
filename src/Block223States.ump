@@ -28,10 +28,119 @@ class PlayedGame {
   
   // Guards
   
-  private boolean hitPaddle() {
-    // TODO implement
-    return false;
+   private boolean hitPaddle(){
+	   BouncePoint bp = calculateBouncePointPaddle();
+	   
+	   if (bp != null) {
+		   setBounce(bp);
+		   return true;
+	   }
+	   else 
+		   return false;
   }
+   
+   private BouncePoint calculateBouncePointPaddle() {
+	   // Current position of the ball
+	   double x = getCurrentBallX();
+	   double y = getCurrentBallY();
+	   // Where the ball is going
+	   double dx = getBallDirectionX();
+	   double dy = getBallDirectionY();
+	   // New position of the ball
+	   setCurrentBallX(x+dx);
+	   setCurrentBallY(y+dy);
+	   
+	   BouncePoint bp = null;
+	   
+	   // Add 5 to all the variables to account for the radius of the ball
+	   // Rectangle2D paddle = new Rectangle2D.Double(getCurrentPaddleX()+(double)5, getCurrentPaddleY()+(double)5, (double) 10, getCurrentPaddleLength()+(double)5);
+	   // if (paddle.intersects(getCurrentBallX(), getCurrentBallY(), 5, 5)) { // not sure about these 5s
+		   // BOUNCE
+		   // Section A
+		   if (getCurrentBallY() == 350 && getCurrentBallX() >= getCurrentPaddleX() && getCurrentBallX() <= (getCurrentPaddleX() + getCurrentPaddleLength())) {
+			   bp.setX(getCurrentBallX());
+			   bp.setY(getCurrentBallY());
+			   bp.setDirection(BouncePoint.BounceDirection.FLIP_Y);
+		   }
+		   
+		   // Section B
+		   if (getCurrentBallX() == (getCurrentPaddleX()+5) && getCurrentBallY() >= 355 && getCurrentBallY() <= 360) {
+			   bp.setX(getCurrentBallX());
+			   bp.setY(getCurrentBallY());
+			   bp.setDirection(BouncePoint.BounceDirection.FLIP_X);
+		   }
+		   
+		   // Section C
+		   if (getCurrentBallX() == (getCurrentPaddleX()+getCurrentPaddleLength()+5) && getCurrentBallY() >= 355 && getCurrentBallY() <= 360) {
+			   bp.setX(getCurrentBallX());
+			   bp.setY(getCurrentBallY());
+			   bp.setDirection(BouncePoint.BounceDirection.FLIP_X);
+		   }
+		   
+		   // Section E
+		   // Incomplete; does not account for the whole curvature; only for the corner
+		   if (getCurrentBallX() == (getCurrentPaddleX()+5) && getCurrentBallY() == 350) {
+			   bp.setX(getCurrentBallX());
+			   bp.setY(getCurrentBallY());
+			   bp.setDirection(BouncePoint.BounceDirection.FLIP_BOTH);
+		   }
+		   
+		   // Section F
+		   if (getCurrentBallX() == (getCurrentPaddleX()+getCurrentPaddleLength()+5) && getCurrentBallY() == 350) {
+			   bp.setX(getCurrentBallX());
+			   bp.setY(getCurrentBallY());
+			   bp.setDirection(BouncePoint.BounceDirection.FLIP_BOTH);
+		   }
+	  // }
+	   return bp;
+   }
+   
+   private void bounceBall() {
+	   
+	   double incomingX;
+	   double remainingX;
+	   double incomingY;
+	   double remainingY;
+	   
+	   // Flip_X case
+	   if (bounce.getDirection() == BouncePoint.BounceDirection.FLIP_X) {
+		   // Incoming distance
+		   incomingX = (bounce.getX() - getCurrentBallX());
+		   remainingX = getBallDirectionX() - incomingX;
+		   if (remainingX == 0) {
+			   setCurrentBallX(bounce.getX());
+			   setCurrentBallY(bounce.getY());
+		   }
+		   else
+		   {
+			   setBallDirectionX(getBallDirectionX()*(-1));
+			   setBallDirectionY(getCurrentBallY() + Math.signum(getBallDirectionY())*0.1*Math.abs(getBallDirectionX()));
+			   // No variable "newBallDirectionY to distinguish from the old one, thus *(-1)
+			   setCurrentBallX(bounce.getX() + (remainingX/getBallDirectionX())*(-1)*(getBallDirectionX()));
+			   setCurrentBallY(bounce.getY() + (remainingX/getBallDirectionX())*(-1)*(getBallDirectionY()));
+		   }
+	   }
+	   
+	   // Flip_Y case
+	   if (bounce.getDirection() == BouncePoint.BounceDirection.FLIP_Y) {
+		   // Incoming distance
+		   incomingY = (bounce.getY() - getCurrentBallY());
+		   remainingY = getBallDirectionY() - incomingY;
+		   if (remainingY == 0) {
+			   setCurrentBallX(bounce.getX());
+			   setCurrentBallY(bounce.getY());
+		   }
+		   else
+		   {
+			   setBallDirectionX(getCurrentBallX() + Math.signum(getBallDirectionX()*0.1*Math.abs(getBallDirectionY())));
+			   setBallDirectionY(getBallDirectionY()*(-1));
+			   // No variable "newBallDirectionY to distinguish from the old one, thus *(-1)
+			   setCurrentBallX(bounce.getX() + (remainingY/getBallDirectionY())*(-1)*(getBallDirectionX()));
+			   setCurrentBallY(bounce.getY() + (remainingY/getBallDirectionY())*(-1)*(getBallDirectionY()));
+		   } 
+	   }
+	   
+   }
 
   private boolean isOutOfBoundsAndLastLife() {
     // TODO implement
@@ -58,10 +167,69 @@ class PlayedGame {
     return false;
   }
   
-  private boolean hitWall() {
-    // TODO implement
-    return false;
+   private boolean hitWall(){
+	   BouncePoint bp = calculateBouncePointWall();
+	
+	   if (bp != null) {
+		   setBounce(bp);
+		   return true;
+	   }
+	   else
+		   return false;
   }
+  
+   private BouncePoint calculateBouncePointWall() {
+	   
+	   // Current position of the ball
+	   double x = getCurrentBallX();
+	   double y = getCurrentBallY();
+	   // Where the ball is going
+	   double dx = getBallDirectionX();
+	   double dy = getBallDirectionY();
+	   // New position of the ball
+	   setCurrentBallX(x+dx);
+	   setCurrentBallY(y+dy);
+	   
+	   BouncePoint bp = null;
+	   
+	   // Section A
+	   if (getCurrentBallX() == 5 && getCurrentBallY() > 5 && getCurrentBallY() < 385) {
+		   bp.setX(getCurrentBallX());
+		   bp.setY(getCurrentBallY());
+		   bp.setDirection(BouncePoint.BounceDirection.FLIP_X);
+	   }
+	   
+	   // Section B
+	   if (getCurrentBallY() == 5 && getCurrentBallX() > 5 && getCurrentBallX() < 385) {
+		   bp.setX(getCurrentBallX());
+		   bp.setY(getCurrentBallY());
+		   bp.setDirection(BouncePoint.BounceDirection.FLIP_Y);
+	   }
+	   
+	   // Section C
+	   if (getCurrentBallX() == 385 && getCurrentBallY() > 5 && getCurrentBallY() < 385) {
+		   bp.setX(getCurrentBallX());
+		   bp.setY(getCurrentBallY());
+		   bp.setDirection(BouncePoint.BounceDirection.FLIP_X);
+	   }
+	   
+	   // A-B Corner
+	   if (getCurrentBallX() == 5 && getCurrentBallY() == 5) {
+		   bp.setX(getCurrentBallX());
+		   bp.setY(getCurrentBallY());
+		   bp.setDirection(BouncePoint.BounceDirection.FLIP_BOTH);
+	   }
+	   
+	   // B-C Corner
+	   if (getCurrentBallX() == 385 && getCurrentBallY() == 5) {
+		   bp.setX(getCurrentBallX());
+		   bp.setY(getCurrentBallY());
+		   bp.setDirection(BouncePoint.BounceDirection.FLIP_BOTH);
+	   }
+	   
+	   return bp;
+   }
+
   
   // Actions
   
@@ -70,7 +238,9 @@ class PlayedGame {
   }
   
   private void doHitPaddleOrWall() {
-    // TODO implement
+    
+	   bounceBall();
+	   
   }
 
   private void doOutOfBounds() {

@@ -2,6 +2,8 @@
 /*This code was generated using the UMPLE 1.29.0.4181.a593105a9 modeling language!*/
 
 package ca.mcgill.ecse223.block.model;
+import java.awt.geom.Rectangle2D;
+import java.lang.Math;
 import java.io.Serializable;
 import java.util.*;
 
@@ -729,9 +731,10 @@ public class PlayedGame implements Serializable
    */
   // line 32 "../../../../../Block223States.ump"
    private boolean hitPaddle(){
-    // TODO implement
-    return false;
+	// TODO implement
+	    return false;
   }
+   
 
   // line 37 "../../../../../Block223States.ump"
    private boolean isOutOfBoundsAndLastLife(){
@@ -765,9 +768,10 @@ public class PlayedGame implements Serializable
 
   // line 62 "../../../../../Block223States.ump"
    private boolean hitWall(){
-    // TODO implement
-    return false;
+	// TODO implement
+	return false;
   }
+   
 
 
   /**
@@ -780,8 +784,8 @@ public class PlayedGame implements Serializable
 
   // line 73 "../../../../../Block223States.ump"
    private void doHitPaddleOrWall(){
-    // TODO implement
-  }
+	// TODO implement
+   }
 
   // line 77 "../../../../../Block223States.ump"
    private void doOutOfBounds(){
