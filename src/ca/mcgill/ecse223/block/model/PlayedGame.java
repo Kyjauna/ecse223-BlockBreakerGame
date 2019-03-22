@@ -6,7 +6,7 @@ import java.io.Serializable;
 import java.util.*;
 
 // line 11 "../../../../../Block223PlayMode.ump"
-// line 108 "../../../../../Block223Persistence.ump"
+// line 110 "../../../../../Block223Persistence.ump"
 // line 1 "../../../../../Block223States.ump"
 public class PlayedGame implements Serializable
 {
@@ -712,7 +712,7 @@ public class PlayedGame implements Serializable
     }
   }
 
-  // line 114 "../../../../../Block223Persistence.ump"
+  // line 116 "../../../../../Block223Persistence.ump"
    public static  void reinitializeAutouniquePgameID(List<PlayedGame> pgames){
     nextId = 0; 
     	for (PlayedGame pgame : pgames) {
@@ -798,10 +798,9 @@ public class PlayedGame implements Serializable
     // TODO implement
   }
 
-  // line 89 "../../../../../Block223States.ump"
+  // line 90 "../../../../../Block223States.ump"
    private void doHitNothingAndNotOutOfBounds(){
-	   
-	   double x = getCurrentBallX();
+    double x = getCurrentBallX();
 	   double y = getCurrentBallY();
 	   
 	   double dx = getBallDirectionX();
@@ -809,10 +808,9 @@ public class PlayedGame implements Serializable
 	   
 	   setCurrentBallX(x+dx);
 	   setCurrentBallY(y+dy);
-	   
   }
 
-  // line 93 "../../../../../Block223States.ump"
+  // line 102 "../../../../../Block223States.ump"
    private void doGameOver(){
     // TODO implement
   }
@@ -843,7 +841,7 @@ public class PlayedGame implements Serializable
   // DEVELOPER CODE - PROVIDED AS-IS
   //------------------------
   
-  // line 111 "../../../../../Block223Persistence.ump"
+  // line 113 "../../../../../Block223Persistence.ump"
   private static final long serialVersionUID = 11789647876L ;
 
   

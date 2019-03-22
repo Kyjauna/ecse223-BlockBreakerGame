@@ -5,8 +5,8 @@ package ca.mcgill.ecse223.block.model;
 import java.io.Serializable;
 import java.util.*;
 
-// line 31 "../../../../../Block223Persistence.ump"
-// line 103 "../../../../../Block223 v3.ump"
+// line 33 "../../../../../Block223Persistence.ump"
+// line 114 "../../../../../Block223 v3.ump"
 public class Block implements Serializable
 {
 
@@ -45,7 +45,7 @@ public class Block implements Serializable
 
   public Block(int aRed, int aGreen, int aBlue, int aPoints, Game aGame)
   {
-    // line 117 "../../../../../Block223 v3.ump"
+    // line 128 "../../../../../Block223 v3.ump"
     if (aRed < 0 || aRed > 255)
       			 throw new RuntimeException("Red must be between 0 and 255.");
        	
@@ -384,7 +384,7 @@ public class Block implements Serializable
     }
   }
 
-  // line 37 "../../../../../Block223Persistence.ump"
+  // line 39 "../../../../../Block223Persistence.ump"
    public static  void reinitializeAutouniqueID(List<Block> blocks){
     nextId = 0; 
     	for (Block block : blocks) {
@@ -410,7 +410,7 @@ public class Block implements Serializable
   // DEVELOPER CODE - PROVIDED AS-IS
   //------------------------
   
-  // line 34 "../../../../../Block223Persistence.ump"
+  // line 36 "../../../../../Block223Persistence.ump"
   private static final long serialVersionUID = 41234567654L ;
 
   

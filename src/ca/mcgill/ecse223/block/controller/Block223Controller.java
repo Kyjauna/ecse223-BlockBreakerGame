@@ -527,10 +527,43 @@ public class Block223Controller {
 
 	public static void testGame(Block223PlayModeInterface ui) throws InvalidInputException {
 	
+		if (!(Block223Application.getCurrentUserRole() instanceof Admin))
+			throw new InvalidInputException("Admin privileges are required to test a game.");
+		
+		if (Block223Application.getCurrentGame()==null)
+			throw new InvalidInputException("A game must be selected to test it.");
+		
+		if (Block223Application.getCurrentUserRole()!=Block223Application.getCurrentGame().getAdmin())
+			throw new InvalidInputException("Only the admin who created the game can test it.");
+		
+		Game game = Block223Application.getCurrentGame();
+		
+		UserRole admin= game.getAdmin();
+		
+		Block223 b =Block223Application.getBlock223();
+		
+		String username= b.findWithRole(admin).getUsername();
+		
+		PlayedGame pgame=new PlayedGame(username, game, b);
+		
+		pgame.setPlayer(null);
+		
+		Block223Application.setCurrentPlayableGame(null);
+		
+		startGame(ui);
+		
 	}
 
 	public static void publishGame () throws InvalidInputException {
-	
+		
+		if (!(Block223Application.getCurrentUserRole() instanceof Admin))
+			throw new InvalidInputException("Admin privileges are required to publish a game.");
+		
+		if (Block223Application.getCurrentGame()==null)
+			throw new InvalidInputException("A game must be selected to publish it.");
+		
+		if (Block223Application.getCurrentUserRole()!=Block223Application.getCurrentGame().getAdmin())
+			throw new InvalidInputException("Only the admin who created the game can publish it.");
 	}
 	
 

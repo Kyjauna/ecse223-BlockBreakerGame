@@ -5,8 +5,8 @@ package ca.mcgill.ecse223.block.model;
 import java.io.Serializable;
 import java.util.*;
 
-// line 88 "../../../../../Block223Persistence.ump"
-// line 36 "../../../../../Block223 v3.ump"
+// line 90 "../../../../../Block223Persistence.ump"
+// line 47 "../../../../../Block223 v3.ump"
 public class User implements Serializable
 {
 
@@ -33,7 +33,7 @@ public class User implements Serializable
 
   public User(String aUsername, Block223 aBlock223, UserRole... allRoles)
   {
-    // line 38 "../../../../../Block223 v3.ump"
+    // line 49 "../../../../../Block223 v3.ump"
     if (aUsername==null||aUsername.equals("")){
        			throw new RuntimeException("The username must be specified.");
        		}
@@ -252,7 +252,7 @@ public class User implements Serializable
     }
   }
 
-  // line 94 "../../../../../Block223Persistence.ump"
+  // line 96 "../../../../../Block223Persistence.ump"
    public static  void reinitializeUniqueUsername(List<User> users){
     usersByUsername = new HashMap<String, User>();
     for (User user : users) {
@@ -271,7 +271,7 @@ public class User implements Serializable
   // DEVELOPER CODE - PROVIDED AS-IS
   //------------------------
   
-  // line 91 "../../../../../Block223Persistence.ump"
+  // line 93 "../../../../../Block223Persistence.ump"
   private static final long serialVersionUID = 10312456789L ;
 
   
