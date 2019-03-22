@@ -53,9 +53,24 @@ class PlayedGame {
     return false;
   }
   
-  private boolean hitBlock() {
-    // TODO implement
-    return false;
+  private boolean hitBlock(){
+	   
+    int nrBlocks = this.numberOfBlocks();
+    setBounce(null);
+    
+    for(int i=0; i<numberOfBlocks()-1; i++) {
+    	
+    	
+    		
+    	PlayedBlockAssignment block = getBlock(i);
+    	BouncePoint bp = calculateBouncePointBlock(block);
+    	BouncePoint bounce = getBounce();
+    	boolean closer = isCloser(bp, bounce);
+    	if(closer == true) {
+    		setBounce(bp);
+    	}
+    	return getBounce()!=null;
+    }
   }
   
   private boolean hitWall() {
@@ -77,9 +92,27 @@ class PlayedGame {
     // TODO implement
   }
 
-  private void doHitBlock() {
-    // TODO implement
+   private void doHitBlock(){
+  
+	   score = getScore();
+	   
+	   bounce = getBounce();
+	   
+	   PlayedBlockAssignment pblock = bounce.getHitBlock();
+	   
+	   Block block = pblock.getBlock();
+	   
+	   int bscore = block.getPoints();
+	   
+	   setScore(score+bscore);
+	   
+	   pblock.delete();
+	   
+	   bounceBall();
+	   
+	   return;
   }
+   
 
   private void doHitBlockNextLevel() {
     // TODO implement

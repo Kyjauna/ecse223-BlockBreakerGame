@@ -759,8 +759,23 @@ public class PlayedGame implements Serializable
 
   // line 57 "../../../../../Block223States.ump"
    private boolean hitBlock(){
-    // TODO implement
-    return false;
+	   
+    int nrBlocks = this.numberOfBlocks();
+    setBounce(null);
+    
+    for(int i=0; i<numberOfBlocks()-1; i++) {
+    	
+    	
+    		
+    	PlayedBlockAssignment block = getBlock(i);
+    	BouncePoint bp = calculateBouncePointBlock(block);
+    	BouncePoint bounce = getBounce();
+    	boolean closer = isCloser(bp, bounce);
+    	if(closer == true) {
+    		setBounce(bp);
+    	}
+    	return getBounce()!=null;
+    }
   }
 
   // line 62 "../../../../../Block223States.ump"
@@ -790,8 +805,27 @@ public class PlayedGame implements Serializable
 
   // line 81 "../../../../../Block223States.ump"
    private void doHitBlock(){
-    // TODO implement
+  
+	   score = getScore();
+	   
+	   bounce = getBounce();
+	   
+	   PlayedBlockAssignment pblock = bounce.getHitBlock();
+	   
+	   Block block = pblock.getBlock();
+	   
+	   int bscore = block.getPoints();
+	   
+	   setScore(score+bscore);
+	   
+	   pblock.delete();
+	   
+	   bounceBall();
+	   
+	   return;
   }
+   
+   
 
   // line 85 "../../../../../Block223States.ump"
    private void doHitBlockNextLevel(){
