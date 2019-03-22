@@ -8,7 +8,7 @@ import java.io.Serializable;
 import java.util.*;
 
 // line 11 "../../../../../Block223PlayMode.ump"
-// line 108 "../../../../../Block223Persistence.ump"
+// line 110 "../../../../../Block223Persistence.ump"
 // line 1 "../../../../../Block223States.ump"
 public class PlayedGame implements Serializable
 {
@@ -714,7 +714,7 @@ public class PlayedGame implements Serializable
     }
   }
 
-  // line 114 "../../../../../Block223Persistence.ump"
+  // line 116 "../../../../../Block223Persistence.ump"
    public static  void reinitializeAutouniquePgameID(List<PlayedGame> pgames){
     nextId = 0; 
     	for (PlayedGame pgame : pgames) {
@@ -762,8 +762,23 @@ public class PlayedGame implements Serializable
 
   // line 57 "../../../../../Block223States.ump"
    private boolean hitBlock(){
-    // TODO implement
-    return false;
+	   
+    int nrBlocks = this.numberOfBlocks();
+    setBounce(null);
+    
+    for(int i=0; i<numberOfBlocks()-1; i++) {
+    	
+    	
+    		
+    	PlayedBlockAssignment block = getBlock(i);
+    	BouncePoint bp = calculateBouncePointBlock(block);
+    	BouncePoint bounce = getBounce();
+    	boolean closer = isCloser(bp, bounce);
+    	if(closer == true) {
+    		setBounce(bp);
+    	}
+    	return getBounce()!=null;
+    }
   }
 
   // line 62 "../../../../../Block223States.ump"
@@ -794,20 +809,46 @@ public class PlayedGame implements Serializable
 
   // line 81 "../../../../../Block223States.ump"
    private void doHitBlock(){
-    // TODO implement
+  
+	   score = getScore();
+	   
+	   bounce = getBounce();
+	   
+	   PlayedBlockAssignment pblock = bounce.getHitBlock();
+	   
+	   Block block = pblock.getBlock();
+	   
+	   int bscore = block.getPoints();
+	   
+	   setScore(score+bscore);
+	   
+	   pblock.delete();
+	   
+	   bounceBall();
+	   
+	   return;
   }
+   
+   
 
   // line 85 "../../../../../Block223States.ump"
    private void doHitBlockNextLevel(){
     // TODO implement
   }
 
-  // line 89 "../../../../../Block223States.ump"
+  // line 90 "../../../../../Block223States.ump"
    private void doHitNothingAndNotOutOfBounds(){
-    // TODO implement
+    double x = getCurrentBallX();
+	   double y = getCurrentBallY();
+	   
+	   double dx = getBallDirectionX();
+	   double dy = getBallDirectionY();
+	   
+	   setCurrentBallX(x+dx);
+	   setCurrentBallY(y+dy);
   }
 
-  // line 93 "../../../../../Block223States.ump"
+  // line 102 "../../../../../Block223States.ump"
    private void doGameOver(){
     // TODO implement
   }
@@ -838,7 +879,7 @@ public class PlayedGame implements Serializable
   // DEVELOPER CODE - PROVIDED AS-IS
   //------------------------
   
-  // line 111 "../../../../../Block223Persistence.ump"
+  // line 113 "../../../../../Block223Persistence.ump"
   private static final long serialVersionUID = 11789647876L ;
 
   

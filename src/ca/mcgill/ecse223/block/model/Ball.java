@@ -5,8 +5,8 @@ package ca.mcgill.ecse223.block.model;
 import java.io.Serializable;
 import java.util.*;
 
-// line 25 "../../../../../Block223Persistence.ump"
-// line 158 "../../../../../Block223 v3.ump"
+// line 27 "../../../../../Block223Persistence.ump"
+// line 169 "../../../../../Block223 v3.ump"
 public class Ball implements Serializable
 {
 
@@ -34,7 +34,7 @@ public class Ball implements Serializable
 
   public Ball(int aMinBallSpeedX, int aMinBallSpeedY, double aBallSpeedIncreaseFactor, Game aGame)
   {
-    // line 165 "../../../../../Block223 v3.ump"
+    // line 176 "../../../../../Block223 v3.ump"
     if (aMinBallSpeedX <= 0){
        			throw new RuntimeException("The minimum speed of the ball must be greater than zero.");
        		}
@@ -57,7 +57,7 @@ public class Ball implements Serializable
 
   public Ball(int aMinBallSpeedX, int aMinBallSpeedY, double aBallSpeedIncreaseFactor, String aNameForGame, int aNrBlocksPerLevelForGame, Admin aAdminForGame, Paddle aPaddleForGame, Block223 aBlock223ForGame)
   {
-    // line 165 "../../../../../Block223 v3.ump"
+    // line 176 "../../../../../Block223 v3.ump"
     if (aMinBallSpeedX <= 0){
        			throw new RuntimeException("The minimum speed of the ball must be greater than zero.");
        		}
@@ -145,7 +145,7 @@ public class Ball implements Serializable
   // DEVELOPER CODE - PROVIDED AS-IS
   //------------------------
   
-  // line 28 "../../../../../Block223Persistence.ump"
+  // line 30 "../../../../../Block223Persistence.ump"
   private static final long serialVersionUID = 33577357567L ;
 
   
