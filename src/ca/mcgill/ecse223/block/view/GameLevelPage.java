@@ -77,7 +77,7 @@ public class GameLevelPage {
 		List<TOGridCell> BAs = null;
 		List<TOBlock> blocks = null;		
 		Integer x_coordinate=10;
-		Integer y_coordinate=2;
+		Integer y_coordinate=10;
 		
 		Map<Integer, Integer> Hpositions =new HashMap<Integer, Integer>();
 		for( Integer i=0;i<15;i++) {
@@ -86,7 +86,7 @@ public class GameLevelPage {
 		}
 
 		Map<Integer, Integer> Vpositions =new HashMap<Integer, Integer>();
-		for( Integer i=0;i<10;i++) {
+		for( Integer i=0;i<15;i++) {
 			Vpositions.put(i,y_coordinate);
 			y_coordinate=y_coordinate+22;
 		}
