@@ -82,7 +82,7 @@ public class Block223Controller {
    			throw new InvalidInputException("The maximum length of the paddle must be greater than zero and less than or equal to 390.");
 		
 	 	if (nrBlocksPerLevel <= 0)
-	   			throw new InvalidInputException("The number of blocks per level must be greater than zero.");
+	   		throw new InvalidInputException("The number of blocks per level must be greater than zero.");
 		
 	 	if (ballSpeedIncreaseFactor <= 0)
    			throw new InvalidInputException("The speed increase factor of the ball must be greater than zero.");  
@@ -346,17 +346,24 @@ public class Block223Controller {
 
 	public static void moveBlock(int level, int oldGridHorizontalPosition, int oldGridVerticalPosition,
 			int newGridHorizontalPosition, int newGridVerticalPosition) throws InvalidInputException {
-
+		
+		String error="";
+		
 		if (Block223Application.getCurrentGame()==null)
 			throw new InvalidInputException("A game must be selected to move a block. ");
 		
-		String error="";
 		if (Block223Application.getCurrentUserRole()instanceof Admin == false)	//instance of an admin
-			error="Admin Privileges are required to move a block. ";
+			error="Admin privileges are required to move a block. ";
 
 		if(Block223Application.getCurrentGame().getAdmin()!=Block223Application.getCurrentUserRole())
 			error=error+"Only the admin who created the game can move a block. ";
 
+		if (newGridHorizontalPosition <= 0 || newGridHorizontalPosition > 15)
+   			throw new InvalidInputException("The horizontal position must be between 1 and 15.");
+		
+		if (newGridVerticalPosition <= 0 || newGridVerticalPosition > 15)
+   			throw new InvalidInputException("The vertical position must be between 1 and 15.");
+		
 		if (error.length() > 0)
 			throw new InvalidInputException(error.trim());
 		
@@ -366,10 +373,12 @@ public class Block223Controller {
 		try {
 			gameLevel=game.getLevel(level-1);
 			BlockAssignment assignment = gameLevel.findBlockAssignment(oldGridHorizontalPosition, oldGridVerticalPosition);
-
+			if(assignment == null)
+				throw new InvalidInputException("A block does not exist at location "+oldGridHorizontalPosition+"/"+oldGridVerticalPosition+".");
+			
 			for (BlockAssignment BA : gameLevel.getBlockAssignments()) {
 				if(BA.getGridHorizontalPosition() == newGridHorizontalPosition && BA.getGridVerticalPosition() == newGridVerticalPosition) {
-					throw new InvalidInputException("A block already exists at that location "+newGridHorizontalPosition+"/"+newGridVerticalPosition+".");
+					throw new InvalidInputException("A block already exists at location "+newGridHorizontalPosition+"/"+newGridVerticalPosition+".");
 				}
 			}
 			
