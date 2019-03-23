@@ -41,7 +41,7 @@ import java.awt.event.MouseEvent;
 import java.awt.event.WindowFocusListener;
 import java.awt.event.WindowEvent;
 
-public class GameLevelPage {
+public class LevelDesignPage {
 
 	public JFrame frame;
 	public JTextField RedValue;
@@ -63,7 +63,7 @@ public class GameLevelPage {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
-					GameLevelPage window = new GameLevelPage(1);
+					LevelDesignPage window = new LevelDesignPage(1);
 					window.frame.setVisible(true);
 				} catch (Exception e) {
 					e.printStackTrace();
@@ -131,7 +131,7 @@ public class GameLevelPage {
 	/**
 	 * Create the application.
 	 */
-	public GameLevelPage(int level) {
+	public LevelDesignPage(int level) {
 		this.level=level;
 		initialize();
 		refresh();

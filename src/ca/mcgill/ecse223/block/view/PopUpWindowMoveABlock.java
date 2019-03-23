@@ -33,7 +33,7 @@ public class PopUpWindowMoveABlock {
 
 	public JFrame frame;
 	public int levelindex;
-	public GameLevelPage parent;
+	public LevelDesignPage parent;
 
 	/**
 	 * Launch the application.
