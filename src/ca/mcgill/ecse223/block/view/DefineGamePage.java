@@ -95,7 +95,7 @@ public class DefineGamePage {
 
 				try {
 					Block223Controller.setGameDetails( numberOfLevels, blocksPerLevel, xBallSpeed, yBallSpeed, speedIncreaseFactor, maxPaddleLength, minPaddleLength);
-					GameLevelPage gamePage = new GameLevelPage(0); 	// Launches a new page (of type GameLevel)
+					GameLevelPage gamePage = new GameLevelPage(1); 	// Launches a new page (of type GameLevel)
 					gamePage.frame.setVisible(true);	
 					frame.setVisible(false);
 				} catch (InvalidInputException e1) {

@@ -626,9 +626,11 @@ public class Block223 implements Serializable
   public User findWithRole(UserRole role){
     User foundUser = null;
  			for (User user : this.getUsers()) {
- 				if (user.getRole(0)==role||user.getRole(1)==role) {
+ 				for (UserRole urole:user.getRoles()) {
+ 					if (urole==role){
  					foundUser = user;
  					break;
+ 					}
  				}
  			}
  		return foundUser;

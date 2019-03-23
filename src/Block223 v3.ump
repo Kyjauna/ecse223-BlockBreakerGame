@@ -9,7 +9,7 @@ class Block223 {
    1 <@>- * UserRole roles;
    1 <@>- * Game games;
 	
-		Game findGame(String name) {
+		public Game findGame(String name) {
  			Game foundGame = null;
  			for (Game game : this.getGames()) {
  				if (game.getName().equals(name)){
@@ -20,7 +20,7 @@ class Block223 {
  			return foundGame;
  		}
  	
- 	 	User findWithUsername(String username) {
+ 	 	public User findWithUsername(String username) {
  			User foundUser = null;
  			for (User user : this.getUsers()) {
  				if (user.getUsername().equals(username)) {
@@ -31,12 +31,14 @@ class Block223 {
  		return foundUser;
  		}
  		
- 		User findWithRole(UserRole role) {
+ 		public User findWithRole(UserRole role) {
  			User foundUser = null;
  			for (User user : this.getUsers()) {
- 				if (user.getRole(0)==role||user.getRole(1)==role) {
+ 				for (UserRole urole: user.getRoles()) {
+ 					if (urole==role){
  					foundUser = user;
  					break;
+ 					}
  				}
  			}
  		return foundUser;

@@ -63,7 +63,7 @@ public class GameLevelPage {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
-					GameLevelPage window = new GameLevelPage(0);
+					GameLevelPage window = new GameLevelPage(1);
 					window.frame.setVisible(true);
 				} catch (Exception e) {
 					e.printStackTrace();
@@ -91,7 +91,7 @@ public class GameLevelPage {
 			y_coordinate=y_coordinate+22;
 		}
 		
-		lblLevel.setText("LEVEL "+level);
+		lblLevel.setText("LEVEL "+(level));
 		
 		combobox.removeAllItems();
 		panel_262.removeAll();
@@ -104,7 +104,7 @@ public class GameLevelPage {
 				combobox.addItem(block.getId()+",   "+block.getPoints()+",   ("+block.getRed()+", "+block.getGreen()+", "+block.getBlue()+")");
 			}
 			
-			BAs=Block223Controller.getBlocksAtLevelOfCurrentDesignableGame(level);
+			BAs=Block223Controller.getBlocksAtLevelOfCurrentDesignableGame(level-1);
 			
 			for (TOGridCell gridcell: BAs) {
 				int red =gridcell.getRed();

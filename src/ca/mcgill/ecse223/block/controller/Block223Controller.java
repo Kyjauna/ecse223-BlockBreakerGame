@@ -306,7 +306,7 @@ public class Block223Controller {
 			error="Admin Privileges are required to position a block. ";
 		
 		if (Block223Application.getCurrentGame()==null)
-			error=error+"A game must be selected to position a block. ";
+			throw new InvalidInputException("A game must be selected to position a block. ");
 		
 		if(Block223Application.getCurrentGame().getAdmin()!=Block223Application.getCurrentUserRole())
 			error=error+"Only the admin who created the game can position a block. ";
@@ -676,7 +676,7 @@ public class Block223Controller {
 			error="Admin Privileges are required to access game information. ";
 		
 		if (Block223Application.getCurrentGame()==null)
-			error=error+"A game must be selected to access its information ";
+			throw new InvalidInputException("A game must be selected to access its information. ");
 		
 		if(Block223Application.getCurrentGame().getAdmin()!=Block223Application.getCurrentUserRole())
 			error=error+"Only the admin who created the game can access its information. ";
@@ -721,6 +721,7 @@ public class Block223Controller {
 
 	public static List<TOPlayableGame> getPlayableGames() throws InvalidInputException {
 		return null;
+		
 	}
 
 	public static List<TOCurrentlyPlayedGame> getCurrentPlayableGame() throws InvalidInputException {
@@ -784,10 +785,8 @@ public class Block223Controller {
 		for (int i = start ; i<= end; i++) {
 			TOHallOfFameEntry entry = new TOHallOfFameEntry(i+1, game.getHallOfFameEntry(i).getPlayername(), game.getHallOfFameEntry(i).getScore(), result);		
 		result.addEntry(entry);
-	}
+		}
 		return result;
-}
-
-
+	}
 
 }

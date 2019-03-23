@@ -1042,7 +1042,15 @@ public class PlayedGame implements Serializable
 
   // line 338 "../../../../../Block223States.ump"
    private void doGameOver(){
-    // TODO implement
+    Block223 block223=this.getBlock223();
+    	Player p=this.getPlayer();
+    	
+    	if (p!=null){
+    		Game game=this.getGame();
+    		HallOfFameEntry hof=new HallOfFameEntry(score, playername, p, game, block223);
+    		game.setMostRecentEntry(hof);
+    		this.delete();
+    	}
   }
 
 
