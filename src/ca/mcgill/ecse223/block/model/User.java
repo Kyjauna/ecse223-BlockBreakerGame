@@ -6,7 +6,7 @@ import java.io.Serializable;
 import java.util.*;
 
 // line 90 "../../../../../Block223Persistence.ump"
-// line 49 "../../../../../Block223 v3.ump"
+// line 59 "../../../../../Block223 v3.ump"
 public class User implements Serializable
 {
 
@@ -33,7 +33,7 @@ public class User implements Serializable
 
   public User(String aUsername, Block223 aBlock223, UserRole... allRoles)
   {
-    // line 51 "../../../../../Block223 v3.ump"
+    // line 61 "../../../../../Block223 v3.ump"
     if (aUsername==null||aUsername.equals("")){
        			throw new RuntimeException("The username must be specified.");
        		}

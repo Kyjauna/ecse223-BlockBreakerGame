@@ -6,7 +6,7 @@ import java.io.Serializable;
 import java.util.*;
 
 // line 27 "../../../../../Block223Persistence.ump"
-// line 178 "../../../../../Block223 v3.ump"
+// line 197 "../../../../../Block223 v3.ump"
 public class Ball implements Serializable
 {
 
@@ -34,7 +34,7 @@ public class Ball implements Serializable
 
   public Ball(int aMinBallSpeedX, int aMinBallSpeedY, double aBallSpeedIncreaseFactor, Game aGame)
   {
-    // line 185 "../../../../../Block223 v3.ump"
+    // line 204 "../../../../../Block223 v3.ump"
     if (aMinBallSpeedX <= 0){
        			throw new RuntimeException("The minimum speed of the ball must be greater than zero.");
        		}
@@ -57,7 +57,7 @@ public class Ball implements Serializable
 
   public Ball(int aMinBallSpeedX, int aMinBallSpeedY, double aBallSpeedIncreaseFactor, String aNameForGame, int aNrBlocksPerLevelForGame, Admin aAdminForGame, Paddle aPaddleForGame, Block223 aBlock223ForGame)
   {
-    // line 185 "../../../../../Block223 v3.ump"
+    // line 204 "../../../../../Block223 v3.ump"
     if (aMinBallSpeedX <= 0){
        			throw new RuntimeException("The minimum speed of the ball must be greater than zero.");
        		}

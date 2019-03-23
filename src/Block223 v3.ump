@@ -44,6 +44,16 @@ class Block223 {
  		return foundUser;
 		}
 
+		public PlayedGame findPlayableGame(int id) {
+ 			PlayedGame foundGame = null;
+ 			for (PlayedGame game : this.getPlayedGames()) {
+ 				if (game.getId()==id){
+ 					foundGame = game;
+ 					break;
+ 				}
+ 			}
+ 			return foundGame;
+ 		}
 }
 
 class User {
@@ -109,7 +119,7 @@ class Game {
 		}
 		return foundBlock;
 		
-	}
+		}
 
 		Block getRandomBlock(){
 			Random rgen = new Random();
@@ -177,11 +187,11 @@ class BlockAssignment {
 	before constructor{
    		if (aGridHorizontalPosition <= 0 || aGridHorizontalPosition > 15){
    			throw new RuntimeException("The horizontal position must be between 1 and 15.");
-   		}
+   		}}
    	before constructor{
    		if (aGridVerticalPosition <= 0 || aGridVerticalPosition > 15){
    			throw new RuntimeException("The vertical position must be between 1 and 15.");
-   		}
+   		}}
 }
 
 class Ball {

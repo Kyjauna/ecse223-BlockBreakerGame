@@ -599,7 +599,7 @@ public class Block223 implements Serializable
   }
 
   // line 13 "../../../../../Block223 v3.ump"
-  public Game findGame(String name){
+   public Game findGame(String name){
     Game foundGame = null;
  			for (Game game : this.getGames()) {
  				if (game.getName().equals(name)){
@@ -611,7 +611,7 @@ public class Block223 implements Serializable
   }
 
   // line 24 "../../../../../Block223 v3.ump"
-  public User findWithUsername(String username){
+   public User findWithUsername(String username){
     User foundUser = null;
  			for (User user : this.getUsers()) {
  				if (user.getUsername().equals(username)) {
@@ -623,10 +623,10 @@ public class Block223 implements Serializable
   }
 
   // line 35 "../../../../../Block223 v3.ump"
-  public User findWithRole(UserRole role){
+   public User findWithRole(UserRole role){
     User foundUser = null;
  			for (User user : this.getUsers()) {
- 				for (UserRole urole:user.getRoles()) {
+ 				for (UserRole urole: user.getRoles()) {
  					if (urole==role){
  					foundUser = user;
  					break;
@@ -634,6 +634,18 @@ public class Block223 implements Serializable
  				}
  			}
  		return foundUser;
+  }
+
+  // line 48 "../../../../../Block223 v3.ump"
+   public PlayedGame findPlayableGame(int id){
+    PlayedGame foundGame = null;
+ 			for (PlayedGame game : this.getPlayedGames()) {
+ 				if (game.getId()==id){
+ 					foundGame = game;
+ 					break;
+ 				}
+ 			}
+ 			return foundGame;
   }
   
   //------------------------

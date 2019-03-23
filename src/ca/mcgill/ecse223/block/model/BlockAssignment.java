@@ -5,7 +5,7 @@ package ca.mcgill.ecse223.block.model;
 import java.io.Serializable;
 
 // line 49 "../../../../../Block223Persistence.ump"
-// line 171 "../../../../../Block223 v3.ump"
+// line 181 "../../../../../Block223 v3.ump"
 public class BlockAssignment implements Serializable
 {
 
@@ -28,6 +28,16 @@ public class BlockAssignment implements Serializable
 
   public BlockAssignment(int aGridHorizontalPosition, int aGridVerticalPosition, Level aLevel, Block aBlock, Game aGame)
   {
+    // line 188 "../../../../../Block223 v3.ump"
+    if (aGridHorizontalPosition <= 0 || aGridHorizontalPosition > 15){
+       			throw new RuntimeException("The horizontal position must be between 1 and 15.");
+       		}
+    // END OF UMPLE BEFORE INJECTION
+    // line 192 "../../../../../Block223 v3.ump"
+    if (aGridVerticalPosition <= 0 || aGridVerticalPosition > 15){
+       			throw new RuntimeException("The vertical position must be between 1 and 15.");
+       		}
+    // END OF UMPLE BEFORE INJECTION
     gridHorizontalPosition = aGridHorizontalPosition;
     gridVerticalPosition = aGridVerticalPosition;
     boolean didAddLevel = setLevel(aLevel);

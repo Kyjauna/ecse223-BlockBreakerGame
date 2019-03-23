@@ -529,6 +529,37 @@ public class Block223Controller {
 	}
 
 	public static void selectPlayableGame(String name, int id) throws InvalidInputException  {
+		
+		if (!(Block223Application.getCurrentUserRole() instanceof Player))
+			throw new InvalidInputException("Player privileges are required to play a game.");
+		
+		Block223 b = Block223Application.getBlock223();
+		Player player =(Player) Block223Application.getCurrentUserRole();
+		Game game = b.findGame(name);
+		
+		PlayedGame pgame=null;
+		
+		if (game!=null) {
+
+			User user =b.findWithRole(player);
+			
+			if (user!= null) {
+				String username=user.getUsername();
+				pgame = new PlayedGame(username, game, b);
+				pgame.setPlayer(player);
+			}
+		}
+		else {
+			pgame=b.findPlayableGame(id);
+		}
+		
+		if (pgame==null) 
+			throw new InvalidInputException("The game does not exist.");
+		
+		if (game==null&&pgame.getPlayer()!=player)
+			throw new InvalidInputException("Only the player that started a game can continue the game.");
+			
+		Block223Application.setCurrentPlayableGame(pgame);
 	}
 
 	public static void startGame(Block223PlayModeInterface ui) throws InvalidInputException {
