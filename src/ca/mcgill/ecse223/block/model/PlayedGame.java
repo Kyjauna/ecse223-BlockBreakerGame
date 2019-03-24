@@ -844,14 +844,23 @@ public class PlayedGame implements Serializable
 
   // line 146 "../../../../../Block223States.ump"
    private boolean isOutOfBoundsAndLastLife(){
-    // TODO implement
-    return false;
+	   boolean outOfBounds = false;
+	   //lives = getLives();
+	   if(lives == 1)
+		   outOfBounds = isBallOutOfBounds();
+	   return outOfBounds;
   }
 
+   private boolean isBallOutOfBounds() {
+	   //currentBallY = getCurrentBallY();
+	   if (currentBallY > 385)
+		   return true;
+	   else return false;
+   }
   // line 151 "../../../../../Block223States.ump"
    private boolean isOutOfBounds(){
-    // TODO implement
-    return false;
+	   boolean outOfBounds = isBallOutOfBounds();
+	   return outOfBounds;
   }
 
   // line 156 "../../../../../Block223States.ump"
@@ -999,7 +1008,9 @@ public class PlayedGame implements Serializable
 
   // line 295 "../../../../../Block223States.ump"
    private void doOutOfBounds(){
-    // TODO implement
+	   setLives(lives-1);
+	   doReset();
+	   this.doReset();
   }
 
   // line 300 "../../../../../Block223States.ump"
