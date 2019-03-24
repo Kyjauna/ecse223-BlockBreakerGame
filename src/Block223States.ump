@@ -142,14 +142,22 @@ class PlayedGame {
 	   
    }
 
-  private boolean isOutOfBoundsAndLastLife() {
-    // TODO implement
-    return false;
+   private boolean isOutOfBoundsAndLastLife(){
+	   boolean outOfBounds = false;
+	   if(lives == 1)
+		   outOfBounds = isBallOutOfBounds();
+	   return outOfBounds;
+  }
+  
+  private boolean isBallOutOfBounds() {
+	   if (currentBallY > 385)
+		   return true;
+	   else return false;
   }
   
   private boolean isOutOfBounds() {
-    // TODO implement
-    return false;
+	   boolean outOfBounds = isBallOutOfBounds();
+	   return outOfBounds;
   }
   
   private boolean hitLastBlockAndLastLevel() {
@@ -291,10 +299,11 @@ class PlayedGame {
 	   
   }
 
-  private void doOutOfBounds() {
-    // TODO implement
+   private void doOutOfBounds(){
+	   setLives(lives-1);
+	   doReset();
   }
-
+  
    private void doHitBlock(){
   
 	   score = getScore();
