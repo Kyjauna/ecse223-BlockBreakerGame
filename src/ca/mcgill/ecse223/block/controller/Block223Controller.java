@@ -585,7 +585,53 @@ public class Block223Controller {
 		Block223Application.setCurrentPlayableGame(pgame);
 	}
 
-	public static void startGame(Block223PlayModeInterface ui) throws InvalidInputException {
+public static void startGame(Block223PlayModeInterface ui) throws InvalidInputException {
+		
+		PlayedGame pgame = Block223Application.getCurrentPlayableGame();
+		UserRole urole =Block223Application.getCurrentUserRole();
+		
+		if (urole==null)
+			throw new InvalidInputException("Player privileges are required to play a game.");
+		
+		if (pgame==null)
+			throw new InvalidInputException("A game must be selected to play it.");
+		
+		if (urole instanceof Admin && pgame.getPlayer()==null)
+			throw new InvalidInputException("Player privileges are required to play a game.");
+		
+		if (urole instanceof Admin&& pgame.getGame().getAdmin()!=urole)
+			throw new InvalidInputException("Only the admin of a game can test the game.");
+		
+		if (urole instanceof Player && pgame.getPlayer()==null)
+			throw new InvalidInputException("Admin privileges are required to test a game.");
+		
+		PlayedGame game = Block223Application.getCurrentPlayableGame();
+		game.play();
+		String userinputs = ui.takeInputs();
+		
+		while (game.getPlayStatus() == PlayStatus.Moving) {
+			userinputs = ui.takeInputs();
+			updatePaddlePosition(userinputs);
+			game.move();
+			
+			if(userinputs.contains(" ")) {
+				game.pause();
+			}
+			
+		Thread.sleep((long) game.getWaitTime());	
+		ui.refresh();
+			
+		}
+		
+		if (game.getPlayStatus() == PlayStatus.GameOver) {
+			Block223Application.setCurrentPlayableGame(null);
+		}
+		
+		if (game.getPlayer() != null) {
+		Block223 block223 = Block223Application.getBlock223();
+		Block223Persistence.save(block223);
+		}
+		
 	}
 
 	public static void testGame(Block223PlayModeInterface ui) throws InvalidInputException {
