@@ -1010,7 +1010,7 @@ public class PlayedGame implements Serializable
    private void doOutOfBounds(){
 	   setLives(lives-1);
 	   doReset();
-	   this.doReset();
+	   //this.doReset();
   }
 
   // line 300 "../../../../../Block223States.ump"
