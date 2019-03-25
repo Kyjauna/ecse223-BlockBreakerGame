@@ -618,13 +618,11 @@ public static void startGame(Block223PlayModeInterface ui) throws InvalidInputEx
 				game.pause();
 			}
 			
-		try {
-			Thread.sleep((long) game.getWaitTime());
-		} catch (InterruptedException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}	
-		ui.refresh();
+			long currenttime=System.nanoTime();
+			long waittime= (long) (currenttime+game.getWaitTime());
+			
+			while (System.nanoTime()<=waittime) {}
+			ui.refresh();
 			
 		}
 		
@@ -640,24 +638,21 @@ public static void startGame(Block223PlayModeInterface ui) throws InvalidInputEx
 	}
 
 	public static void updatePaddlePosition(String inputs) {
-		char[] uinputs=inputs.toCharArray();
 		PlayedGame pgame = Block223Application.getCurrentPlayableGame();
-		int right=0;
-		int left=0;
+		double paddlepos = pgame.getCurrentPaddleX();		
 		
-		for (int i=0; i<uinputs.length;i++) {
-			if (uinputs[i]=='r')
-				right++;
-			if (uinputs[i]=='l')
-				left++;		
+		for (int i=0; i<inputs.length();i++) {
+			if (inputs.charAt(i)=='r') {
+				paddlepos+=pgame.PADDLE_MOVE_RIGHT;
+				pgame.setCurrentPaddleX(paddlepos);
+			}
+			if (inputs.charAt(i)=='l') {
+				paddlepos+=pgame.PADDLE_MOVE_LEFT;
+				pgame.setCurrentPaddleX(paddlepos);
+			}
+			if (inputs.charAt(i)==' ')
+				return;
 		}
-	
-		pgame.setCurrentPaddleX(pgame.getCurrentPaddleX()+right-left);
-	
-		if (pgame.getCurrentPaddleX()<0)
-			pgame.setCurrentPaddleX(0);
-		if (pgame.getCurrentPaddleX()+pgame.getCurrentPaddleLength()>390)
-			pgame.setCurrentPaddleX(390-pgame.getCurrentPaddleLength());
 	}
 	
 	public static void testGame(Block223PlayModeInterface ui) throws InvalidInputException {
