@@ -201,6 +201,9 @@ public class Block223Controller {
 		if ((Block223Application.getBlock223().findGame(name))!=null&&(!(Block223Application.getCurrentGame().getName()).equals(name)))
 			throw new InvalidInputException("The name of a game must be unique.");
 		
+		if(Block223Application.getCurrentGame() == isPublished)
+			throw new InvalidInputException("The name of a game must be specified.");
+		
 		
 		
 		Game game = Block223Application.getCurrentGame();
