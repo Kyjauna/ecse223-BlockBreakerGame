@@ -47,8 +47,8 @@ class PlayedGame {
 	   double dx = getBallDirectionX();
 	   double dy = getBallDirectionY();
 	   // New position of the ball
-	   setCurrentBallX(x+dx);
-	   setCurrentBallY(y+dy);
+	   double positionX = (x+dx);
+	   double positionY = (y+dy);
 	   
 	   BouncePoint bp = null;
 	   
@@ -57,21 +57,21 @@ class PlayedGame {
 	   // if (paddle.intersects(getCurrentBallX(), getCurrentBallY(), 5, 5)) { // not sure about these 5s
 		   // BOUNCE
 		   // Section A
-		   if (getCurrentBallY() == 350 && getCurrentBallX() >= getCurrentPaddleX() && getCurrentBallX() <= (getCurrentPaddleX() + getCurrentPaddleLength())) {
+		   if (positionY == 350 && positionX >= getCurrentPaddleX() && positionX <= (getCurrentPaddleX() + getCurrentPaddleLength())) {
 			   bp.setX(getCurrentBallX());
 			   bp.setY(getCurrentBallY());
 			   bp.setDirection(BouncePoint.BounceDirection.FLIP_Y);
 		   }
 		   
 		   // Section B
-		   if (getCurrentBallX() == (getCurrentPaddleX()+5) && getCurrentBallY() >= 355 && getCurrentBallY() <= 360) {
+		   if (positionX == (getCurrentPaddleX()+5) && positionY >= 355 && positionY <= 360) {
 			   bp.setX(getCurrentBallX());
 			   bp.setY(getCurrentBallY());
 			   bp.setDirection(BouncePoint.BounceDirection.FLIP_X);
 		   }
 		   
 		   // Section C
-		   if (getCurrentBallX() == (getCurrentPaddleX()+getCurrentPaddleLength()+5) && getCurrentBallY() >= 355 && getCurrentBallY() <= 360) {
+		   if (positionX == (getCurrentPaddleX()+getCurrentPaddleLength()+5) && positionY >= 355 && positionY <= 360) {
 			   bp.setX(getCurrentBallX());
 			   bp.setY(getCurrentBallY());
 			   bp.setDirection(BouncePoint.BounceDirection.FLIP_X);
@@ -79,14 +79,14 @@ class PlayedGame {
 		   
 		   // Section E
 		   // Incomplete; does not account for the whole curvature; only for the corner
-		   if (getCurrentBallX() == (getCurrentPaddleX()+5) && getCurrentBallY() == 350) {
+		   if (positionX == (getCurrentPaddleX()+5) && positionY == 350) {
 			   bp.setX(getCurrentBallX());
 			   bp.setY(getCurrentBallY());
 			   bp.setDirection(BouncePoint.BounceDirection.FLIP_BOTH);
 		   }
 		   
 		   // Section F
-		   if (getCurrentBallX() == (getCurrentPaddleX()+getCurrentPaddleLength()+5) && getCurrentBallY() == 350) {
+		   if (positionX == (getCurrentPaddleX()+getCurrentPaddleLength()+5) && positionY == 350) {
 			   bp.setX(getCurrentBallX());
 			   bp.setY(getCurrentBallY());
 			   bp.setDirection(BouncePoint.BounceDirection.FLIP_BOTH);
@@ -210,41 +210,41 @@ class PlayedGame {
 	   double dx = getBallDirectionX();
 	   double dy = getBallDirectionY();
 	   // New position of the ball
-	   setCurrentBallX(x+dx);
-	   setCurrentBallY(y+dy);
+	   double positionX = (x+dx);
+	   double positionY = (y+dy);
 	   
 	   BouncePoint bp = null;
 	   
 	   // Section A
-	   if (getCurrentBallX() == 5 && getCurrentBallY() > 5 && getCurrentBallY() < 385) {
+	   if (positionX == 5 && positionY > 5 && positionY < 385) {
 		   bp.setX(getCurrentBallX());
 		   bp.setY(getCurrentBallY());
 		   bp.setDirection(BouncePoint.BounceDirection.FLIP_X);
 	   }
 	   
 	   // Section B
-	   if (getCurrentBallY() == 5 && getCurrentBallX() > 5 && getCurrentBallX() < 385) {
+	   if (positionY == 5 && positionX > 5 && positionX < 385) {
 		   bp.setX(getCurrentBallX());
 		   bp.setY(getCurrentBallY());
 		   bp.setDirection(BouncePoint.BounceDirection.FLIP_Y);
 	   }
 	   
 	   // Section C
-	   if (getCurrentBallX() == 385 && getCurrentBallY() > 5 && getCurrentBallY() < 385) {
+	   if (positionX == 385 && positionY > 5 && positionY < 385) {
 		   bp.setX(getCurrentBallX());
 		   bp.setY(getCurrentBallY());
 		   bp.setDirection(BouncePoint.BounceDirection.FLIP_X);
 	   }
 	   
 	   // A-B Corner
-	   if (getCurrentBallX() == 5 && getCurrentBallY() == 5) {
+	   if (positionX == 5 && positionY == 5) {
 		   bp.setX(getCurrentBallX());
 		   bp.setY(getCurrentBallY());
 		   bp.setDirection(BouncePoint.BounceDirection.FLIP_BOTH);
 	   }
 	   
 	   // B-C Corner
-	   if (getCurrentBallX() == 385 && getCurrentBallY() == 5) {
+	   if (positionX == 385 && positionY == 5) {
 		   bp.setX(getCurrentBallX());
 		   bp.setY(getCurrentBallY());
 		   bp.setDirection(BouncePoint.BounceDirection.FLIP_BOTH);
