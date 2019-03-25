@@ -58,37 +58,37 @@ class PlayedGame {
 		   // BOUNCE
 		   // Section A
 		   if (positionY == 350 && positionX >= getCurrentPaddleX() && positionX <= (getCurrentPaddleX() + getCurrentPaddleLength())) {
-			   bp.setX(getCurrentBallX());
-			   bp.setY(getCurrentBallY());
+			   bp.setX(positionX);
+			   bp.setY(positionY);
 			   bp.setDirection(BouncePoint.BounceDirection.FLIP_Y);
 		   }
 		   
 		   // Section B
 		   if (positionX == (getCurrentPaddleX()+5) && positionY >= 355 && positionY <= 360) {
-			   bp.setX(getCurrentBallX());
-			   bp.setY(getCurrentBallY());
+			   bp.setX(positionX);
+			   bp.setY(positionY);
 			   bp.setDirection(BouncePoint.BounceDirection.FLIP_X);
 		   }
 		   
 		   // Section C
 		   if (positionX == (getCurrentPaddleX()+getCurrentPaddleLength()+5) && positionY >= 355 && positionY <= 360) {
-			   bp.setX(getCurrentBallX());
-			   bp.setY(getCurrentBallY());
+			   bp.setX(positionX);
+			   bp.setY(positionY);
 			   bp.setDirection(BouncePoint.BounceDirection.FLIP_X);
 		   }
 		   
 		   // Section E
 		   // Incomplete; does not account for the whole curvature; only for the corner
 		   if (positionX == (getCurrentPaddleX()+5) && positionY == 350) {
-			   bp.setX(getCurrentBallX());
-			   bp.setY(getCurrentBallY());
+			   bp.setX(positionX);
+			   bp.setY(positionY);
 			   bp.setDirection(BouncePoint.BounceDirection.FLIP_BOTH);
 		   }
 		   
 		   // Section F
 		   if (positionX == (getCurrentPaddleX()+getCurrentPaddleLength()+5) && positionY == 350) {
-			   bp.setX(getCurrentBallX());
-			   bp.setY(getCurrentBallY());
+			   bp.setX(positionX);
+			   bp.setY(positionY);
 			   bp.setDirection(BouncePoint.BounceDirection.FLIP_BOTH);
 		   }
 	  // }
@@ -217,36 +217,36 @@ class PlayedGame {
 	   
 	   // Section A
 	   if (positionX == 5 && positionY > 5 && positionY < 385) {
-		   bp.setX(getCurrentBallX());
-		   bp.setY(getCurrentBallY());
+		   bp.setX(positionX);
+		   bp.setY(positionY);
 		   bp.setDirection(BouncePoint.BounceDirection.FLIP_X);
 	   }
 	   
 	   // Section B
 	   if (positionY == 5 && positionX > 5 && positionX < 385) {
-		   bp.setX(getCurrentBallX());
-		   bp.setY(getCurrentBallY());
+		   bp.setX(positionX);
+		   bp.setY(positionY);
 		   bp.setDirection(BouncePoint.BounceDirection.FLIP_Y);
 	   }
 	   
 	   // Section C
 	   if (positionX == 385 && positionY > 5 && positionY < 385) {
-		   bp.setX(getCurrentBallX());
-		   bp.setY(getCurrentBallY());
+		   bp.setX(positionX);
+		   bp.setY(positionY);
 		   bp.setDirection(BouncePoint.BounceDirection.FLIP_X);
 	   }
 	   
 	   // A-B Corner
 	   if (positionX == 5 && positionY == 5) {
-		   bp.setX(getCurrentBallX());
-		   bp.setY(getCurrentBallY());
+		   bp.setX(positionX);
+		   bp.setY(positionY);
 		   bp.setDirection(BouncePoint.BounceDirection.FLIP_BOTH);
 	   }
 	   
 	   // B-C Corner
 	   if (positionX == 385 && positionY == 5) {
-		   bp.setX(getCurrentBallX());
-		   bp.setY(getCurrentBallY());
+		   bp.setX(positionX);
+		   bp.setY(positionY);
 		   bp.setDirection(BouncePoint.BounceDirection.FLIP_BOTH);
 	   }
 	   
