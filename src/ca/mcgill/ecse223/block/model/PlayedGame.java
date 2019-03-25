@@ -25,13 +25,13 @@ public class PlayedGame implements Serializable
 
   /**
    * the PlayedBall and PlayedPaddle are not in a separate class to avoid the bug in Umple that occurred for the second constructor of Game
-   * no direct link to Ball, because the ball can be found by navigating to PlayedGame, Game, and then Ball
+   * no direct link to Ball, because the ball can be found by navigating to Game and then Ball
    */
   public static final int BALL_INITIAL_X = Game.PLAY_AREA_SIDE / 2;
   public static final int BALL_INITIAL_Y = Game.PLAY_AREA_SIDE / 2;
 
   /**
-   * no direct link to Paddle, because the paddle can be found by navigating to PlayedGame, Game, and then Paddle
+   * no direct link to Paddle, because the paddle can be found by navigating to Game and then Paddle
    * pixels moved when right arrow key is pressed
    */
   public static final int PADDLE_MOVE_RIGHT = 1;
@@ -79,6 +79,13 @@ public class PlayedGame implements Serializable
 
   public PlayedGame(String aPlayername, Game aGame, Block223 aBlock223)
   {
+    // line 47 "../../../../../Block223PlayMode.ump"
+    boolean didAddGameResult = setGame(aGame);
+          if (!didAddGameResult)
+          {
+             throw new RuntimeException("Unable to create playedGame due to game");
+          }
+    // END OF UMPLE BEFORE INJECTION
     score = 0;
     lives = NR_LIVES;
     currentLevel = 1;
@@ -318,7 +325,7 @@ public class PlayedGame implements Serializable
   }
 
   /**
-   * the position of the paddle is at its top right corner
+   * the position of the paddle is at its top left corner
    */
   public double getCurrentPaddleX()
   {

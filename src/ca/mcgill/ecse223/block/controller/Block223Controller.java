@@ -618,7 +618,12 @@ public static void startGame(Block223PlayModeInterface ui) throws InvalidInputEx
 				game.pause();
 			}
 			
-		Thread.sleep((long) game.getWaitTime());	
+		try {
+			Thread.sleep((long) game.getWaitTime());
+		} catch (InterruptedException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}	
 		ui.refresh();
 			
 		}
@@ -627,13 +632,34 @@ public static void startGame(Block223PlayModeInterface ui) throws InvalidInputEx
 			Block223Application.setCurrentPlayableGame(null);
 		}
 		
-		if (game.getPlayer() != null) {
+		else if (game.getPlayer() != null) {
 		Block223 block223 = Block223Application.getBlock223();
 		Block223Persistence.save(block223);
 		}
 		
 	}
 
+	public static void updatePaddlePosition(String inputs) {
+		char[] uinputs=inputs.toCharArray();
+		PlayedGame pgame = Block223Application.getCurrentPlayableGame();
+		int right=0;
+		int left=0;
+		
+		for (int i=0; i<uinputs.length;i++) {
+			if (uinputs[i]=='r')
+				right++;
+			if (uinputs[i]=='l')
+				left++;		
+		}
+	
+		pgame.setCurrentPaddleX(pgame.getCurrentPaddleX()+right-left);
+	
+		if (pgame.getCurrentPaddleX()<0)
+			pgame.setCurrentPaddleX(0);
+		if (pgame.getCurrentPaddleX()+pgame.getCurrentPaddleLength()>390)
+			pgame.setCurrentPaddleX(390-pgame.getCurrentPaddleLength());
+	}
+	
 	public static void testGame(Block223PlayModeInterface ui) throws InvalidInputException {
 	
 		if (!(Block223Application.getCurrentUserRole() instanceof Admin))
