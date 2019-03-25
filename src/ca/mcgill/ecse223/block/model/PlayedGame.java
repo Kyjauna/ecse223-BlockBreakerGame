@@ -816,7 +816,7 @@ public class PlayedGame implements Serializable
 
   // line 100 "../../../../../Block223States.ump"
    private void bounceBall(){
-    double incomingX;
+	   double incomingX;
 	   double remainingX;
 	   double incomingY;
 	   double remainingY;
