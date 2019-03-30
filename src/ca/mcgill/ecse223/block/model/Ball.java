@@ -35,12 +35,9 @@ public class Ball implements Serializable
   public Ball(int aMinBallSpeedX, int aMinBallSpeedY, double aBallSpeedIncreaseFactor, Game aGame)
   {
     // line 204 "../../../../../Block223 v3.ump"
-    if (aMinBallSpeedX <= 0){
+    if (aMinBallSpeedX <= 0 && aMinBallSpeedY <= 0){
        			throw new RuntimeException("The minimum speed of the ball must be greater than zero.");
        		}
-       		if (aMinBallSpeedY <= 0){
-       			throw new RuntimeException("The minimum speed of the ball must be greater than zero.");
-    		}
        		if (aBallSpeedIncreaseFactor <= 0){
        			throw new RuntimeException("The speed increase factor of the ball must be greater than zero.");  
     		}
@@ -58,12 +55,9 @@ public class Ball implements Serializable
   public Ball(int aMinBallSpeedX, int aMinBallSpeedY, double aBallSpeedIncreaseFactor, String aNameForGame, int aNrBlocksPerLevelForGame, Admin aAdminForGame, Paddle aPaddleForGame, Block223 aBlock223ForGame)
   {
     // line 204 "../../../../../Block223 v3.ump"
-    if (aMinBallSpeedX <= 0){
+    if (aMinBallSpeedX <= 0 && aMinBallSpeedY <= 0){
        			throw new RuntimeException("The minimum speed of the ball must be greater than zero.");
        		}
-       		if (aMinBallSpeedY <= 0){
-       			throw new RuntimeException("The minimum speed of the ball must be greater than zero.");
-    		}
        		if (aBallSpeedIncreaseFactor <= 0){
        			throw new RuntimeException("The speed increase factor of the ball must be greater than zero.");  
     		}
