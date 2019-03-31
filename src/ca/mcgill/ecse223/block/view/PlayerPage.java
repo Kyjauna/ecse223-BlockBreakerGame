@@ -205,7 +205,7 @@ public class PlayerPage {
 		JPanel panel_21 = new JPanel();
 		panel_21.setBackground(new Color(0, 0, 102,200));
 		layeredPane_1.setLayer(panel_21, 1);
-		panel_21.setBounds(33, 26, 550, 426);
+		panel_21.setBounds(43, 26, 540, 407);
 		layeredPane_1.add(panel_21);
 		
 		JPanel panel_2 = new JPanel();

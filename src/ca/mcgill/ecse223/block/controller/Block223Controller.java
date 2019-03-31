@@ -203,14 +203,6 @@ public class Block223Controller {
 		if ((Block223Application.getBlock223().findGame(name))!=null&&(!(Block223Application.getCurrentGame().getName()).equals(name)))
 			throw new InvalidInputException("The name of a game must be unique.");
 		
-<<<<<<< HEAD
-		if(Block223Application.getCurrentGame() == isPublished)
-			throw new InvalidInputException("The name of a game must be specified.");
-		
-		
-		
-=======
->>>>>>> d4c8b4712d21f720d972b42946fe2595aa0094ac
 		Game game = Block223Application.getCurrentGame();
 		
 		String currentName = Block223Application.getCurrentGame().getName();
@@ -605,7 +597,7 @@ public static void startGame(Block223PlayModeInterface ui) throws InvalidInputEx
 		if (pgame==null)
 			throw new InvalidInputException("A game must be selected to play it.");
 		
-		if (urole instanceof Admin && pgame.getPlayer()==null)
+		if (urole instanceof Admin && pgame.getPlayer()!=null)
 			throw new InvalidInputException("Player privileges are required to play a game.");
 		
 		if (urole instanceof Admin&& pgame.getGame().getAdmin()!=urole)
@@ -699,8 +691,12 @@ public static void startGame(Block223PlayModeInterface ui) throws InvalidInputEx
 		if (Block223Application.getCurrentUserRole()!=Block223Application.getCurrentGame().getAdmin())
 			throw new InvalidInputException("Only the admin who created the game can publish it.");
 		
-		if (Block223Application.getCurrentGame().getNrBlocksPerLevel()<1)
-			throw new InvalidInputException("At least on block must be defined for a game to be published.");
+		for (Level level : Block223Application.getCurrentGame().getLevels()) {
+			
+			if (level.getBlockAssignments().size()<1)
+				throw new InvalidInputException("At least one block must be defined for a game to be published.");
+		}
+		
 		
 		Game game =Block223Application.getCurrentGame();
 		game.setPublished(true);
@@ -869,9 +865,11 @@ public static List<TOGridCell> getBlocksAtLevelOfCurrentDesignableGame(int level
 
 	public static List<TOPlayableGame> getPlayableGames() throws InvalidInputException {
 		
-		Player player = (Player) Block223Application.getCurrentUserRole();
-		if (!(player instanceof Player))
+		
+		if (!(Block223Application.getCurrentUserRole() instanceof Player))
 				throw new InvalidInputException("Player privileges are required to play a game.");
+		
+		Player player = (Player)Block223Application.getCurrentUserRole();
 		
 		Block223 b = Block223Application.getBlock223();
 
@@ -906,7 +904,7 @@ public static List<TOGridCell> getBlocksAtLevelOfCurrentDesignableGame(int level
 		if (pgame==null)
 			throw new InvalidInputException("A game must be selected to play it.");
 		
-		if (urole instanceof Admin && pgame.getPlayer()==null)
+		if (urole instanceof Admin && pgame.getPlayer()!=null)
 			throw new InvalidInputException("Player privileges are required to play a game.");
 		
 		if (urole instanceof Admin&& pgame.getGame().getAdmin()!=urole)
@@ -943,13 +941,28 @@ public static List<TOGridCell> getBlocksAtLevelOfCurrentDesignableGame(int level
 		Game game = pgame.getGame();
 		TOHallOfFame result = new TOHallOfFame(game.getName());
 		
-		for (int i = start ; i<= end; i++) {
+		try {
+			game.getHallOfFameEntry(start);
+		}catch(IndexOutOfBoundsException e) {
+			return result;
+		}
+		
+		if (start<1) start=1;
+		
+		if (end>game.numberOfHallOfFameEntries())
+			end=game.numberOfHallOfFameEntries();
+		
+		start=game.numberOfHallOfFameEntries()-start;
+		end=game.numberOfHallOfFameEntries()-end;
+		
+		for (int i = start ; i>= end; i--) {
 			TOHallOfFameEntry entry = new TOHallOfFameEntry(i+1, game.getHallOfFameEntry(i).getPlayername(), game.getHallOfFameEntry(i).getScore(), result);
 			result.addEntry(entry);
 		}
 		return result;
 	
 	}
+
 
 	public static TOHallOfFame getHallOfFameWithMostRecentEntry(int numberOfEntries) throws InvalidInputException {
 		UserRole userRole=Block223Application.getCurrentUserRole();
@@ -968,21 +981,21 @@ public static List<TOGridCell> getBlocksAtLevelOfCurrentDesignableGame(int level
 		
 		int indexR = game.indexOfHallOfFameEntry(mostRecent);
 		
-		int start = indexR - (game.numberOfHallOfFameEntries() / 2 );
-		
-		if (start < 1 ) {
-			start = 1;
-		}
-		
-		int end = game.numberOfHallOfFameEntries();
-			if(end > game.numberOfHallOfFameEntries()) {
-				end = game.numberOfHallOfFameEntries();
-			}
-			
-		start = start -1;
-		end = end -1;
-		 		
-		for (int i = start ; i<= end; i++) {
+//		if (numberOfEntries==1) {
+//			TOHallOfFameEntry entry = new TOHallOfFameEntry(indexR+1, game.getHallOfFameEntry(indexR).getPlayername(), game.getHallOfFameEntry(indexR).getScore(), result);		
+//			result.addEntry(entry);
+//			return result;
+//		}
+//			
+		int start = indexR + (numberOfEntries / 2 );
+		if(start>(game.numberOfHallOfFameEntries()-1))
+			start=(game.numberOfHallOfFameEntries()-1);
+
+		int end=start-(numberOfEntries+1);
+		if (end < 0 ) 
+			end = 0;
+
+		for (int i = start ; i>= end; i--) {
 			TOHallOfFameEntry entry = new TOHallOfFameEntry(i+1, game.getHallOfFameEntry(i).getPlayername(), game.getHallOfFameEntry(i).getScore(), result);		
 		result.addEntry(entry);
 		}
