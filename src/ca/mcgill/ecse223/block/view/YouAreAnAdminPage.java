@@ -32,6 +32,7 @@ import java.io.IOException;
 import java.util.List;
 //import java.util.List;
 import java.awt.event.ActionEvent;
+import javax.swing.SwingConstants;
 
 public class YouAreAnAdminPage {
 
@@ -387,7 +388,7 @@ public class YouAreAnAdminPage {
 							.addGroup(groupLayout.createParallelGroup(Alignment.LEADING)
 								.addComponent(lblNewLabel)
 								.addComponent(comboBoxExistingGame, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
-							.addGap(206))))
+							.addGap(230))))
 		);
 		frame.getContentPane().setLayout(groupLayout);
 		frame.setBounds(100, 100, 660, 562);

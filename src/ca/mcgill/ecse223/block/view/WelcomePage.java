@@ -89,7 +89,7 @@ public class WelcomePage {
 		
 		frame = new JFrame();
 		frame.getContentPane().setBackground(new Color(0, 0, 51));
-		frame.setBounds(100, 100, 617, 505);
+		frame.setBounds(100, 100, 624, 505);
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		
 

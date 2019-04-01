@@ -42,7 +42,6 @@ import javax.swing.JComboBox;
 public class PlayerPage {
 
 	public JFrame frame;
-	private JTextField textField;
 
 
 	/**
@@ -85,10 +84,11 @@ public class PlayerPage {
 		}
 		Font projectfont52 = projectfont.deriveFont(52f);
 		Font projectfont15 = projectfont.deriveFont(15f);
+		Font projectfont18 =projectfont.deriveFont(18f);
 		
 		frame = new JFrame();
 		frame.getContentPane().setBackground(new Color(0, 0, 51));
-		frame.setBounds(100, 100, 617, 505);
+		frame.setBounds(100, 100, 624, 505);
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		
 
@@ -121,7 +121,7 @@ public class PlayerPage {
 				
 				JPanel panel_22 = new JPanel();
 				layeredPane.setLayer(panel_22, 1);
-				panel_22.setBounds(123, 120, 376, 247);
+				panel_22.setBounds(123, 122, 376, 242);
 				layeredPane.add(panel_22);
 				panel_22.setBackground(new Color(0, 0, 102,200));
 				layeredPane_1.setLayer(panel_22, 10);
@@ -130,43 +130,55 @@ public class PlayerPage {
 				selectAGame.setFont(projectfont15);
 				
 				JLabel lblPlayableGames = new JLabel("PLAYABLE  GAMES");
-				lblPlayableGames.setFont(projectfont15);
+				lblPlayableGames.setFont(projectfont18);
 				lblPlayableGames.setForeground(new Color(175, 238, 238));
 				
-				textField = new JTextField();
-				textField.setHorizontalAlignment(SwingConstants.CENTER);
-				textField.setForeground(new Color(255, 255, 0));
-				textField.setFont(projectfont15);
-				textField.setColumns(10);
-				
-				JButton viewHallOfFameBtn = new JButton("VIEW HALL OF FAME");
+				JButton viewHallOfFameBtn = new JButton("VIEW  HALL OF FAME");
 				viewHallOfFameBtn.setFont(projectfont15);
 				
 				JButton startNewGameBtn = new JButton("START NEW GAME");
 				startNewGameBtn.setFont(projectfont15);
+				
+				JLabel lblError = new JLabel("error message (delete text once coded)");
+				lblError.setFont(new Font("Lucida Grande", Font.PLAIN, 10));
+				lblError.setHorizontalAlignment(SwingConstants.CENTER);
+				lblError.setForeground(Color.ORANGE);
+				
+				JLabel lblContinuePlaying = new JLabel("CONTINUE PLAYING");
+				lblContinuePlaying.setFont(projectfont18);
+				lblContinuePlaying.setForeground(new Color(175, 238, 238));
+				
+				JComboBox comboBox = new JComboBox();
 
 				GroupLayout gl_panel_22 = new GroupLayout(panel_22);
 				gl_panel_22.setHorizontalGroup(
 					gl_panel_22.createParallelGroup(Alignment.LEADING)
-						.addGroup(Alignment.TRAILING, gl_panel_22.createSequentialGroup()
+						.addGroup(gl_panel_22.createSequentialGroup()
 							.addContainerGap(83, Short.MAX_VALUE)
 							.addComponent(selectAGame, GroupLayout.PREFERRED_SIZE, 216, GroupLayout.PREFERRED_SIZE)
 							.addGap(77))
-						.addGroup(Alignment.TRAILING, gl_panel_22.createSequentialGroup()
-							.addContainerGap(138, Short.MAX_VALUE)
-							.addComponent(lblPlayableGames)
-							.addGap(130))
 						.addGroup(gl_panel_22.createSequentialGroup()
 							.addGap(31)
-							.addGroup(gl_panel_22.createParallelGroup(Alignment.LEADING, false)
-								.addGroup(gl_panel_22.createSequentialGroup()
-									.addGap(6)
-									.addComponent(textField))
-								.addGroup(gl_panel_22.createSequentialGroup()
-									.addComponent(viewHallOfFameBtn, GroupLayout.PREFERRED_SIZE, 150, GroupLayout.PREFERRED_SIZE)
-									.addPreferredGap(ComponentPlacement.UNRELATED)
-									.addComponent(startNewGameBtn)))
-							.addContainerGap(27, Short.MAX_VALUE))
+							.addComponent(viewHallOfFameBtn, GroupLayout.PREFERRED_SIZE, 150, GroupLayout.PREFERRED_SIZE)
+							.addPreferredGap(ComponentPlacement.UNRELATED)
+							.addComponent(startNewGameBtn)
+							.addContainerGap(39, Short.MAX_VALUE))
+						.addGroup(gl_panel_22.createSequentialGroup()
+							.addGap(23)
+							.addComponent(lblError, GroupLayout.PREFERRED_SIZE, 330, GroupLayout.PREFERRED_SIZE)
+							.addContainerGap(23, Short.MAX_VALUE))
+						.addGroup(gl_panel_22.createSequentialGroup()
+							.addContainerGap(124, Short.MAX_VALUE)
+							.addComponent(lblPlayableGames)
+							.addGap(118))
+						.addGroup(gl_panel_22.createSequentialGroup()
+							.addGap(81)
+							.addComponent(comboBox, GroupLayout.PREFERRED_SIZE, 214, GroupLayout.PREFERRED_SIZE)
+							.addContainerGap(81, Short.MAX_VALUE))
+						.addGroup(gl_panel_22.createSequentialGroup()
+							.addGap(111)
+							.addComponent(lblContinuePlaying)
+							.addContainerGap(113, Short.MAX_VALUE))
 				);
 				gl_panel_22.setVerticalGroup(
 					gl_panel_22.createParallelGroup(Alignment.LEADING)
@@ -180,8 +192,12 @@ public class PlayerPage {
 								.addComponent(startNewGameBtn)
 								.addComponent(viewHallOfFameBtn))
 							.addPreferredGap(ComponentPlacement.RELATED)
-							.addComponent(textField, GroupLayout.PREFERRED_SIZE, 23, GroupLayout.PREFERRED_SIZE)
-							.addContainerGap(96, Short.MAX_VALUE))
+							.addComponent(lblError)
+							.addGap(22)
+							.addComponent(lblContinuePlaying)
+							.addPreferredGap(ComponentPlacement.RELATED)
+							.addComponent(comboBox, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
+							.addContainerGap(24, Short.MAX_VALUE))
 				);
 				panel_22.setLayout(gl_panel_22);
 				
@@ -191,6 +207,24 @@ public class PlayerPage {
 				playerUserName.setForeground(Color.WHITE);
 				playerUserName.setBounds(251, 91, 121, 28);
 				layeredPane.add(playerUserName);
+				
+				JButton btnResume = new JButton("RESUME");
+				layeredPane.setLayer(btnResume, 40);
+				btnResume.setFont(projectfont15);
+				btnResume.setBounds(251, 347, 117, 29);
+				layeredPane.add(btnResume);
+				
+				JButton btnLogout = new JButton("LOGOUT");
+				btnLogout.setBounds(251, 450, 117, 29);
+				btnLogout.setFont(projectfont15);
+				layeredPane.add(btnLogout);
+				
+				JLabel lblError2 = new JLabel("Second Error message box corrosponding to resume game;)");
+				lblError2.setForeground(Color.ORANGE);
+				lblError2.setFont(new Font("Lucida Grande", Font.PLAIN, 10));
+				lblError2.setHorizontalAlignment(SwingConstants.CENTER);
+				lblError2.setBounds(155, 376, 315, 16);
+				layeredPane.add(lblError2);
 		
 		JPanel panel = new JPanel();
 		panel.setBounds(0, 0, 125, 122);
