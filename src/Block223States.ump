@@ -150,7 +150,7 @@ class PlayedGame {
   }
   
   private boolean isBallOutOfBounds() {
-	   if (currentBallY > 385)
+	   if (getCurrentBallY() > 385)
 		   return true;
 	   else return false;
   }
@@ -160,25 +160,44 @@ class PlayedGame {
 	   return outOfBounds;
   }
   
-  private boolean hitLastBlockAndLastLevel() {
-    // TODO implement
+   private boolean hitLastBlockAndLastLevel(){
+   
+	 Game game = getGame();
+	 int nrLevels = game.numberOfLevels();
+	 setBounce(null);
+	 
+	 if(nrLevels == currentLevel) {
+		 int nrBlocks = numberOfBlocks();
+		 
+		 if(nrBlocks == 1) {
+			 
+			 PlayedBlockAssignment block = getBlock(0);
+			 BouncePoint bp = calculateBouncePointBlock(block);
+			 setBounce(bp);
+			 return true;
+		 }
+	 }
     return false;
   }
   
-  private boolean hitLastBlock(){
-    // TODO implement
-    return false;
+private boolean hitLastBlock(){
+
+	   int nrBlocks = numberOfBlocks();
+	   setBounce(null);
+	   if(nrBlocks == 1) {
+		   PlayedBlockAssignment block = getBlock(0);
+		   BouncePoint bp = calculateBouncePointBlock(block);
+		   this.setBounce(bp);
+		   return true;
+	   }
+	   return false;
   }
   
-  private boolean hitBlock(){
-	   
+   private boolean hitBlock(){
     int nrBlocks = this.numberOfBlocks();
     setBounce(null);
     
-    for(int i=0; i<numberOfBlocks()-1; i++) {
-    	
-    	
-    		
+    for(int i=0; i<numberOfBlocks()-1; i++) {	
     	PlayedBlockAssignment block = getBlock(i);
     	BouncePoint bp = calculateBouncePointBlock(block);
     	BouncePoint bounce = getBounce();
@@ -186,8 +205,8 @@ class PlayedGame {
     	if(closer == true) {
     		setBounce(bp);
     	}
-    	return getBounce()!=null;
     }
+    return getBounce()!=null;
   }
   
    private boolean hitWall(){
@@ -253,7 +272,56 @@ class PlayedGame {
 	   return bp;
    }
 
-  
+
+  private BouncePoint calculateBouncePointBlock(PlayedBlockAssignment pblock){
+	    // Current position of the ball
+		   double x = getCurrentBallX();
+		   double y = getCurrentBallY();
+		   // Where the ball is going
+		   double dx = getBallDirectionX();
+		   double dy = getBallDirectionY();
+		   // New position of the ball
+		   double positionX = (x+dx);
+		   double positionY = (y+dy);
+		   
+		   BouncePoint bp = null; 
+		java.awt.geom.Rectangle2D physicalblock=new java.awt.geom.Rectangle2D.Double(pblock.getX()-10, pblock.getY()-10, 30.0, 30.0);
+			
+			if (physicalblock.contains(positionX,positionY)){
+				
+				// Section A and D
+				   if ((positionX+5 >= (pblock.getX()-5) && positionX+5 <= (pblock.getX()) && positionY+5<=(pblock.getY()+20) && positionY-5>=(pblock.getY()))||(positionX-5 <= (pblock.getX()+25) && positionX-5 >= (pblock.getX()+20) && positionY+5<=(pblock.getY()+20) && positionY-5>=(pblock.getY()))) {
+					   bp.setX(positionX);
+					   bp.setY(positionY);
+					   bp.setDirection(BouncePoint.BounceDirection.FLIP_X);
+				   }
+				   
+				   // Section B and C
+				   if ((positionY-5 >= (pblock.getY()-5) && positionY-5 <= (pblock.getY())) && positionX+5 >= (pblock.getX()) && positionX-5 <= (pblock.getX()+20)||(positionY+5 <= (pblock.getY()+25)&& positionY+5 >= (pblock.getY()+20) && positionX+5 >= (pblock.getX()) && positionX-5 <= (pblock.getX()+20))) {
+					   bp.setX(positionX);
+					   bp.setY(positionY);
+					   bp.setDirection(BouncePoint.BounceDirection.FLIP_Y);
+				}
+					
+					 //Section E and G
+					   if ((positionY-5 >= (pblock.getY()-5) && positionY-5 <= (pblock.getY())) && positionX-5 <= (pblock.getX()) && positionX-5 >= (pblock.getX()-5)||(positionY+5 <= (pblock.getY()+25)&& positionY+5 >= (pblock.getY()+20) && positionX-5 <= (pblock.getX()) && positionX-5 >= (pblock.getX()-5))) {
+						   bp.setX(positionX);
+						   bp.setY(positionY);
+						   bp.setDirection(BouncePoint.BounceDirection.FLIP_BOTH);
+						   //flip Y if ball approaches from right and Flip X if ball approaches from left
+						   }
+						   
+						   //Section F and H
+						   if ((positionY+5 >= (pblock.getY()-5) && positionY-5 <= (pblock.getY())) && positionX+5 <= (pblock.getX()+25) && positionX+5 >= (pblock.getX()+20)||(positionY+5 <= (pblock.getY()+25)&& positionY+5 >= (pblock.getY()+20) && positionX+5 <= (pblock.getX()+25) && positionX+5 >= (pblock.getX()+20))) {
+							   bp.setX(positionX);
+							   bp.setY(positionY);
+							   bp.setDirection(BouncePoint.BounceDirection.FLIP_BOTH);
+							   //Flip X of ball approaches from right and Flip Y if ball approaches from left
+					   }   
+			}
+		
+		   return bp;
+		}
   // Actions
   
    private void doSetup() {	
@@ -294,7 +362,6 @@ class PlayedGame {
   }
   
   private void doHitPaddleOrWall() {
-    
 	   bounceBall();
 	   
   }
@@ -305,32 +372,29 @@ class PlayedGame {
   }
   
    private void doHitBlock(){
-  
-	   score = getScore();
+    score = getScore();
 	   
 	   bounce = getBounce();
-	   
-	   PlayedBlockAssignment pblock = bounce.getHitBlock();
-	   
-	   Block block = pblock.getBlock();
-	   
-	   int bscore = block.getPoints();
-	   
-	   setScore(score+bscore);
-	   
-	   pblock.delete();
-	   
-	   bounceBall();
-	   
-	   return;
-  }
-   
-
-  private void doHitBlockNextLevel() {
-    // TODO implement
+	   if (bounce!=null) {
+		   PlayedBlockAssignment pblock = bounce.getHitBlock();
+		   Block block = pblock.getBlock();
+		   int bscore = block.getPoints();
+		   setScore(score+bscore);
+		   pblock.delete();
+		   bounceBall();
+	   }
   }
 
-   private void doHitNothingAndNotOutOfBounds(){
+	private void doHitBlockNextLevel(){
+    	doHitBlock();
+    	int level = this.getCurrentLevel();
+    
+    	setCurrentLevel(level+1);
+    	setCurrentPaddleLength(getGame().getPaddle().getMaxPaddleLength()-(getGame().getPaddle().getMaxPaddleLength()-getGame().getPaddle().getMinPaddleLength())/(getGame().numberOfLevels()-1)*(getCurrentLevel()-1));
+    	setWaitTime(INITIAL_WAIT_TIME*(int)getGame().getBall().getBallSpeedIncreaseFactor()^(getCurrentLevel()-1));
+  	}
+
+	private void doHitNothingAndNotOutOfBounds(){
 	   
 	   double x = getCurrentBallX();
 	   double y = getCurrentBallY();
@@ -341,9 +405,9 @@ class PlayedGame {
 	   setCurrentBallX(x+dx);
 	   setCurrentBallY(y+dy);
 	   
-  }
+  	}
 
-  private void doGameOver() {
+	private void doGameOver() {
     	Block223 block223=this.getBlock223();
     	Player p=this.getPlayer();
     	
@@ -353,6 +417,6 @@ class PlayedGame {
     		game.setMostRecentEntry(hof);
     		this.delete();
     	}
-  }
+  	}
 
 }
