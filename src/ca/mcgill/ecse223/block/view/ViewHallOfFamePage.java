@@ -1,3 +1,4 @@
+
 package ca.mcgill.ecse223.block.view;
 
 import java.awt.EventQueue;
@@ -34,7 +35,7 @@ import java.util.List;
 import java.awt.event.ActionEvent;
 import javax.swing.SwingConstants;
 
-public class GamePlayPage {
+public class ViewHallOfFamePage {
 
 	public JFrame frame;
 	JLabel lblErrorMessage;
@@ -47,7 +48,7 @@ public class GamePlayPage {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
-					GamePlayPage window = new GamePlayPage();
+					ViewHallOfFamePage window = new ViewHallOfFamePage();
 					window.frame.setVisible(true);
 				} catch (Exception e) {
 					e.printStackTrace();
@@ -60,7 +61,7 @@ public class GamePlayPage {
 	/**
 	 * Create the application.
 	 */
-	public GamePlayPage() {
+	public ViewHallOfFamePage() {
 		initialize();
 	}
 
@@ -84,6 +85,7 @@ public class GamePlayPage {
 		Font projectfont52 = projectfont.deriveFont(52f);
 		Font projectfont15 = projectfont.deriveFont(15f);
 		Font projectfont32 = projectfont.deriveFont(32f);
+		Font projectfont22 = projectfont.deriveFont(22f);
 		
 		/* The comboBox needs to have a list of all the names of the existing games. */
 		
@@ -182,39 +184,17 @@ public class GamePlayPage {
 		JPanel panel_17 = new JPanel();
 		panel_17.setBackground(new Color(51, 255, 0));
 		
-		JPanel panel_18 = new JPanel();
-		panel_18.setBackground(new Color(240, 248, 255));
+		JLabel lblHallOfFame = new JLabel("HALL OF FAME");
+		lblHallOfFame.setForeground(new Color(224, 255, 255));
+		lblHallOfFame.setFont(projectfont32);
 		
-		JButton btnPause = new JButton("PAUSE");
-		btnPause.setFont(projectfont15);
-		
-		JButton btnPlay = new JButton("PLAY");
-		btnPlay.setFont(projectfont15);
-		
-		JButton btnSave = new JButton("SAVE");
-		btnSave.setFont(projectfont15);
-		
-		JButton btnQuit = new JButton("QUIT");
-		btnQuit.setFont(projectfont15);
-		
-		JButton btnLogout_1 = new JButton("LOGOUT");
-		btnLogout_1.setFont(projectfont15);
-		
-		JPanel panel_19 = new JPanel();
-		
-		JLabel lblLives = new JLabel("LIVES");
-		lblLives.setFont(projectfont15);
-		lblLives.setForeground(new Color(224, 255, 255));
-		
-		
-		JLabel lblLevel = new JLabel("");
-		lblLevel.setForeground(new Color(224, 255, 255));
-		lblLevel.setFont(projectfont32);
-		lblLevel.setText("LEVEL "+(level));
+		JLabel lblTopTen = new JLabel("TOP TEN");
+		lblTopTen.setForeground(new Color(224, 255, 255));
+		lblTopTen.setFont(projectfont22);
 		
 		GroupLayout groupLayout = new GroupLayout(frame.getContentPane());
 		groupLayout.setHorizontalGroup(
-			groupLayout.createParallelGroup(Alignment.TRAILING)
+			groupLayout.createParallelGroup(Alignment.LEADING)
 				.addGroup(groupLayout.createSequentialGroup()
 					.addContainerGap()
 					.addGroup(groupLayout.createParallelGroup(Alignment.LEADING)
@@ -230,98 +210,64 @@ public class GamePlayPage {
 							.addComponent(panel_16, GroupLayout.PREFERRED_SIZE, 76, GroupLayout.PREFERRED_SIZE))
 						.addGroup(groupLayout.createParallelGroup(Alignment.LEADING)
 							.addGroup(groupLayout.createSequentialGroup()
-								.addGap(6)
-								.addComponent(panel_18, GroupLayout.PREFERRED_SIZE, 410, GroupLayout.PREFERRED_SIZE)
-								.addGroup(groupLayout.createParallelGroup(Alignment.LEADING)
+								.addGap(259)
+								.addComponent(lblHallOfFame)
+								.addGap(96)
+								.addComponent(layeredPane_2, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
+								.addPreferredGap(ComponentPlacement.RELATED, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+								.addGroup(groupLayout.createParallelGroup(Alignment.TRAILING)
+									.addComponent(lblErrorMessage, GroupLayout.PREFERRED_SIZE, 524, GroupLayout.PREFERRED_SIZE)
 									.addGroup(groupLayout.createSequentialGroup()
-										.addPreferredGap(ComponentPlacement.UNRELATED)
-										.addGroup(groupLayout.createParallelGroup(Alignment.LEADING)
-											.addGroup(groupLayout.createSequentialGroup()
-												.addGroup(groupLayout.createParallelGroup(Alignment.LEADING)
-													.addComponent(layeredPane_2, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
-													.addGroup(groupLayout.createSequentialGroup()
-														.addGap(6)
-														.addGroup(groupLayout.createParallelGroup(Alignment.LEADING)
-															.addComponent(lblLives)
-															.addComponent(panel_19, GroupLayout.PREFERRED_SIZE, 241, GroupLayout.PREFERRED_SIZE))))
-												.addPreferredGap(ComponentPlacement.RELATED, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-												.addGroup(groupLayout.createParallelGroup(Alignment.TRAILING)
-													.addComponent(lblErrorMessage, GroupLayout.PREFERRED_SIZE, 524, GroupLayout.PREFERRED_SIZE)
-													.addGroup(groupLayout.createSequentialGroup()
-														.addComponent(btnLogout, GroupLayout.PREFERRED_SIZE, 87, GroupLayout.PREFERRED_SIZE)
-														.addGap(69))))
-											.addComponent(lblGame, GroupLayout.DEFAULT_SIZE, 777, Short.MAX_VALUE)))
-									.addGroup(groupLayout.createSequentialGroup()
-										.addGap(84)
-										.addGroup(groupLayout.createParallelGroup(Alignment.TRAILING, false)
-											.addComponent(btnPlay, Alignment.LEADING, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-											.addComponent(btnPause, Alignment.LEADING, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-											.addComponent(btnSave, Alignment.LEADING, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-											.addComponent(btnQuit, Alignment.LEADING, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-											.addComponent(btnLogout_1, Alignment.LEADING, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-										.addGap(347))
-									.addGroup(groupLayout.createSequentialGroup()
-										.addGap(63)
-										.addComponent(lblLevel)
-										.addContainerGap())))
+										.addComponent(btnLogout, GroupLayout.PREFERRED_SIZE, 87, GroupLayout.PREFERRED_SIZE)
+										.addGap(69))))
 							.addGroup(groupLayout.createSequentialGroup()
 								.addComponent(panel, GroupLayout.PREFERRED_SIZE, 76, GroupLayout.PREFERRED_SIZE)
 								.addComponent(panel_1, GroupLayout.PREFERRED_SIZE, 76, GroupLayout.PREFERRED_SIZE)
 								.addComponent(panel_2, GroupLayout.PREFERRED_SIZE, 76, GroupLayout.PREFERRED_SIZE)
-								.addComponent(panel_3, GroupLayout.PREFERRED_SIZE, 76, GroupLayout.PREFERRED_SIZE)
-								.addComponent(panel_4, GroupLayout.PREFERRED_SIZE, 76, GroupLayout.PREFERRED_SIZE)
-								.addComponent(panel_5, GroupLayout.PREFERRED_SIZE, 76, GroupLayout.PREFERRED_SIZE)
-								.addComponent(panel_6, GroupLayout.PREFERRED_SIZE, 76, GroupLayout.PREFERRED_SIZE)
-								.addComponent(panel_7, GroupLayout.PREFERRED_SIZE, 76, GroupLayout.PREFERRED_SIZE)
-								.addComponent(panel_17, GroupLayout.PREFERRED_SIZE, 76, GroupLayout.PREFERRED_SIZE)))))
+								.addGroup(groupLayout.createParallelGroup(Alignment.LEADING)
+									.addComponent(lblGame)
+									.addGroup(groupLayout.createSequentialGroup()
+										.addComponent(panel_3, GroupLayout.PREFERRED_SIZE, 76, GroupLayout.PREFERRED_SIZE)
+										.addComponent(panel_4, GroupLayout.PREFERRED_SIZE, 76, GroupLayout.PREFERRED_SIZE)
+										.addComponent(panel_5, GroupLayout.PREFERRED_SIZE, 76, GroupLayout.PREFERRED_SIZE)
+										.addComponent(panel_6, GroupLayout.PREFERRED_SIZE, 76, GroupLayout.PREFERRED_SIZE)
+										.addComponent(panel_7, GroupLayout.PREFERRED_SIZE, 76, GroupLayout.PREFERRED_SIZE)
+										.addComponent(panel_17, GroupLayout.PREFERRED_SIZE, 76, GroupLayout.PREFERRED_SIZE)))
+								.addGap(390)))))
+				.addGroup(groupLayout.createSequentialGroup()
+					.addGap(322)
+					.addComponent(lblTopTen)
+					.addContainerGap(683, Short.MAX_VALUE))
 		);
 		groupLayout.setVerticalGroup(
 			groupLayout.createParallelGroup(Alignment.LEADING)
 				.addGroup(groupLayout.createSequentialGroup()
 					.addGroup(groupLayout.createParallelGroup(Alignment.LEADING)
-						.addComponent(panel_5, GroupLayout.PREFERRED_SIZE, 18, GroupLayout.PREFERRED_SIZE)
-						.addComponent(panel_4, GroupLayout.PREFERRED_SIZE, 18, GroupLayout.PREFERRED_SIZE)
-						.addComponent(panel_3, GroupLayout.PREFERRED_SIZE, 18, GroupLayout.PREFERRED_SIZE)
-						.addComponent(panel_2, GroupLayout.PREFERRED_SIZE, 18, GroupLayout.PREFERRED_SIZE)
-						.addComponent(panel_7, GroupLayout.PREFERRED_SIZE, 18, GroupLayout.PREFERRED_SIZE)
-						.addComponent(panel_6, GroupLayout.PREFERRED_SIZE, 18, GroupLayout.PREFERRED_SIZE)
-						.addComponent(panel_1, GroupLayout.PREFERRED_SIZE, 18, GroupLayout.PREFERRED_SIZE)
-						.addComponent(panel, GroupLayout.PREFERRED_SIZE, 18, GroupLayout.PREFERRED_SIZE)
-						.addComponent(panel_17, GroupLayout.PREFERRED_SIZE, 18, GroupLayout.PREFERRED_SIZE))
-					.addGap(18)
-					.addGroup(groupLayout.createParallelGroup(Alignment.LEADING)
 						.addGroup(groupLayout.createSequentialGroup()
+							.addGroup(groupLayout.createParallelGroup(Alignment.LEADING)
+								.addComponent(panel_5, GroupLayout.PREFERRED_SIZE, 18, GroupLayout.PREFERRED_SIZE)
+								.addComponent(panel_4, GroupLayout.PREFERRED_SIZE, 18, GroupLayout.PREFERRED_SIZE)
+								.addComponent(panel_3, GroupLayout.PREFERRED_SIZE, 18, GroupLayout.PREFERRED_SIZE)
+								.addComponent(panel_2, GroupLayout.PREFERRED_SIZE, 18, GroupLayout.PREFERRED_SIZE)
+								.addComponent(panel_7, GroupLayout.PREFERRED_SIZE, 18, GroupLayout.PREFERRED_SIZE)
+								.addComponent(panel_6, GroupLayout.PREFERRED_SIZE, 18, GroupLayout.PREFERRED_SIZE)
+								.addComponent(panel_1, GroupLayout.PREFERRED_SIZE, 18, GroupLayout.PREFERRED_SIZE)
+								.addComponent(panel, GroupLayout.PREFERRED_SIZE, 18, GroupLayout.PREFERRED_SIZE)
+								.addComponent(panel_17, GroupLayout.PREFERRED_SIZE, 18, GroupLayout.PREFERRED_SIZE))
+							.addGap(33)
 							.addComponent(lblGame)
-							.addPreferredGap(ComponentPlacement.UNRELATED)
-							.addComponent(lblLevel)
-							.addGap(9)
-							.addComponent(layeredPane_2, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
-							.addGap(24)
-							.addComponent(btnPlay)
-							.addGap(18)
-							.addComponent(btnPause)
-							.addGap(18)
-							.addComponent(btnSave)
-							.addGap(68)
-							.addComponent(btnQuit)
-							.addGap(18)
-							.addComponent(btnLogout_1)
-							.addPreferredGap(ComponentPlacement.RELATED)
-							.addGroup(groupLayout.createParallelGroup(Alignment.TRAILING)
-								.addGroup(groupLayout.createSequentialGroup()
-									.addGap(64)
-									.addComponent(lblErrorMessage, GroupLayout.PREFERRED_SIZE, 18, GroupLayout.PREFERRED_SIZE)
-									.addPreferredGap(ComponentPlacement.RELATED, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-									.addComponent(btnLogout)
-									.addGap(26))
-								.addGroup(groupLayout.createSequentialGroup()
-									.addComponent(lblLives)
-									.addPreferredGap(ComponentPlacement.RELATED)
-									.addComponent(panel_19, GroupLayout.PREFERRED_SIZE, 28, GroupLayout.PREFERRED_SIZE)
-									.addGap(18))))
+							.addGap(39)
+							.addComponent(layeredPane_2, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
 						.addGroup(groupLayout.createSequentialGroup()
-							.addComponent(panel_18, GroupLayout.PREFERRED_SIZE, 522, GroupLayout.PREFERRED_SIZE)
-							.addPreferredGap(ComponentPlacement.RELATED)))
+							.addGap(135)
+							.addComponent(lblHallOfFame)))
+					.addGap(31)
+					.addComponent(lblTopTen)
+					.addPreferredGap(ComponentPlacement.RELATED, 295, Short.MAX_VALUE)
+					.addComponent(lblErrorMessage, GroupLayout.PREFERRED_SIZE, 18, GroupLayout.PREFERRED_SIZE)
+					.addPreferredGap(ComponentPlacement.RELATED, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+					.addComponent(btnLogout)
+					.addGap(26)
 					.addGroup(groupLayout.createParallelGroup(Alignment.TRAILING, false)
 						.addComponent(panel_16, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
 						.addComponent(panel_9, GroupLayout.DEFAULT_SIZE, 18, Short.MAX_VALUE)
@@ -341,3 +287,4 @@ public class GamePlayPage {
 	
 	}
 }
+
