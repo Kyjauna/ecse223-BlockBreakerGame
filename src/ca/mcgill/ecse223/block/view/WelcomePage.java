@@ -89,7 +89,7 @@ public class WelcomePage {
 		
 		frame = new JFrame();
 		frame.getContentPane().setBackground(new Color(0, 0, 51));
-		frame.setBounds(100, 100, 624, 505);
+		frame.setBounds(100, 100, 624, 520);
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		
 
@@ -134,7 +134,7 @@ public class WelcomePage {
 		
 		JLayeredPane layeredPane = new JLayeredPane();
 		layeredPane_1.setLayer(layeredPane, 50);
-		layeredPane.setBounds(0, 0, 624, 485);
+		layeredPane.setBounds(0, 0, 623, 458);
 		layeredPane_1.add(layeredPane);
 		
 		JLabel lblNewLabel = new JLabel("BLOCK 223");

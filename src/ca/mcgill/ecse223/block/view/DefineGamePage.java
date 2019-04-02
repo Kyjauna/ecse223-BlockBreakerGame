@@ -12,6 +12,7 @@ import javax.swing.JTextField;
 import javax.swing.GroupLayout;
 import javax.swing.GroupLayout.Alignment;
 import java.awt.event.ActionListener;
+import java.io.IOException;
 import java.awt.event.ActionEvent;
 import javax.swing.LayoutStyle.ComponentPlacement;
 
@@ -19,6 +20,7 @@ import ca.mcgill.ecse223.block.controller.Block223Controller;
 import ca.mcgill.ecse223.block.controller.InvalidInputException;
 
 import java.awt.Font;
+import java.awt.FontFormatException;
 
 public class DefineGamePage {
 
@@ -30,6 +32,7 @@ public class DefineGamePage {
 	public JTextField speedIncreaseFactorTxt;
 	public JTextField minPaddleLengthTxt;
 	public JTextField maxPaddleLengthTxt;
+	JLabel lblErrormessage_1 = new JLabel("errormessage");
 
 	/**
 	 * Launch the application.
@@ -58,14 +61,26 @@ public class DefineGamePage {
 	 * Initialize the contents of the frame.
 	 */
 	private void initialize() {
+		Font projectfont = null;
+		try {
+			projectfont = Font.createFont(Font.TRUETYPE_FONT, getClass().getResourceAsStream("/ARCADECLASSIC.TTF"));
+		} catch (FontFormatException e1) {
+			// TODO Auto-generated catch block
+			e1.printStackTrace();
+		} catch (IOException e1) {
+			// TODO Auto-generated catch block
+			e1.printStackTrace();
+		}
+		Font projectfont52 = projectfont.deriveFont(52f);
+		Font projectfont15 = projectfont.deriveFont(15f);
+		Font projectfont24 = projectfont.deriveFont(24f);
+		Font projectfont20 = projectfont.deriveFont(20f);
+		Font projectfont32 = projectfont.deriveFont(32f);
+		
 		frame = new JFrame();
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frame.getContentPane().setBackground(new Color(0, 0, 51));
 		frame.setBounds(100, 100, 704, 562);
-		
-		/* Build Button */
-		JLabel lblErrormessage = new JLabel(" ");
-		lblErrormessage.setForeground(new Color(255, 255, 0));
 		
 		JButton btnBuild = new JButton("BUILD");
 		btnBuild.addActionListener(new ActionListener() {
@@ -99,20 +114,16 @@ public class DefineGamePage {
 					gamePage.frame.setVisible(true);	
 					frame.setVisible(false);
 				} catch (InvalidInputException e1) {
-					lblErrormessage.setText(e1.getMessage());
+					lblErrormessage_1.setText(e1.getMessage());
+					lblErrormessage_1.setVisible(true);
 				}
 			}
 		});
-		btnBuild.setFont(new Font("Monospaced", Font.BOLD, 15));
+		btnBuild.setFont(projectfont15);
 		btnBuild.setBackground(new Color(135, 206, 235));
 		
 		numberOfLevelsTxt = new JTextField();
 		numberOfLevelsTxt.setForeground(new Color(0, 0, 153));
-		/* try {
-			numberOfLevelsTxt.setText(""+Block223Controller.getCurrentDesignableGame().getNrLevels());
-		} catch (InvalidInputException e1) {
-			e1.printStackTrace();
-		} */
 		numberOfLevelsTxt.setColumns(10);
 		
 		blocksPerLevelTxt = new JTextField();
@@ -146,11 +157,11 @@ public class DefineGamePage {
 		maxPaddleLengthTxt.setColumns(10);
 		
 		JLabel lblCreateNewGame = new JLabel("DEFINE GAME SETTINGS");
-		lblCreateNewGame.setFont(new Font("Monospaced", Font.BOLD, 25));
+		lblCreateNewGame.setFont(projectfont52);
 		lblCreateNewGame.setForeground(new Color(204, 255, 255));
 		lblCreateNewGame.setBackground(new Color(70, 130, 180));
 		
-		JLabel lblNumberOfLevels = new JLabel("Number of Levels");
+		JLabel lblNumberOfLevels = new JLabel("NUMBER OF LEVELS");
 		lblNumberOfLevels.setFont(new Font("Monospaced", Font.BOLD, 13));
 		lblNumberOfLevels.setForeground(new Color(204, 255, 255));
 		
@@ -211,18 +222,20 @@ public class DefineGamePage {
 				int maxPaddleLength = Integer.parseInt(stringMaxPaddleLength);
 				
 				try {
-					Block223Controller.setGameDetails( numberOfLevels, blocksPerLevel, xBallSpeed, yBallSpeed, speedIncreaseFactor, maxPaddleLength, minPaddleLength);
+					Block223Controller.setGameDetails(numberOfLevels, blocksPerLevel, xBallSpeed, yBallSpeed, speedIncreaseFactor, maxPaddleLength, minPaddleLength);
 					Block223Controller.saveGame();
-					savedGameMsg.setText("Your game settings have been saved, please proceed to build!");
+					lblErrormessage_1.setText("Your game settings have been saved, please proceed to build!");
+					lblErrormessage_1.setVisible(true);
 					
 				} catch (InvalidInputException e1) {
-					lblErrormessage.setText(e1.getMessage());
+					lblErrormessage_1.setText(e1.getMessage());
+					lblErrormessage_1.setVisible(true);
 				}
 			
 			}
 		});
 		
-		btnSave.setFont(new Font("Monospaced", Font.BOLD, 15));
+		btnSave.setFont(projectfont15);
 		btnSave.setBackground(new Color(135, 206, 235));
 		
 		JButton btnCancel = new JButton("CANCEL");
@@ -237,118 +250,113 @@ public class DefineGamePage {
 			
 		});
 
-		btnCancel.setFont(new Font("Monospaced", Font.BOLD, 15));
+		btnCancel.setFont(projectfont15);
 		btnCancel.setBackground(new Color(135, 206, 235));
+		
+	
+		lblErrormessage_1.setForeground(new Color(204, 255, 255));
+		lblErrormessage_1.setFont(new Font("Monospaced", Font.BOLD, 15));
+		lblErrormessage_1.setVisible(false);
+		
 		GroupLayout groupLayout = new GroupLayout(frame.getContentPane());
 		groupLayout.setHorizontalGroup(
 			groupLayout.createParallelGroup(Alignment.LEADING)
 				.addGroup(groupLayout.createSequentialGroup()
 					.addGroup(groupLayout.createParallelGroup(Alignment.LEADING)
 						.addGroup(groupLayout.createSequentialGroup()
-							.addGap(230)
-							.addComponent(lblCreateNewGame, GroupLayout.PREFERRED_SIZE, 323, GroupLayout.PREFERRED_SIZE))
+							.addGap(89)
+							.addComponent(lblCreateNewGame))
 						.addGroup(groupLayout.createSequentialGroup()
-							.addGap(123)
-							.addComponent(lblNumberOfLevels)
-							.addGap(27)
-							.addComponent(numberOfLevelsTxt, GroupLayout.PREFERRED_SIZE, 267, GroupLayout.PREFERRED_SIZE))
+							.addGap(110)
+							.addGroup(groupLayout.createParallelGroup(Alignment.LEADING)
+								.addGroup(groupLayout.createSequentialGroup()
+									.addGap(17)
+									.addComponent(lblMinXBall, GroupLayout.PREFERRED_SIZE, 136, GroupLayout.PREFERRED_SIZE)
+									.addGap(18)
+									.addComponent(xBallSpeedTxt, GroupLayout.PREFERRED_SIZE, 267, GroupLayout.PREFERRED_SIZE))
+								.addGroup(groupLayout.createSequentialGroup()
+									.addGap(17)
+									.addComponent(lblMinYBall, GroupLayout.PREFERRED_SIZE, 136, GroupLayout.PREFERRED_SIZE)
+									.addGap(18)
+									.addComponent(yBallSpeedTxt, GroupLayout.PREFERRED_SIZE, 267, GroupLayout.PREFERRED_SIZE))
+								.addGroup(groupLayout.createSequentialGroup()
+									.addComponent(lblSpeedIncreaseFactor, GroupLayout.PREFERRED_SIZE, 153, GroupLayout.PREFERRED_SIZE)
+									.addGap(18)
+									.addComponent(speedIncreaseFactorTxt, GroupLayout.PREFERRED_SIZE, 267, GroupLayout.PREFERRED_SIZE))
+								.addGroup(groupLayout.createSequentialGroup()
+									.addGap(17)
+									.addComponent(lblMinPaddleLength)
+									.addGap(18)
+									.addComponent(minPaddleLengthTxt, GroupLayout.PREFERRED_SIZE, 267, GroupLayout.PREFERRED_SIZE))
+								.addGroup(groupLayout.createSequentialGroup()
+									.addGap(8)
+									.addGroup(groupLayout.createParallelGroup(Alignment.TRAILING)
+										.addGroup(groupLayout.createSequentialGroup()
+											.addComponent(lblNumberOfLevels)
+											.addGap(27)
+											.addComponent(numberOfLevelsTxt, GroupLayout.PREFERRED_SIZE, 267, GroupLayout.PREFERRED_SIZE))
+										.addGroup(groupLayout.createSequentialGroup()
+											.addComponent(lblblocksPerLevle)
+											.addGap(27)
+											.addComponent(blocksPerLevelTxt, GroupLayout.PREFERRED_SIZE, 267, GroupLayout.PREFERRED_SIZE))))
+								.addGroup(groupLayout.createSequentialGroup()
+									.addGap(17)
+									.addGroup(groupLayout.createParallelGroup(Alignment.LEADING)
+										.addComponent(lblErrormessage_1, GroupLayout.PREFERRED_SIZE, 418, GroupLayout.PREFERRED_SIZE)
+										.addGroup(groupLayout.createSequentialGroup()
+											.addComponent(lblMaxPaddleLength)
+											.addGap(18)
+											.addComponent(maxPaddleLengthTxt, GroupLayout.PREFERRED_SIZE, 267, GroupLayout.PREFERRED_SIZE))))))
 						.addGroup(groupLayout.createSequentialGroup()
-							.addGap(115)
-							.addComponent(lblblocksPerLevle)
-							.addGap(27)
-							.addComponent(blocksPerLevelTxt, GroupLayout.PREFERRED_SIZE, 267, GroupLayout.PREFERRED_SIZE))
-						.addGroup(groupLayout.createSequentialGroup()
-							.addGap(124)
-							.addComponent(lblMinXBall, GroupLayout.PREFERRED_SIZE, 136, GroupLayout.PREFERRED_SIZE)
-							.addGap(18)
-							.addComponent(xBallSpeedTxt, GroupLayout.PREFERRED_SIZE, 267, GroupLayout.PREFERRED_SIZE))
-						.addGroup(groupLayout.createSequentialGroup()
-							.addGap(124)
-							.addComponent(lblMinYBall, GroupLayout.PREFERRED_SIZE, 136, GroupLayout.PREFERRED_SIZE)
-							.addGap(18)
-							.addComponent(yBallSpeedTxt, GroupLayout.PREFERRED_SIZE, 267, GroupLayout.PREFERRED_SIZE))
-						.addGroup(groupLayout.createSequentialGroup()
-							.addGap(119)
-							.addComponent(lblSpeedIncreaseFactor, GroupLayout.PREFERRED_SIZE, 153, GroupLayout.PREFERRED_SIZE)
-							.addGap(6)
-							.addComponent(speedIncreaseFactorTxt, GroupLayout.PREFERRED_SIZE, 267, GroupLayout.PREFERRED_SIZE))
-						.addGroup(groupLayout.createSequentialGroup()
-							.addGap(124)
-							.addComponent(lblMinPaddleLength)
-							.addGap(18)
-							.addComponent(minPaddleLengthTxt, GroupLayout.PREFERRED_SIZE, 267, GroupLayout.PREFERRED_SIZE))
-						.addGroup(groupLayout.createSequentialGroup()
-							.addGap(175)
+							.addGap(166)
 							.addComponent(btnCancel, GroupLayout.PREFERRED_SIZE, 103, GroupLayout.PREFERRED_SIZE)
 							.addGap(18)
 							.addComponent(btnSave, GroupLayout.PREFERRED_SIZE, 90, GroupLayout.PREFERRED_SIZE)
 							.addGap(18)
-							.addComponent(btnBuild, GroupLayout.PREFERRED_SIZE, 93, GroupLayout.PREFERRED_SIZE))
-						.addGroup(groupLayout.createSequentialGroup()
-							.addGap(124)
-							.addGroup(groupLayout.createParallelGroup(Alignment.LEADING)
-								.addComponent(lblErrormessage, GroupLayout.PREFERRED_SIZE, 471, GroupLayout.PREFERRED_SIZE)
-								.addGroup(groupLayout.createSequentialGroup()
-									.addComponent(lblMaxPaddleLength)
-									.addGap(18)
-									.addComponent(maxPaddleLengthTxt, GroupLayout.PREFERRED_SIZE, 267, GroupLayout.PREFERRED_SIZE)))))
-					.addContainerGap())
+							.addComponent(btnBuild, GroupLayout.PREFERRED_SIZE, 99, GroupLayout.PREFERRED_SIZE)))
+					.addContainerGap(61, Short.MAX_VALUE))
 		);
 		groupLayout.setVerticalGroup(
 			groupLayout.createParallelGroup(Alignment.LEADING)
 				.addGroup(groupLayout.createSequentialGroup()
-					.addGap(25)
+					.addGap(30)
 					.addComponent(lblCreateNewGame, GroupLayout.PREFERRED_SIZE, 51, GroupLayout.PREFERRED_SIZE)
-					.addGap(33)
-					.addGroup(groupLayout.createParallelGroup(Alignment.LEADING)
-						.addGroup(groupLayout.createSequentialGroup()
-							.addGap(5)
-							.addComponent(lblNumberOfLevels))
-						.addComponent(numberOfLevelsTxt, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
-					.addGap(18)
-					.addGroup(groupLayout.createParallelGroup(Alignment.LEADING)
-						.addGroup(groupLayout.createSequentialGroup()
-							.addGap(4)
-							.addComponent(lblblocksPerLevle))
-						.addComponent(blocksPerLevelTxt, GroupLayout.PREFERRED_SIZE, 23, GroupLayout.PREFERRED_SIZE))
+					.addGap(31)
+					.addGroup(groupLayout.createParallelGroup(Alignment.BASELINE)
+						.addComponent(numberOfLevelsTxt, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
+						.addComponent(lblNumberOfLevels))
+					.addGap(28)
+					.addGroup(groupLayout.createParallelGroup(Alignment.BASELINE)
+						.addComponent(blocksPerLevelTxt, GroupLayout.PREFERRED_SIZE, 23, GroupLayout.PREFERRED_SIZE)
+						.addComponent(lblblocksPerLevle))
 					.addGap(12)
-					.addGroup(groupLayout.createParallelGroup(Alignment.LEADING)
-						.addGroup(groupLayout.createSequentialGroup()
-							.addGap(3)
-							.addComponent(lblMinXBall, GroupLayout.PREFERRED_SIZE, 18, GroupLayout.PREFERRED_SIZE))
-						.addComponent(xBallSpeedTxt, GroupLayout.PREFERRED_SIZE, 23, GroupLayout.PREFERRED_SIZE))
+					.addGroup(groupLayout.createParallelGroup(Alignment.BASELINE)
+						.addComponent(xBallSpeedTxt, GroupLayout.PREFERRED_SIZE, 23, GroupLayout.PREFERRED_SIZE)
+						.addComponent(lblMinXBall, GroupLayout.PREFERRED_SIZE, 18, GroupLayout.PREFERRED_SIZE))
 					.addGap(14)
-					.addGroup(groupLayout.createParallelGroup(Alignment.LEADING)
-						.addGroup(groupLayout.createSequentialGroup()
-							.addGap(3)
-							.addComponent(lblMinYBall, GroupLayout.PREFERRED_SIZE, 18, GroupLayout.PREFERRED_SIZE))
-						.addComponent(yBallSpeedTxt, GroupLayout.PREFERRED_SIZE, 23, GroupLayout.PREFERRED_SIZE))
+					.addGroup(groupLayout.createParallelGroup(Alignment.BASELINE)
+						.addComponent(yBallSpeedTxt, GroupLayout.PREFERRED_SIZE, 23, GroupLayout.PREFERRED_SIZE)
+						.addComponent(lblMinYBall, GroupLayout.PREFERRED_SIZE, 18, GroupLayout.PREFERRED_SIZE))
 					.addGap(12)
-					.addGroup(groupLayout.createParallelGroup(Alignment.LEADING)
-						.addGroup(groupLayout.createSequentialGroup()
-							.addGap(4)
-							.addComponent(lblSpeedIncreaseFactor, GroupLayout.PREFERRED_SIZE, 18, GroupLayout.PREFERRED_SIZE))
-						.addComponent(speedIncreaseFactorTxt, GroupLayout.PREFERRED_SIZE, 23, GroupLayout.PREFERRED_SIZE))
+					.addGroup(groupLayout.createParallelGroup(Alignment.BASELINE)
+						.addComponent(speedIncreaseFactorTxt, GroupLayout.PREFERRED_SIZE, 23, GroupLayout.PREFERRED_SIZE)
+						.addComponent(lblSpeedIncreaseFactor, GroupLayout.PREFERRED_SIZE, 18, GroupLayout.PREFERRED_SIZE))
 					.addGap(12)
-					.addGroup(groupLayout.createParallelGroup(Alignment.LEADING)
-						.addGroup(groupLayout.createSequentialGroup()
-							.addGap(3)
-							.addComponent(lblMinPaddleLength, GroupLayout.PREFERRED_SIZE, 18, GroupLayout.PREFERRED_SIZE))
-						.addComponent(minPaddleLengthTxt, GroupLayout.PREFERRED_SIZE, 23, GroupLayout.PREFERRED_SIZE))
+					.addGroup(groupLayout.createParallelGroup(Alignment.BASELINE)
+						.addComponent(minPaddleLengthTxt, GroupLayout.PREFERRED_SIZE, 23, GroupLayout.PREFERRED_SIZE)
+						.addComponent(lblMinPaddleLength, GroupLayout.PREFERRED_SIZE, 18, GroupLayout.PREFERRED_SIZE))
 					.addGap(12)
-					.addGroup(groupLayout.createParallelGroup(Alignment.LEADING)
-						.addGroup(groupLayout.createSequentialGroup()
-							.addGap(3)
-							.addComponent(lblMaxPaddleLength, GroupLayout.PREFERRED_SIZE, 18, GroupLayout.PREFERRED_SIZE))
-						.addComponent(maxPaddleLengthTxt, GroupLayout.PREFERRED_SIZE, 23, GroupLayout.PREFERRED_SIZE))
-					.addPreferredGap(ComponentPlacement.UNRELATED)
-					.addComponent(lblErrormessage, GroupLayout.PREFERRED_SIZE, 26, GroupLayout.PREFERRED_SIZE)
-					.addGap(8)
+					.addGroup(groupLayout.createParallelGroup(Alignment.BASELINE)
+						.addComponent(maxPaddleLengthTxt, GroupLayout.PREFERRED_SIZE, 23, GroupLayout.PREFERRED_SIZE)
+						.addComponent(lblMaxPaddleLength, GroupLayout.PREFERRED_SIZE, 18, GroupLayout.PREFERRED_SIZE))
+					.addGap(18)
+					.addComponent(lblErrormessage_1)
+					.addGap(38)
 					.addGroup(groupLayout.createParallelGroup(Alignment.BASELINE)
 						.addComponent(btnCancel)
 						.addComponent(btnSave)
-						.addComponent(btnBuild, GroupLayout.PREFERRED_SIZE, 27, GroupLayout.PREFERRED_SIZE))
-					.addGap(5))
+						.addComponent(btnBuild))
+					.addGap(51))
 		);
 		frame.getContentPane().setLayout(groupLayout);
 	}

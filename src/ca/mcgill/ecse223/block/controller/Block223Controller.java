@@ -207,17 +207,17 @@ public class Block223Controller {
 		
 		String currentName = Block223Application.getCurrentGame().getName();
 		
-			if(!(currentName.equals(name))) {
-				try {
-					game.setName(name);
-					setGameDetails(nrLevels, nrBlocksPerLevel, minBallSpeedX, minBallSpeedY, ballSpeedIncreaseFactor, maxPaddleLength, minPaddleLength);
-				} 
-				catch(InvalidInputException e) {
-					throw new InvalidInputException(e.getMessage());
-				}
+			if(!(currentName.equals(name))) 
+				game.setName(name);
 				
-			}		
-	}
+			try {
+				setGameDetails(nrLevels, nrBlocksPerLevel, minBallSpeedX, minBallSpeedY, ballSpeedIncreaseFactor, maxPaddleLength, minPaddleLength);
+			} 
+			catch(InvalidInputException e) {
+				throw new InvalidInputException(e.getMessage());
+			}
+				
+		}		
 
 	public static void addBlock(int red, int green, int blue, int points) throws InvalidInputException {
 		
@@ -277,13 +277,13 @@ public class Block223Controller {
 	public static void updateBlock(int id, int red, int green, int blue, int points) throws InvalidInputException {
 		
 		String error="";
-		if (red<1||red>255)
+		if (red<0||red>255)
 			error+="Red must be between 0 and 255. ";
 		
-		if (green<1||green>255)
+		if (green<0||green>255)
 			error+="Green must be between 0 and 255. ";
 		
-		if (blue<1||blue>255)
+		if (blue<0||blue>255)
 			error+="Blue must be between 0 and 255. ";
 		
 		if (points<1||points>1000)
@@ -364,8 +364,12 @@ public class Block223Controller {
 		if(game.findBlock(id) == null) {
 			throw new InvalidInputException("The block does not exist.");
 		}
-		
-		BlockAssignment newBlock = new BlockAssignment(gridHorizontalPosition, gridVerticalPosition,gameLevel, block, game);
+		try {
+			BlockAssignment newBlock = new BlockAssignment(gridHorizontalPosition, gridVerticalPosition,gameLevel, block, game);
+		}
+		catch (RuntimeException e) {
+			throw new InvalidInputException(e.getMessage());
+		}
 	}
 
 	public static void moveBlock(int level, int oldGridHorizontalPosition, int oldGridVerticalPosition,
