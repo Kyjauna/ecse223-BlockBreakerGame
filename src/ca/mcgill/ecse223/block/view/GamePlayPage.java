@@ -4,6 +4,8 @@ import java.awt.EventQueue;
 
 import javax.swing.JFrame;
 import java.awt.Color;
+import java.awt.Dimension;
+
 import javax.swing.GroupLayout;
 import javax.swing.GroupLayout.Alignment;
 import javax.swing.JLabel;
@@ -33,6 +35,8 @@ import java.util.List;
 //import java.util.List;
 import java.awt.event.ActionEvent;
 import javax.swing.SwingConstants;
+import java.awt.FlowLayout;
+import java.awt.GridLayout;
 
 public class GamePlayPage {
 
@@ -85,65 +89,6 @@ public class GamePlayPage {
 		Font projectfont15 = projectfont.deriveFont(15f);
 		Font projectfont32 = projectfont.deriveFont(32f);
 		
-		/* The comboBox needs to have a list of all the names of the existing games. */
-		
-		JLabel lblGame = new JLabel("Game");
-		try {
-			lblGame.setText(Block223Controller.getCurrentDesignableGame().getName());
-		} catch (InvalidInputException e1) {
-			// TODO Auto-generated catch block
-			e1.printStackTrace();
-		}
-		lblGame.setFont(projectfont52);
-		lblGame.setForeground(new Color(224,255,255));
-		JPanel panel = new JPanel();
-		panel.setBackground(new Color(255, 0, 255));
-		
-		JPanel panel_1 = new JPanel();
-		panel_1.setBackground(new Color(255, 255, 0));
-		
-		JPanel panel_2 = new JPanel();
-		panel_2.setBackground(new Color(0, 204, 255));
-		
-		JPanel panel_3 = new JPanel();
-		panel_3.setBackground(new Color(51, 255, 0));
-		
-		JPanel panel_4 = new JPanel();
-		panel_4.setBackground(new Color(102, 0, 153));
-		
-		JPanel panel_5 = new JPanel();
-		panel_5.setBackground(Color.MAGENTA);
-		
-		JPanel panel_6 = new JPanel();
-		panel_6.setBackground(Color.YELLOW);
-		
-		JPanel panel_7 = new JPanel();
-		panel_7.setBackground(new Color(0, 204, 255));
-		
-		JPanel panel_9 = new JPanel();
-		panel_9.setBackground(Color.YELLOW);
-		
-		JPanel panel_10 = new JPanel();
-		panel_10.setBackground(new Color(0, 204, 255));
-		
-		JPanel panel_11 = new JPanel();
-		panel_11.setBackground(new Color(51, 255, 0));
-		
-		JPanel panel_12 = new JPanel();
-		panel_12.setBackground(new Color(102, 0, 153));
-		
-		JPanel panel_13 = new JPanel();
-		panel_13.setBackground(Color.MAGENTA);
-		
-		JPanel panel_8 = new JPanel();
-		panel_8.setBackground(Color.YELLOW);
-		
-		JPanel panel_14 = new JPanel();
-		panel_14.setBackground(new Color(0, 204, 255));
-		
-		JPanel panel_15 = new JPanel();
-		panel_15.setBackground(new Color(51, 255, 0));
-		
 		JDesktopPane layeredPane_1 = new JDesktopPane();
 		
 		JLayeredPane layeredPane = new JLayeredPane();
@@ -154,42 +99,189 @@ public class GamePlayPage {
 		lblErrorMessage = new JLabel("");
 		lblErrorMessage.setForeground(new Color(204, 255, 255));
 		lblErrorMessage.setFont(new Font("Monospaced", Font.BOLD, 12));
-
-		
-		/* Logout Button */
-		
-		JButton btnLogout = new JButton("LOGOUT");
-		btnLogout.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				
-				/* Logging out will take you back to the Welcome Page */
-				Block223Controller.logout();
-				
-				WelcomePage homePage = new WelcomePage();
-				homePage.frame.setVisible(true);
-				frame.setVisible(false);
-				Block223Controller.logout();
-				
-			}
-		});
-		btnLogout.setFont(projectfont15);
 		
 		JLayeredPane layeredPane_2 = new JLayeredPane();
 		
-		JPanel panel_16 = new JPanel();
-		panel_16.setBackground(new Color(102, 0, 153));
-		
-		JPanel panel_17 = new JPanel();
-		panel_17.setBackground(new Color(51, 255, 0));
+		JLayeredPane layeredPane_3 = new JLayeredPane();
 		
 		JPanel panel_18 = new JPanel();
-		panel_18.setBackground(new Color(240, 248, 255));
+		panel_18.setLayout(null);
+		panel_18.setBackground(Color.WHITE);
+		
+		JLayeredPane layeredPane_5 = new JLayeredPane();
+		
+		JPanel panel_20 = new JPanel();
+		panel_20.setBackground(Color.MAGENTA);
+		panel_20.setBounds(0, 0, 76, 18);
+		layeredPane_5.add(panel_20);
+		
+		JPanel panel_21 = new JPanel();
+		panel_21.setBackground(Color.YELLOW);
+		panel_21.setBounds(76, 0, 76, 18);
+		layeredPane_5.add(panel_21);
+		
+		JPanel panel_22 = new JPanel();
+		panel_22.setBackground(new Color(0, 204, 255));
+		panel_22.setBounds(152, 0, 76, 18);
+		layeredPane_5.add(panel_22);
+		
+		JPanel panel_23 = new JPanel();
+		panel_23.setBackground(new Color(51, 255, 0));
+		panel_23.setBounds(228, 0, 76, 18);
+		layeredPane_5.add(panel_23);
+		
+		JPanel panel_24 = new JPanel();
+		panel_24.setBackground(new Color(102, 0, 153));
+		panel_24.setBounds(304, 0, 76, 18);
+		layeredPane_5.add(panel_24);
+		
+		JPanel panel_25 = new JPanel();
+		panel_25.setBackground(Color.MAGENTA);
+		panel_25.setBounds(380, 0, 76, 18);
+		layeredPane_5.add(panel_25);
+		
+		JPanel panel_26 = new JPanel();
+		panel_26.setBackground(Color.YELLOW);
+		panel_26.setBounds(456, 0, 76, 18);
+		layeredPane_5.add(panel_26);
+		
+		JPanel panel_27 = new JPanel();
+		panel_27.setBackground(new Color(0, 204, 255));
+		panel_27.setBounds(532, 0, 76, 18);
+		layeredPane_5.add(panel_27);
+		
+		JPanel panel_28 = new JPanel();
+		panel_28.setBackground(new Color(51, 255, 0));
+		panel_28.setBounds(608, 0, 76, 18);
+		layeredPane_5.add(panel_28);
+		
+		JLayeredPane layeredPane_4 = new JLayeredPane();
+		
+		JLayeredPane layeredPane_6 = new JLayeredPane();
+		GroupLayout groupLayout = new GroupLayout(frame.getContentPane());
+		groupLayout.setHorizontalGroup(
+			groupLayout.createParallelGroup(Alignment.LEADING)
+				.addGroup(groupLayout.createSequentialGroup()
+					.addGap(24)
+					.addGroup(groupLayout.createParallelGroup(Alignment.LEADING)
+						.addGroup(groupLayout.createSequentialGroup()
+							.addComponent(panel_18, GroupLayout.PREFERRED_SIZE, 390, GroupLayout.PREFERRED_SIZE)
+							.addGap(27)
+							.addComponent(layeredPane_3, GroupLayout.PREFERRED_SIZE, 243, GroupLayout.PREFERRED_SIZE))
+						.addGroup(groupLayout.createParallelGroup(Alignment.TRAILING, false)
+							.addGroup(groupLayout.createSequentialGroup()
+								.addComponent(layeredPane_6, GroupLayout.PREFERRED_SIZE, 682, GroupLayout.PREFERRED_SIZE)
+								.addGap(781))
+							.addComponent(layeredPane_5, GroupLayout.DEFAULT_SIZE, 684, Short.MAX_VALUE)))
+					.addGap(15)
+					.addGroup(groupLayout.createParallelGroup(Alignment.LEADING)
+						.addGroup(groupLayout.createSequentialGroup()
+							.addGap(259)
+							.addComponent(lblErrorMessage, GroupLayout.PREFERRED_SIZE, 524, GroupLayout.PREFERRED_SIZE))
+						.addGroup(groupLayout.createSequentialGroup()
+							.addGap(683)
+							.addComponent(layeredPane_2, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))))
+				.addGroup(groupLayout.createSequentialGroup()
+					.addGap(29)
+					.addComponent(layeredPane_4, GroupLayout.PREFERRED_SIZE, 708, GroupLayout.PREFERRED_SIZE))
+		);
+		groupLayout.setVerticalGroup(
+			groupLayout.createParallelGroup(Alignment.LEADING)
+				.addGroup(groupLayout.createSequentialGroup()
+					.addComponent(layeredPane_5, GroupLayout.PREFERRED_SIZE, 28, GroupLayout.PREFERRED_SIZE)
+					.addGap(0)
+					.addGroup(groupLayout.createParallelGroup(Alignment.TRAILING)
+						.addGroup(groupLayout.createSequentialGroup()
+							.addGap(100)
+							.addComponent(layeredPane_2, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
+							.addGap(105)
+							.addComponent(lblErrorMessage, GroupLayout.PREFERRED_SIZE, 18, GroupLayout.PREFERRED_SIZE)
+							.addPreferredGap(ComponentPlacement.RELATED, 254, Short.MAX_VALUE))
+						.addGroup(groupLayout.createSequentialGroup()
+							.addComponent(layeredPane_6, GroupLayout.PREFERRED_SIZE, 71, GroupLayout.PREFERRED_SIZE)
+							.addPreferredGap(ComponentPlacement.RELATED)
+							.addGroup(groupLayout.createParallelGroup(Alignment.TRAILING)
+								.addComponent(panel_18, GroupLayout.PREFERRED_SIZE, 390, GroupLayout.PREFERRED_SIZE)
+								.addComponent(layeredPane_3, 0, 0, Short.MAX_VALUE))
+							.addGap(18)))
+					.addPreferredGap(ComponentPlacement.RELATED)
+					.addComponent(layeredPane_4, GroupLayout.PREFERRED_SIZE, 17, GroupLayout.PREFERRED_SIZE)
+					.addContainerGap())
+		);
+		
+		JLabel lblGame = new JLabel("Game");
+		lblGame.setBounds(0, 0, 776, 54);
+		layeredPane_6.add(lblGame);
+		try {
+			lblGame.setText(Block223Controller.getCurrentDesignableGame().getName());
+		} catch (InvalidInputException e2) {
+			// TODO Auto-generated catch block
+			e2.printStackTrace();
+		}
+		lblGame.setFont(projectfont52);
+		lblGame.setForeground(new Color(224,255,255));
+		
+		JPanel panel = new JPanel();
+		panel.setBackground(Color.YELLOW);
+		panel.setBounds(0, 0, 76, 18);
+		layeredPane_4.add(panel);
+		
+		JPanel panel_1 = new JPanel();
+		panel_1.setBackground(new Color(0, 204, 255));
+		panel_1.setBounds(76, 0, 76, 18);
+		layeredPane_4.add(panel_1);
+		
+		JPanel panel_2 = new JPanel();
+		panel_2.setBackground(new Color(51, 255, 0));
+		panel_2.setBounds(152, 0, 76, 18);
+		layeredPane_4.add(panel_2);
+		
+		JPanel panel_3 = new JPanel();
+		panel_3.setBackground(new Color(102, 0, 153));
+		panel_3.setBounds(228, 0, 76, 18);
+		layeredPane_4.add(panel_3);
+		
+		JPanel panel_4 = new JPanel();
+		panel_4.setBackground(Color.MAGENTA);
+		panel_4.setBounds(304, 0, 76, 18);
+		layeredPane_4.add(panel_4);
+		
+		JPanel panel_5 = new JPanel();
+		panel_5.setBackground(Color.YELLOW);
+		panel_5.setBounds(380, 0, 76, 18);
+		layeredPane_4.add(panel_5);
+		
+		JPanel panel_6 = new JPanel();
+		panel_6.setBackground(new Color(0, 204, 255));
+		panel_6.setBounds(456, 0, 76, 18);
+		layeredPane_4.add(panel_6);
+		
+		JPanel panel_7 = new JPanel();
+		panel_7.setBackground(new Color(51, 255, 0));
+		panel_7.setBounds(532, 0, 76, 18);
+		layeredPane_4.add(panel_7);
+		
+		JPanel panel_17 = new JPanel();
+		panel_17.setBackground(new Color(102, 0, 153));
+		panel_17.setBounds(608, 0, 76, 18);
+		layeredPane_4.add(panel_17);
+
+		
+		
+		JLabel lblLevel = new JLabel("");
+		lblLevel.setForeground(new Color(224, 255, 255));
+		lblLevel.setFont(projectfont32);
+		lblLevel.setText("LEVEL "+(level));
+		
+		JButton btnPlay = new JButton("PLAY");
+		btnPlay.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+			}
+		});
+		btnPlay.setFont(projectfont15);
 		
 		JButton btnPause = new JButton("PAUSE");
 		btnPause.setFont(projectfont15);
-		
-		JButton btnPlay = new JButton("PLAY");
-		btnPlay.setFont(projectfont15);
 		
 		JButton btnSave = new JButton("SAVE");
 		btnSave.setFont(projectfont15);
@@ -205,136 +297,53 @@ public class GamePlayPage {
 		JLabel lblLives = new JLabel("LIVES");
 		lblLives.setFont(projectfont15);
 		lblLives.setForeground(new Color(224, 255, 255));
-		
-		
-		JLabel lblLevel = new JLabel("");
-		lblLevel.setForeground(new Color(224, 255, 255));
-		lblLevel.setFont(projectfont32);
-		lblLevel.setText("LEVEL "+(level));
-		
-		GroupLayout groupLayout = new GroupLayout(frame.getContentPane());
-		groupLayout.setHorizontalGroup(
-			groupLayout.createParallelGroup(Alignment.TRAILING)
-				.addGroup(groupLayout.createSequentialGroup()
+		GroupLayout gl_layeredPane_3 = new GroupLayout(layeredPane_3);
+		gl_layeredPane_3.setHorizontalGroup(
+			gl_layeredPane_3.createParallelGroup(Alignment.TRAILING)
+				.addGroup(gl_layeredPane_3.createSequentialGroup()
+					.addGroup(gl_layeredPane_3.createParallelGroup(Alignment.LEADING)
+						.addGroup(gl_layeredPane_3.createSequentialGroup()
+							.addGap(72)
+							.addGroup(gl_layeredPane_3.createParallelGroup(Alignment.LEADING)
+								.addComponent(btnPause, GroupLayout.PREFERRED_SIZE, 81, GroupLayout.PREFERRED_SIZE)
+								.addComponent(btnPlay, GroupLayout.PREFERRED_SIZE, 81, GroupLayout.PREFERRED_SIZE)
+								.addComponent(btnSave, GroupLayout.PREFERRED_SIZE, 81, GroupLayout.PREFERRED_SIZE)
+								.addComponent(btnQuit, GroupLayout.PREFERRED_SIZE, 81, GroupLayout.PREFERRED_SIZE)
+								.addComponent(btnLogout_1)))
+						.addGroup(gl_layeredPane_3.createSequentialGroup()
+							.addGap(27)
+							.addGroup(gl_layeredPane_3.createParallelGroup(Alignment.LEADING, false)
+								.addComponent(lblLevel, Alignment.TRAILING, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+								.addComponent(panel_19, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+								.addComponent(lblLives))))
+					.addContainerGap(98, Short.MAX_VALUE))
+		);
+		gl_layeredPane_3.setVerticalGroup(
+			gl_layeredPane_3.createParallelGroup(Alignment.LEADING)
+				.addGroup(gl_layeredPane_3.createSequentialGroup()
 					.addContainerGap()
-					.addGroup(groupLayout.createParallelGroup(Alignment.LEADING)
-						.addGroup(groupLayout.createSequentialGroup()
-							.addComponent(panel_9, GroupLayout.PREFERRED_SIZE, 76, GroupLayout.PREFERRED_SIZE)
-							.addComponent(panel_10, GroupLayout.PREFERRED_SIZE, 76, GroupLayout.PREFERRED_SIZE)
-							.addComponent(panel_11, GroupLayout.PREFERRED_SIZE, 76, GroupLayout.PREFERRED_SIZE)
-							.addComponent(panel_12, GroupLayout.PREFERRED_SIZE, 76, GroupLayout.PREFERRED_SIZE)
-							.addComponent(panel_13, GroupLayout.PREFERRED_SIZE, 76, GroupLayout.PREFERRED_SIZE)
-							.addComponent(panel_8, GroupLayout.PREFERRED_SIZE, 76, GroupLayout.PREFERRED_SIZE)
-							.addComponent(panel_14, GroupLayout.PREFERRED_SIZE, 76, GroupLayout.PREFERRED_SIZE)
-							.addComponent(panel_15, GroupLayout.PREFERRED_SIZE, 76, GroupLayout.PREFERRED_SIZE)
-							.addComponent(panel_16, GroupLayout.PREFERRED_SIZE, 76, GroupLayout.PREFERRED_SIZE))
-						.addGroup(groupLayout.createParallelGroup(Alignment.LEADING)
-							.addGroup(groupLayout.createSequentialGroup()
-								.addGap(6)
-								.addComponent(panel_18, GroupLayout.PREFERRED_SIZE, 410, GroupLayout.PREFERRED_SIZE)
-								.addGroup(groupLayout.createParallelGroup(Alignment.LEADING)
-									.addGroup(groupLayout.createSequentialGroup()
-										.addPreferredGap(ComponentPlacement.UNRELATED)
-										.addGroup(groupLayout.createParallelGroup(Alignment.LEADING)
-											.addGroup(groupLayout.createSequentialGroup()
-												.addGroup(groupLayout.createParallelGroup(Alignment.LEADING)
-													.addComponent(layeredPane_2, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
-													.addGroup(groupLayout.createSequentialGroup()
-														.addGap(6)
-														.addGroup(groupLayout.createParallelGroup(Alignment.LEADING)
-															.addComponent(lblLives)
-															.addComponent(panel_19, GroupLayout.PREFERRED_SIZE, 241, GroupLayout.PREFERRED_SIZE))))
-												.addPreferredGap(ComponentPlacement.RELATED, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-												.addGroup(groupLayout.createParallelGroup(Alignment.TRAILING)
-													.addComponent(lblErrorMessage, GroupLayout.PREFERRED_SIZE, 524, GroupLayout.PREFERRED_SIZE)
-													.addGroup(groupLayout.createSequentialGroup()
-														.addComponent(btnLogout, GroupLayout.PREFERRED_SIZE, 87, GroupLayout.PREFERRED_SIZE)
-														.addGap(69))))
-											.addComponent(lblGame, GroupLayout.DEFAULT_SIZE, 777, Short.MAX_VALUE)))
-									.addGroup(groupLayout.createSequentialGroup()
-										.addGap(84)
-										.addGroup(groupLayout.createParallelGroup(Alignment.TRAILING, false)
-											.addComponent(btnPlay, Alignment.LEADING, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-											.addComponent(btnPause, Alignment.LEADING, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-											.addComponent(btnSave, Alignment.LEADING, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-											.addComponent(btnQuit, Alignment.LEADING, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-											.addComponent(btnLogout_1, Alignment.LEADING, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-										.addGap(347))
-									.addGroup(groupLayout.createSequentialGroup()
-										.addGap(63)
-										.addComponent(lblLevel)
-										.addContainerGap())))
-							.addGroup(groupLayout.createSequentialGroup()
-								.addComponent(panel, GroupLayout.PREFERRED_SIZE, 76, GroupLayout.PREFERRED_SIZE)
-								.addComponent(panel_1, GroupLayout.PREFERRED_SIZE, 76, GroupLayout.PREFERRED_SIZE)
-								.addComponent(panel_2, GroupLayout.PREFERRED_SIZE, 76, GroupLayout.PREFERRED_SIZE)
-								.addComponent(panel_3, GroupLayout.PREFERRED_SIZE, 76, GroupLayout.PREFERRED_SIZE)
-								.addComponent(panel_4, GroupLayout.PREFERRED_SIZE, 76, GroupLayout.PREFERRED_SIZE)
-								.addComponent(panel_5, GroupLayout.PREFERRED_SIZE, 76, GroupLayout.PREFERRED_SIZE)
-								.addComponent(panel_6, GroupLayout.PREFERRED_SIZE, 76, GroupLayout.PREFERRED_SIZE)
-								.addComponent(panel_7, GroupLayout.PREFERRED_SIZE, 76, GroupLayout.PREFERRED_SIZE)
-								.addComponent(panel_17, GroupLayout.PREFERRED_SIZE, 76, GroupLayout.PREFERRED_SIZE)))))
-		);
-		groupLayout.setVerticalGroup(
-			groupLayout.createParallelGroup(Alignment.LEADING)
-				.addGroup(groupLayout.createSequentialGroup()
-					.addGroup(groupLayout.createParallelGroup(Alignment.LEADING)
-						.addComponent(panel_5, GroupLayout.PREFERRED_SIZE, 18, GroupLayout.PREFERRED_SIZE)
-						.addComponent(panel_4, GroupLayout.PREFERRED_SIZE, 18, GroupLayout.PREFERRED_SIZE)
-						.addComponent(panel_3, GroupLayout.PREFERRED_SIZE, 18, GroupLayout.PREFERRED_SIZE)
-						.addComponent(panel_2, GroupLayout.PREFERRED_SIZE, 18, GroupLayout.PREFERRED_SIZE)
-						.addComponent(panel_7, GroupLayout.PREFERRED_SIZE, 18, GroupLayout.PREFERRED_SIZE)
-						.addComponent(panel_6, GroupLayout.PREFERRED_SIZE, 18, GroupLayout.PREFERRED_SIZE)
-						.addComponent(panel_1, GroupLayout.PREFERRED_SIZE, 18, GroupLayout.PREFERRED_SIZE)
-						.addComponent(panel, GroupLayout.PREFERRED_SIZE, 18, GroupLayout.PREFERRED_SIZE)
-						.addComponent(panel_17, GroupLayout.PREFERRED_SIZE, 18, GroupLayout.PREFERRED_SIZE))
+					.addComponent(lblLevel)
 					.addGap(18)
-					.addGroup(groupLayout.createParallelGroup(Alignment.LEADING)
-						.addGroup(groupLayout.createSequentialGroup()
-							.addComponent(lblGame)
-							.addPreferredGap(ComponentPlacement.UNRELATED)
-							.addComponent(lblLevel)
-							.addGap(9)
-							.addComponent(layeredPane_2, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
-							.addGap(24)
-							.addComponent(btnPlay)
-							.addGap(18)
-							.addComponent(btnPause)
-							.addGap(18)
-							.addComponent(btnSave)
-							.addGap(68)
-							.addComponent(btnQuit)
-							.addGap(18)
-							.addComponent(btnLogout_1)
-							.addPreferredGap(ComponentPlacement.RELATED)
-							.addGroup(groupLayout.createParallelGroup(Alignment.TRAILING)
-								.addGroup(groupLayout.createSequentialGroup()
-									.addGap(64)
-									.addComponent(lblErrorMessage, GroupLayout.PREFERRED_SIZE, 18, GroupLayout.PREFERRED_SIZE)
-									.addPreferredGap(ComponentPlacement.RELATED, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-									.addComponent(btnLogout)
-									.addGap(26))
-								.addGroup(groupLayout.createSequentialGroup()
-									.addComponent(lblLives)
-									.addPreferredGap(ComponentPlacement.RELATED)
-									.addComponent(panel_19, GroupLayout.PREFERRED_SIZE, 28, GroupLayout.PREFERRED_SIZE)
-									.addGap(18))))
-						.addGroup(groupLayout.createSequentialGroup()
-							.addComponent(panel_18, GroupLayout.PREFERRED_SIZE, 522, GroupLayout.PREFERRED_SIZE)
-							.addPreferredGap(ComponentPlacement.RELATED)))
-					.addGroup(groupLayout.createParallelGroup(Alignment.TRAILING, false)
-						.addComponent(panel_16, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-						.addComponent(panel_9, GroupLayout.DEFAULT_SIZE, 18, Short.MAX_VALUE)
-						.addComponent(panel_10, GroupLayout.DEFAULT_SIZE, 18, Short.MAX_VALUE)
-						.addComponent(panel_11, GroupLayout.DEFAULT_SIZE, 18, Short.MAX_VALUE)
-						.addComponent(panel_12, GroupLayout.DEFAULT_SIZE, 18, Short.MAX_VALUE)
-						.addComponent(panel_13, GroupLayout.DEFAULT_SIZE, 18, Short.MAX_VALUE)
-						.addComponent(panel_8, GroupLayout.DEFAULT_SIZE, 18, Short.MAX_VALUE)
-						.addComponent(panel_14, GroupLayout.DEFAULT_SIZE, 18, Short.MAX_VALUE)
-						.addComponent(panel_15, GroupLayout.DEFAULT_SIZE, 18, Short.MAX_VALUE)))
+					.addComponent(btnPlay)
+					.addPreferredGap(ComponentPlacement.UNRELATED)
+					.addComponent(btnPause)
+					.addPreferredGap(ComponentPlacement.UNRELATED)
+					.addComponent(btnSave)
+					.addGap(34)
+					.addComponent(btnQuit)
+					.addGap(18)
+					.addComponent(btnLogout_1)
+					.addPreferredGap(ComponentPlacement.RELATED, 52, Short.MAX_VALUE)
+					.addComponent(lblLives)
+					.addPreferredGap(ComponentPlacement.RELATED)
+					.addComponent(panel_19, GroupLayout.PREFERRED_SIZE, 28, GroupLayout.PREFERRED_SIZE)
+					.addGap(20))
 		);
+		layeredPane_3.setLayout(gl_layeredPane_3);
+		//panel_18.setLayout(null);
+		
 		frame.getContentPane().setLayout(groupLayout);
-		frame.setBounds(100, 100, 696, 612);
+		frame.setBounds(100, 100, 750, 575);
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 	
 	

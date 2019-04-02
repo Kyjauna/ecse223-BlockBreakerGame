@@ -88,7 +88,7 @@ public class PlayerPage {
 		
 		frame = new JFrame();
 		frame.getContentPane().setBackground(new Color(0, 0, 51));
-		frame.setBounds(100, 100, 624, 505);
+		frame.setBounds(100, 100, 624, 527);
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		
 
@@ -103,8 +103,8 @@ public class PlayerPage {
 		groupLayout.setVerticalGroup(
 			groupLayout.createParallelGroup(Alignment.LEADING)
 				.addGroup(groupLayout.createSequentialGroup()
-					.addComponent(layeredPane_1, GroupLayout.PREFERRED_SIZE, 486, GroupLayout.PREFERRED_SIZE)
-					.addContainerGap(15, Short.MAX_VALUE))
+					.addComponent(layeredPane_1, GroupLayout.DEFAULT_SIZE, 480, Short.MAX_VALUE)
+					.addContainerGap())
 		);
 		layeredPane_1.setLayout(null);
 		
@@ -158,23 +158,25 @@ public class PlayerPage {
 							.addComponent(selectAGame, GroupLayout.PREFERRED_SIZE, 216, GroupLayout.PREFERRED_SIZE)
 							.addGap(77))
 						.addGroup(gl_panel_22.createSequentialGroup()
-							.addGap(31)
-							.addComponent(viewHallOfFameBtn, GroupLayout.PREFERRED_SIZE, 150, GroupLayout.PREFERRED_SIZE)
-							.addPreferredGap(ComponentPlacement.UNRELATED)
-							.addComponent(startNewGameBtn)
-							.addContainerGap(39, Short.MAX_VALUE))
-						.addGroup(gl_panel_22.createSequentialGroup()
-							.addGap(23)
-							.addComponent(lblError, GroupLayout.PREFERRED_SIZE, 330, GroupLayout.PREFERRED_SIZE)
-							.addContainerGap(23, Short.MAX_VALUE))
-						.addGroup(gl_panel_22.createSequentialGroup()
 							.addContainerGap(124, Short.MAX_VALUE)
 							.addComponent(lblPlayableGames)
 							.addGap(118))
 						.addGroup(gl_panel_22.createSequentialGroup()
-							.addGap(81)
+							.addGroup(gl_panel_22.createParallelGroup(Alignment.TRAILING)
+								.addGroup(gl_panel_22.createSequentialGroup()
+									.addContainerGap()
+									.addComponent(viewHallOfFameBtn, GroupLayout.PREFERRED_SIZE, 169, GroupLayout.PREFERRED_SIZE)
+									.addPreferredGap(ComponentPlacement.RELATED)
+									.addComponent(startNewGameBtn, GroupLayout.PREFERRED_SIZE, 141, GroupLayout.PREFERRED_SIZE)
+									.addGap(6))
+								.addGroup(Alignment.LEADING, gl_panel_22.createSequentialGroup()
+									.addGap(23)
+									.addComponent(lblError, GroupLayout.PREFERRED_SIZE, 330, GroupLayout.PREFERRED_SIZE)))
+							.addContainerGap(23, Short.MAX_VALUE))
+						.addGroup(Alignment.TRAILING, gl_panel_22.createSequentialGroup()
+							.addContainerGap(82, Short.MAX_VALUE)
 							.addComponent(comboBox, GroupLayout.PREFERRED_SIZE, 214, GroupLayout.PREFERRED_SIZE)
-							.addContainerGap(81, Short.MAX_VALUE))
+							.addGap(80))
 						.addGroup(gl_panel_22.createSequentialGroup()
 							.addGap(111)
 							.addComponent(lblContinuePlaying)
@@ -188,16 +190,16 @@ public class PlayerPage {
 							.addPreferredGap(ComponentPlacement.UNRELATED)
 							.addComponent(selectAGame, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
 							.addPreferredGap(ComponentPlacement.RELATED)
-							.addGroup(gl_panel_22.createParallelGroup(Alignment.LEADING)
+							.addGroup(gl_panel_22.createParallelGroup(Alignment.BASELINE)
 								.addComponent(startNewGameBtn)
 								.addComponent(viewHallOfFameBtn))
 							.addPreferredGap(ComponentPlacement.RELATED)
 							.addComponent(lblError)
-							.addGap(22)
+							.addGap(28)
 							.addComponent(lblContinuePlaying)
 							.addPreferredGap(ComponentPlacement.RELATED)
 							.addComponent(comboBox, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
-							.addContainerGap(24, Short.MAX_VALUE))
+							.addContainerGap(27, Short.MAX_VALUE))
 				);
 				panel_22.setLayout(gl_panel_22);
 				
@@ -215,7 +217,7 @@ public class PlayerPage {
 				layeredPane.add(btnResume);
 				
 				JButton btnLogout = new JButton("LOGOUT");
-				btnLogout.setBounds(251, 450, 117, 29);
+				btnLogout.setBounds(251, 443, 117, 29);
 				btnLogout.setFont(projectfont15);
 				layeredPane.add(btnLogout);
 				
@@ -223,7 +225,7 @@ public class PlayerPage {
 				lblError2.setForeground(Color.ORANGE);
 				lblError2.setFont(new Font("Lucida Grande", Font.PLAIN, 10));
 				lblError2.setHorizontalAlignment(SwingConstants.CENTER);
-				lblError2.setBounds(155, 376, 315, 16);
+				lblError2.setBounds(155, 383, 315, 16);
 				layeredPane.add(lblError2);
 		
 		JPanel panel = new JPanel();

@@ -80,38 +80,38 @@ public class PopUpWindowMoveABlock {
 		
 		
 		frame = new JFrame();
-		frame.setBounds(100, 100, 276, 257);
-		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		frame.setBounds(100, 100, 289, 289);
+		frame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		
 		JLayeredPane layeredPane_1 = new JLayeredPane();
 		GroupLayout groupLayout = new GroupLayout(frame.getContentPane());
 		groupLayout.setHorizontalGroup(
 			groupLayout.createParallelGroup(Alignment.LEADING)
-				.addGroup(groupLayout.createSequentialGroup()
-					.addComponent(layeredPane_1, GroupLayout.PREFERRED_SIZE, 264, GroupLayout.PREFERRED_SIZE)
-					.addContainerGap(GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+				.addComponent(layeredPane_1, GroupLayout.DEFAULT_SIZE, 301, Short.MAX_VALUE)
 		);
 		groupLayout.setVerticalGroup(
 			groupLayout.createParallelGroup(Alignment.LEADING)
-				.addComponent(layeredPane_1, GroupLayout.DEFAULT_SIZE, 226, Short.MAX_VALUE)
+				.addComponent(layeredPane_1, GroupLayout.DEFAULT_SIZE, 210, Short.MAX_VALUE)
 		);
 		
 		JPanel panel = new JPanel();
 		layeredPane_1.setLayer(panel, 1);
-		panel.setBounds(0, 0, 263, 213);
+		panel.setBounds(0, 0, 301, 253);
 		layeredPane_1.add(panel);
-		panel.setBackground(Color.WHITE);
+		panel.setBackground(new Color(0,0,51));
 		panel.setLayout(null);
 		
 		JLabel lblMoveABlock = new JLabel("MOVE A BLOCK");
+		lblMoveABlock.setForeground(new Color(224, 255, 255));
+		lblMoveABlock.setBackground(Color.WHITE);
 		lblMoveABlock.setBounds(12, 13, 136, 25);
 		lblMoveABlock.setFont(projectfont24);
 		panel.add(lblMoveABlock);
 		
-		SpinnerNumberModel numbermodelH = new SpinnerNumberModel(0, 0, 14,1);
-		SpinnerNumberModel numbermodelV = new SpinnerNumberModel(0, 0, 9,1);
-		SpinnerNumberModel numbermodel3 = new SpinnerNumberModel(0, 0, 14,1);
-		SpinnerNumberModel numbermodel4 = new SpinnerNumberModel(0, 0, 9,1);
+		SpinnerNumberModel numbermodelH = new SpinnerNumberModel(1, 1, 15,1);
+		SpinnerNumberModel numbermodelV = new SpinnerNumberModel(1, 1, 15,1);
+		SpinnerNumberModel numbermodel3 = new SpinnerNumberModel(1, 1, 15,1);
+		SpinnerNumberModel numbermodel4 = new SpinnerNumberModel(1, 1, 15,1);
 		
 		JSpinner spinner_1 = new JSpinner(numbermodelV);
 		spinner_1.setBounds(221, 64, 30, 22);
@@ -130,24 +130,29 @@ public class PopUpWindowMoveABlock {
 		panel.add(spinner_2);
 		
 		JLabel lblOldVerticalGrid = new JLabel("Old Vertical Grid Position:");
+		lblOldVerticalGrid.setForeground(new Color(224, 255, 255));
 		lblOldVerticalGrid.setBounds(12, 67, 189, 17);
+		
 		lblOldVerticalGrid.setFont(new Font("DialogInput", Font.PLAIN, 12));
 		panel.add(lblOldVerticalGrid);
 		
 		JLabel lblNewVerticalGrid = new JLabel("New Vertical Grid Position:");
+		lblNewVerticalGrid.setForeground(new Color(224, 255, 255));
 		lblNewVerticalGrid.setBounds(12, 126, 189, 17);
 		lblNewVerticalGrid.setFont(new Font("DialogInput", Font.PLAIN, 12));
 		panel.add(lblNewVerticalGrid);
 		
 		JLabel lblNewHorizontalGrid = new JLabel("New Horizontal Grid Position:");
+		lblNewHorizontalGrid.setForeground(new Color(224, 255, 255));
 		lblNewHorizontalGrid.setBounds(12, 97, 203, 17);
 		lblNewHorizontalGrid.setFont(new Font("DialogInput", Font.PLAIN, 12));
 		panel.add(lblNewHorizontalGrid);
 		
 		
 		JLabel lblErrormessage = new JLabel("ErrorMessage");
+		lblErrormessage.setForeground(new Color(224, 255, 255));
 		lblErrormessage.setFont(new Font("Monospaced", Font.PLAIN, 10));
-		lblErrormessage.setBounds(12, 184, 239, 29);
+		lblErrormessage.setBounds(12, 215, 239, 25);
 		lblErrormessage.setVisible(false);
 		panel.add(lblErrormessage);
 		frame.getContentPane().setLayout(groupLayout);
@@ -167,6 +172,7 @@ public class PopUpWindowMoveABlock {
 		panel.add(layeredPane);
 		
 		JLabel lblOldHorizontalgridPosition = new JLabel("Old Horizontal Grid Position:");
+		lblOldHorizontalgridPosition.setForeground(new Color(224, 255, 255));
 		lblOldHorizontalgridPosition.setBounds(12, 39, 203, 17);
 		lblOldHorizontalgridPosition.setFont(new Font("DialogInput", Font.PLAIN, 12));
 		panel.add(lblOldHorizontalgridPosition);
@@ -224,10 +230,19 @@ public class PopUpWindowMoveABlock {
 			
 			}
 		});
-		btnMove.setBounds(147, 156, 81, 25);
+		btnMove.setBounds(134, 156, 81, 25);
 		btnMove.setFont(projectfont18);
 		panel.add(btnMove);
+		
+		JButton btnCancel = new JButton("CANCEL");
+		btnCancel.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+			frame.setVisible(false);
+			}
+		});
+		btnCancel.setFont(projectfont18);
+		btnCancel.setBounds(87, 188, 81, 25);
+		panel.add(btnCancel);
 
 	}
-
 }
