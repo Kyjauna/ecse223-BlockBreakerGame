@@ -20,6 +20,7 @@ import javax.swing.JPasswordField;
 import javax.swing.JButton;
 import javax.swing.SwingConstants;
 
+import ca.mcgill.ecse223.block.application.Block223Application;
 import ca.mcgill.ecse223.block.controller.Block223Controller;
 import ca.mcgill.ecse223.block.controller.InvalidInputException;
 import ca.mcgill.ecse223.block.controller.TOGame;
@@ -257,7 +258,8 @@ public class PlayerPage {
 				);
 		panel_22.setLayout(gl_panel_22);
 
-		JLabel playerUserName = new JLabel("USERNAME");
+		JLabel playerUserName = new JLabel();
+		// playerUserName.setText(Block223Application.getCurrentUser().getUsername());
 		playerUserName.setHorizontalAlignment(SwingConstants.CENTER);
 		playerUserName.setFont(projectfont15);
 		playerUserName.setForeground(Color.WHITE);
@@ -303,6 +305,7 @@ public class PlayerPage {
 				WelcomePage logout = new WelcomePage();
 				logout.frame.setVisible(true);
 				frame.setVisible(false);
+				Block223Controller.logout();
 			}
 		});
 		btnLogout.setBounds(251, 443, 117, 29);
