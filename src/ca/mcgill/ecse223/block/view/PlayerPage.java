@@ -259,7 +259,12 @@ public class PlayerPage {
 		panel_22.setLayout(gl_panel_22);
 
 		JLabel playerUserName = new JLabel();
-		// playerUserName.setText(Block223Application.getCurrentUser().getUsername());
+		// This doesn't work.
+		try {
+			playerUserName.setText(Block223Controller.getCurrentPlayableGame().getPlayername());
+		} catch (InvalidInputException e2) {
+			lblError.setText(e2.getMessage());
+		}
 		playerUserName.setHorizontalAlignment(SwingConstants.CENTER);
 		playerUserName.setFont(projectfont15);
 		playerUserName.setForeground(Color.WHITE);
