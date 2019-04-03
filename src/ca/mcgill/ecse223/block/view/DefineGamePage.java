@@ -87,25 +87,41 @@ public class DefineGamePage {
 				// this action should take you to the GamePage
 				// These lines assign the values of the game specifications.
 				String stringNumberOfLevels = numberOfLevelsTxt.getText(); 
-				int numberOfLevels = Integer.parseInt(stringNumberOfLevels);
-				
 				String stringBlocksPerLevel = blocksPerLevelTxt.getText();
-				int blocksPerLevel = Integer.parseInt(stringBlocksPerLevel);
-								
 				String stringXBallSpeed = xBallSpeedTxt.getText();
-				int xBallSpeed = Integer.parseInt(stringXBallSpeed);
-				
 				String stringYBallSpeed = yBallSpeedTxt.getText();
-				int yBallSpeed = Integer.parseInt(stringYBallSpeed);
-				
 				String stringSpeedIncreaseFactor = speedIncreaseFactorTxt.getText();
-				double speedIncreaseFactor = Double.parseDouble(stringSpeedIncreaseFactor);
-				
 				String stringMinPaddleLength = minPaddleLengthTxt.getText();
-				int minPaddleLength = Integer.parseInt(stringMinPaddleLength);
-				
 				String stringMaxPaddleLength = maxPaddleLengthTxt.getText();
-				int maxPaddleLength = Integer.parseInt(stringMaxPaddleLength);
+
+				int numberOfLevels;
+				int blocksPerLevel;
+				int xBallSpeed;
+				int yBallSpeed;
+				double speedIncreaseFactor;
+				int minPaddleLength;
+				int maxPaddleLength;
+				
+				if (stringNumberOfLevels.equals("")) { numberOfLevels=0;}
+				else {numberOfLevels = Integer.parseInt(stringNumberOfLevels);}
+				
+				if (stringBlocksPerLevel.equals("")) { blocksPerLevel=0;}
+				else {blocksPerLevel = Integer.parseInt(stringBlocksPerLevel);}
+				
+				if (stringXBallSpeed.equals("")) { xBallSpeed=0;}
+				else {xBallSpeed = Integer.parseInt(stringXBallSpeed);}
+				
+				if (stringYBallSpeed.equals("")) { yBallSpeed=0;}
+				else {yBallSpeed = Integer.parseInt(stringYBallSpeed);}
+				
+				if (stringSpeedIncreaseFactor.equals("")) { speedIncreaseFactor=0;}
+				else {speedIncreaseFactor = Double.parseDouble(stringSpeedIncreaseFactor);}
+				
+				if (stringMinPaddleLength.equals("")) { minPaddleLength=0;}
+				else {minPaddleLength = Integer.parseInt(stringMinPaddleLength);}
+				
+				if (stringMaxPaddleLength.equals("")) { maxPaddleLength=0;}
+				else {maxPaddleLength = Integer.parseInt(stringMaxPaddleLength);}
 
 				try {
 					Block223Controller.setGameDetails( numberOfLevels, blocksPerLevel, xBallSpeed, yBallSpeed, speedIncreaseFactor, maxPaddleLength, minPaddleLength);
