@@ -24,6 +24,7 @@ import ca.mcgill.ecse223.block.application.Block223Application;
 import ca.mcgill.ecse223.block.controller.Block223Controller;
 import ca.mcgill.ecse223.block.controller.InvalidInputException;
 import ca.mcgill.ecse223.block.controller.TOGame;
+import ca.mcgill.ecse223.block.controller.TOPlayableGame;
 import ca.mcgill.ecse223.block.controller.TOUserMode;
 import ca.mcgill.ecse223.block.controller.TOUserMode.Mode;
 
@@ -47,7 +48,8 @@ public class PlayerPage {
 	public JFrame frame;
 	public static JComboBox<String> selectAGame;
 	public static JComboBox<String> resumeAGame;
-	JLabel lblError;
+	JLabel lblError_1;
+	JLabel lblError2;
 
 
 
@@ -73,7 +75,32 @@ public class PlayerPage {
 	 */
 	public PlayerPage() {
 		initialize();
-		//	refresh();
+		refresh();
+	}
+
+	private void refresh() {
+		//lblError.setText("");
+		selectAGame.removeAllItems();
+		resumeAGame.removeAllItems();
+		
+		List<TOPlayableGame> availableGamestoStart = null;	
+		List<TOPlayableGame> availableGamestoResume = null;
+		
+		try {
+			availableGamestoStart = Block223Controller.getPlayableGames1();
+			availableGamestoResume=Block223Controller.getPlayableGames2();
+		} catch (InvalidInputException e) {
+			lblError_1.setText(e.getMessage());
+			lblError_1.setVisible(true);
+		}
+		
+		for (TOPlayableGame game: availableGamestoStart) {
+			selectAGame.addItem(game.getName());
+		}
+		
+		for (TOPlayableGame game: availableGamestoResume) {
+			resumeAGame.addItem("#"+game.getNumber()+" "+ game.getName());
+		}
 	}
 
 	/**
@@ -140,6 +167,17 @@ public class PlayerPage {
 		/* ComboBox taken from AdminPage */
 
 		selectAGame = new JComboBox<String>();
+//		selectAGame.addActionListener(new ActionListener() {
+//			public void actionPerformed(ActionEvent e) {
+//				String name=(String) selectAGame.getSelectedItem();
+//				try {
+//					Block223Controller.selectGame(name);
+//				} catch (InvalidInputException e1) {
+//					lblError_1.setText(e1.getMessage());
+//					lblError_1.setVisible(true);
+//				}
+//			}
+//		});
 		selectAGame.setBackground(new Color(204, 255, 255));
 		selectAGame.setMaximumRowCount(12);
 		selectAGame.setFont(projectfont15);
@@ -167,7 +205,8 @@ public class PlayerPage {
 					frame.setVisible(false);
 				}
 				catch (InvalidInputException e1) {
-					lblError.setText(e1.getMessage());
+					lblError_1.setText(e1.getMessage());
+					lblError_1.setVisible(false);
 				}
 			}
 		});
@@ -188,13 +227,27 @@ public class PlayerPage {
 					// start game
 				}
 				catch (InvalidInputException e1) {
-					lblError.setText(e1.getMessage());
+					lblError_1.setText(e1.getMessage());
+					lblError_1.setVisible(true);
 				}
 			}
 		});
 		startNewGameBtn.setFont(projectfont15);
 		
 		resumeAGame = new JComboBox<String>();
+//		resumeAGame.addActionListener(new ActionListener() {
+//			public void actionPerformed(ActionEvent e) {
+//				String fname=(String) selectAGame.getSelectedItem();
+//				int n= fname.indexOf(" ");
+//				String name = fname.substring(n+1, fname.length());
+//						try {
+//							Block223Controller.selectGame(name);
+//						} catch (InvalidInputException e1) {
+//							lblError2.setText(e1.getMessage());
+//							lblError2.setVisible(true);
+//					}
+//			}
+//		});
 		resumeAGame.setBackground(new Color(204, 255, 255));
 		resumeAGame.setMaximumRowCount(12);
 		resumeAGame.setFont(projectfont15);
@@ -202,60 +255,67 @@ public class PlayerPage {
 		JLabel lblContinuePlaying = new JLabel("CONTINUE PLAYING");
 		lblContinuePlaying.setFont(projectfont18);
 		lblContinuePlaying.setForeground(new Color(175, 238, 238));
+		
+		JLabel lblError_1 = new JLabel("error");
+		lblError_1.setForeground(Color.WHITE);
+		lblError_1.setVisible(false);
 
 		
 
 		GroupLayout gl_panel_22 = new GroupLayout(panel_22);
 		gl_panel_22.setHorizontalGroup(
-				gl_panel_22.createParallelGroup(Alignment.LEADING)
+			gl_panel_22.createParallelGroup(Alignment.TRAILING)
 				.addGroup(gl_panel_22.createSequentialGroup()
-						.addContainerGap(83, Short.MAX_VALUE)
-						.addComponent(selectAGame, GroupLayout.PREFERRED_SIZE, 216, GroupLayout.PREFERRED_SIZE)
-						.addGap(77))
+					.addContainerGap(124, Short.MAX_VALUE)
+					.addComponent(lblPlayableGames)
+					.addGap(118))
 				.addGroup(gl_panel_22.createSequentialGroup()
-						.addContainerGap(124, Short.MAX_VALUE)
-						.addComponent(lblPlayableGames)
-						.addGap(118))
+					.addGroup(gl_panel_22.createParallelGroup(Alignment.LEADING)
+						.addGroup(gl_panel_22.createSequentialGroup()
+							.addContainerGap()
+							.addComponent(viewHallOfFameBtn, GroupLayout.PREFERRED_SIZE, 169, GroupLayout.PREFERRED_SIZE)
+							.addPreferredGap(ComponentPlacement.RELATED)
+							.addComponent(startNewGameBtn, GroupLayout.PREFERRED_SIZE, 141, GroupLayout.PREFERRED_SIZE))
+						.addGroup(gl_panel_22.createSequentialGroup()
+							.addGap(23)
+							.addGroup(gl_panel_22.createParallelGroup(Alignment.LEADING)
+								.addComponent(lblError_1, GroupLayout.PREFERRED_SIZE, 315, GroupLayout.PREFERRED_SIZE)
+								.addComponent(lblError, GroupLayout.PREFERRED_SIZE, 330, GroupLayout.PREFERRED_SIZE))))
+					.addContainerGap(23, Short.MAX_VALUE))
 				.addGroup(gl_panel_22.createSequentialGroup()
-						.addGroup(gl_panel_22.createParallelGroup(Alignment.TRAILING)
-								.addGroup(gl_panel_22.createSequentialGroup()
-										.addContainerGap()
-										.addComponent(viewHallOfFameBtn, GroupLayout.PREFERRED_SIZE, 169, GroupLayout.PREFERRED_SIZE)
-										.addPreferredGap(ComponentPlacement.RELATED)
-										.addComponent(startNewGameBtn, GroupLayout.PREFERRED_SIZE, 141, GroupLayout.PREFERRED_SIZE)
-										.addGap(6))
-								.addGroup(Alignment.LEADING, gl_panel_22.createSequentialGroup()
-										.addGap(23)
-										.addComponent(lblError, GroupLayout.PREFERRED_SIZE, 330, GroupLayout.PREFERRED_SIZE)))
-						.addContainerGap(23, Short.MAX_VALUE))
-				.addGroup(Alignment.TRAILING, gl_panel_22.createSequentialGroup()
-						.addContainerGap(82, Short.MAX_VALUE)
-						.addComponent(resumeAGame, GroupLayout.PREFERRED_SIZE, 214, GroupLayout.PREFERRED_SIZE)
-						.addGap(80))
+					.addContainerGap(82, Short.MAX_VALUE)
+					.addComponent(resumeAGame, GroupLayout.PREFERRED_SIZE, 214, GroupLayout.PREFERRED_SIZE)
+					.addGap(80))
 				.addGroup(gl_panel_22.createSequentialGroup()
-						.addGap(111)
-						.addComponent(lblContinuePlaying)
-						.addContainerGap(113, Short.MAX_VALUE))
-				);
+					.addGap(111)
+					.addComponent(lblContinuePlaying)
+					.addContainerGap(113, Short.MAX_VALUE))
+				.addGroup(gl_panel_22.createSequentialGroup()
+					.addContainerGap(81, Short.MAX_VALUE)
+					.addComponent(selectAGame, GroupLayout.PREFERRED_SIZE, 216, GroupLayout.PREFERRED_SIZE)
+					.addGap(79))
+		);
 		gl_panel_22.setVerticalGroup(
-				gl_panel_22.createParallelGroup(Alignment.LEADING)
+			gl_panel_22.createParallelGroup(Alignment.LEADING)
 				.addGroup(gl_panel_22.createSequentialGroup()
-						.addGap(32)
-						.addComponent(lblPlayableGames)
-						.addPreferredGap(ComponentPlacement.UNRELATED)
-						.addComponent(selectAGame, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
-						.addPreferredGap(ComponentPlacement.RELATED)
-						.addGroup(gl_panel_22.createParallelGroup(Alignment.BASELINE)
-								.addComponent(startNewGameBtn)
-								.addComponent(viewHallOfFameBtn))
-						.addPreferredGap(ComponentPlacement.RELATED)
-						.addComponent(lblError)
-						.addGap(28)
-						.addComponent(lblContinuePlaying)
-						.addPreferredGap(ComponentPlacement.RELATED)
-						.addComponent(resumeAGame, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
-						.addContainerGap(27, Short.MAX_VALUE))
-				);
+					.addGap(32)
+					.addComponent(lblPlayableGames)
+					.addPreferredGap(ComponentPlacement.UNRELATED)
+					.addComponent(selectAGame, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
+					.addPreferredGap(ComponentPlacement.RELATED)
+					.addGroup(gl_panel_22.createParallelGroup(Alignment.BASELINE)
+						.addComponent(viewHallOfFameBtn)
+						.addComponent(startNewGameBtn))
+					.addPreferredGap(ComponentPlacement.RELATED)
+					.addComponent(lblError)
+					.addPreferredGap(ComponentPlacement.RELATED)
+					.addComponent(lblError_1)
+					.addGap(5)
+					.addComponent(lblContinuePlaying)
+					.addPreferredGap(ComponentPlacement.RELATED)
+					.addComponent(resumeAGame, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
+					.addContainerGap(41, Short.MAX_VALUE))
+		);
 		panel_22.setLayout(gl_panel_22);
 
 		JLabel playerUserName = new JLabel();
@@ -272,10 +332,12 @@ public class PlayerPage {
 		layeredPane.add(playerUserName);
 
 
-		JLabel lblError2 = new JLabel("");
+		lblError2 = new JLabel("error");
+		lblError2.setVisible(false);
+		
 		lblError2.setForeground(Color.ORANGE);
 		lblError2.setFont(new Font("Lucida Grande", Font.PLAIN, 10));
-		lblError2.setHorizontalAlignment(SwingConstants.CENTER);
+		lblError2.setHorizontalAlignment(SwingConstants.LEFT);
 		lblError2.setBounds(155, 383, 315, 16);
 		layeredPane.add(lblError2);
 
@@ -295,6 +357,7 @@ public class PlayerPage {
 				}
 				catch (InvalidInputException e1) {
 					lblError2.setText(e1.getMessage());
+					lblError2.setVisible(true);
 				}
 			}
 		});
@@ -434,21 +497,6 @@ public class PlayerPage {
 		layeredPane_1.add(panel_6);
 
 	}
-
-	/*	public void refresh() {
-		lblError.setText("");
-		System.out.println("Hello World");
-		try {
-			List <TOGame> availableGames = Block223Controller.getDesignableGames();
-			selectAGame.removeAllItems();
-			for(TOGame game : availableGames) {
-				selectAGame.addItem(game.getName());
-			}
-		}
-		catch (InvalidInputException e) {
-			lblError.setText(e.getMessage());
-		}
-	} */
 }
 
 

@@ -658,6 +658,37 @@ public class LevelDesignPage {
 		lblErrormessage.setFont(new Font("Monospaced", Font.PLAIN, 11));
 		lblErrormessage.setForeground(Color.WHITE);
 		lblErrormessage.setVisible(false);
+		
+		JButton btnPublish = new JButton("PUBLISH");
+		btnPublish.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+			
+			try {
+				Block223Controller.publishGame();			
+				frame.setVisible(false);
+				YouAreAnAdminPage apage=new YouAreAnAdminPage();
+				apage.frame.setVisible(true);
+			} catch (InvalidInputException e) {
+				lblErrormessage.setText(e.getMessage());
+				}
+			}
+		});
+		btnPublish.setFont(projectfont15);
+		
+		JButton button_1 = new JButton("TEST GAME");
+		button_1.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				GamePlayPage ui = new GamePlayPage();
+				try {
+					Block223Controller.testGame(ui);
+				} catch (InvalidInputException e1) {
+					lblErrormessage.setText(e1.getMessage());
+				}
+				ui.frame.setVisible(true);
+			}
+		});
+		
+		button_1.setFont(projectfont15);
 
 		GroupLayout groupLayout = new GroupLayout(frame.getContentPane());
 		groupLayout.setHorizontalGroup(
@@ -925,39 +956,41 @@ public class LevelDesignPage {
 											.addComponent(layeredPane, GroupLayout.PREFERRED_SIZE, 390, GroupLayout.PREFERRED_SIZE)
 											.addGroup(groupLayout.createParallelGroup(Alignment.LEADING)
 												.addGroup(groupLayout.createSequentialGroup()
+													.addGap(67)
+													.addGroup(groupLayout.createParallelGroup(Alignment.LEADING)
+														.addGroup(groupLayout.createSequentialGroup()
+															.addGroup(groupLayout.createParallelGroup(Alignment.TRAILING)
+																.addComponent(lblRed)
+																.addComponent(lblPoints)
+																.addGroup(groupLayout.createSequentialGroup()
+																	.addComponent(lblBlue)
+																	.addPreferredGap(ComponentPlacement.RELATED))
+																.addComponent(lblGreen))
+															.addGap(31)
+															.addGroup(groupLayout.createParallelGroup(Alignment.TRAILING, false)
+																.addComponent(textField)
+																.addComponent(RedValue)
+																.addComponent(GreenValue)
+																.addComponent(BlueValue, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)))
+														.addGroup(groupLayout.createSequentialGroup()
+															.addGap(97)
+															.addComponent(btnAdd))
+														.addGroup(groupLayout.createSequentialGroup()
+															.addGap(48)
+															.addComponent(lblAddBlocks))))
+												.addGroup(groupLayout.createSequentialGroup()
 													.addGap(18)
-													.addComponent(lblNewLabel, GroupLayout.PREFERRED_SIZE, 407, GroupLayout.PREFERRED_SIZE))
+													.addGroup(groupLayout.createParallelGroup(Alignment.TRAILING)
+														.addComponent(lblNewLabel, GroupLayout.PREFERRED_SIZE, 407, GroupLayout.PREFERRED_SIZE)
+														.addGroup(groupLayout.createSequentialGroup()
+															.addComponent(btnPublish, GroupLayout.PREFERRED_SIZE, 109, GroupLayout.PREFERRED_SIZE)
+															.addGap(18)
+															.addComponent(button_1, GroupLayout.PREFERRED_SIZE, 116, GroupLayout.PREFERRED_SIZE)
+															.addGap(87))
+														.addComponent(addblockerror, GroupLayout.PREFERRED_SIZE, 338, GroupLayout.PREFERRED_SIZE)))
 												.addGroup(groupLayout.createSequentialGroup()
-													.addGap(111)
-													.addComponent(addblockerror, GroupLayout.PREFERRED_SIZE, 338, GroupLayout.PREFERRED_SIZE))
-												.addGroup(groupLayout.createSequentialGroup()
-													.addGap(123)
+													.addGap(125)
 													.addComponent(btnDefineGameSettings))))))))))
-				.addGroup(groupLayout.createSequentialGroup()
-					.addGap(454)
-					.addGroup(groupLayout.createParallelGroup(Alignment.LEADING)
-						.addGroup(groupLayout.createSequentialGroup()
-							.addGap(52)
-							.addGroup(groupLayout.createParallelGroup(Alignment.TRAILING)
-								.addComponent(lblRed)
-								.addComponent(lblPoints)
-								.addGroup(groupLayout.createSequentialGroup()
-									.addComponent(lblBlue)
-									.addPreferredGap(ComponentPlacement.RELATED))
-								.addComponent(lblGreen))
-							.addGap(31)
-							.addGroup(groupLayout.createParallelGroup(Alignment.TRAILING, false)
-								.addComponent(textField)
-								.addComponent(RedValue)
-								.addComponent(GreenValue)
-								.addComponent(BlueValue, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)))
-						.addGroup(groupLayout.createSequentialGroup()
-							.addGap(149)
-							.addComponent(btnAdd))
-						.addGroup(groupLayout.createSequentialGroup()
-							.addGap(100)
-							.addComponent(lblAddBlocks)))
-					.addContainerGap(452, Short.MAX_VALUE))
 		);
 		groupLayout.setVerticalGroup(
 			groupLayout.createParallelGroup(Alignment.TRAILING)
@@ -967,10 +1000,16 @@ public class LevelDesignPage {
 						.addGroup(groupLayout.createSequentialGroup()
 							.addComponent(lblLevel)
 							.addPreferredGap(ComponentPlacement.RELATED)
-							.addGroup(groupLayout.createParallelGroup(Alignment.TRAILING, false)
+							.addGroup(groupLayout.createParallelGroup(Alignment.LEADING)
+								.addGroup(groupLayout.createSequentialGroup()
+									.addComponent(layeredPane, GroupLayout.PREFERRED_SIZE, 390, GroupLayout.PREFERRED_SIZE)
+									.addGap(10)
+									.addComponent(btnMoveBlockAssignment)
+									.addPreferredGap(ComponentPlacement.UNRELATED)
+									.addComponent(layeredPane_1, GroupLayout.PREFERRED_SIZE, 134, GroupLayout.PREFERRED_SIZE))
 								.addGroup(groupLayout.createSequentialGroup()
 									.addComponent(lblNewLabel)
-									.addPreferredGap(ComponentPlacement.RELATED, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+									.addPreferredGap(ComponentPlacement.RELATED)
 									.addComponent(lblAddBlocks)
 									.addGap(18)
 									.addGroup(groupLayout.createParallelGroup(Alignment.BASELINE)
@@ -992,12 +1031,12 @@ public class LevelDesignPage {
 									.addComponent(btnAdd)
 									.addPreferredGap(ComponentPlacement.RELATED)
 									.addComponent(addblockerror)
-									.addGap(53))
-								.addComponent(layeredPane, GroupLayout.PREFERRED_SIZE, 390, GroupLayout.PREFERRED_SIZE))
-							.addGap(10)
-							.addComponent(btnMoveBlockAssignment)
-							.addPreferredGap(ComponentPlacement.UNRELATED)
-							.addComponent(layeredPane_1, GroupLayout.PREFERRED_SIZE, 134, GroupLayout.PREFERRED_SIZE)
+									.addGap(13)
+									.addComponent(btnDefineGameSettings)
+									.addGap(18)
+									.addGroup(groupLayout.createParallelGroup(Alignment.BASELINE)
+										.addComponent(button_1)
+										.addComponent(btnPublish))))
 							.addPreferredGap(ComponentPlacement.RELATED)
 							.addComponent(lblErrormessage, GroupLayout.PREFERRED_SIZE, 22, GroupLayout.PREFERRED_SIZE)
 							.addGap(177)
@@ -1127,9 +1166,7 @@ public class LevelDesignPage {
 								.addComponent(panel_88, GroupLayout.PREFERRED_SIZE, 20, GroupLayout.PREFERRED_SIZE)
 								.addComponent(panel_60, GroupLayout.PREFERRED_SIZE, 20, GroupLayout.PREFERRED_SIZE)))
 						.addGroup(groupLayout.createSequentialGroup()
-							.addGap(414)
-							.addComponent(btnDefineGameSettings)
-							.addGap(18)
+							.addGap(457)
 							.addComponent(btnNextLevel)
 							.addPreferredGap(ComponentPlacement.UNRELATED)
 							.addComponent(btnPreviousLevel)
@@ -1256,7 +1293,7 @@ public class LevelDesignPage {
 		
 		
 		frame.getContentPane().setLayout(groupLayout);
-		frame.setBounds(100, 100, 800, 730);
+		frame.setBounds(100, 100, 805, 715);
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		refresh();
 	}

@@ -33,6 +33,8 @@ import java.util.List;
 //import java.util.List;
 import java.awt.event.ActionEvent;
 import javax.swing.SwingConstants;
+import java.awt.event.FocusAdapter;
+import java.awt.event.FocusEvent;
 
 public class YouAreAnAdminPage {
 
@@ -71,6 +73,12 @@ public class YouAreAnAdminPage {
 	 */
 	private void initialize() {
 		frame = new JFrame();
+		frame.addFocusListener(new FocusAdapter() {
+			@Override
+			public void focusGained(FocusEvent arg0) {
+				refresh();
+			}
+		});
 		frame.getContentPane().setBackground(new Color(0, 0, 51));
 		
 		Font projectfont = null;

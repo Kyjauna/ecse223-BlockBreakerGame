@@ -56,7 +56,6 @@ public class DefineGamePage {
 	public DefineGamePage() {
 		initialize();
 	}
-
 	/**
 	 * Initialize the contents of the frame.
 	 */

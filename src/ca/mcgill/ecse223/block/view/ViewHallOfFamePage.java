@@ -280,7 +280,7 @@ public class ViewHallOfFamePage {
 						.addComponent(panel_15, GroupLayout.DEFAULT_SIZE, 18, Short.MAX_VALUE)))
 		);
 		frame.getContentPane().setLayout(groupLayout);
-		frame.setBounds(100, 100, 696, 612);
+		frame.setBounds(100, 100, 728, 612);
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 	
 	

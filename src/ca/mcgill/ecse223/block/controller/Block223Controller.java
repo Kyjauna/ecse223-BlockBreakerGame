@@ -167,14 +167,14 @@ public class Block223Controller {
 		
 		if(!(Block223Application.getCurrentUserRole() instanceof Admin)) {
 			error = "Admin privileges are required to select a game. ";	
-		throw new InvalidInputException(error);
+			throw new InvalidInputException(error);
 		}
+		
 		if (game.isPublished())
 			throw new InvalidInputException("A published game cannot be changed.");
 
 		if (Block223Application.getCurrentUserRole() != game.getAdmin()) {
 			error += "Only the admin who created the game can select the game. ";
-			
 			throw new InvalidInputException(error);
 		}
 		
@@ -704,6 +704,9 @@ public static void startGame(Block223PlayModeInterface ui) throws InvalidInputEx
 		
 		Game game =Block223Application.getCurrentGame();
 		game.setPublished(true);
+		saveGame();
+		Block223Application.setCurrentGame(null);
+		
 		
 	}
 	
@@ -867,7 +870,7 @@ public static List<TOGridCell> getBlocksAtLevelOfCurrentDesignableGame(int level
 	
 	// play mode
 
-	public static List<TOPlayableGame> getPlayableGames() throws InvalidInputException {
+	public static List<TOPlayableGame> getPlayableGames1() throws InvalidInputException {
 		
 		
 		if (!(Block223Application.getCurrentUserRole() instanceof Player))
@@ -888,6 +891,21 @@ public static List<TOGridCell> getBlocksAtLevelOfCurrentDesignableGame(int level
 			}
 		}
 		
+		return result;
+	}
+	
+	public static List<TOPlayableGame> getPlayableGames2() throws InvalidInputException {
+		
+		
+		if (!(Block223Application.getCurrentUserRole() instanceof Player))
+				throw new InvalidInputException("Player privileges are required to play a game.");
+		
+		Player player = (Player)Block223Application.getCurrentUserRole();
+		
+		//Block223 b = Block223Application.getBlock223();
+
+		ArrayList<TOPlayableGame> result = new ArrayList<TOPlayableGame>();
+		
 		List<PlayedGame> pgames = player.getPlayedGames();
 		for (PlayedGame pgame :pgames) {
 			TOPlayableGame to=new TOPlayableGame(pgame.getGame().getName(), pgame.getId(), pgame.getCurrentLevel());
@@ -895,8 +913,8 @@ public static List<TOGridCell> getBlocksAtLevelOfCurrentDesignableGame(int level
 		}
 		
 		return result;
+		
 	}
-
 	public static TOCurrentlyPlayedGame getCurrentPlayableGame() throws InvalidInputException {
 		
 		PlayedGame pgame = Block223Application.getCurrentPlayableGame();

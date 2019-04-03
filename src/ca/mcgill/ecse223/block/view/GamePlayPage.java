@@ -38,7 +38,7 @@ import javax.swing.SwingConstants;
 import java.awt.FlowLayout;
 import java.awt.GridLayout;
 
-public class GamePlayPage {
+public class GamePlayPage implements Block223PlayModeInterface{
 
 	public JFrame frame;
 	JLabel lblErrorMessage;
@@ -47,6 +47,8 @@ public class GamePlayPage {
 	/**
 	 * Launch the application.
 	 */
+	
+	
 	public static void main(String[] args) {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
@@ -68,6 +70,15 @@ public class GamePlayPage {
 		initialize();
 	}
 
+	
+	public void refresh() {
+		
+	}
+	public String takeinputs(){
+		String s ="";
+		return s;
+	}
+	
 	/**
 	 * Initialize the contents of the frame.
 	 */
@@ -348,5 +359,12 @@ public class GamePlayPage {
 	
 	
 	
+	}
+
+
+	@Override
+	public String takeInputs() {
+		// TODO Auto-generated method stub
+		return null;
 	}
 }
