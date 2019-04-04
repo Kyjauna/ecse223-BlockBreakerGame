@@ -526,16 +526,16 @@ public class LevelDesignPage {
 				int green;
 				int points;
 				
-				if (redvalue.equals("")) { red=0;}
+				if (redvalue.equals("")) { red=-1;}
 				else {red = Integer.parseInt(redvalue);}
 				
-				if (greenvalue.equals("")) { green=0;}
+				if (greenvalue.equals("")) { green=-1;}
 				else {green = Integer.parseInt(greenvalue);}
 				
-				if (bluevalue.equals("")) { blue=0;}
+				if (bluevalue.equals("")) { blue=-1;}
 				else {blue = Integer.parseInt(bluevalue);}
 				
-				if (pointvalue.equals("")) {points=0;}
+				if (pointvalue.equals("")) {points=-1;}
 				else {points = Integer.parseInt(pointvalue);}
 										
 				try {
@@ -1225,8 +1225,14 @@ public class LevelDesignPage {
 			
 			public void actionPerformed(ActionEvent e) {
 			String result=(String) combobox.getSelectedItem();
-			String iD=result.substring(0, result.indexOf(','));
-			int ID=Integer.parseInt(iD);
+			String iD = null;
+			int ID;
+			if (result != null) {
+			iD=result.substring(0, result.indexOf(','));
+			ID=Integer.parseInt(iD);}
+			else {
+				ID = -1;
+			}
 			
 			Integer horizontalpos = (Integer) spinner.getValue();
 			Integer verticalpos = (Integer) spinner_1.getValue();
@@ -1249,9 +1255,14 @@ public class LevelDesignPage {
 		btnNewButton_1.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 					String result=(String) combobox.getSelectedItem();
-					String iD=result.substring(0, result.indexOf(','));
-					int ID=Integer.parseInt(iD);
-					
+					String iD = null;
+					int ID;
+					if (result != null) {
+					iD=result.substring(0, result.indexOf(','));
+					ID=Integer.parseInt(iD);}
+					else {
+						ID = -1;
+					}
 					try {
 						Block223Controller.deleteBlock(ID);
 						refresh();
@@ -1271,13 +1282,19 @@ public class LevelDesignPage {
 		
 		JButton button = new JButton("UPDATE BLOCK");
 		button.addActionListener(new ActionListener() {
+			
 			public void actionPerformed(ActionEvent e) {
 				String result=(String) combobox.getSelectedItem();
-				String iD=result.substring(0, result.indexOf(','));
-				int ID=Integer.parseInt(iD);
-				
+				String iD = null;
+				int ID;
+				if (result != null) {
+				iD=result.substring(0, result.indexOf(','));
+				ID=Integer.parseInt(iD);
 				PopUpWindowUpdate update = new PopUpWindowUpdate(ID);
-				update.frame.setVisible(true);
+				update.frame.setVisible(true);}
+				else {
+					ID = -1;
+				}
 			}
 		});
 		button.setFont(projectfont15);

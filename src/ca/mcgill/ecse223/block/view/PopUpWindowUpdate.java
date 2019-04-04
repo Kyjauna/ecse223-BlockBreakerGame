@@ -32,10 +32,10 @@ public class PopUpWindowUpdate {
 
 	public JFrame frame;
 	public int blockId;
-	private JTextField textField;
+	private JTextField BlueValue;
 	private JTextField textField_1;
-	private JTextField textField_2;
-	private JTextField textField_3;
+	private JTextField GreenValue;
+	private JTextField RedValue;
 	private JLabel lblErrormessage;
 
 	/**
@@ -136,27 +136,27 @@ public class PopUpWindowUpdate {
 		JLabel label = new JLabel("RED");
 		label.setForeground(Color.RED);
 		label.setFont(projectfont15);
-		textField_3 = new JTextField(""+block.getRed());
+		RedValue = new JTextField(""+block.getRed());
 		
 		
-		textField_3.setForeground(Color.BLACK);
-		textField_3.setColumns(10);
+		RedValue.setForeground(Color.BLACK);
+		RedValue.setColumns(10);
 		
 		JLabel label_3 = new JLabel("BLUE");
 		label_3.setForeground(Color.BLUE);
 		label_3.setFont(projectfont15);
-		textField = new JTextField(""+block.getBlue());
-		textField.setForeground(Color.BLACK);
-		textField.setColumns(10);
+		BlueValue = new JTextField(""+block.getBlue());
+		BlueValue.setForeground(Color.BLACK);
+		BlueValue.setColumns(10);
 		
 		JLabel label_4 = new JLabel("GREEN");
 		label_4.setForeground(Color.GREEN);
 		label_4.setFont(projectfont15);
-		textField_2 = new JTextField(""+block.getGreen());
+		GreenValue = new JTextField(""+block.getGreen());
 		
 		
-		textField_2.setForeground(Color.BLACK);
-		textField_2.setColumns(10);
+		GreenValue.setForeground(Color.BLACK);
+		GreenValue.setColumns(10);
 		textField_1 = new JTextField(""+block.getPoints());
 		
 		
@@ -167,23 +167,32 @@ public class PopUpWindowUpdate {
 		btnUpdate.setHorizontalAlignment(SwingConstants.LEFT);
 		btnUpdate.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
-				String red =textField_3.getText();
-				Integer red1 = Integer.parseInt(red);
+				String redvalue = RedValue.getText();
+				String greenvalue = GreenValue.getText();
+				String bluevalue = BlueValue.getText();		
+				String pointvalue = textField_1.getText();
+				int red;
+				int blue;
+				int green;
+				int points;
 				
-				String blue =textField.getText();
-				Integer blue1 = Integer.parseInt(blue);
+				if (redvalue.equals("")) { red=-1;}
+				else {red = Integer.parseInt(redvalue);}
 				
-				String green =textField_2.getText();
-				Integer green1 = Integer.parseInt(green);
+				if (greenvalue.equals("")) { green=-1;}
+				else {green = Integer.parseInt(greenvalue);}
 				
-				String points =textField_1.getText();
-				Integer points1 = Integer.parseInt(points);
+				if (bluevalue.equals("")) { blue=-1;}
+				else {blue = Integer.parseInt(bluevalue);}
+				
+				if (pointvalue.equals("")) {points=-1;}
+				else {points = Integer.parseInt(pointvalue);}
 				
 				try {
-					Block223Controller.updateBlock(blockId, red1, green1, blue1, points1);
+					Block223Controller.updateBlock(blockId, red, green, blue, points);
 					frame.setVisible(false);
-				} catch (InvalidInputException e) {
-					lblErrormessage.setText(e.getMessage());
+				} catch (InvalidInputException e1) {
+					lblErrormessage.setText(e1.getMessage());
 					lblErrormessage.setVisible(true);
 				}
 				
@@ -191,7 +200,7 @@ public class PopUpWindowUpdate {
 		});
 		btnUpdate.setFont(projectfont15);
 		
-				JLabel lblErrormessage = new JLabel("ErrorMessage");
+				lblErrormessage = new JLabel("ErrorMessage");
 				lblErrormessage.setVisible(false);
 				lblErrormessage.setFont(new Font("Monospaced", Font.PLAIN, 10));
 				lblErrormessage.setVisible(false);
@@ -207,15 +216,15 @@ public class PopUpWindowUpdate {
 								.addGroup(gl_panel.createSequentialGroup()
 									.addComponent(label, GroupLayout.PREFERRED_SIZE, 33, GroupLayout.PREFERRED_SIZE)
 									.addGap(38)
-									.addComponent(textField_3, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
+									.addComponent(RedValue, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
 								.addGroup(gl_panel.createSequentialGroup()
 									.addComponent(label_4, GroupLayout.PREFERRED_SIZE, 53, GroupLayout.PREFERRED_SIZE)
 									.addGap(18)
-									.addComponent(textField_2, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
+									.addComponent(GreenValue, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
 								.addGroup(gl_panel.createSequentialGroup()
 									.addComponent(label_3, GroupLayout.PREFERRED_SIZE, 45, GroupLayout.PREFERRED_SIZE)
 									.addGap(26)
-									.addComponent(textField, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
+									.addComponent(BlueValue, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
 								.addGroup(gl_panel.createSequentialGroup()
 									.addComponent(label_2, GroupLayout.PREFERRED_SIZE, 64, GroupLayout.PREFERRED_SIZE)
 									.addGap(7)
@@ -238,19 +247,19 @@ public class PopUpWindowUpdate {
 						.addGroup(gl_panel.createSequentialGroup()
 							.addGap(3)
 							.addComponent(label))
-						.addComponent(textField_3, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
+						.addComponent(RedValue, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
 					.addGap(18)
 					.addGroup(gl_panel.createParallelGroup(Alignment.LEADING)
 						.addComponent(label_4, GroupLayout.PREFERRED_SIZE, 24, GroupLayout.PREFERRED_SIZE)
 						.addGroup(gl_panel.createSequentialGroup()
 							.addGap(1)
-							.addComponent(textField_2, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)))
+							.addComponent(GreenValue, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)))
 					.addGap(15)
 					.addGroup(gl_panel.createParallelGroup(Alignment.LEADING)
 						.addGroup(gl_panel.createSequentialGroup()
 							.addGap(3)
 							.addComponent(label_3))
-						.addComponent(textField, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
+						.addComponent(BlueValue, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
 					.addGap(21)
 					.addGroup(gl_panel.createParallelGroup(Alignment.LEADING)
 						.addGroup(gl_panel.createSequentialGroup()
