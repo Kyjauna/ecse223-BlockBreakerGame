@@ -13,6 +13,8 @@ import javax.swing.JLayeredPane;
 
 import java.awt.Font;
 import java.awt.FontFormatException;
+import java.awt.Graphics;
+import java.awt.Graphics2D;
 
 import javax.swing.JPanel;
 import javax.swing.LayoutStyle.ComponentPlacement;
@@ -20,6 +22,7 @@ import javax.swing.LayoutStyle.ComponentPlacement;
 //import ca.mcgill.ecse223.block.application.Block223Application;
 import ca.mcgill.ecse223.block.controller.Block223Controller;
 import ca.mcgill.ecse223.block.controller.InvalidInputException;
+import ca.mcgill.ecse223.block.controller.TOCurrentBlock;
 import ca.mcgill.ecse223.block.controller.TOCurrentlyPlayedGame;
 //import ca.mcgill.ecse223.block.controller.TOGame;
 import ca.mcgill.ecse223.block.controller.TOGame;
@@ -39,8 +42,11 @@ import java.awt.event.ActionEvent;
 import javax.swing.SwingConstants;
 import java.awt.FlowLayout;
 import java.awt.GridLayout;
+import java.awt.Rectangle;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
+import java.awt.geom.Ellipse2D;
+import java.awt.geom.Rectangle2D;
 
 public class GamePlayPage implements Block223PlayModeInterface{
 
@@ -48,6 +54,7 @@ public class GamePlayPage implements Block223PlayModeInterface{
 	JLabel lblErrorMessage;
 	int level;
 	String input;
+	JPanel panel_18;
 	
 	/**
 	 * Launch the application.
@@ -73,12 +80,49 @@ public class GamePlayPage implements Block223PlayModeInterface{
 	 */
 	public GamePlayPage() {
 		initialize();
+		refresh();
 	}
 
 	
 	public void refresh() {
 		input="";
+		TOCurrentlyPlayedGame pgame=null;
+		try {
+			pgame = Block223Controller.getCurrentPlayableGame();
+			
+			panel_18.removeAll();
+			panel_18.revalidate();
+			panel_18.repaint();
+			
+			JPanel paddle = new JPanel();
+			paddle.setBackground(Color.BLACK);
+			panel_18.add(paddle);
+			paddle.setBounds((int)pgame.getCurrentPaddleX(),380, (int) (pgame.getCurrentPaddleX()+pgame.getCurrentPaddleLength()), 5);
+			paddle.setVisible(true);
 		
+			List<TOCurrentBlock> blocks = pgame.getBlocks();
+			for (TOCurrentBlock b:blocks) {
+				int x= b.getX();
+				int y=b.getY();
+				int red=b.getRed();
+				int green=b.getGreen();
+				int blue=b.getBlue();
+				
+				JPanel pblock = new JPanel();
+				pblock.setBackground(new Color(red,green,blue));
+				panel_18.add(pblock);
+				pblock.setBounds(x,y,20,20);
+				pblock.setVisible(true);
+				
+				//panel_18.fillOval(pgame.getCurrentBallX(), pgame.getCurrentBallY(), 5, 5);
+			
+			}
+		
+		
+		
+		} catch (InvalidInputException e) {
+			//errormessage stuff
+		}
 	}
 	
 	public String takeInputs(){
@@ -134,7 +178,7 @@ public class GamePlayPage implements Block223PlayModeInterface{
 		
 		JLayeredPane layeredPane_3 = new JLayeredPane();
 		
-		JPanel panel_18 = new JPanel();
+		panel_18 = new JPanel();
 		panel_18.setLayout(null);
 		panel_18.setBackground(Color.WHITE);
 		

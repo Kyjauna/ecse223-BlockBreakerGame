@@ -43,6 +43,17 @@ public class ViewHallOfFamePage {
 	int level;
 	int start=1;
 	
+	JLabel label;
+	JLabel label_1;
+	JLabel label_2;
+	JLabel label_3;
+	JLabel label_4;
+	JLabel label_5;
+	JLabel label_6;
+	JLabel label_7;
+	JLabel label_8;
+	JLabel label_9;
+	
 	/**
 	 * Launch the application.
 	 */
@@ -58,7 +69,21 @@ public class ViewHallOfFamePage {
 			}
 		});
 	}
-		
+	
+
+	private void refresh() {
+		label.setText(""+start+".");
+		label_1.setText(""+(start+1)+".");
+		label_2.setText(""+(start+2)+".");
+		label_3.setText(""+(start+3)+".");
+		label_4.setText(""+(start+4)+".");
+		label_5.setText(""+(start+5)+".");
+		label_6.setText(""+(start+6)+".");
+		label_7.setText(""+(start+7)+".");
+		label_8.setText(""+(start+8)+".");
+		label_9.setText(""+(start+9)+".");
+	
+	}
 		
 	/**
 	 * Create the application.
@@ -241,10 +266,19 @@ public class ViewHallOfFamePage {
 		btnNewButton.setFont(projectfont15);
 		btnNewButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
+			start=start+10;
+			refresh();
 			}
 		});
 		
 		JButton btnPrevious = new JButton("PREVIOUS");
+		btnPrevious.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+			if(start!=1)
+				start=start-10;
+			refresh();
+			}
+		});
 		btnPrevious.setFont(projectfont15);
 		
 		GroupLayout groupLayout = new GroupLayout(frame.getContentPane());
@@ -448,52 +482,52 @@ public class ViewHallOfFamePage {
 					.addGap(64))
 		);
 		
-		JLabel label = new JLabel(""+start+".");
+		label = new JLabel(""+start+".");
 		label.setForeground(new Color(240, 255, 255));
 		label.setBounds(6, 6, 176, 16);
 		layeredPane_3.add(label);
 		
-		JLabel label_1 = new JLabel(""+(start+1)+".");
+		label_1 = new JLabel(""+(start+1)+".");
 		label_1.setForeground(new Color(240, 248, 255));
 		label_1.setBounds(6, 34, 176, 16);
 		layeredPane_3.add(label_1);
 		
-		JLabel label_2 = new JLabel(""+(start+2)+".");
+		label_2 = new JLabel(""+(start+2)+".");
 		label_2.setForeground(new Color(240, 248, 255));
 		label_2.setBounds(6, 62, 176, 16);
 		layeredPane_3.add(label_2);
 		
-		JLabel label_3 = new JLabel(""+(start+3)+".");
+		label_3 = new JLabel(""+(start+3)+".");
 		label_3.setForeground(new Color(240, 248, 255));
 		label_3.setBounds(6, 93, 176, 16);
 		layeredPane_3.add(label_3);
 		
-		JLabel label_4 = new JLabel(""+(start+4)+".");
+		label_4 = new JLabel(""+(start+4)+".");
 		label_4.setForeground(new Color(240, 248, 255));
 		label_4.setBounds(6, 121, 176, 16);
 		layeredPane_3.add(label_4);
 		
-		JLabel label_5 = new JLabel(""+(start+5)+".");
+		label_5 = new JLabel(""+(start+5)+".");
 		label_5.setForeground(new Color(240, 248, 255));
 		label_5.setBounds(6, 149, 176, 16);
 		layeredPane_3.add(label_5);
 		
-		JLabel label_6 = new JLabel(""+(start+6)+".");
+		label_6 = new JLabel(""+(start+6)+".");
 		label_6.setForeground(new Color(240, 248, 255));
 		label_6.setBounds(6, 177, 176, 16);
 		layeredPane_3.add(label_6);
 		
-		JLabel label_7 = new JLabel(""+(start+7)+".");
+		label_7 = new JLabel(""+(start+7)+".");
 		label_7.setForeground(new Color(240, 248, 255));
 		label_7.setBounds(6, 205, 176, 16);
 		layeredPane_3.add(label_7);
 		
-		JLabel label_8 = new JLabel(""+(start+8)+".");
+		label_8 = new JLabel(""+(start+8)+".");
 		label_8.setForeground(new Color(240, 248, 255));
 		label_8.setBounds(6, 233, 176, 16);
 		layeredPane_3.add(label_8);
 		
-		JLabel label_9 = new JLabel(""+(start+9)+".");
+		label_9 = new JLabel(""+(start+9)+".");
 		label_9.setForeground(new Color(240, 248, 255));
 		label_9.setBounds(6, 261, 176, 16);
 		layeredPane_3.add(label_9);
