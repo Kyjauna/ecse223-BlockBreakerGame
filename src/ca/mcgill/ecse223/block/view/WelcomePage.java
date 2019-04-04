@@ -189,12 +189,6 @@ public class WelcomePage {
 				btnLogin.setFont(projectfont15);
 				
 				btnLogin.addActionListener(new ActionListener() {
-					
-				/* actionlistener for login button
-				 * does not yet work because we do not have the admin page set up 
-				 * 
-				 * Sharon just set it up.
-				 */
 
 					public void actionPerformed(ActionEvent e) {
 						
