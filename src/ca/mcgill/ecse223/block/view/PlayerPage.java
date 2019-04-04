@@ -167,17 +167,17 @@ public class PlayerPage {
 		/* ComboBox taken from AdminPage */
 
 		selectAGame = new JComboBox<String>();
-//		selectAGame.addActionListener(new ActionListener() {
-//			public void actionPerformed(ActionEvent e) {
-//				String name=(String) selectAGame.getSelectedItem();
-//				try {
-//					Block223Controller.selectGame(name);
-//				} catch (InvalidInputException e1) {
-//					lblError_1.setText(e1.getMessage());
-//					lblError_1.setVisible(true);
-//				}
-//			}
-//		});
+		selectAGame.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				String name=(String) selectAGame.getSelectedItem();
+				try {
+					Block223Controller.selectPlayableGame(name, -1);
+				} catch (InvalidInputException e1) {
+					lblError_1.setText(e1.getMessage());
+					lblError_1.setVisible(true);
+				}
+			}
+		});
 		selectAGame.setBackground(new Color(204, 255, 255));
 		selectAGame.setMaximumRowCount(12);
 		selectAGame.setFont(projectfont15);
@@ -199,7 +199,7 @@ public class PlayerPage {
 				String gameHallOfFame = (String) selectAGame.getSelectedItem();
 
 				try {
-					Block223Controller.selectGame(gameHallOfFame);
+					Block223Controller.selectPlayableGame(gameHallOfFame,-1);
 					ViewHallOfFamePage hallOfFame = new ViewHallOfFamePage();
 					hallOfFame.frame.setVisible(true);
 					frame.setVisible(false);
@@ -219,7 +219,7 @@ public class PlayerPage {
 				String gameToStart = (String) selectAGame.getSelectedItem();
 
 				try {
-					Block223Controller.selectGame(gameToStart);
+					Block223Controller.selectPlayableGame(gameToStart, -1);
 					// I think instead of selectGame it should be startGame
 					GamePlayPage playGame = new GamePlayPage();
 					playGame.frame.setVisible(true);
@@ -235,19 +235,21 @@ public class PlayerPage {
 		startNewGameBtn.setFont(projectfont15);
 		
 		resumeAGame = new JComboBox<String>();
-//		resumeAGame.addActionListener(new ActionListener() {
-//			public void actionPerformed(ActionEvent e) {
-//				String fname=(String) selectAGame.getSelectedItem();
-//				int n= fname.indexOf(" ");
-//				String name = fname.substring(n+1, fname.length());
-//						try {
-//							Block223Controller.selectGame(name);
-//						} catch (InvalidInputException e1) {
-//							lblError2.setText(e1.getMessage());
-//							lblError2.setVisible(true);
-//					}
-//			}
-//		});
+		resumeAGame.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				String fname=(String) selectAGame.getSelectedItem();
+				int n= fname.indexOf(" ");
+				String sname=fname.substring(1, n);
+				int id = Integer.parseInt(sname);
+				String name = fname.substring(n+1, fname.length());
+						try {
+							Block223Controller.selectPlayableGame(name,id);
+						} catch (InvalidInputException e1) {
+							lblError2.setText(e1.getMessage());
+							lblError2.setVisible(true);
+					}
+			}
+		});
 		resumeAGame.setBackground(new Color(204, 255, 255));
 		resumeAGame.setMaximumRowCount(12);
 		resumeAGame.setFont(projectfont15);

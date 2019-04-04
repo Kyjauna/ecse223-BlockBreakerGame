@@ -20,8 +20,10 @@ import javax.swing.LayoutStyle.ComponentPlacement;
 //import ca.mcgill.ecse223.block.application.Block223Application;
 import ca.mcgill.ecse223.block.controller.Block223Controller;
 import ca.mcgill.ecse223.block.controller.InvalidInputException;
+import ca.mcgill.ecse223.block.controller.TOCurrentlyPlayedGame;
 //import ca.mcgill.ecse223.block.controller.TOGame;
 import ca.mcgill.ecse223.block.controller.TOGame;
+import ca.mcgill.ecse223.block.controller.TOPlayableGame;
 
 import javax.swing.JTextField;
 import javax.swing.JButton;
@@ -37,12 +39,15 @@ import java.awt.event.ActionEvent;
 import javax.swing.SwingConstants;
 import java.awt.FlowLayout;
 import java.awt.GridLayout;
+import java.awt.event.KeyAdapter;
+import java.awt.event.KeyEvent;
 
 public class GamePlayPage implements Block223PlayModeInterface{
 
 	public JFrame frame;
 	JLabel lblErrorMessage;
 	int level;
+	String input;
 	
 	/**
 	 * Launch the application.
@@ -72,11 +77,13 @@ public class GamePlayPage implements Block223PlayModeInterface{
 
 	
 	public void refresh() {
+		input="";
 		
 	}
-	public String takeinputs(){
-		String s ="";
-		return s;
+	
+	public String takeInputs(){
+		return input;
+	
 	}
 	
 	/**
@@ -84,6 +91,18 @@ public class GamePlayPage implements Block223PlayModeInterface{
 	 */
 	private void initialize() {
 		frame = new JFrame();
+		frame.addKeyListener(new KeyAdapter() {
+			@Override
+			public void keyTyped(KeyEvent arg0) {
+			int keyPressed=arg0.getKeyCode();
+			if (keyPressed==KeyEvent.VK_LEFT)
+				input+="l";
+			if (keyPressed==KeyEvent.VK_RIGHT)
+				input+="r";
+			if (keyPressed==KeyEvent.VK_SPACE)
+				input+=" ";
+			}
+		});
 		frame.getContentPane().setBackground(new Color(0, 0, 51));
 		
 		Font projectfont = null;
@@ -221,13 +240,12 @@ public class GamePlayPage implements Block223PlayModeInterface{
 		);
 		
 		JLabel lblGame = new JLabel("Game");
-		lblGame.setBounds(0, 0, 776, 54);
+		lblGame.setBounds(0, 13, 776, 54);
 		layeredPane_6.add(lblGame);
 		try {
-			lblGame.setText(Block223Controller.getCurrentDesignableGame().getName());
+			lblGame.setText(Block223Controller.getCurrentPlayableGame().getGamename());
 		} catch (InvalidInputException e2) {
-			// TODO Auto-generated catch block
-			e2.printStackTrace();
+			lblErrorMessage.setText(e2.getMessage());
 		}
 		lblGame.setFont(projectfont52);
 		lblGame.setForeground(new Color(224,255,255));
@@ -277,78 +295,125 @@ public class GamePlayPage implements Block223PlayModeInterface{
 		panel_17.setBounds(608, 0, 76, 18);
 		layeredPane_4.add(panel_17);
 
-		
-		
+
 		JLabel lblLevel = new JLabel("");
+		lblLevel.setHorizontalAlignment(SwingConstants.CENTER);
 		lblLevel.setForeground(new Color(224, 255, 255));
 		lblLevel.setFont(projectfont32);
-		lblLevel.setText("LEVEL "+(level));
-		
-		JButton btnPlay = new JButton("PLAY");
-		btnPlay.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
+		int n=0;
+		try {
+			TOCurrentlyPlayedGame game =Block223Controller.getCurrentPlayableGame();
+			if (game!=null) {
+			n=game.getCurrentLevel();
 			}
-		});
-		btnPlay.setFont(projectfont15);
-		
-		JButton btnPause = new JButton("PAUSE");
-		btnPause.setFont(projectfont15);
+			lblLevel.setText("LEVEL "+ n);
+			
+		} catch (InvalidInputException e) {
+			lblErrorMessage.setText(e.getMessage());
+		}
 		
 		JButton btnSave = new JButton("SAVE");
+		btnSave.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+			}
+		});
 		btnSave.setFont(projectfont15);
 		
-		JButton btnQuit = new JButton("QUIT");
+		JButton btnQuit = new JButton("QUIT GAME");
+		btnQuit.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+			frame.dispose();
+			PlayerPage page = new PlayerPage();
+			page.frame.setVisible(true);
+			}
+		});
 		btnQuit.setFont(projectfont15);
 		
 		JButton btnLogout_1 = new JButton("LOGOUT");
+		btnLogout_1.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+			frame.dispose();
+			WelcomePage page = new WelcomePage();
+			page.frame.setVisible(true);
+			}
+		});
 		btnLogout_1.setFont(projectfont15);
 		
-		JPanel panel_19 = new JPanel();
-		
-		JLabel lblLives = new JLabel("LIVES");
+		JLabel lblLives = new JLabel("LIVES remaining");
 		lblLives.setFont(projectfont15);
 		lblLives.setForeground(new Color(224, 255, 255));
+		
+		
+		TOCurrentlyPlayedGame game;
+		int lives=3;
+		try {
+			game = Block223Controller.getCurrentPlayableGame();	
+			if (game!=null) {
+				lives=game.getLives();
+			}
+		} catch (InvalidInputException e1) {
+			lblErrorMessage.setText(e1.getMessage());
+		}
+		
+		JLabel label = new JLabel(""+lives);
+		label.setForeground(new Color(224, 255, 255));
+		label.setFont(projectfont32);
+		
+		JButton btnViewHallOf = new JButton("VIEW HALL OF FAME");
+		btnViewHallOf.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+			frame.dispose();
+			ViewHallOfFamePage page=new ViewHallOfFamePage();
+			page.frame.setVisible(true);
+			}
+		});
+		btnViewHallOf.setFont(projectfont15);
+		
 		GroupLayout gl_layeredPane_3 = new GroupLayout(layeredPane_3);
 		gl_layeredPane_3.setHorizontalGroup(
-			gl_layeredPane_3.createParallelGroup(Alignment.TRAILING)
+			gl_layeredPane_3.createParallelGroup(Alignment.LEADING)
 				.addGroup(gl_layeredPane_3.createSequentialGroup()
 					.addGroup(gl_layeredPane_3.createParallelGroup(Alignment.LEADING)
 						.addGroup(gl_layeredPane_3.createSequentialGroup()
 							.addGap(72)
 							.addGroup(gl_layeredPane_3.createParallelGroup(Alignment.LEADING)
-								.addComponent(btnPause, GroupLayout.PREFERRED_SIZE, 81, GroupLayout.PREFERRED_SIZE)
-								.addComponent(btnPlay, GroupLayout.PREFERRED_SIZE, 81, GroupLayout.PREFERRED_SIZE)
-								.addComponent(btnSave, GroupLayout.PREFERRED_SIZE, 81, GroupLayout.PREFERRED_SIZE)
-								.addComponent(btnQuit, GroupLayout.PREFERRED_SIZE, 81, GroupLayout.PREFERRED_SIZE)
-								.addComponent(btnLogout_1)))
+								.addComponent(btnLogout_1)
+								.addComponent(btnSave, GroupLayout.PREFERRED_SIZE, 81, GroupLayout.PREFERRED_SIZE)))
 						.addGroup(gl_layeredPane_3.createSequentialGroup()
-							.addGap(27)
+							.addGap(102)
+							.addComponent(label, GroupLayout.PREFERRED_SIZE, 34, GroupLayout.PREFERRED_SIZE))
+						.addGroup(gl_layeredPane_3.createSequentialGroup()
+							.addGap(55)
 							.addGroup(gl_layeredPane_3.createParallelGroup(Alignment.LEADING, false)
-								.addComponent(lblLevel, Alignment.TRAILING, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-								.addComponent(panel_19, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-								.addComponent(lblLives))))
-					.addContainerGap(98, Short.MAX_VALUE))
+								.addComponent(btnQuit, Alignment.TRAILING, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+								.addComponent(lblLives, Alignment.TRAILING, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
+					.addContainerGap(74, Short.MAX_VALUE))
+				.addGroup(gl_layeredPane_3.createSequentialGroup()
+					.addGap(34)
+					.addComponent(btnViewHallOf, GroupLayout.DEFAULT_SIZE, 166, Short.MAX_VALUE)
+					.addGap(43))
+				.addGroup(Alignment.TRAILING, gl_layeredPane_3.createSequentialGroup()
+					.addContainerGap()
+					.addComponent(lblLevel, GroupLayout.PREFERRED_SIZE, 209, GroupLayout.PREFERRED_SIZE)
+					.addContainerGap())
 		);
 		gl_layeredPane_3.setVerticalGroup(
 			gl_layeredPane_3.createParallelGroup(Alignment.LEADING)
 				.addGroup(gl_layeredPane_3.createSequentialGroup()
-					.addContainerGap()
 					.addComponent(lblLevel)
-					.addGap(18)
-					.addComponent(btnPlay)
 					.addPreferredGap(ComponentPlacement.UNRELATED)
-					.addComponent(btnPause)
-					.addPreferredGap(ComponentPlacement.UNRELATED)
+					.addComponent(btnViewHallOf)
+					.addGap(85)
 					.addComponent(btnSave)
-					.addGap(34)
+					.addGap(18)
 					.addComponent(btnQuit)
 					.addGap(18)
 					.addComponent(btnLogout_1)
-					.addPreferredGap(ComponentPlacement.RELATED, 52, Short.MAX_VALUE)
+					.addPreferredGap(ComponentPlacement.RELATED, 55, Short.MAX_VALUE)
 					.addComponent(lblLives)
-					.addPreferredGap(ComponentPlacement.RELATED)
-					.addComponent(panel_19, GroupLayout.PREFERRED_SIZE, 28, GroupLayout.PREFERRED_SIZE)
-					.addGap(20))
+					.addGap(4)
+					.addComponent(label, GroupLayout.PREFERRED_SIZE, 35, GroupLayout.PREFERRED_SIZE)
+					.addContainerGap())
 		);
 		layeredPane_3.setLayout(gl_layeredPane_3);
 		//panel_18.setLayout(null);
@@ -361,10 +426,4 @@ public class GamePlayPage implements Block223PlayModeInterface{
 	
 	}
 
-
-	@Override
-	public String takeInputs() {
-		// TODO Auto-generated method stub
-		return null;
-	}
 }

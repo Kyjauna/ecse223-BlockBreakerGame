@@ -41,6 +41,7 @@ public class ViewHallOfFamePage {
 	public JFrame frame;
 	JLabel lblErrorMessage;
 	int level;
+	int start=1;
 	
 	/**
 	 * Launch the application.
@@ -91,8 +92,9 @@ public class ViewHallOfFamePage {
 		/* The comboBox needs to have a list of all the names of the existing games. */
 		
 		JLabel lblGame = new JLabel("Game");
+		lblGame.setHorizontalAlignment(SwingConstants.CENTER);
 		try {
-			lblGame.setText(Block223Controller.getCurrentDesignableGame().getName());
+			lblGame.setText(Block223Controller.getCurrentPlayableGame().getGamename());
 		} catch (InvalidInputException e1) {
 			// TODO Auto-generated catch block
 			e1.printStackTrace();
@@ -115,25 +117,6 @@ public class ViewHallOfFamePage {
 		lblErrorMessage = new JLabel("");
 		lblErrorMessage.setForeground(new Color(204, 255, 255));
 		lblErrorMessage.setFont(new Font("Monospaced", Font.BOLD, 12));
-
-		
-		/* Logout Button */
-		
-		JButton btnLogout = new JButton("LOGOUT");
-		btnLogout.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				
-				/* Logging out will take you back to the Welcome Page */
-				Block223Controller.logout();
-				
-				WelcomePage homePage = new WelcomePage();
-				homePage.frame.setVisible(true);
-				frame.setVisible(false);
-				Block223Controller.logout();
-				
-			}
-		});
-		btnLogout.setFont(projectfont15);
 		
 		JLayeredPane layeredPane_2 = new JLayeredPane();
 		
@@ -169,9 +152,6 @@ public class ViewHallOfFamePage {
 		JPanel panel_2 = new JPanel();
 		panel_2.setBackground(Color.CYAN);
 		
-		JPanel panel_3 = new JPanel();
-		panel_3.setBackground(Color.GREEN);
-		
 		JPanel panel_7 = new JPanel();
 		panel_7.setBackground(new Color(153, 50, 204));
 		
@@ -186,9 +166,6 @@ public class ViewHallOfFamePage {
 		
 		JPanel panel_6 = new JPanel();
 		panel_6.setBackground(Color.GREEN);
-		
-		JPanel panel_8 = new JPanel();
-		panel_8.setBackground(new Color(153, 50, 204));
 		
 		JPanel panel_9 = new JPanel();
 		panel_9.setBackground(Color.MAGENTA);
@@ -260,154 +237,120 @@ public class ViewHallOfFamePage {
 		layeredPane_3.setForeground(new Color(100, 149, 237));
 		layeredPane_3.setBackground(new Color(100, 149, 237));
 		
+		JButton btnNewButton = new JButton("NEXT");
+		btnNewButton.setFont(projectfont15);
+		btnNewButton.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+			}
+		});
+		
+		JButton btnPrevious = new JButton("PREVIOUS");
+		btnPrevious.setFont(projectfont15);
+		
 		GroupLayout groupLayout = new GroupLayout(frame.getContentPane());
 		groupLayout.setHorizontalGroup(
 			groupLayout.createParallelGroup(Alignment.LEADING)
-				.addGroup(groupLayout.createSequentialGroup()
+				.addGroup(Alignment.TRAILING, groupLayout.createSequentialGroup()
 					.addContainerGap()
-					.addGroup(groupLayout.createParallelGroup(Alignment.LEADING)
+					.addGroup(groupLayout.createParallelGroup(Alignment.TRAILING)
+						.addComponent(lblErrorMessage, GroupLayout.PREFERRED_SIZE, 524, GroupLayout.PREFERRED_SIZE)
 						.addGroup(groupLayout.createSequentialGroup()
 							.addGroup(groupLayout.createParallelGroup(Alignment.LEADING)
 								.addGroup(groupLayout.createSequentialGroup()
-									.addComponent(panel_1, GroupLayout.PREFERRED_SIZE, 76, GroupLayout.PREFERRED_SIZE)
-									.addPreferredGap(ComponentPlacement.RELATED)
-									.addComponent(panel_24, GroupLayout.PREFERRED_SIZE, 76, GroupLayout.PREFERRED_SIZE))
-								.addGroup(Alignment.TRAILING, groupLayout.createSequentialGroup()
 									.addGroup(groupLayout.createParallelGroup(Alignment.LEADING)
 										.addGroup(groupLayout.createSequentialGroup()
-											.addComponent(panel_18, GroupLayout.PREFERRED_SIZE, 76, GroupLayout.PREFERRED_SIZE)
+											.addComponent(panel_1, GroupLayout.PREFERRED_SIZE, 76, GroupLayout.PREFERRED_SIZE)
 											.addPreferredGap(ComponentPlacement.RELATED)
-											.addComponent(panel_12, GroupLayout.PREFERRED_SIZE, 76, GroupLayout.PREFERRED_SIZE))
-										.addGroup(groupLayout.createSequentialGroup()
-											.addComponent(panel_19, GroupLayout.PREFERRED_SIZE, 76, GroupLayout.PREFERRED_SIZE)
-											.addPreferredGap(ComponentPlacement.RELATED)
-											.addComponent(panel_13, GroupLayout.PREFERRED_SIZE, 76, GroupLayout.PREFERRED_SIZE))
-										.addGroup(groupLayout.createSequentialGroup()
-											.addComponent(panel_21, GroupLayout.PREFERRED_SIZE, 76, GroupLayout.PREFERRED_SIZE)
-											.addPreferredGap(ComponentPlacement.RELATED)
-											.addComponent(panel_15, GroupLayout.PREFERRED_SIZE, 76, GroupLayout.PREFERRED_SIZE))
-										.addGroup(groupLayout.createSequentialGroup()
-											.addComponent(panel_20, GroupLayout.PREFERRED_SIZE, 76, GroupLayout.PREFERRED_SIZE)
-											.addPreferredGap(ComponentPlacement.RELATED)
-											.addComponent(panel_14, GroupLayout.PREFERRED_SIZE, 76, GroupLayout.PREFERRED_SIZE))
+											.addComponent(panel_24, GroupLayout.PREFERRED_SIZE, 76, GroupLayout.PREFERRED_SIZE))
 										.addGroup(groupLayout.createSequentialGroup()
 											.addGroup(groupLayout.createParallelGroup(Alignment.LEADING)
-												.addComponent(panel_22, GroupLayout.PREFERRED_SIZE, 76, GroupLayout.PREFERRED_SIZE)
-												.addComponent(panel_23, GroupLayout.PREFERRED_SIZE, 76, GroupLayout.PREFERRED_SIZE))
+												.addGroup(groupLayout.createSequentialGroup()
+													.addComponent(panel_18, GroupLayout.PREFERRED_SIZE, 76, GroupLayout.PREFERRED_SIZE)
+													.addPreferredGap(ComponentPlacement.RELATED)
+													.addComponent(panel_12, GroupLayout.PREFERRED_SIZE, 76, GroupLayout.PREFERRED_SIZE))
+												.addGroup(groupLayout.createSequentialGroup()
+													.addComponent(panel_19, GroupLayout.PREFERRED_SIZE, 76, GroupLayout.PREFERRED_SIZE)
+													.addPreferredGap(ComponentPlacement.RELATED)
+													.addComponent(panel_13, GroupLayout.PREFERRED_SIZE, 76, GroupLayout.PREFERRED_SIZE))
+												.addGroup(groupLayout.createSequentialGroup()
+													.addComponent(panel_21, GroupLayout.PREFERRED_SIZE, 76, GroupLayout.PREFERRED_SIZE)
+													.addPreferredGap(ComponentPlacement.RELATED)
+													.addComponent(panel_15, GroupLayout.PREFERRED_SIZE, 76, GroupLayout.PREFERRED_SIZE))
+												.addGroup(groupLayout.createSequentialGroup()
+													.addComponent(panel_20, GroupLayout.PREFERRED_SIZE, 76, GroupLayout.PREFERRED_SIZE)
+													.addPreferredGap(ComponentPlacement.RELATED)
+													.addComponent(panel_14, GroupLayout.PREFERRED_SIZE, 76, GroupLayout.PREFERRED_SIZE))
+												.addGroup(groupLayout.createSequentialGroup()
+													.addGroup(groupLayout.createParallelGroup(Alignment.LEADING)
+														.addComponent(panel_22, GroupLayout.PREFERRED_SIZE, 76, GroupLayout.PREFERRED_SIZE)
+														.addComponent(panel_23, GroupLayout.PREFERRED_SIZE, 76, GroupLayout.PREFERRED_SIZE))
+													.addPreferredGap(ComponentPlacement.RELATED)
+													.addGroup(groupLayout.createParallelGroup(Alignment.LEADING)
+														.addComponent(panel_17, GroupLayout.PREFERRED_SIZE, 76, GroupLayout.PREFERRED_SIZE)
+														.addComponent(panel_16, GroupLayout.PREFERRED_SIZE, 76, GroupLayout.PREFERRED_SIZE))))
 											.addPreferredGap(ComponentPlacement.RELATED)
-											.addGroup(groupLayout.createParallelGroup(Alignment.LEADING)
-												.addComponent(panel_17, GroupLayout.PREFERRED_SIZE, 76, GroupLayout.PREFERRED_SIZE)
-												.addComponent(panel_16, GroupLayout.PREFERRED_SIZE, 76, GroupLayout.PREFERRED_SIZE))))
-									.addGap(114)
-									.addGroup(groupLayout.createParallelGroup(Alignment.TRAILING)
-										.addComponent(layeredPane_3, GroupLayout.DEFAULT_SIZE, 188, Short.MAX_VALUE)
-										.addGroup(Alignment.LEADING, groupLayout.createSequentialGroup()
-											.addPreferredGap(ComponentPlacement.RELATED, 53, Short.MAX_VALUE)
-											.addComponent(lblTopTen)
-											.addGap(60))
-										.addComponent(lblHallOfFame))
-									.addGap(11)))
-							.addGap(96)
-							.addComponent(layeredPane_2, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
-						.addGroup(groupLayout.createSequentialGroup()
-							.addComponent(panel, GroupLayout.PREFERRED_SIZE, 76, GroupLayout.PREFERRED_SIZE)
-							.addPreferredGap(ComponentPlacement.RELATED)
-							.addComponent(panel_25, GroupLayout.PREFERRED_SIZE, 76, GroupLayout.PREFERRED_SIZE)
-							.addPreferredGap(ComponentPlacement.RELATED)
-							.addComponent(panel_26, GroupLayout.PREFERRED_SIZE, 76, GroupLayout.PREFERRED_SIZE)
-							.addPreferredGap(ComponentPlacement.RELATED)
-							.addGroup(groupLayout.createParallelGroup(Alignment.LEADING)
-								.addComponent(lblGame)
+											.addGroup(groupLayout.createParallelGroup(Alignment.TRAILING)
+												.addGroup(groupLayout.createSequentialGroup()
+													.addComponent(lblTopTen)
+													.addGap(71))
+												.addGroup(Alignment.LEADING, groupLayout.createSequentialGroup()
+													.addGap(114)
+													.addGroup(groupLayout.createParallelGroup(Alignment.LEADING)
+														.addGroup(groupLayout.createSequentialGroup()
+															.addComponent(btnPrevious)
+															.addPreferredGap(ComponentPlacement.RELATED, 39, Short.MAX_VALUE)
+															.addComponent(btnNewButton, GroupLayout.PREFERRED_SIZE, 74, GroupLayout.PREFERRED_SIZE))
+														.addComponent(layeredPane_3, GroupLayout.DEFAULT_SIZE, 204, Short.MAX_VALUE)
+														.addGroup(groupLayout.createSequentialGroup()
+															.addComponent(lblHallOfFame)
+															.addPreferredGap(ComponentPlacement.RELATED, 16, Short.MAX_VALUE)))))))
+									.addGap(96)
+									.addComponent(layeredPane_2, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
 								.addGroup(groupLayout.createSequentialGroup()
+									.addComponent(panel, GroupLayout.PREFERRED_SIZE, 76, GroupLayout.PREFERRED_SIZE)
+									.addPreferredGap(ComponentPlacement.RELATED)
+									.addComponent(panel_25, GroupLayout.PREFERRED_SIZE, 76, GroupLayout.PREFERRED_SIZE)
+									.addPreferredGap(ComponentPlacement.RELATED)
+									.addComponent(panel_26, GroupLayout.PREFERRED_SIZE, 76, GroupLayout.PREFERRED_SIZE)
+									.addPreferredGap(ComponentPlacement.RELATED)
 									.addComponent(panel_28, GroupLayout.PREFERRED_SIZE, 76, GroupLayout.PREFERRED_SIZE)
 									.addPreferredGap(ComponentPlacement.RELATED)
 									.addComponent(panel_30, GroupLayout.PREFERRED_SIZE, 76, GroupLayout.PREFERRED_SIZE)
 									.addPreferredGap(ComponentPlacement.RELATED)
 									.addComponent(panel_32, GroupLayout.PREFERRED_SIZE, 76, GroupLayout.PREFERRED_SIZE)
 									.addPreferredGap(ComponentPlacement.RELATED)
-									.addComponent(panel_34, GroupLayout.PREFERRED_SIZE, 76, GroupLayout.PREFERRED_SIZE)))))
-					.addPreferredGap(ComponentPlacement.RELATED)
-					.addGroup(groupLayout.createParallelGroup(Alignment.TRAILING)
-						.addGroup(groupLayout.createParallelGroup(Alignment.LEADING)
-							.addComponent(panel_4, GroupLayout.PREFERRED_SIZE, 76, GroupLayout.PREFERRED_SIZE)
-							.addComponent(panel_7, GroupLayout.PREFERRED_SIZE, 76, GroupLayout.PREFERRED_SIZE))
-						.addComponent(panel_27, GroupLayout.PREFERRED_SIZE, 76, GroupLayout.PREFERRED_SIZE)
-						.addComponent(panel_5, GroupLayout.PREFERRED_SIZE, 76, GroupLayout.PREFERRED_SIZE)
-						.addComponent(panel_31, GroupLayout.PREFERRED_SIZE, 76, GroupLayout.PREFERRED_SIZE)
-						.addComponent(panel_35, GroupLayout.PREFERRED_SIZE, 76, GroupLayout.PREFERRED_SIZE)
-						.addComponent(panel_36, GroupLayout.PREFERRED_SIZE, 76, GroupLayout.PREFERRED_SIZE)
-						.addComponent(panel_39, GroupLayout.PREFERRED_SIZE, 76, GroupLayout.PREFERRED_SIZE))
+									.addComponent(panel_34, GroupLayout.PREFERRED_SIZE, 76, GroupLayout.PREFERRED_SIZE))
+								.addGroup(groupLayout.createSequentialGroup()
+									.addGap(184)
+									.addComponent(lblGame, GroupLayout.PREFERRED_SIZE, 369, GroupLayout.PREFERRED_SIZE)))
+							.addPreferredGap(ComponentPlacement.RELATED)
+							.addGroup(groupLayout.createParallelGroup(Alignment.TRAILING)
+								.addGroup(groupLayout.createParallelGroup(Alignment.LEADING)
+									.addComponent(panel_4, GroupLayout.PREFERRED_SIZE, 76, GroupLayout.PREFERRED_SIZE)
+									.addComponent(panel_7, GroupLayout.PREFERRED_SIZE, 76, GroupLayout.PREFERRED_SIZE))
+								.addComponent(panel_27, GroupLayout.PREFERRED_SIZE, 76, GroupLayout.PREFERRED_SIZE)
+								.addComponent(panel_5, GroupLayout.PREFERRED_SIZE, 76, GroupLayout.PREFERRED_SIZE)
+								.addComponent(panel_31, GroupLayout.PREFERRED_SIZE, 76, GroupLayout.PREFERRED_SIZE)
+								.addComponent(panel_35, GroupLayout.PREFERRED_SIZE, 76, GroupLayout.PREFERRED_SIZE)
+								.addComponent(panel_36, GroupLayout.PREFERRED_SIZE, 76, GroupLayout.PREFERRED_SIZE)
+								.addComponent(panel_39, GroupLayout.PREFERRED_SIZE, 76, GroupLayout.PREFERRED_SIZE))))
 					.addPreferredGap(ComponentPlacement.RELATED)
 					.addGroup(groupLayout.createParallelGroup(Alignment.LEADING)
 						.addComponent(panel_29, GroupLayout.PREFERRED_SIZE, 76, GroupLayout.PREFERRED_SIZE)
-						.addGroup(groupLayout.createSequentialGroup()
-							.addGroup(groupLayout.createParallelGroup(Alignment.LEADING)
-								.addComponent(panel_6, GroupLayout.PREFERRED_SIZE, 76, GroupLayout.PREFERRED_SIZE)
-								.addComponent(panel_9, GroupLayout.PREFERRED_SIZE, 76, GroupLayout.PREFERRED_SIZE)
-								.addComponent(panel_33, GroupLayout.PREFERRED_SIZE, 76, GroupLayout.PREFERRED_SIZE)
-								.addComponent(panel_37, GroupLayout.PREFERRED_SIZE, 76, GroupLayout.PREFERRED_SIZE)
-								.addComponent(panel_38, GroupLayout.PREFERRED_SIZE, 76, GroupLayout.PREFERRED_SIZE))
-							.addGap(82)
-							.addGroup(groupLayout.createParallelGroup(Alignment.TRAILING)
-								.addGroup(groupLayout.createSequentialGroup()
-									.addComponent(btnLogout, GroupLayout.PREFERRED_SIZE, 87, GroupLayout.PREFERRED_SIZE)
-									.addGap(207))
-								.addComponent(lblErrorMessage, GroupLayout.PREFERRED_SIZE, 524, GroupLayout.PREFERRED_SIZE)
-								.addGroup(groupLayout.createSequentialGroup()
-									.addComponent(panel_3, GroupLayout.PREFERRED_SIZE, 76, GroupLayout.PREFERRED_SIZE)
-									.addContainerGap())
-								.addGroup(groupLayout.createSequentialGroup()
-									.addComponent(panel_8, GroupLayout.PREFERRED_SIZE, 76, GroupLayout.PREFERRED_SIZE)
-									.addContainerGap())))
+						.addComponent(panel_6, GroupLayout.PREFERRED_SIZE, 76, GroupLayout.PREFERRED_SIZE)
+						.addComponent(panel_9, GroupLayout.PREFERRED_SIZE, 76, GroupLayout.PREFERRED_SIZE)
+						.addComponent(panel_33, GroupLayout.PREFERRED_SIZE, 76, GroupLayout.PREFERRED_SIZE)
+						.addComponent(panel_37, GroupLayout.PREFERRED_SIZE, 76, GroupLayout.PREFERRED_SIZE)
+						.addComponent(panel_38, GroupLayout.PREFERRED_SIZE, 76, GroupLayout.PREFERRED_SIZE)
 						.addComponent(panel_2, GroupLayout.PREFERRED_SIZE, 76, GroupLayout.PREFERRED_SIZE)
-						.addComponent(panel_10, GroupLayout.PREFERRED_SIZE, 76, GroupLayout.PREFERRED_SIZE)))
+						.addComponent(panel_10, GroupLayout.PREFERRED_SIZE, 76, GroupLayout.PREFERRED_SIZE))
+					.addGap(164))
 		);
 		groupLayout.setVerticalGroup(
 			groupLayout.createParallelGroup(Alignment.LEADING)
 				.addGroup(groupLayout.createSequentialGroup()
 					.addContainerGap()
 					.addGroup(groupLayout.createParallelGroup(Alignment.LEADING)
-						.addGroup(groupLayout.createSequentialGroup()
-							.addGroup(groupLayout.createParallelGroup(Alignment.LEADING)
-								.addComponent(panel, GroupLayout.PREFERRED_SIZE, 64, GroupLayout.PREFERRED_SIZE)
-								.addComponent(panel_25, GroupLayout.PREFERRED_SIZE, 64, GroupLayout.PREFERRED_SIZE)
-								.addComponent(panel_26, GroupLayout.PREFERRED_SIZE, 64, GroupLayout.PREFERRED_SIZE))
-							.addGroup(groupLayout.createParallelGroup(Alignment.LEADING, false)
-								.addGroup(groupLayout.createSequentialGroup()
-									.addPreferredGap(ComponentPlacement.RELATED)
-									.addGroup(groupLayout.createParallelGroup(Alignment.LEADING, false)
-										.addComponent(panel_1, GroupLayout.PREFERRED_SIZE, 65, GroupLayout.PREFERRED_SIZE)
-										.addComponent(panel_24, GroupLayout.PREFERRED_SIZE, 64, GroupLayout.PREFERRED_SIZE))
-									.addPreferredGap(ComponentPlacement.RELATED)
-									.addGroup(groupLayout.createParallelGroup(Alignment.LEADING)
-										.addComponent(panel_18, GroupLayout.PREFERRED_SIZE, 64, GroupLayout.PREFERRED_SIZE)
-										.addComponent(panel_12, GroupLayout.PREFERRED_SIZE, 65, GroupLayout.PREFERRED_SIZE)))
-								.addGroup(groupLayout.createSequentialGroup()
-									.addGap(27)
-									.addComponent(lblGame)
-									.addPreferredGap(ComponentPlacement.RELATED, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-									.addComponent(lblHallOfFame)
-									.addGap(10)))
-							.addGroup(groupLayout.createParallelGroup(Alignment.LEADING)
-								.addGroup(groupLayout.createSequentialGroup()
-									.addPreferredGap(ComponentPlacement.RELATED)
-									.addGroup(groupLayout.createParallelGroup(Alignment.LEADING)
-										.addComponent(panel_19, GroupLayout.PREFERRED_SIZE, 64, GroupLayout.PREFERRED_SIZE)
-										.addComponent(panel_13, GroupLayout.PREFERRED_SIZE, 65, GroupLayout.PREFERRED_SIZE))
-									.addPreferredGap(ComponentPlacement.RELATED)
-									.addGroup(groupLayout.createParallelGroup(Alignment.LEADING)
-										.addComponent(panel_20, GroupLayout.PREFERRED_SIZE, 64, GroupLayout.PREFERRED_SIZE)
-										.addComponent(panel_14, GroupLayout.PREFERRED_SIZE, 64, GroupLayout.PREFERRED_SIZE))
-									.addPreferredGap(ComponentPlacement.RELATED)
-									.addGroup(groupLayout.createParallelGroup(Alignment.LEADING)
-										.addComponent(panel_21, GroupLayout.PREFERRED_SIZE, 64, GroupLayout.PREFERRED_SIZE)
-										.addComponent(panel_15, GroupLayout.PREFERRED_SIZE, 64, GroupLayout.PREFERRED_SIZE)))
-								.addGroup(groupLayout.createSequentialGroup()
-									.addGap(8)
-									.addComponent(lblTopTen)
-									.addPreferredGap(ComponentPlacement.RELATED)
-									.addComponent(layeredPane_3, GroupLayout.DEFAULT_SIZE, 314, Short.MAX_VALUE)))
-							.addPreferredGap(ComponentPlacement.RELATED, 27, GroupLayout.PREFERRED_SIZE))
 						.addGroup(groupLayout.createSequentialGroup()
 							.addGroup(groupLayout.createParallelGroup(Alignment.LEADING)
 								.addComponent(panel_28, GroupLayout.PREFERRED_SIZE, 64, GroupLayout.PREFERRED_SIZE)
@@ -424,7 +367,6 @@ public class ViewHallOfFamePage {
 									.addPreferredGap(ComponentPlacement.RELATED)
 									.addGroup(groupLayout.createParallelGroup(Alignment.LEADING)
 										.addComponent(panel_6, GroupLayout.PREFERRED_SIZE, 64, GroupLayout.PREFERRED_SIZE)
-										.addComponent(panel_3, GroupLayout.PREFERRED_SIZE, 64, GroupLayout.PREFERRED_SIZE)
 										.addComponent(panel_27, GroupLayout.PREFERRED_SIZE, 64, GroupLayout.PREFERRED_SIZE)))
 								.addComponent(layeredPane_2, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
 							.addGroup(groupLayout.createParallelGroup(Alignment.LEADING)
@@ -437,92 +379,126 @@ public class ViewHallOfFamePage {
 									.addGroup(groupLayout.createParallelGroup(Alignment.LEADING)
 										.addGroup(groupLayout.createSequentialGroup()
 											.addComponent(panel_9, GroupLayout.PREFERRED_SIZE, 64, GroupLayout.PREFERRED_SIZE)
+											.addPreferredGap(ComponentPlacement.RELATED)
 											.addGroup(groupLayout.createParallelGroup(Alignment.LEADING)
-												.addGroup(groupLayout.createSequentialGroup()
-													.addPreferredGap(ComponentPlacement.RELATED, 95, Short.MAX_VALUE)
-													.addComponent(lblErrorMessage, GroupLayout.PREFERRED_SIZE, 18, GroupLayout.PREFERRED_SIZE)
-													.addGap(63)
-													.addComponent(btnLogout)
-													.addGap(35))
-												.addGroup(groupLayout.createSequentialGroup()
-													.addPreferredGap(ComponentPlacement.RELATED)
-													.addGroup(groupLayout.createParallelGroup(Alignment.LEADING)
-														.addComponent(panel_35, GroupLayout.PREFERRED_SIZE, 64, GroupLayout.PREFERRED_SIZE)
-														.addComponent(panel_33, GroupLayout.PREFERRED_SIZE, 64, GroupLayout.PREFERRED_SIZE))
-													.addPreferredGap(ComponentPlacement.RELATED)
-													.addGroup(groupLayout.createParallelGroup(Alignment.LEADING)
-														.addComponent(panel_37, GroupLayout.PREFERRED_SIZE, 64, GroupLayout.PREFERRED_SIZE)
-														.addComponent(panel_36, GroupLayout.PREFERRED_SIZE, 64, GroupLayout.PREFERRED_SIZE))
-													.addPreferredGap(ComponentPlacement.RELATED)
-													.addGroup(groupLayout.createParallelGroup(Alignment.LEADING)
-														.addComponent(panel_39, GroupLayout.PREFERRED_SIZE, 64, GroupLayout.PREFERRED_SIZE)
-														.addComponent(panel_38, GroupLayout.PREFERRED_SIZE, 64, GroupLayout.PREFERRED_SIZE)))))
+												.addComponent(panel_35, GroupLayout.PREFERRED_SIZE, 64, GroupLayout.PREFERRED_SIZE)
+												.addComponent(panel_33, GroupLayout.PREFERRED_SIZE, 64, GroupLayout.PREFERRED_SIZE))
+											.addPreferredGap(ComponentPlacement.RELATED)
+											.addGroup(groupLayout.createParallelGroup(Alignment.LEADING)
+												.addComponent(panel_37, GroupLayout.PREFERRED_SIZE, 64, GroupLayout.PREFERRED_SIZE)
+												.addComponent(panel_36, GroupLayout.PREFERRED_SIZE, 64, GroupLayout.PREFERRED_SIZE))
+											.addPreferredGap(ComponentPlacement.RELATED)
+											.addGroup(groupLayout.createParallelGroup(Alignment.LEADING)
+												.addComponent(panel_39, GroupLayout.PREFERRED_SIZE, 64, GroupLayout.PREFERRED_SIZE)
+												.addComponent(panel_38, GroupLayout.PREFERRED_SIZE, 64, GroupLayout.PREFERRED_SIZE)))
 										.addComponent(panel_31, GroupLayout.PREFERRED_SIZE, 64, GroupLayout.PREFERRED_SIZE)))
 								.addGroup(groupLayout.createSequentialGroup()
-									.addGap(93)
-									.addComponent(panel_8, GroupLayout.PREFERRED_SIZE, 64, GroupLayout.PREFERRED_SIZE)
-									.addGap(62)
-									.addGroup(groupLayout.createParallelGroup(Alignment.LEADING)
-										.addComponent(panel_16, GroupLayout.PREFERRED_SIZE, 64, GroupLayout.PREFERRED_SIZE)
-										.addComponent(panel_22, GroupLayout.PREFERRED_SIZE, 64, GroupLayout.PREFERRED_SIZE))
+									.addGap(27)
+									.addGroup(groupLayout.createParallelGroup(Alignment.TRAILING)
+										.addGroup(groupLayout.createSequentialGroup()
+											.addComponent(layeredPane_3, GroupLayout.PREFERRED_SIZE, 293, GroupLayout.PREFERRED_SIZE)
+											.addPreferredGap(ComponentPlacement.UNRELATED)
+											.addGroup(groupLayout.createParallelGroup(Alignment.BASELINE)
+												.addComponent(btnPrevious)
+												.addComponent(btnNewButton)))
+										.addGroup(groupLayout.createSequentialGroup()
+											.addGroup(groupLayout.createParallelGroup(Alignment.LEADING)
+												.addComponent(panel_14, GroupLayout.PREFERRED_SIZE, 64, GroupLayout.PREFERRED_SIZE)
+												.addComponent(panel_20, GroupLayout.PREFERRED_SIZE, 64, GroupLayout.PREFERRED_SIZE))
+											.addPreferredGap(ComponentPlacement.RELATED)
+											.addGroup(groupLayout.createParallelGroup(Alignment.LEADING)
+												.addComponent(panel_21, GroupLayout.PREFERRED_SIZE, 64, GroupLayout.PREFERRED_SIZE)
+												.addComponent(panel_15, GroupLayout.PREFERRED_SIZE, 64, GroupLayout.PREFERRED_SIZE))
+											.addPreferredGap(ComponentPlacement.RELATED)
+											.addGroup(groupLayout.createParallelGroup(Alignment.LEADING)
+												.addComponent(panel_16, GroupLayout.PREFERRED_SIZE, 64, GroupLayout.PREFERRED_SIZE)
+												.addComponent(panel_22, GroupLayout.PREFERRED_SIZE, 64, GroupLayout.PREFERRED_SIZE))
+											.addPreferredGap(ComponentPlacement.RELATED)
+											.addGroup(groupLayout.createParallelGroup(Alignment.LEADING)
+												.addComponent(panel_23, GroupLayout.PREFERRED_SIZE, 64, GroupLayout.PREFERRED_SIZE)
+												.addComponent(panel_17, GroupLayout.PREFERRED_SIZE, 64, GroupLayout.PREFERRED_SIZE)))))))
+						.addGroup(groupLayout.createSequentialGroup()
+							.addGroup(groupLayout.createParallelGroup(Alignment.LEADING)
+								.addComponent(panel, GroupLayout.PREFERRED_SIZE, 64, GroupLayout.PREFERRED_SIZE)
+								.addComponent(panel_25, GroupLayout.PREFERRED_SIZE, 64, GroupLayout.PREFERRED_SIZE)
+								.addComponent(panel_26, GroupLayout.PREFERRED_SIZE, 64, GroupLayout.PREFERRED_SIZE))
+							.addGroup(groupLayout.createParallelGroup(Alignment.LEADING)
+								.addGroup(groupLayout.createSequentialGroup()
+									.addGap(27)
+									.addComponent(lblGame)
+									.addPreferredGap(ComponentPlacement.RELATED)
+									.addComponent(lblHallOfFame)
+									.addPreferredGap(ComponentPlacement.RELATED)
+									.addComponent(lblTopTen))
+								.addGroup(groupLayout.createSequentialGroup()
+									.addPreferredGap(ComponentPlacement.RELATED)
+									.addGroup(groupLayout.createParallelGroup(Alignment.TRAILING)
+										.addComponent(panel_1, GroupLayout.PREFERRED_SIZE, 65, GroupLayout.PREFERRED_SIZE)
+										.addComponent(panel_24, GroupLayout.PREFERRED_SIZE, 64, GroupLayout.PREFERRED_SIZE))
 									.addPreferredGap(ComponentPlacement.RELATED)
 									.addGroup(groupLayout.createParallelGroup(Alignment.LEADING)
-										.addComponent(panel_17, GroupLayout.PREFERRED_SIZE, 64, GroupLayout.PREFERRED_SIZE)
-										.addComponent(panel_23, GroupLayout.PREFERRED_SIZE, 64, GroupLayout.PREFERRED_SIZE))))))
-					.addContainerGap())
+										.addComponent(panel_18, GroupLayout.PREFERRED_SIZE, 64, GroupLayout.PREFERRED_SIZE)
+										.addComponent(panel_12, GroupLayout.PREFERRED_SIZE, 65, GroupLayout.PREFERRED_SIZE))
+									.addPreferredGap(ComponentPlacement.RELATED)
+									.addGroup(groupLayout.createParallelGroup(Alignment.TRAILING)
+										.addComponent(panel_19, GroupLayout.PREFERRED_SIZE, 64, GroupLayout.PREFERRED_SIZE)
+										.addComponent(panel_13, GroupLayout.PREFERRED_SIZE, 65, GroupLayout.PREFERRED_SIZE))))))
+					.addPreferredGap(ComponentPlacement.UNRELATED)
+					.addComponent(lblErrorMessage, GroupLayout.PREFERRED_SIZE, 18, GroupLayout.PREFERRED_SIZE)
+					.addGap(64))
 		);
 		
-		JLabel label = new JLabel("1.");
+		JLabel label = new JLabel(""+start+".");
 		label.setForeground(new Color(240, 255, 255));
 		label.setBounds(6, 6, 176, 16);
 		layeredPane_3.add(label);
 		
-		JLabel label_1 = new JLabel("2.");
+		JLabel label_1 = new JLabel(""+(start+1)+".");
 		label_1.setForeground(new Color(240, 248, 255));
 		label_1.setBounds(6, 34, 176, 16);
 		layeredPane_3.add(label_1);
 		
-		JLabel label_2 = new JLabel("3.");
+		JLabel label_2 = new JLabel(""+(start+2)+".");
 		label_2.setForeground(new Color(240, 248, 255));
 		label_2.setBounds(6, 62, 176, 16);
 		layeredPane_3.add(label_2);
 		
-		JLabel label_3 = new JLabel("4.");
+		JLabel label_3 = new JLabel(""+(start+3)+".");
 		label_3.setForeground(new Color(240, 248, 255));
 		label_3.setBounds(6, 93, 176, 16);
 		layeredPane_3.add(label_3);
 		
-		JLabel label_4 = new JLabel("5.");
+		JLabel label_4 = new JLabel(""+(start+4)+".");
 		label_4.setForeground(new Color(240, 248, 255));
 		label_4.setBounds(6, 121, 176, 16);
 		layeredPane_3.add(label_4);
 		
-		JLabel label_5 = new JLabel("6.");
+		JLabel label_5 = new JLabel(""+(start+5)+".");
 		label_5.setForeground(new Color(240, 248, 255));
 		label_5.setBounds(6, 149, 176, 16);
 		layeredPane_3.add(label_5);
 		
-		JLabel label_6 = new JLabel("7.");
+		JLabel label_6 = new JLabel(""+(start+6)+".");
 		label_6.setForeground(new Color(240, 248, 255));
 		label_6.setBounds(6, 177, 176, 16);
 		layeredPane_3.add(label_6);
 		
-		JLabel label_7 = new JLabel("8.");
+		JLabel label_7 = new JLabel(""+(start+7)+".");
 		label_7.setForeground(new Color(240, 248, 255));
 		label_7.setBounds(6, 205, 176, 16);
 		layeredPane_3.add(label_7);
 		
-		JLabel label_8 = new JLabel("9.");
+		JLabel label_8 = new JLabel(""+(start+8)+".");
 		label_8.setForeground(new Color(240, 248, 255));
 		label_8.setBounds(6, 233, 176, 16);
 		layeredPane_3.add(label_8);
 		
-		JLabel label_9 = new JLabel("10.");
+		JLabel label_9 = new JLabel(""+(start+9)+".");
 		label_9.setForeground(new Color(240, 248, 255));
 		label_9.setBounds(6, 261, 176, 16);
 		layeredPane_3.add(label_9);
 		frame.getContentPane().setLayout(groupLayout);
-		frame.setBounds(200, 200, 746, 592);
+		frame.setBounds(200, 200, 783, 671);
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 	
 	
