@@ -81,6 +81,12 @@ public class GamePlayPage implements Block223PlayModeInterface{
 	public GamePlayPage() {
 		initialize();
 		refresh();
+		try {
+			Block223Controller.startGame(this);
+		} catch (InvalidInputException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 	}
 
 	
@@ -145,7 +151,9 @@ public class GamePlayPage implements Block223PlayModeInterface{
 				input+="r";
 			if (keyPressed==KeyEvent.VK_SPACE)
 				input+=" ";
+			System.out.println(input);
 			}
+			
 		});
 		frame.getContentPane().setBackground(new Color(0, 0, 51));
 		
