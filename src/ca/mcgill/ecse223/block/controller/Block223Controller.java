@@ -611,8 +611,11 @@ public static void startGame(Block223PlayModeInterface ui) throws InvalidInputEx
 			throw new InvalidInputException("Admin privileges are required to test a game.");
 		
 		PlayedGame game = Block223Application.getCurrentPlayableGame();
-		game.play();
+		
 		String userinputs = ui.takeInputs();
+		
+		if (userinputs!=null&&userinputs.contains(" "))
+				game.play();
 		
 		while (game.getPlayStatus() == PlayStatus.Moving) {
 			userinputs = ui.takeInputs();

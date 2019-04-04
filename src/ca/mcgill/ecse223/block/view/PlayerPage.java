@@ -99,7 +99,7 @@ public class PlayerPage {
 		}
 		
 		for (TOPlayableGame game: availableGamestoResume) {
-			resumeAGame.addItem("#"+game.getNumber()+" "+ game.getName());
+			resumeAGame.addItem("ID"+game.getNumber()+" "+ game.getName());
 		}
 	}
 
@@ -237,11 +237,11 @@ public class PlayerPage {
 		resumeAGame = new JComboBox<String>();
 		resumeAGame.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				String fname=(String) selectAGame.getSelectedItem();
-				int n= fname.indexOf(" ");
-				String sname=fname.substring(1, n);
+				String fname=(String) resumeAGame.getSelectedItem();
+				int n= fname.indexOf(" ", 0);
+				String sname=fname.substring(2, n);
 				int id = Integer.parseInt(sname);
-				String name = fname.substring(n+1, fname.length());
+				String name = fname.substring(n+1, fname.length());System.out.println(name);
 						try {
 							Block223Controller.selectPlayableGame(name,id);
 						} catch (InvalidInputException e1) {
@@ -348,10 +348,13 @@ public class PlayerPage {
 		JButton btnResume = new JButton("RESUME");
 		btnResume.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
-				String resumeGame = (String) resumeAGame.getSelectedItem();
-				
+				String fname = (String) resumeAGame.getSelectedItem();
+				int n= fname.indexOf(" ", 0);
+				String sname=fname.substring(2, n);
+				int id = Integer.parseInt(sname);
+				String name = fname.substring(n+1, fname.length());System.out.println(name);
 				try {
-					Block223Controller.selectGame(resumeGame);
+					Block223Controller.selectPlayableGame(name, id);
 					// I'm pretty sure I should just call startGame and not selectGame
 					GamePlayPage resumedGamePage = new GamePlayPage();
 					resumedGamePage.frame.setVisible(true);
