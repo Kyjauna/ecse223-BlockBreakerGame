@@ -78,7 +78,7 @@ public class GamePlayPage implements Block223PlayModeInterface{
 			JPanel paddle = new JPanel();
 			paddle.setBackground(Color.BLACK);
 			panel_18.add(paddle);
-			paddle.setBounds((int)(pgame.getCurrentPaddleX()-(pgame.getCurrentPaddleLength()/2)),355,(int) (pgame.getCurrentPaddleX()+(pgame.getCurrentPaddleLength()/2)), 5);
+			paddle.setBounds((int)(pgame.getCurrentPaddleX()),355,(int) (pgame.getCurrentPaddleLength()), 5);
 			paddle.setVisible(true);
 		
 			List<TOCurrentBlock> blocks = pgame.getBlocks();
