@@ -165,24 +165,24 @@ class PlayedGame {
   }
   
    private boolean hitLastBlockAndLastLevel(){
-   
-	 Game game = getGame();
-	 int nrLevels = game.numberOfLevels();
-	 setBounce(null);
-	 
-	 if(nrLevels == currentLevel) {
-		 int nrBlocks = numberOfBlocks();
+	   
+		 Game game = getGame();
+		 int nrLevels = game.numberOfLevels();
+		 setBounce(null);
 		 
-		 if(nrBlocks == 1) {
+		 if(nrLevels == currentLevel) {
+			 int nrBlocks = numberOfBlocks();
 			 
-			 PlayedBlockAssignment block = getBlock(0);
-			 BouncePoint bp = calculateBouncePointBlock(block);
-			 setBounce(bp);
-			 return true;
+			 if(nrBlocks == 1) {
+				 
+				 PlayedBlockAssignment block = getBlock(0);
+				 BouncePoint bp = calculateBouncePointBlock(block);
+				 setBounce(bp);
+				 return (bp!=null);
+			 }
 		 }
-	 }
-    return false;
-  }
+	    return false;
+	  }
   
 private boolean hitLastBlock(){
 
