@@ -384,18 +384,17 @@ private boolean hitLastBlock(){
   }
   
    private void doHitBlock(){
-    score = getScore();
-	   
-	   bounce = getBounce();
-	   if (bounce!=null) {
-		   PlayedBlockAssignment pblock = bounce.getHitBlock();
-		   Block block = pblock.getBlock();
-		   int bscore = block.getPoints();
-		   setScore(score+bscore);
-		   pblock.delete();
-		   bounceBall();
-	   }
-  }
+	    score = getScore();   
+		bounce = getBounce();
+		
+		PlayedBlockAssignment pblock = bounce.getHitBlock();
+		Block block = pblock.getBlock();
+		int points = block.getPoints();
+		setScore(score+points);
+		pblock.delete();
+		bounceBall();
+			   
+	  }
 
 	private void doHitBlockNextLevel(){
     	doHitBlock();
