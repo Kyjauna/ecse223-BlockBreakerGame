@@ -30,9 +30,8 @@ class PlayedGame {
   
    private boolean hitPaddle(){
 	   BouncePoint bp = calculateBouncePointPaddle();
-	   
+	   setBounce(bp);
 	   if (bp != null) {
-		   setBounce(bp);
 		   return true;
 	   }
 	   else 
@@ -216,9 +215,8 @@ private boolean hitLastBlock(){
   
    private boolean hitWall(){
 	   BouncePoint bp = calculateBouncePointWall();
-	
+	   setBounce(bp);
 	   if (bp != null) {
-		   setBounce(bp);
 		   return true;
 	   }
 	   else
