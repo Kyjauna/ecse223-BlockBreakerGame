@@ -62,7 +62,7 @@ public class GamePlayPage implements Block223PlayModeInterface{
 	public GamePlayPage() {
 		initialize();
 		refresh();
-		run();
+		//run();
 	}
 
 	

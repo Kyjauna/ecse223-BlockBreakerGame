@@ -622,11 +622,13 @@ public static void startGame(Block223PlayModeInterface ui) throws InvalidInputEx
 			pgame.move();
 			
 			if(userinputs.contains(" ")) {
+				String inputBeforeSpace = userinputs.substring(0, (userinputs.indexOf(" ")));
 				pgame.pause();
+				break;
 			}
 			
 			try {
-				Thread.sleep((long) pgame.getWaitTime());
+				Thread.sleep(/*(long) pgame.getWaitTime()*/200);
 			} catch (InterruptedException e) {
 				e.printStackTrace();
 			}
