@@ -625,10 +625,11 @@ public static void startGame(Block223PlayModeInterface ui) throws InvalidInputEx
 				pgame.pause();
 			}
 			
-			long currenttime=System.nanoTime();
-			long waittime= (long) (currenttime+pgame.getWaitTime());
-			
-			while (System.nanoTime()<=waittime) {}
+			try {
+				Thread.sleep((long) pgame.getWaitTime());
+			} catch (InterruptedException e) {
+				e.printStackTrace();
+			}
 			ui.refresh();
 			
 		}

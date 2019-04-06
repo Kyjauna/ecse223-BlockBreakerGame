@@ -35,6 +35,7 @@ public class GamePlayPage implements Block223PlayModeInterface{
 	int level;
 	String input= "";
 	JPanel panel_18;
+	Block223KeyListener kl;
 	
 	/**
 	 * Launch the application.
@@ -109,10 +110,14 @@ public class GamePlayPage implements Block223PlayModeInterface{
 		}
 	}
 	
-	public String takeInputs(){
-		return input;
-	
+	@Override
+	public String takeInputs() {
+		if (kl == null) {
+			return "";
+		}
+		return kl.takeInputs();
 	}
+	
 	
 	/**
 	 * Initialize the contents of the frame.
@@ -424,9 +429,48 @@ public class GamePlayPage implements Block223PlayModeInterface{
 			lblError.setVisible(true);
 		}
 		
+		JButton btnStartGame = new JButton("Start Game");
+		btnStartGame.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				btnStartGame.setVisible(false);
+				// initiating a thread to start listening to keyboard inputs
+				//bp = new Block223PlayModeExampleListener();
+				kl=new Block223KeyListener();
+				Runnable r1 = new Runnable() {
+					@Override
+					public void run() {
+						// in the actual game, add keyListener to the game window
+						frame.addKeyListener(kl);
+					}
+				};
+				Thread t1 = new Thread(r1);
+				t1.start();
+				
+				try {
+					t1.join();
+				} catch (InterruptedException e1) {
+				}
+				
+				Runnable r2 = new Runnable() {
+					@Override
+					public void run() {
+						try {
+							Block223Controller.startGame(GamePlayPage.this);
+							btnStartGame.setVisible(true);
+						} catch (InvalidInputException e) {
+						}
+					}
+				};
+				Thread t2 = new Thread(r2);
+				t2.start();
+			}
+		});
+		btnStartGame.setFont(new Font("ArcadeClassic", Font.PLAIN, 15));
+		btnStartGame.setFocusable(false);
+		
 		GroupLayout gl_layeredPane_3 = new GroupLayout(layeredPane_3);
 		gl_layeredPane_3.setHorizontalGroup(
-			gl_layeredPane_3.createParallelGroup(Alignment.TRAILING)
+			gl_layeredPane_3.createParallelGroup(Alignment.LEADING)
 				.addGroup(gl_layeredPane_3.createSequentialGroup()
 					.addGroup(gl_layeredPane_3.createParallelGroup(Alignment.LEADING)
 						.addGroup(gl_layeredPane_3.createSequentialGroup()
@@ -442,20 +486,27 @@ public class GamePlayPage implements Block223PlayModeInterface{
 								.addComponent(lblLives, Alignment.TRAILING, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
 					.addContainerGap(74, Short.MAX_VALUE))
 				.addGroup(gl_layeredPane_3.createSequentialGroup()
-					.addGap(34)
-					.addComponent(btnViewHallOf, GroupLayout.DEFAULT_SIZE, 166, Short.MAX_VALUE)
-					.addGap(43))
-				.addGroup(gl_layeredPane_3.createSequentialGroup()
 					.addContainerGap()
 					.addComponent(lblLevel, GroupLayout.PREFERRED_SIZE, 209, GroupLayout.PREFERRED_SIZE)
 					.addContainerGap())
 				.addGroup(gl_layeredPane_3.createSequentialGroup()
-					.addContainerGap(24, Short.MAX_VALUE)
-					.addComponent(lblScore, GroupLayout.PREFERRED_SIZE, 209, GroupLayout.PREFERRED_SIZE)
-					.addContainerGap())
+					.addGap(34)
+					.addGroup(gl_layeredPane_3.createParallelGroup(Alignment.LEADING)
+						.addGroup(gl_layeredPane_3.createSequentialGroup()
+							.addGap(10)
+							.addComponent(lblScore, GroupLayout.PREFERRED_SIZE, 149, GroupLayout.PREFERRED_SIZE)
+							.addContainerGap())
+						.addGroup(gl_layeredPane_3.createSequentialGroup()
+							.addComponent(btnViewHallOf, GroupLayout.DEFAULT_SIZE, 166, Short.MAX_VALUE)
+							.addGap(43))))
 				.addGroup(gl_layeredPane_3.createSequentialGroup()
-					.addContainerGap(34, Short.MAX_VALUE)
-					.addComponent(label_1, GroupLayout.PREFERRED_SIZE, 209, GroupLayout.PREFERRED_SIZE))
+					.addContainerGap()
+					.addComponent(label_1, GroupLayout.PREFERRED_SIZE, 209, GroupLayout.PREFERRED_SIZE)
+					.addContainerGap(22, Short.MAX_VALUE))
+				.addGroup(gl_layeredPane_3.createSequentialGroup()
+					.addGap(27)
+					.addComponent(btnStartGame, GroupLayout.PREFERRED_SIZE, 166, GroupLayout.PREFERRED_SIZE)
+					.addContainerGap(50, Short.MAX_VALUE))
 		);
 		gl_layeredPane_3.setVerticalGroup(
 			gl_layeredPane_3.createParallelGroup(Alignment.LEADING)
@@ -467,11 +518,13 @@ public class GamePlayPage implements Block223PlayModeInterface{
 					.addComponent(lblScore, GroupLayout.PREFERRED_SIZE, 33, GroupLayout.PREFERRED_SIZE)
 					.addPreferredGap(ComponentPlacement.RELATED)
 					.addComponent(label_1, GroupLayout.PREFERRED_SIZE, 33, GroupLayout.PREFERRED_SIZE)
-					.addGap(56)
+					.addGap(18)
+					.addComponent(btnStartGame)
+					.addGap(13)
 					.addComponent(btnQuit)
 					.addGap(18)
 					.addComponent(btnLogout_1)
-					.addPreferredGap(ComponentPlacement.RELATED, 83, Short.MAX_VALUE)
+					.addPreferredGap(ComponentPlacement.RELATED, 53, Short.MAX_VALUE)
 					.addComponent(lblLives)
 					.addGap(4)
 					.addComponent(label, GroupLayout.PREFERRED_SIZE, 35, GroupLayout.PREFERRED_SIZE)
