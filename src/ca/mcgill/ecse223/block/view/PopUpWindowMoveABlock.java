@@ -241,7 +241,7 @@ public class PopUpWindowMoveABlock {
 			}
 		});
 		btnCancel.setFont(projectfont18);
-		btnCancel.setBounds(87, 188, 81, 25);
+		btnCancel.setBounds(74, 188, 100, 25);
 		panel.add(btnCancel);
 
 	}
