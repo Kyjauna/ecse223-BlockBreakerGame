@@ -58,6 +58,7 @@ class PlayedGame {
 		   // BOUNCE
 		   // Section A
 		   if (positionY == 350 && positionX >= getCurrentPaddleX() && positionX <= (getCurrentPaddleX() + getCurrentPaddleLength())) {
+			   bp = new BouncePoint(0,0,null);
 			   bp.setX(positionX);
 			   bp.setY(positionY);
 			   bp.setDirection(BouncePoint.BounceDirection.FLIP_Y);
@@ -65,6 +66,7 @@ class PlayedGame {
 		   
 		   // Section B
 		   if (positionX == (getCurrentPaddleX()+5) && positionY >= 355 && positionY <= 360) {
+			   bp = new BouncePoint(0,0,null);
 			   bp.setX(positionX);
 			   bp.setY(positionY);
 			   bp.setDirection(BouncePoint.BounceDirection.FLIP_X);
@@ -72,6 +74,7 @@ class PlayedGame {
 		   
 		   // Section C
 		   if (positionX == (getCurrentPaddleX()+getCurrentPaddleLength()+5) && positionY >= 355 && positionY <= 360) {
+			   bp = new BouncePoint(0,0,null);
 			   bp.setX(positionX);
 			   bp.setY(positionY);
 			   bp.setDirection(BouncePoint.BounceDirection.FLIP_X);
@@ -80,6 +83,7 @@ class PlayedGame {
 		   // Section E
 		   // Incomplete; does not account for the whole curvature; only for the corner
 		   if (positionX == (getCurrentPaddleX()+5) && positionY == 350) {
+			   bp = new BouncePoint(0,0,null);
 			   bp.setX(positionX);
 			   bp.setY(positionY);
 			   bp.setDirection(BouncePoint.BounceDirection.FLIP_BOTH);
@@ -87,6 +91,7 @@ class PlayedGame {
 		   
 		   // Section F
 		   if (positionX == (getCurrentPaddleX()+getCurrentPaddleLength()+5) && positionY == 350) {
+			   bp = new BouncePoint(0,0,null);
 			   bp.setX(positionX);
 			   bp.setY(positionY);
 			   bp.setDirection(BouncePoint.BounceDirection.FLIP_BOTH);
@@ -236,6 +241,7 @@ private boolean hitLastBlock(){
 	   
 	   // Section A
 	   if (positionX == 5 && positionY > 5 && positionY < 385) {
+		   bp = new BouncePoint(0,0,null);
 		   bp.setX(positionX);
 		   bp.setY(positionY);
 		   bp.setDirection(BouncePoint.BounceDirection.FLIP_X);
@@ -243,6 +249,7 @@ private boolean hitLastBlock(){
 	   
 	   // Section B
 	   if (positionY == 5 && positionX > 5 && positionX < 385) {
+		   bp = new BouncePoint(0,0,null);
 		   bp.setX(positionX);
 		   bp.setY(positionY);
 		   bp.setDirection(BouncePoint.BounceDirection.FLIP_Y);
@@ -250,6 +257,7 @@ private boolean hitLastBlock(){
 	   
 	   // Section C
 	   if (positionX == 385 && positionY > 5 && positionY < 385) {
+		   bp = new BouncePoint(0,0,null);
 		   bp.setX(positionX);
 		   bp.setY(positionY);
 		   bp.setDirection(BouncePoint.BounceDirection.FLIP_X);
@@ -257,6 +265,7 @@ private boolean hitLastBlock(){
 	   
 	   // A-B Corner
 	   if (positionX == 5 && positionY == 5) {
+		   bp = new BouncePoint(0,0,null);
 		   bp.setX(positionX);
 		   bp.setY(positionY);
 		   bp.setDirection(BouncePoint.BounceDirection.FLIP_BOTH);
@@ -264,6 +273,7 @@ private boolean hitLastBlock(){
 	   
 	   // B-C Corner
 	   if (positionX == 385 && positionY == 5) {
+		   bp = new BouncePoint(0,0,null);
 		   bp.setX(positionX);
 		   bp.setY(positionY);
 		   bp.setDirection(BouncePoint.BounceDirection.FLIP_BOTH);
@@ -291,6 +301,7 @@ private boolean hitLastBlock(){
 				
 				// Section A and D
 				   if ((positionX+5 >= (pblock.getX()-5) && positionX+5 <= (pblock.getX()) && positionY+5<=(pblock.getY()+20) && positionY-5>=(pblock.getY()))||(positionX-5 <= (pblock.getX()+25) && positionX-5 >= (pblock.getX()+20) && positionY+5<=(pblock.getY()+20) && positionY-5>=(pblock.getY()))) {
+					   bp = new BouncePoint(0,0,null);
 					   bp.setX(positionX);
 					   bp.setY(positionY);
 					   bp.setDirection(BouncePoint.BounceDirection.FLIP_X);
@@ -298,6 +309,7 @@ private boolean hitLastBlock(){
 				   
 				   // Section B and C
 				   if ((positionY-5 >= (pblock.getY()-5) && positionY-5 <= (pblock.getY())) && positionX+5 >= (pblock.getX()) && positionX-5 <= (pblock.getX()+20)||(positionY+5 <= (pblock.getY()+25)&& positionY+5 >= (pblock.getY()+20) && positionX+5 >= (pblock.getX()) && positionX-5 <= (pblock.getX()+20))) {
+					   bp = new BouncePoint(0,0,null);
 					   bp.setX(positionX);
 					   bp.setY(positionY);
 					   bp.setDirection(BouncePoint.BounceDirection.FLIP_Y);
@@ -305,6 +317,7 @@ private boolean hitLastBlock(){
 					
 					 //Section E and G
 					   if ((positionY-5 >= (pblock.getY()-5) && positionY-5 <= (pblock.getY())) && positionX-5 <= (pblock.getX()) && positionX-5 >= (pblock.getX()-5)||(positionY+5 <= (pblock.getY()+25)&& positionY+5 >= (pblock.getY()+20) && positionX-5 <= (pblock.getX()) && positionX-5 >= (pblock.getX()-5))) {
+						   bp = new BouncePoint(0,0,null);
 						   bp.setX(positionX);
 						   bp.setY(positionY);
 						   bp.setDirection(BouncePoint.BounceDirection.FLIP_BOTH);
@@ -313,6 +326,7 @@ private boolean hitLastBlock(){
 						   
 						   //Section F and H
 						   if ((positionY+5 >= (pblock.getY()-5) && positionY-5 <= (pblock.getY())) && positionX+5 <= (pblock.getX()+25) && positionX+5 >= (pblock.getX()+20)||(positionY+5 <= (pblock.getY()+25)&& positionY+5 >= (pblock.getY()+20) && positionX+5 <= (pblock.getX()+25) && positionX+5 >= (pblock.getX()+20))) {
+							   bp = new BouncePoint(0,0,null);
 							   bp.setX(positionX);
 							   bp.setY(positionY);
 							   bp.setDirection(BouncePoint.BounceDirection.FLIP_BOTH);
