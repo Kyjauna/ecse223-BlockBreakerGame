@@ -184,7 +184,7 @@ class PlayedGame {
 	    return false;
 	  }
   
-private boolean hitLastBlock(){
+	private boolean hitLastBlock(){
 
 	   int nrBlocks = numberOfBlocks();
 	   setBounce(null);
@@ -192,10 +192,10 @@ private boolean hitLastBlock(){
 		   PlayedBlockAssignment block = getBlock(0);
 		   BouncePoint bp = calculateBouncePointBlock(block);
 		   this.setBounce(bp);
-		   return true;
+		   return (bp != null);
 	   }
 	   return false;
-  }
+ 	}
   
    private boolean hitBlock(){
     int nrBlocks = this.numberOfBlocks();
