@@ -370,6 +370,7 @@ public class GamePlayPage implements Block223PlayModeInterface{
 			frame.dispose();
 			WelcomePage page = new WelcomePage();
 			page.frame.setVisible(true);
+			Block223Controller.logout();
 			}
 		});
 		btnLogout_1.setFont(projectfont15);

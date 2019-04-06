@@ -281,7 +281,10 @@ public class ViewHallOfFamePage {
 		btnExit.addActionListener(new ActionListener() {
 
 				public void actionPerformed(ActionEvent e) {
-				frame.setVisible(false);
+					PlayerPage pplayer = new PlayerPage();
+					pplayer.frame.setVisible(true);
+					frame.setVisible(false);
+				
 				}
 		});
 		btnExit.setFont(projectfont15);
@@ -535,7 +538,7 @@ public class ViewHallOfFamePage {
 		label_9.setBounds(6, 261, 176, 16);
 		layeredPane_3.add(label_9);
 		frame.getContentPane().setLayout(groupLayout);
-		frame.setBounds(200, 200, 746, 600);
+		frame.setBounds(200, 200, 756, 619);
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 	
 	
