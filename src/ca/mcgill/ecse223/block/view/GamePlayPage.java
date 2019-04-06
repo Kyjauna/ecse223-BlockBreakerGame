@@ -66,7 +66,7 @@ public class GamePlayPage implements Block223PlayModeInterface{
 
 	
 	public void refresh() {
-		input="";
+		//input="";
 		TOCurrentlyPlayedGame pgame=null;
 		try {
 			pgame = Block223Controller.getCurrentPlayableGame();
@@ -78,7 +78,7 @@ public class GamePlayPage implements Block223PlayModeInterface{
 			JPanel paddle = new JPanel();
 			paddle.setBackground(Color.BLACK);
 			panel_18.add(paddle);
-			paddle.setBounds((int)(pgame.getCurrentPaddleX()-(pgame.getCurrentPaddleLength()/2)),380,(int) (pgame.getCurrentPaddleX()+(pgame.getCurrentPaddleLength()/2)), 5);
+			paddle.setBounds((int)(pgame.getCurrentPaddleX()-(pgame.getCurrentPaddleLength()/2)),355,(int) (pgame.getCurrentPaddleX()+(pgame.getCurrentPaddleLength()/2)), 5);
 			paddle.setVisible(true);
 		
 			List<TOCurrentBlock> blocks = pgame.getBlocks();
@@ -105,7 +105,7 @@ public class GamePlayPage implements Block223PlayModeInterface{
 			}
 		
 		} catch (InvalidInputException e) {
-			//errormessage stuff
+			lblError.setText(e.getMessage());
 		}
 	}
 	

@@ -962,7 +962,9 @@ public class PlayedGame implements Serializable
 	   
 	   // Section A
 	   if (positionX == 5 && positionY > 5 && positionY < 385) {
-		   bp = new BouncePoint(0,0,null);
+
+		   bp=new BouncePoint(0,0,null);
+
 		   bp.setX(positionX);
 		   bp.setY(positionY);
 		   bp.setDirection(BouncePoint.BounceDirection.FLIP_X);
@@ -970,7 +972,9 @@ public class PlayedGame implements Serializable
 	   
 	   // Section B
 	   if (positionY == 5 && positionX > 5 && positionX < 385) {
-		   bp = new BouncePoint(0,0,null);
+
+		   bp=new BouncePoint(0,0,null);
+
 		   bp.setX(positionX);
 		   bp.setY(positionY);
 		   bp.setDirection(BouncePoint.BounceDirection.FLIP_Y);
@@ -978,7 +982,8 @@ public class PlayedGame implements Serializable
 	   
 	   // Section C
 	   if (positionX == 385 && positionY > 5 && positionY < 385) {
-		   bp = new BouncePoint(0,0,null);
+
+		   bp=new BouncePoint(0,0,null);
 		   bp.setX(positionX);
 		   bp.setY(positionY);
 		   bp.setDirection(BouncePoint.BounceDirection.FLIP_X);
@@ -986,15 +991,15 @@ public class PlayedGame implements Serializable
 	   
 	   // A-B Corner
 	   if (positionX == 5 && positionY == 5) {
-		   bp = new BouncePoint(0,0,null);
+		   bp=new BouncePoint(0,0,null);
 		   bp.setX(positionX);
 		   bp.setY(positionY);
 		   bp.setDirection(BouncePoint.BounceDirection.FLIP_BOTH);
 	   }
 	   
 	   // B-C Corner
-	   if (positionX == 385 && positionY == 5) {
-		   bp = new BouncePoint(0,0,null);
+	   if (positionX == 385 && positionY == 5) {		   
+		   bp=new BouncePoint(0,0,null);
 		   bp.setX(positionX);
 		   bp.setY(positionY);
 		   bp.setDirection(BouncePoint.BounceDirection.FLIP_BOTH);

@@ -610,35 +610,35 @@ public static void startGame(Block223PlayModeInterface ui) throws InvalidInputEx
 		if (urole instanceof Player && pgame.getPlayer()==null)
 			throw new InvalidInputException("Admin privileges are required to test a game.");
 		
-		PlayedGame game = Block223Application.getCurrentPlayableGame();
+		//PlayedGame game = Block223Application.getCurrentPlayableGame();
+		String userinputs;
 		
-		String userinputs = ui.takeInputs();
+		pgame.play();
+		ui.takeInputs();
 		
-		if (userinputs!=null&&userinputs.contains(" "))
-				game.play();
-		
-		while (game.getPlayStatus() == PlayStatus.Moving) {
+		while (pgame.getPlayStatus() == PlayStatus.Moving) {
 			userinputs = ui.takeInputs();
 			updatePaddlePosition(userinputs);
-			game.move();
+			pgame.move();
 			
 			if(userinputs.contains(" ")) {
-				game.pause();
+				pgame.pause();
 			}
 			
 			long currenttime=System.nanoTime();
-			long waittime= (long) (currenttime+game.getWaitTime());
+			long waittime= (long) (currenttime+pgame.getWaitTime());
 			
 			while (System.nanoTime()<=waittime) {}
 			ui.refresh();
 			
 		}
 		
-		if (game.getPlayStatus() == PlayStatus.GameOver) {
+		if (pgame.getPlayStatus() == PlayStatus.GameOver) {
+			//ui.endGame(game.getLives(), getHallOfFameWithMostRecentEntry(1).getEntry(0));
 			Block223Application.setCurrentPlayableGame(null);
 		}
 		
-		else if (game.getPlayer() != null) {
+		else if (pgame.getPlayer() != null) {
 		Block223 block223 = Block223Application.getBlock223();
 		Block223Persistence.save(block223);
 		}
@@ -1023,7 +1023,7 @@ public static List<TOGridCell> getBlocksAtLevelOfCurrentDesignableGame(int level
 //			result.addEntry(entry);
 //			return result;
 //		}
-//			
+			
 		int start = indexR + (numberOfEntries / 2 );
 		if(start>(game.numberOfHallOfFameEntries()-1))
 			start=(game.numberOfHallOfFameEntries()-1);
