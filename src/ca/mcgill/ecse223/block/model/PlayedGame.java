@@ -1196,36 +1196,4 @@ public class PlayedGame implements Serializable
   private static final long serialVersionUID = 11789647876L ;
 
   
-  
-  
-  
-  private boolean hitLastBlock(){
-
-	   int nrBlocks = numberOfBlocks();
-	   setBounce(null);
-	   if(nrBlocks == 1) {
-		   PlayedBlockAssignment block = getBlock(0);
-		   BouncePoint bp = calculateBouncePointBlock(block);
-		   this.setBounce(bp);
-		   return (bp != null);
-	   }
-	   return false;
- }
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
 }
