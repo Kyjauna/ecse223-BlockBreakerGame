@@ -353,14 +353,6 @@ public class GamePlayPage implements Block223PlayModeInterface{
 			lblErrorMessage.setText(e.getMessage());
 		}
 		
-		JButton btnSave = new JButton("SAVE");
-		btnSave.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent arg0) {
-			}
-		});
-		btnSave.setFont(projectfont15);
-		btnSave.setFocusable(false);
-		
 		JButton btnQuit = new JButton("QUIT GAME");
 		btnQuit.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
@@ -429,14 +421,12 @@ public class GamePlayPage implements Block223PlayModeInterface{
 		
 		GroupLayout gl_layeredPane_3 = new GroupLayout(layeredPane_3);
 		gl_layeredPane_3.setHorizontalGroup(
-			gl_layeredPane_3.createParallelGroup(Alignment.LEADING)
+			gl_layeredPane_3.createParallelGroup(Alignment.TRAILING)
 				.addGroup(gl_layeredPane_3.createSequentialGroup()
 					.addGroup(gl_layeredPane_3.createParallelGroup(Alignment.LEADING)
 						.addGroup(gl_layeredPane_3.createSequentialGroup()
 							.addGap(72)
-							.addGroup(gl_layeredPane_3.createParallelGroup(Alignment.LEADING)
-								.addComponent(btnLogout_1)
-								.addComponent(btnSave, GroupLayout.PREFERRED_SIZE, 81, GroupLayout.PREFERRED_SIZE)))
+							.addComponent(btnLogout_1))
 						.addGroup(gl_layeredPane_3.createSequentialGroup()
 							.addGap(102)
 							.addComponent(label, GroupLayout.PREFERRED_SIZE, 34, GroupLayout.PREFERRED_SIZE))
@@ -450,7 +440,7 @@ public class GamePlayPage implements Block223PlayModeInterface{
 					.addGap(34)
 					.addComponent(btnViewHallOf, GroupLayout.DEFAULT_SIZE, 166, Short.MAX_VALUE)
 					.addGap(43))
-				.addGroup(Alignment.TRAILING, gl_layeredPane_3.createSequentialGroup()
+				.addGroup(gl_layeredPane_3.createSequentialGroup()
 					.addContainerGap()
 					.addComponent(lblLevel, GroupLayout.PREFERRED_SIZE, 209, GroupLayout.PREFERRED_SIZE)
 					.addContainerGap())
@@ -461,13 +451,11 @@ public class GamePlayPage implements Block223PlayModeInterface{
 					.addComponent(lblLevel)
 					.addPreferredGap(ComponentPlacement.UNRELATED)
 					.addComponent(btnViewHallOf)
-					.addGap(85)
-					.addComponent(btnSave)
-					.addGap(18)
+					.addGap(128)
 					.addComponent(btnQuit)
 					.addGap(18)
 					.addComponent(btnLogout_1)
-					.addPreferredGap(ComponentPlacement.RELATED, 55, Short.MAX_VALUE)
+					.addPreferredGap(ComponentPlacement.RELATED, 59, Short.MAX_VALUE)
 					.addComponent(lblLives)
 					.addGap(4)
 					.addComponent(label, GroupLayout.PREFERRED_SIZE, 35, GroupLayout.PREFERRED_SIZE)
