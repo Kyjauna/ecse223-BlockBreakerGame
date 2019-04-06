@@ -610,7 +610,6 @@ public static void startGame(Block223PlayModeInterface ui) throws InvalidInputEx
 		if (urole instanceof Player && pgame.getPlayer()==null)
 			throw new InvalidInputException("Admin privileges are required to test a game.");
 		
-		//PlayedGame game = Block223Application.getCurrentPlayableGame();
 		String userinputs;
 		
 		pgame.play();
@@ -622,16 +621,16 @@ public static void startGame(Block223PlayModeInterface ui) throws InvalidInputEx
 			pgame.move();
 			
 			if(userinputs.contains(" ")) {
-				String inputBeforeSpace = userinputs.substring(0, (userinputs.indexOf(" ")));
+				//String inputBeforeSpace = userinputs.substring(0, (userinputs.indexOf(" ")));
 				pgame.pause();
 				break;
 			}
 			
-			try {
-				Thread.sleep(/*(long) pgame.getWaitTime()*/200);
-			} catch (InterruptedException e) {
-				e.printStackTrace();
-			}
+//			try {
+//				Thread.sleep(/*(long) pgame.getWaitTime()*/200);
+//			} catch (InterruptedException e) {
+//				e.printStackTrace();
+//			}
 			ui.refresh();
 			
 		}
@@ -648,23 +647,37 @@ public static void startGame(Block223PlayModeInterface ui) throws InvalidInputEx
 		
 	}
 
-	public static void updatePaddlePosition(String inputs) {
-		PlayedGame pgame = Block223Application.getCurrentPlayableGame();
-		double paddlepos = pgame.getCurrentPaddleX();		
-		
-		for (int i=0; i<inputs.length();i++) {
-			if (inputs.charAt(i)=='r') {
-				paddlepos+=pgame.PADDLE_MOVE_RIGHT;
-				pgame.setCurrentPaddleX(paddlepos);
-			}
-			if (inputs.charAt(i)=='l') {
-				paddlepos+=pgame.PADDLE_MOVE_LEFT;
-				pgame.setCurrentPaddleX(paddlepos);
-			}
-			if (inputs.charAt(i)==' ')
-				return;
+public static void updatePaddlePosition(String userinputs) {
+	PlayedGame pgame = Block223Application.getCurrentPlayableGame();
+	double currentPaddleLength = pgame.getCurrentPaddleLength();
+	double currentPaddleX = pgame.getCurrentPaddleX();
+	for (int i = 0; i < userinputs.length(); i++) {
+		if (userinputs.charAt(i) == 'l') {
+			Left(pgame);
+		}
+		if (userinputs.charAt(i) == 'r') {
+			Right(pgame);
+		}
+		if (userinputs.charAt(i) == ' ') {
+			break;
 		}
 	}
+}
+
+private static void Left(PlayedGame pgame) {
+	double left = PlayedGame.PADDLE_MOVE_LEFT;
+	double currentPaddleX = pgame.getCurrentPaddleX();
+	if (currentPaddleX > 0)
+		pgame.setCurrentPaddleX(pgame.getCurrentPaddleX() + left);
+}
+
+private static void Right(PlayedGame pgame) {
+	double right = PlayedGame.PADDLE_MOVE_RIGHT;
+	double currentPaddleX = pgame.getCurrentPaddleX();
+	double currentPaddleLength = pgame.getCurrentPaddleLength();
+	if (Game.PLAY_AREA_SIDE - currentPaddleLength > currentPaddleX)
+		pgame.setCurrentPaddleX(pgame.getCurrentPaddleX() + right);
+}
 	
 	public static void testGame(Block223PlayModeInterface ui) throws InvalidInputException {
 	
@@ -833,8 +846,6 @@ public static List<TOGridCell> getBlocksAtLevelOfCurrentDesignableGame(int level
 		if (Block223Application.getCurrentUserRole()instanceof Admin == false)
 			error="Admin privileges are required to access game information. ";
 		
-		
-		
 		if(Block223Application.getCurrentGame().getAdmin()!=Block223Application.getCurrentUserRole())
 			error=error+"Only the admin who created the game can access its information. ";
 		
@@ -981,11 +992,6 @@ public static List<TOGridCell> getBlocksAtLevelOfCurrentDesignableGame(int level
 		Game game = pgame.getGame();
 		TOHallOfFame result = new TOHallOfFame(game.getName());
 		
-		try {
-			game.getHallOfFameEntry(start);
-		}catch(IndexOutOfBoundsException e) {
-			return result;
-		}
 		
 		if (start<1) start=1;
 		
@@ -993,7 +999,9 @@ public static List<TOGridCell> getBlocksAtLevelOfCurrentDesignableGame(int level
 			end=game.numberOfHallOfFameEntries();
 		
 		start=game.numberOfHallOfFameEntries()-start;
+		
 		end=game.numberOfHallOfFameEntries()-end;
+		
 		
 		for (int i = start ; i>= end; i--) {
 			TOHallOfFameEntry entry = new TOHallOfFameEntry(i+1, game.getHallOfFameEntry(i).getPlayername(), game.getHallOfFameEntry(i).getScore(), result);
@@ -1021,20 +1029,16 @@ public static List<TOGridCell> getBlocksAtLevelOfCurrentDesignableGame(int level
 		
 		int indexR = game.indexOfHallOfFameEntry(mostRecent);
 		
-//		if (numberOfEntries==1) {
-//			TOHallOfFameEntry entry = new TOHallOfFameEntry(indexR+1, game.getHallOfFameEntry(indexR).getPlayername(), game.getHallOfFameEntry(indexR).getScore(), result);		
-//			result.addEntry(entry);
-//			return result;
-//		}
 			
 		int start = indexR + (numberOfEntries / 2 );
 		if(start>(game.numberOfHallOfFameEntries()-1))
 			start=(game.numberOfHallOfFameEntries()-1);
 
-		int end=start-(numberOfEntries+1);
+		int end=start-(numberOfEntries-1);
 		if (end < 0 ) 
 			end = 0;
 
+		
 		for (int i = start ; i>= end; i--) {
 			TOHallOfFameEntry entry = new TOHallOfFameEntry(i+1, game.getHallOfFameEntry(i).getPlayername(), game.getHallOfFameEntry(i).getScore(), result);		
 		result.addEntry(entry);

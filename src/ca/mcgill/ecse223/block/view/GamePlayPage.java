@@ -541,20 +541,6 @@ public class GamePlayPage implements Block223PlayModeInterface{
 	
 	}
 
-	public void run(){
-		TOCurrentlyPlayedGame pgame;
-		try {
-			pgame = Block223Controller.getCurrentPlayableGame();
-			Block223Controller.startGame(this);
-			System.out.println("starting");
-		} catch (InvalidInputException e) {
-			lblError.setText(e.getMessage());
-		}
-		
-//		if (pgame!=null&&pgame.isPaused()&&pgame.getLives()==0)
-//			endGame();
-		
-	}
 	
 	@Override
 	public void endGame(int nrOfLives, TOHallOfFameEntry hof) {
