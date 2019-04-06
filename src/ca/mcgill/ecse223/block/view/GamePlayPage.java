@@ -408,6 +408,22 @@ public class GamePlayPage implements Block223PlayModeInterface{
 		btnViewHallOf.setFont(projectfont15);
 		btnViewHallOf.setFocusable(false);
 		
+		JLabel lblScore = new JLabel("SCORE");
+		lblScore.setHorizontalAlignment(SwingConstants.CENTER);
+		lblScore.setForeground(new Color(224, 255, 255));
+		lblScore.setFont(projectfont32);
+		
+		JLabel label_1 = new JLabel("SCORE");
+		label_1.setHorizontalAlignment(SwingConstants.CENTER);
+		label_1.setForeground(new Color(224, 255, 255));
+		label_1.setFont(projectfont32);
+		try {
+			label_1.setText(Integer.toString(Block223Controller.getCurrentPlayableGame().getScore()));
+		} catch (InvalidInputException e1) {
+			lblError.setText(e1.getMessage());
+			lblError.setVisible(true);
+		}
+		
 		GroupLayout gl_layeredPane_3 = new GroupLayout(layeredPane_3);
 		gl_layeredPane_3.setHorizontalGroup(
 			gl_layeredPane_3.createParallelGroup(Alignment.TRAILING)
@@ -433,6 +449,13 @@ public class GamePlayPage implements Block223PlayModeInterface{
 					.addContainerGap()
 					.addComponent(lblLevel, GroupLayout.PREFERRED_SIZE, 209, GroupLayout.PREFERRED_SIZE)
 					.addContainerGap())
+				.addGroup(gl_layeredPane_3.createSequentialGroup()
+					.addContainerGap(24, Short.MAX_VALUE)
+					.addComponent(lblScore, GroupLayout.PREFERRED_SIZE, 209, GroupLayout.PREFERRED_SIZE)
+					.addContainerGap())
+				.addGroup(gl_layeredPane_3.createSequentialGroup()
+					.addContainerGap(34, Short.MAX_VALUE)
+					.addComponent(label_1, GroupLayout.PREFERRED_SIZE, 209, GroupLayout.PREFERRED_SIZE))
 		);
 		gl_layeredPane_3.setVerticalGroup(
 			gl_layeredPane_3.createParallelGroup(Alignment.LEADING)
@@ -440,11 +463,15 @@ public class GamePlayPage implements Block223PlayModeInterface{
 					.addComponent(lblLevel)
 					.addPreferredGap(ComponentPlacement.UNRELATED)
 					.addComponent(btnViewHallOf)
-					.addGap(128)
+					.addPreferredGap(ComponentPlacement.UNRELATED)
+					.addComponent(lblScore, GroupLayout.PREFERRED_SIZE, 33, GroupLayout.PREFERRED_SIZE)
+					.addPreferredGap(ComponentPlacement.RELATED)
+					.addComponent(label_1, GroupLayout.PREFERRED_SIZE, 33, GroupLayout.PREFERRED_SIZE)
+					.addGap(56)
 					.addComponent(btnQuit)
 					.addGap(18)
 					.addComponent(btnLogout_1)
-					.addPreferredGap(ComponentPlacement.RELATED, 59, Short.MAX_VALUE)
+					.addPreferredGap(ComponentPlacement.RELATED, 83, Short.MAX_VALUE)
 					.addComponent(lblLives)
 					.addGap(4)
 					.addComponent(label, GroupLayout.PREFERRED_SIZE, 35, GroupLayout.PREFERRED_SIZE)
@@ -481,6 +508,5 @@ public class GamePlayPage implements Block223PlayModeInterface{
 		// TODO Auto-generated method stub
 		
 	}
-
 }
 
