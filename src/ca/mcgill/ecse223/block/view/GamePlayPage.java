@@ -31,7 +31,7 @@ import ca.mcgill.ecse223.block.controller.TOHallOfFameEntry;
 public class GamePlayPage implements Block223PlayModeInterface{
 
 	public JFrame frame;
-	JLabel lblErrorMessage;
+	JLabel lblError;
 	int level;
 	String input= "";
 	JPanel panel_18;
@@ -61,6 +61,7 @@ public class GamePlayPage implements Block223PlayModeInterface{
 	public GamePlayPage() {
 		initialize();
 		refresh();
+		run();
 	}
 
 	
@@ -167,10 +168,6 @@ public class GamePlayPage implements Block223PlayModeInterface{
 		layeredPane.setBounds(0, 0, 624, 485);
 		layeredPane_1.add(layeredPane);
 		
-		lblErrorMessage = new JLabel("");
-		lblErrorMessage.setForeground(new Color(204, 255, 255));
-		lblErrorMessage.setFont(new Font("Monospaced", Font.BOLD, 12));
-		
 		JLayeredPane layeredPane_2 = new JLayeredPane();
 		
 		JLayeredPane layeredPane_3 = new JLayeredPane();
@@ -229,32 +226,33 @@ public class GamePlayPage implements Block223PlayModeInterface{
 		JLayeredPane layeredPane_4 = new JLayeredPane();
 		
 		JLayeredPane layeredPane_6 = new JLayeredPane();
+		
+		lblError = new JLabel("error");
+		lblError.setForeground(Color.WHITE);
+		lblError.setVisible(false);
+		
 		GroupLayout groupLayout = new GroupLayout(frame.getContentPane());
 		groupLayout.setHorizontalGroup(
 			groupLayout.createParallelGroup(Alignment.LEADING)
 				.addGroup(groupLayout.createSequentialGroup()
 					.addGap(24)
 					.addGroup(groupLayout.createParallelGroup(Alignment.LEADING)
+						.addComponent(layeredPane_4, GroupLayout.PREFERRED_SIZE, 708, GroupLayout.PREFERRED_SIZE)
 						.addGroup(groupLayout.createSequentialGroup()
-							.addComponent(panel_18, GroupLayout.PREFERRED_SIZE, 390, GroupLayout.PREFERRED_SIZE)
-							.addGap(27)
-							.addComponent(layeredPane_3, GroupLayout.PREFERRED_SIZE, 243, GroupLayout.PREFERRED_SIZE))
-						.addGroup(groupLayout.createParallelGroup(Alignment.TRAILING, false)
-							.addGroup(groupLayout.createSequentialGroup()
-								.addComponent(layeredPane_6, GroupLayout.PREFERRED_SIZE, 682, GroupLayout.PREFERRED_SIZE)
-								.addGap(781))
-							.addComponent(layeredPane_5, GroupLayout.DEFAULT_SIZE, 684, Short.MAX_VALUE)))
-					.addGap(15)
-					.addGroup(groupLayout.createParallelGroup(Alignment.LEADING)
-						.addGroup(groupLayout.createSequentialGroup()
-							.addGap(259)
-							.addComponent(lblErrorMessage, GroupLayout.PREFERRED_SIZE, 524, GroupLayout.PREFERRED_SIZE))
-						.addGroup(groupLayout.createSequentialGroup()
-							.addGap(683)
+							.addGroup(groupLayout.createParallelGroup(Alignment.LEADING)
+								.addGroup(groupLayout.createParallelGroup(Alignment.TRAILING, false)
+									.addGroup(groupLayout.createSequentialGroup()
+										.addComponent(layeredPane_6, GroupLayout.PREFERRED_SIZE, 682, GroupLayout.PREFERRED_SIZE)
+										.addGap(781))
+									.addComponent(layeredPane_5, GroupLayout.DEFAULT_SIZE, 684, Short.MAX_VALUE))
+								.addGroup(groupLayout.createSequentialGroup()
+									.addGroup(groupLayout.createParallelGroup(Alignment.TRAILING, false)
+										.addComponent(lblError, Alignment.LEADING, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+										.addComponent(panel_18, Alignment.LEADING, GroupLayout.DEFAULT_SIZE, 390, Short.MAX_VALUE))
+									.addGap(27)
+									.addComponent(layeredPane_3, GroupLayout.PREFERRED_SIZE, 243, GroupLayout.PREFERRED_SIZE)))
+							.addGap(698)
 							.addComponent(layeredPane_2, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))))
-				.addGroup(groupLayout.createSequentialGroup()
-					.addGap(29)
-					.addComponent(layeredPane_4, GroupLayout.PREFERRED_SIZE, 708, GroupLayout.PREFERRED_SIZE))
 		);
 		groupLayout.setVerticalGroup(
 			groupLayout.createParallelGroup(Alignment.LEADING)
@@ -262,22 +260,22 @@ public class GamePlayPage implements Block223PlayModeInterface{
 					.addComponent(layeredPane_5, GroupLayout.PREFERRED_SIZE, 28, GroupLayout.PREFERRED_SIZE)
 					.addGap(0)
 					.addGroup(groupLayout.createParallelGroup(Alignment.TRAILING)
-						.addGroup(groupLayout.createSequentialGroup()
+						.addGroup(Alignment.LEADING, groupLayout.createSequentialGroup()
 							.addGap(100)
-							.addComponent(layeredPane_2, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
-							.addGap(105)
-							.addComponent(lblErrorMessage, GroupLayout.PREFERRED_SIZE, 18, GroupLayout.PREFERRED_SIZE)
-							.addPreferredGap(ComponentPlacement.RELATED, 254, Short.MAX_VALUE))
+							.addComponent(layeredPane_2, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
 						.addGroup(groupLayout.createSequentialGroup()
 							.addComponent(layeredPane_6, GroupLayout.PREFERRED_SIZE, 71, GroupLayout.PREFERRED_SIZE)
 							.addPreferredGap(ComponentPlacement.RELATED)
-							.addGroup(groupLayout.createParallelGroup(Alignment.TRAILING)
-								.addComponent(panel_18, GroupLayout.PREFERRED_SIZE, 390, GroupLayout.PREFERRED_SIZE)
-								.addComponent(layeredPane_3, 0, 0, Short.MAX_VALUE))
-							.addGap(18)))
-					.addPreferredGap(ComponentPlacement.RELATED)
-					.addComponent(layeredPane_4, GroupLayout.PREFERRED_SIZE, 17, GroupLayout.PREFERRED_SIZE)
-					.addContainerGap())
+							.addGroup(groupLayout.createParallelGroup(Alignment.LEADING)
+								.addGroup(groupLayout.createSequentialGroup()
+									.addComponent(layeredPane_3, 0, 0, Short.MAX_VALUE)
+									.addGap(18))
+								.addGroup(groupLayout.createSequentialGroup()
+									.addComponent(panel_18, GroupLayout.PREFERRED_SIZE, 390, GroupLayout.PREFERRED_SIZE)
+									.addPreferredGap(ComponentPlacement.UNRELATED)
+									.addComponent(lblError)))))
+					.addGap(13)
+					.addComponent(layeredPane_4, GroupLayout.PREFERRED_SIZE, 17, GroupLayout.PREFERRED_SIZE))
 		);
 		
 		JLabel lblGame = new JLabel("Game");
@@ -286,7 +284,8 @@ public class GamePlayPage implements Block223PlayModeInterface{
 		try {
 			lblGame.setText(Block223Controller.getCurrentPlayableGame().getGamename());
 		} catch (InvalidInputException e2) {
-			lblErrorMessage.setText(e2.getMessage());
+			lblError.setText(e2.getMessage());
+			lblError.setVisible(true);
 		}
 		lblGame.setFont(projectfont52);
 		lblGame.setForeground(new Color(224,255,255));
@@ -350,7 +349,8 @@ public class GamePlayPage implements Block223PlayModeInterface{
 			lblLevel.setText("LEVEL "+ n);
 			
 		} catch (InvalidInputException e) {
-			lblErrorMessage.setText(e.getMessage());
+			lblError.setText(e.getMessage());
+			lblError.setVisible(true);
 		}
 		
 		JButton btnQuit = new JButton("QUIT GAME");
@@ -388,7 +388,8 @@ public class GamePlayPage implements Block223PlayModeInterface{
 				lives=game.getLives();
 			}
 		} catch (InvalidInputException e1) {
-			lblErrorMessage.setText(e1.getMessage());
+			lblError.setText(e1.getMessage());
+			lblError.setVisible(true);
 		}
 		
 		JLabel label = new JLabel(""+lives);
@@ -396,19 +397,6 @@ public class GamePlayPage implements Block223PlayModeInterface{
 		label.setFont(projectfont32);
 		
 		JButton btnViewHallOf = new JButton("VIEW HALL OF FAME");
-		btnViewHallOf.addKeyListener(new KeyAdapter() {
-			@Override
-			public void keyReleased(KeyEvent e) {
-			int keyPressed = e.getKeyCode();
-			if (keyPressed==KeyEvent.VK_LEFT)
-				input+="l";
-			if (keyPressed==KeyEvent.VK_RIGHT)
-				input+="r";
-			if (keyPressed==KeyEvent.VK_SPACE)
-				input+=" ";
-			System.out.println(input);
-			}
-		});
 		btnViewHallOf.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 			frame.dispose();
@@ -465,13 +453,28 @@ public class GamePlayPage implements Block223PlayModeInterface{
 		//panel_18.setLayout(null);
 		
 		frame.getContentPane().setLayout(groupLayout);
-		frame.setBounds(100, 100, 750, 575);
+		frame.setBounds(100, 100, 750, 603);
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 	
 	
 	
 	}
 
+	public void run(){
+		TOCurrentlyPlayedGame pgame;
+		try {
+			pgame = Block223Controller.getCurrentPlayableGame();
+			Block223Controller.startGame(this);
+			System.out.println("starting");
+		} catch (InvalidInputException e) {
+			lblError.setText(e.getMessage());
+		}
+		
+//		if (pgame!=null&&pgame.isPaused()&&pgame.getLives()==0)
+//			endGame();
+		
+	}
+	
 	@Override
 	public void endGame(int nrOfLives, TOHallOfFameEntry hof) {
 		// TODO Auto-generated method stub
