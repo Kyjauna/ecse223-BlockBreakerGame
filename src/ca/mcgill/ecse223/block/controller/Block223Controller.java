@@ -918,6 +918,18 @@ public static List<TOGridCell> getBlocksAtLevelOfCurrentDesignableGame(int level
 		return result;
 		
 	}
+	public static List<TOPlayableGame> getPlayableGames() throws InvalidInputException{
+		
+		List<TOPlayableGame> result=null;
+		try {
+			result=getPlayableGames1();
+			result.addAll(getPlayableGames2());
+		} catch (InvalidInputException e) {
+			throw new InvalidInputException(e.getMessage());
+		}
+		
+		return result;
+	}
 	public static TOCurrentlyPlayedGame getCurrentPlayableGame() throws InvalidInputException {
 		
 		PlayedGame pgame = Block223Application.getCurrentPlayableGame();
@@ -1026,5 +1038,6 @@ public static List<TOGridCell> getBlocksAtLevelOfCurrentDesignableGame(int level
 		}
 		return result;
 	}
+
 
 }

@@ -1,59 +1,39 @@
 package ca.mcgill.ecse223.block.view;
 
-import java.awt.EventQueue;
-
-import javax.swing.JFrame;
 import java.awt.Color;
-import java.awt.Dimension;
+import java.awt.EventQueue;
+import java.awt.Font;
+import java.awt.FontFormatException;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.awt.event.KeyAdapter;
+import java.awt.event.KeyEvent;
+import java.io.IOException;
+import java.util.List;
 
 import javax.swing.GroupLayout;
 import javax.swing.GroupLayout.Alignment;
+import javax.swing.JButton;
+import javax.swing.JDesktopPane;
+import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JLayeredPane;
-
-import java.awt.Font;
-import java.awt.FontFormatException;
-import java.awt.Graphics;
-import java.awt.Graphics2D;
-
 import javax.swing.JPanel;
 import javax.swing.LayoutStyle.ComponentPlacement;
+import javax.swing.SwingConstants;
 
-//import ca.mcgill.ecse223.block.application.Block223Application;
 import ca.mcgill.ecse223.block.controller.Block223Controller;
 import ca.mcgill.ecse223.block.controller.InvalidInputException;
 import ca.mcgill.ecse223.block.controller.TOCurrentBlock;
 import ca.mcgill.ecse223.block.controller.TOCurrentlyPlayedGame;
-//import ca.mcgill.ecse223.block.controller.TOGame;
-import ca.mcgill.ecse223.block.controller.TOGame;
-import ca.mcgill.ecse223.block.controller.TOPlayableGame;
-
-import javax.swing.JTextField;
-import javax.swing.JButton;
-import javax.swing.JComboBox;
-import javax.swing.JDesktopPane;
-
-// import java.awt.Choice;
-import java.awt.event.ActionListener;
-import java.io.IOException;
-import java.util.List;
-//import java.util.List;
-import java.awt.event.ActionEvent;
-import javax.swing.SwingConstants;
-import java.awt.FlowLayout;
-import java.awt.GridLayout;
-import java.awt.Rectangle;
-import java.awt.event.KeyAdapter;
-import java.awt.event.KeyEvent;
-import java.awt.geom.Ellipse2D;
-import java.awt.geom.Rectangle2D;
+import ca.mcgill.ecse223.block.controller.TOHallOfFameEntry;
 
 public class GamePlayPage implements Block223PlayModeInterface{
 
 	public JFrame frame;
 	JLabel lblErrorMessage;
 	int level;
-	String input;
+	String input= "";
 	JPanel panel_18;
 	
 	/**
@@ -81,12 +61,6 @@ public class GamePlayPage implements Block223PlayModeInterface{
 	public GamePlayPage() {
 		initialize();
 		refresh();
-		try {
-			Block223Controller.startGame(this);
-		} catch (InvalidInputException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
 	}
 
 	
@@ -103,10 +77,11 @@ public class GamePlayPage implements Block223PlayModeInterface{
 			JPanel paddle = new JPanel();
 			paddle.setBackground(Color.BLACK);
 			panel_18.add(paddle);
-			paddle.setBounds((int)pgame.getCurrentPaddleX(),380, (int) (pgame.getCurrentPaddleX()+pgame.getCurrentPaddleLength()), 5);
+			paddle.setBounds((int)(pgame.getCurrentPaddleX()-(pgame.getCurrentPaddleLength()/2)),380,(int) (pgame.getCurrentPaddleX()+(pgame.getCurrentPaddleLength()/2)), 5);
 			paddle.setVisible(true);
 		
 			List<TOCurrentBlock> blocks = pgame.getBlocks();
+			
 			for (TOCurrentBlock b:blocks) {
 				int x= b.getX();
 				int y=b.getY();
@@ -120,11 +95,13 @@ public class GamePlayPage implements Block223PlayModeInterface{
 				pblock.setBounds(x,y,20,20);
 				pblock.setVisible(true);
 				
-				//panel_18.fillOval(pgame.getCurrentBallX(), pgame.getCurrentBallY(), 5, 5);
+				BallRendering ball = new BallRendering((int)pgame.getCurrentBallX(),(int)pgame.getCurrentBallY(), 10);
+				ball.setBackground(Color.BLACK);
+				panel_18.add(ball);
+				ball.setBounds((int)pgame.getCurrentBallX()-5,(int)pgame.getCurrentBallY()-5, 10,10);
+				ball.setVisible(true);
 			
 			}
-		
-		
 		
 		} catch (InvalidInputException e) {
 			//errormessage stuff
@@ -141,20 +118,32 @@ public class GamePlayPage implements Block223PlayModeInterface{
 	 */
 	private void initialize() {
 		frame = new JFrame();
-		frame.addKeyListener(new KeyAdapter() {
+		frame.getContentPane().addKeyListener(new KeyAdapter() {
 			@Override
-			public void keyTyped(KeyEvent arg0) {
-			int keyPressed=arg0.getKeyCode();
+			public void keyReleased(KeyEvent e) {
+			int keyPressed = e.getKeyCode();
 			if (keyPressed==KeyEvent.VK_LEFT)
 				input+="l";
 			if (keyPressed==KeyEvent.VK_RIGHT)
 				input+="r";
 			if (keyPressed==KeyEvent.VK_SPACE)
 				input+=" ";
-			System.out.println(input);
-			}
 			
+			}
 		});
+		frame.addKeyListener(new KeyAdapter() {
+			@Override
+			public void keyReleased(KeyEvent arg0) {
+				int keyPressed = arg0.getKeyCode();
+				if (keyPressed==KeyEvent.VK_LEFT)
+					input+="l";
+				if (keyPressed==KeyEvent.VK_RIGHT)
+					input+="r";
+				if (keyPressed==KeyEvent.VK_SPACE)
+					input+=" ";
+				}
+		});
+		
 		frame.getContentPane().setBackground(new Color(0, 0, 51));
 		
 		Font projectfont = null;
@@ -370,6 +359,7 @@ public class GamePlayPage implements Block223PlayModeInterface{
 			}
 		});
 		btnSave.setFont(projectfont15);
+		btnSave.setFocusable(false);
 		
 		JButton btnQuit = new JButton("QUIT GAME");
 		btnQuit.addActionListener(new ActionListener() {
@@ -380,6 +370,7 @@ public class GamePlayPage implements Block223PlayModeInterface{
 			}
 		});
 		btnQuit.setFont(projectfont15);
+		btnQuit.setFocusable(false);
 		
 		JButton btnLogout_1 = new JButton("LOGOUT");
 		btnLogout_1.addActionListener(new ActionListener() {
@@ -390,6 +381,7 @@ public class GamePlayPage implements Block223PlayModeInterface{
 			}
 		});
 		btnLogout_1.setFont(projectfont15);
+		btnLogout_1.setFocusable(false);
 		
 		JLabel lblLives = new JLabel("LIVES remaining");
 		lblLives.setFont(projectfont15);
@@ -412,6 +404,19 @@ public class GamePlayPage implements Block223PlayModeInterface{
 		label.setFont(projectfont32);
 		
 		JButton btnViewHallOf = new JButton("VIEW HALL OF FAME");
+		btnViewHallOf.addKeyListener(new KeyAdapter() {
+			@Override
+			public void keyReleased(KeyEvent e) {
+			int keyPressed = e.getKeyCode();
+			if (keyPressed==KeyEvent.VK_LEFT)
+				input+="l";
+			if (keyPressed==KeyEvent.VK_RIGHT)
+				input+="r";
+			if (keyPressed==KeyEvent.VK_SPACE)
+				input+=" ";
+			System.out.println(input);
+			}
+		});
 		btnViewHallOf.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 			frame.dispose();
@@ -420,6 +425,7 @@ public class GamePlayPage implements Block223PlayModeInterface{
 			}
 		});
 		btnViewHallOf.setFont(projectfont15);
+		btnViewHallOf.setFocusable(false);
 		
 		GroupLayout gl_layeredPane_3 = new GroupLayout(layeredPane_3);
 		gl_layeredPane_3.setHorizontalGroup(
@@ -478,4 +484,11 @@ public class GamePlayPage implements Block223PlayModeInterface{
 	
 	}
 
+	@Override
+	public void endGame(int nrOfLives, TOHallOfFameEntry hof) {
+		// TODO Auto-generated method stub
+		
+	}
+
 }
+
