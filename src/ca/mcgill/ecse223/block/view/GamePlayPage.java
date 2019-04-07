@@ -89,10 +89,10 @@ public class GamePlayPage implements Block223PlayModeInterface{
 				TOCurrentlyPlayedGame game;
 				int lives=pgame.getLives();
 				label.setText(""+lives);
+				
 			}
-			if (blocknumber>pgame.numberOfBlocks()||level<n) {
+
 				refreshBlocks();
-			}
 
 			paddle.setBackground(Color.BLACK);
 			paddle.setBounds((int)(pgame.getCurrentPaddleX()),355,(int) (pgame.getCurrentPaddleLength()), 5);
@@ -432,7 +432,7 @@ public class GamePlayPage implements Block223PlayModeInterface{
 		btnViewHallOf.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				frame.dispose();
-				ViewHallOfFamePage page=new ViewHallOfFamePage(1);
+				ViewHallOfFamePage page=new ViewHallOfFamePage(1, pgame.getGamename());
 				page.frame.setVisible(true);
 			}
 		});
@@ -566,9 +566,14 @@ public class GamePlayPage implements Block223PlayModeInterface{
 	@Override
 	public void endGame(int nrOfLives, TOHallOfFameEntry hof) {
 		frame.dispose();
-		ViewHallOfFamePage Hof=new ViewHallOfFamePage(3);
+		ViewHallOfFamePage Hof;
+		if (nrOfLives==0)
+			Hof=new ViewHallOfFamePage(1, pgame.getGamename());
+		else{
+			Hof=new ViewHallOfFamePage(3, pgame.getGamename());
+		}
 		Hof.frame.setVisible(true);
-		System.out.println("GAME OVER BITCH!!");
+		//System.out.println("GAME OVER BITCH!!");
 
 	}
 }

@@ -35,12 +35,12 @@ public class PlayedGame implements Serializable
 	 * no direct link to Paddle, because the paddle can be found by navigating to Game and then Paddle
 	 * pixels moved when right arrow key is pressed
 	 */
-	public static final int PADDLE_MOVE_RIGHT = 1;
+	public static final int PADDLE_MOVE_RIGHT = 5;
 
 	/**
 	 * pixels moved when left arrow key is pressed
 	 */
-	public static final int PADDLE_MOVE_LEFT = -1;
+	public static final int PADDLE_MOVE_LEFT = -5;
 
 	//------------------------
 	// MEMBER VARIABLES
@@ -724,6 +724,8 @@ public class PlayedGame implements Serializable
 
 	// line 55 "../../../../../Block223PlayMode.ump"
 	private boolean isCloser(BouncePoint bp1, BouncePoint bp2){
+		if (bp1==null)
+			return false;
 		if(bp2==null)
 			return true;
 		else{

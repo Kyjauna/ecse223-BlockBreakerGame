@@ -190,16 +190,9 @@ public class PlayerPage {
 
 				String gameHallOfFame = (String) selectAGame.getSelectedItem();
 
-				try {
-					Block223Controller.selectPlayableGame(gameHallOfFame,-1);
-					ViewHallOfFamePage hallOfFame = new ViewHallOfFamePage(1);
-					hallOfFame.frame.setVisible(true);
-					frame.setVisible(false);
-				}
-				catch (InvalidInputException e1) {
-					lblError_1.setText(e1.getMessage());
-					lblError_1.setVisible(false);
-				}
+				ViewHallOfFamePage hallOfFame = new ViewHallOfFamePage(1, gameHallOfFame);
+				hallOfFame.frame.setVisible(true);
+				frame.setVisible(false);
 			}
 		});
 		viewHallOfFameBtn.setFont(projectfont15);
