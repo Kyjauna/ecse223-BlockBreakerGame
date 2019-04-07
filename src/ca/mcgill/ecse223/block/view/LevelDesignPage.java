@@ -77,6 +77,10 @@ public class LevelDesignPage {
 		List<TOBlock> blocks = null;		
 		Integer x_coordinate=10;
 		Integer y_coordinate=10;
+		RedValue.setText("");
+		BlueValue.setText("");
+		GreenValue.setText("");
+		textField.setText("");
 		
 		Map<Integer, Integer> Hpositions =new HashMap<Integer, Integer>();
 		for( Integer i=1;i<=15;i++) {
