@@ -20,7 +20,7 @@ public class PlayedGame implements Serializable
 	/**
 	 * at design time, the initial wait time may be adjusted as seen fit
 	 */
-	public static final int INITIAL_WAIT_TIME = 1000;
+	public static final int INITIAL_WAIT_TIME = 10000;
 	private static int nextId = 1;
 	public static final int NR_LIVES = 3;
 
@@ -413,7 +413,6 @@ public class PlayedGame implements Serializable
 				doHitPaddleOrWall();
 				setPlayStatus(PlayStatus.Moving);
 				wasEventProcessed = true;
-				System.out.println(1);
 				break;
 			}
 			if (isOutOfBoundsAndLastLife())
@@ -422,7 +421,6 @@ public class PlayedGame implements Serializable
 				doOutOfBounds();
 				setPlayStatus(PlayStatus.GameOver);
 				wasEventProcessed = true;
-				System.out.println(2);
 				break;
 			}
 			if (isOutOfBounds())
@@ -431,7 +429,6 @@ public class PlayedGame implements Serializable
 				doOutOfBounds();
 				setPlayStatus(PlayStatus.Paused);
 				wasEventProcessed = true;
-				System.out.println(3);
 				break;
 			}
 			if (hitLastBlockAndLastLevel())
@@ -440,7 +437,6 @@ public class PlayedGame implements Serializable
 				doHitBlock();
 				setPlayStatus(PlayStatus.GameOver);
 				wasEventProcessed = true;
-				System.out.println(4);
 				break;
 			}
 			if (hitLastBlock())
@@ -449,10 +445,8 @@ public class PlayedGame implements Serializable
 				doHitBlockNextLevel();
 				setPlayStatus(PlayStatus.Ready);
 				wasEventProcessed = true;
-				System.out.println(5);
 				break;
 			}
-			System.out.println(hitBlock());
 			if (hitBlock())
 			{
 				// line 17 "../../../../../Block223States.ump"
@@ -460,7 +454,7 @@ public class PlayedGame implements Serializable
 				doHitBlock();
 				setPlayStatus(PlayStatus.Moving);
 				wasEventProcessed = true;
-				System.out.println(6);
+
 				break;
 			}
 			if (hitWall())
@@ -468,7 +462,6 @@ public class PlayedGame implements Serializable
 				// line 18 "../../../../../Block223States.ump"
 				doHitPaddleOrWall();
 				setPlayStatus(PlayStatus.Moving);
-				System.out.println(7);
 				wasEventProcessed = true;
 				break;
 			}
@@ -476,7 +469,6 @@ public class PlayedGame implements Serializable
 			doHitNothingAndNotOutOfBounds();
 			setPlayStatus(PlayStatus.Moving);
 			wasEventProcessed = true;
-			System.out.println("nothing");
 			break;
 		default:
 			// Other states do respond to this event
@@ -845,6 +837,7 @@ public class PlayedGame implements Serializable
 		double remainingX;
 		double incomingY;
 		double remainingY;
+
 		double currentx=getCurrentBallX();
 		double currenty=getCurrentBallY();
 		double bpx=bounce.getX();
@@ -860,13 +853,13 @@ public class PlayedGame implements Serializable
 		System.out.println("bpx= "+bounce.getX());
 
 
-		System.out.println(bounce);
+		System.out.println("Bounce: "+bounce);
 
 		// Flip_X case
 		if (bounce.getDirection() == BouncePoint.BounceDirection.FLIP_X) {
 			// Incoming distance
 			incomingX = (bpx - currentx); System.out.println("incomingX: "+incomingX);
-			remainingX = dx - incomingX; System.out.println("remainingX: "+remainingX);
+			remainingX = (dx - incomingX); System.out.println("remainingX: "+remainingX);
 			if (remainingX == 0) {
 				setCurrentBallX(bounce.getX());
 				setCurrentBallY(bounce.getY());
@@ -878,15 +871,19 @@ public class PlayedGame implements Serializable
 					setBallDirectionY(dy + sign*0.1*Math.abs(dx));
 				}
 			}
-			else
-			{
+			else{
 				double sign=Math.signum(dy);
 				if (sign==0) {sign=1;}
 				setBallDirectionX(dx*(-1));
 				setBallDirectionY(dy + sign*0.1*Math.abs(dx));
 
-				setCurrentBallX(bounce.getX() + (remainingX/dx)*(getBallDirectionX()));
+				setCurrentBallX(bounce.getX() + (remainingX)*(getBallDirectionX()));
 				setCurrentBallY(bounce.getY() + (remainingX/dx)*(getBallDirectionY()));
+				System.out.println("CurrentX: "+currentBallX);
+				System.out.println("CurrentY: "+currentBallY);
+				System.out.println("NewDX: "+ballDirectionX);
+				System.out.println("NewDY: "+ballDirectionY);
+
 			}
 		}
 
@@ -894,10 +891,10 @@ public class PlayedGame implements Serializable
 		if (bounce.getDirection() == BouncePoint.BounceDirection.FLIP_Y) {
 			// Incoming distance
 			incomingY = (bpy - currenty);
-			remainingY = dy - incomingY;
+			remainingY = (dy - incomingY);
 
 			System.out.println("incomingY: "+incomingY);
-			System.out.println("remainingX: "+remainingY);
+			System.out.println("remainingY: "+remainingY);
 
 			if (remainingY == 0) {
 				setCurrentBallX(bounce.getX());
@@ -907,7 +904,7 @@ public class PlayedGame implements Serializable
 					double sign=Math.signum(dx);
 					if (sign==0) {sign=1;}
 					setBallDirectionY(dy*(-1));
-					setBallDirectionX(dx+Math.signum(dx)*0.1*Math.abs(dy));
+					setBallDirectionX(dx+sign*0.1*Math.abs(dy));
 				}
 
 			}
@@ -917,11 +914,11 @@ public class PlayedGame implements Serializable
 				if (sign==0) {sign=1;}
 
 				setBallDirectionY(dy*(-1));
-				setBallDirectionX(dx+Math.signum(dx)*0.1*Math.abs(getBallDirectionY()));
-
-
+				setBallDirectionX(dx+sign*0.1*Math.abs(getBallDirectionY()));
 				setCurrentBallX(bounce.getX() + (remainingY/dy)*(getBallDirectionX()));
+				System.out.println("CurrentX: "+currentBallX);
 				setCurrentBallY(bounce.getY() + (remainingY/dy)*(getBallDirectionY()));
+				System.out.println("CurrentY: "+currentBallY);
 			} 
 		}
 		bounce=null; 
@@ -985,21 +982,16 @@ public class PlayedGame implements Serializable
 	private boolean hitBlock(){
 		int nrBlocks = this.numberOfBlocks();
 		setBounce(null);
-
 		for(int i=0; i<nrBlocks-1; i++) {	
 			PlayedBlockAssignment block = getBlock(i);
 			BouncePoint bp = calculateBouncePointBlock(block);
-			System.out.println(i);
-			System.out.println(bp);
-			//this.setBounce(bp);
 			BouncePoint bounce = this.getBounce();
 			boolean closer = isCloser(bp, bounce);
-			System.out.println(closer);
 			if(closer) {
 				this.setBounce(bp);
 			}
 		}
-		System.out.println(getBounce()!=null);
+		System.out.println("hitBlock(): " +(getBounce()!=null));
 		return getBounce()!=null;
 	}
 
@@ -1125,10 +1117,89 @@ public class PlayedGame implements Serializable
 
 		java.awt.geom.Ellipse2D ball=new java.awt.geom.Ellipse2D.Double(positionX-5, positionY-5, 10, 10);
 
-
-
+		if (ball.intersects(regionE)) {
+			System.out.println("intersecting E");
+			bp = new BouncePoint(0,0,null);
+			bp.setHitBlock(pblock);
+			System.out.println("dx: "+dx);
+			if  (dx<=0.0) {
+				bp.setY(regionE.getY());
+				double newx=x+(bp.getY()-y)/slope;
+				bp.setX(newx);
+				bp.setDirection(BouncePoint.BounceDirection.FLIP_Y);
+			}
+			else if(dx>0.0) {
+				bp.setX(regionE.getX());
+				double newy=y+slope*(bp.getX()-x);
+				bp.setY(newy);
+				bp.setDirection(BouncePoint.BounceDirection.FLIP_X);
+				//flip Y if ball approaches from right and Flip X if ball approaches from left
+			}
+		}
+		//Section F
+		else if (ball.intersects(regionF)) {
+			System.out.println("intersecting F");
+			bp = new BouncePoint(0,0,null);
+			bp.setHitBlock(pblock);
+			System.out.println("dx: "+dx);
+			if  (dx>0.0) {
+				System.out.println("dx>0.0: "+(dx>0.0));
+				bp.setY(regionF.getY());
+				double newx=x+(bp.getY()-y)/slope;
+				bp.setX(newx);
+				bp.setDirection(BouncePoint.BounceDirection.FLIP_Y);
+			}
+			else if(dx<=0.0) {
+				bp.setX(regionF.getX()+5);
+				double newy=y+slope*(bp.getX()-x);
+				bp.setY(newy);
+				bp.setDirection(BouncePoint.BounceDirection.FLIP_X);
+				//flip Y if ball approaches from right and Flip X if ball approaches from left
+			}
+		}
+		//sectionG
+		else if (ball.intersects(regionG)) {
+			System.out.println("intersecting G");
+			bp = new BouncePoint(0,0,null);
+			bp.setHitBlock(pblock);
+			System.out.println("dx: "+dx);
+			if  (dx<=0.0) {
+				bp.setY(regionG.getY()+5);
+				double newx=x+(bp.getY()-y)/slope;
+				bp.setX(newx);
+				bp.setDirection(BouncePoint.BounceDirection.FLIP_Y);
+			}
+			else if(dx>0.0) {
+				bp.setX(regionG.getX());
+				double newy=y+slope*(bp.getX()-x);
+				bp.setY(newy);
+				bp.setDirection(BouncePoint.BounceDirection.FLIP_X);
+				//flip Y if ball approaches from right and Flip X if ball approaches from left
+			}
+		}
+		//Section H
+		else if (ball.intersects(regionH)) {
+			System.out.println("intersecting H");
+			bp = new BouncePoint(0,0,null);
+			bp.setHitBlock(pblock);
+			System.out.println("dx: "+dx);
+			if  (dx>0.0) {
+				bp.setY(regionH.getY()+5);
+				double newx=x+(bp.getY()-y)/slope;
+				bp.setX(newx);
+				bp.setDirection(BouncePoint.BounceDirection.FLIP_Y);
+			}
+			else if(dx<=0.0) {
+				bp.setX(regionH.getX()+5);
+				double newy=y+slope*(bp.getX()-x);
+				bp.setY(newy);
+				bp.setDirection(BouncePoint.BounceDirection.FLIP_X);
+				//flip Y if ball approaches from right and Flip X if ball approaches from left
+			}
+		}
 		// Section A
-		if (ball.intersects(regionA)) {
+		else if (ball.intersects(regionA)) {
+			System.out.println("intersecting A");
 			bp = new BouncePoint(0,0,null);
 			bp.setHitBlock(pblock);
 			bp.setY(regionA.getY());
@@ -1138,6 +1209,7 @@ public class PlayedGame implements Serializable
 		}
 		//sectionD
 		else if (ball.intersects(regionD)) {
+			System.out.println("intersecting D");
 			bp = new BouncePoint(0,0,null);
 			bp.setHitBlock(pblock);
 			bp.setY(regionD.getY()+5);
@@ -1148,7 +1220,7 @@ public class PlayedGame implements Serializable
 
 		// Section B
 		else if (ball.intersects(regionB)) {
-			System.out.println("b");
+			System.out.println("intersecting B");
 			bp = new BouncePoint(0,0,null);
 			bp.setHitBlock(pblock);
 			bp.setX(regionB.getX());
@@ -1158,7 +1230,7 @@ public class PlayedGame implements Serializable
 		}
 
 		else if (ball.intersects(regionC)) {
-			System.out.println("c");
+			System.out.println("intersecting C");
 			bp = new BouncePoint(0,0,null);
 			bp.setHitBlock(pblock);
 			bp.setX(regionC.getX()+5);
@@ -1166,26 +1238,6 @@ public class PlayedGame implements Serializable
 			bp.setY(newy);
 			bp.setDirection(BouncePoint.BounceDirection.FLIP_X);
 		}
-
-		//Section E and G
-		else if (ball.intersects(regionE)||ball.intersects(regionG)) {
-			bp = new BouncePoint(0,0,null);
-			bp.setHitBlock(pblock);
-			bp.setX(positionX);
-			bp.setY(positionY);
-			bp.setDirection(BouncePoint.BounceDirection.FLIP_BOTH);
-			//flip Y if ball approaches from right and Flip X if ball approaches from left
-		}
-
-		//Section F and H
-		else if (ball.intersects(regionF)||ball.intersects(regionH)) {
-			bp = new BouncePoint(0,0,null);
-			bp.setHitBlock(pblock);
-			bp.setX(positionX);
-			bp.setY(positionY);
-			bp.setDirection(BouncePoint.BounceDirection.FLIP_BOTH);
-			//Flip X of ball approaches from right and Flip Y if ball approaches from left
-		}   
 
 		return bp;
 	}
@@ -1247,9 +1299,6 @@ public class PlayedGame implements Serializable
 	private void doHitBlock(){
 		score = getScore();   
 		bounce = getBounce();
-
-		//System.out.println(bounce);
-		//System.out.println(bounce.getHitBlock());
 		PlayedBlockAssignment pblock = bounce.getHitBlock();
 		Block block = pblock.getBlock();
 		int points = block.getPoints();
