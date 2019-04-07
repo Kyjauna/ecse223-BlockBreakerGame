@@ -5,7 +5,7 @@ package ca.mcgill.ecse223.block.model;
 import java.io.Serializable;
 import java.util.*;
 
-// line 90 "../../../../../Block223Persistence.ump"
+// line 101 "../../../../../Block223Persistence.ump"
 // line 59 "../../../../../Block223 v3.ump"
 public class User implements Serializable
 {
@@ -252,7 +252,7 @@ public class User implements Serializable
     }
   }
 
-  // line 96 "../../../../../Block223Persistence.ump"
+  // line 107 "../../../../../Block223Persistence.ump"
    public static  void reinitializeUniqueUsername(List<User> users){
     usersByUsername = new HashMap<String, User>();
     for (User user : users) {
@@ -271,7 +271,7 @@ public class User implements Serializable
   // DEVELOPER CODE - PROVIDED AS-IS
   //------------------------
   
-  // line 93 "../../../../../Block223Persistence.ump"
+  // line 104 "../../../../../Block223Persistence.ump"
   private static final long serialVersionUID = 10312456789L ;
 
   

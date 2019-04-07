@@ -528,7 +528,7 @@ public class GamePlayPage implements Block223PlayModeInterface{
 	
 	@Override
 	public void endGame(int nrOfLives, TOHallOfFameEntry hof) {
-		// TODO Auto-generated method stub
+		System.out.println("GAME OVER BITCH!!");
 		
 	}
 }

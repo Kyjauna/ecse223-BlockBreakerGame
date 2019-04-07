@@ -627,7 +627,7 @@ public static void startGame(Block223PlayModeInterface ui) throws InvalidInputEx
 			}
 			
 			try {
-				Thread.sleep(/*(long) pgame.getWaitTime()*/50);
+				Thread.sleep(/*(long) pgame.getWaitTime()*/0);
 			} catch (InterruptedException e) {
 				e.printStackTrace();
 			}
@@ -636,13 +636,15 @@ public static void startGame(Block223PlayModeInterface ui) throws InvalidInputEx
 		}
 		
 		if (pgame.getPlayStatus() == PlayStatus.GameOver) {
-			//ui.endGame(game.getLives(), getHallOfFameWithMostRecentEntry(1).getEntry(0));
+			ui.endGame(pgame.getLives(), getHallOfFameWithMostRecentEntry(1).getEntry(0));
 			Block223Application.setCurrentPlayableGame(null);
+			pgame.delete();
+			System.out.println(pgame);
 		}
 		
 		else if (pgame.getPlayer() != null) {
 		Block223 block223 = Block223Application.getBlock223();
-		Block223Persistence.save(block223);
+		//Block223Persistence.save(block223);
 		}
 		
 	}
@@ -1044,9 +1046,15 @@ public static List<TOGridCell> getBlocksAtLevelOfCurrentDesignableGame(int level
 			throw new InvalidInputException("A game must be selected to view its hall of fame.");
 		
 		PlayedGame pgame = Block223Application.getCurrentPlayableGame();
-		Game game = pgame.getGame();
 		
-		TOHallOfFame result = new TOHallOfFame(game.getName()); 
+		Game game = pgame.getGame();
+		if (game==null) {
+			String name=getCurrentPlayableGame().getGamename();
+			TOHallOfFame result = new TOHallOfFame(name);
+		}
+		else{
+			TOHallOfFame result = new TOHallOfFame(pgame.getGame().getName()); 
+		}
 		HallOfFameEntry mostRecent = game.getMostRecentEntry();
 		
 		int indexR = game.indexOfHallOfFameEntry(mostRecent);
@@ -1060,6 +1068,7 @@ public static List<TOGridCell> getBlocksAtLevelOfCurrentDesignableGame(int level
 		if (end < 0 ) 
 			end = 0;
 
+		TOHallOfFame result = new TOHallOfFame(game.getName());
 		
 		for (int i = start ; i>= end; i--) {
 			TOHallOfFameEntry entry = new TOHallOfFameEntry(i+1, game.getHallOfFameEntry(i).getPlayername(), game.getHallOfFameEntry(i).getScore(), result);		
@@ -1067,6 +1076,5 @@ public static List<TOGridCell> getBlocksAtLevelOfCurrentDesignableGame(int level
 		}
 		return result;
 	}
-
 
 }

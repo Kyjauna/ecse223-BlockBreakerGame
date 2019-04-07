@@ -78,6 +78,10 @@ public class YouAreAnAdminPage {
 			public void focusGained(FocusEvent arg0) {
 				refresh();
 			}
+			@Override
+			public void focusLost(FocusEvent arg0) {
+				refresh();
+			}
 		});
 		frame.getContentPane().setBackground(new Color(0, 0, 51));
 		

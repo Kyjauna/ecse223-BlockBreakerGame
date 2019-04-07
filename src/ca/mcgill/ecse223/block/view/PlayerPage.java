@@ -42,6 +42,8 @@ import javax.swing.JInternalFrame;
 import javax.swing.JTabbedPane;
 import javax.swing.border.LineBorder;
 import javax.swing.JComboBox;
+import java.awt.event.FocusAdapter;
+import java.awt.event.FocusEvent;
 
 public class PlayerPage {
 
@@ -122,6 +124,12 @@ public class PlayerPage {
 		Font projectfont18 =projectfont.deriveFont(18f);
 
 		frame = new JFrame();
+		frame.addFocusListener(new FocusAdapter() {
+			@Override
+			public void focusGained(FocusEvent e) {
+			refresh();
+			}
+		});
 		frame.getContentPane().setBackground(new Color(0, 0, 51));
 		frame.setBounds(100, 100, 624, 527);
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -170,11 +178,6 @@ public class PlayerPage {
 		selectAGame.setBackground(new Color(204, 255, 255));
 		selectAGame.setMaximumRowCount(12);
 		selectAGame.setFont(projectfont15);
-
-		JLabel lblError = new JLabel("");
-		lblError.setFont(new Font("Lucida Grande", Font.PLAIN, 10));
-		lblError.setHorizontalAlignment(SwingConstants.CENTER);
-		lblError.setForeground(Color.ORANGE);
 
 		JLabel lblPlayableGames = new JLabel("PLAYABLE  GAMES");
 		lblPlayableGames.setFont(projectfont18);
@@ -269,10 +272,8 @@ public class PlayerPage {
 							.addComponent(startNewGameBtn, GroupLayout.PREFERRED_SIZE, 141, GroupLayout.PREFERRED_SIZE))
 						.addGroup(gl_panel_22.createSequentialGroup()
 							.addGap(23)
-							.addGroup(gl_panel_22.createParallelGroup(Alignment.LEADING)
-								.addComponent(lblError_1, GroupLayout.PREFERRED_SIZE, 315, GroupLayout.PREFERRED_SIZE)
-								.addComponent(lblError, GroupLayout.PREFERRED_SIZE, 330, GroupLayout.PREFERRED_SIZE))))
-					.addContainerGap(23, Short.MAX_VALUE))
+							.addComponent(lblError_1, GroupLayout.PREFERRED_SIZE, 315, GroupLayout.PREFERRED_SIZE)))
+					.addContainerGap(38, Short.MAX_VALUE))
 				.addGroup(gl_panel_22.createSequentialGroup()
 					.addContainerGap(82, Short.MAX_VALUE)
 					.addComponent(resumeAGame, GroupLayout.PREFERRED_SIZE, 214, GroupLayout.PREFERRED_SIZE)
@@ -297,9 +298,7 @@ public class PlayerPage {
 					.addGroup(gl_panel_22.createParallelGroup(Alignment.BASELINE)
 						.addComponent(viewHallOfFameBtn)
 						.addComponent(startNewGameBtn))
-					.addPreferredGap(ComponentPlacement.RELATED)
-					.addComponent(lblError)
-					.addPreferredGap(ComponentPlacement.RELATED)
+					.addGap(14)
 					.addComponent(lblError_1)
 					.addGap(5)
 					.addComponent(lblContinuePlaying)
@@ -309,25 +308,13 @@ public class PlayerPage {
 		);
 		panel_22.setLayout(gl_panel_22);
 
-		JLabel playerUserName = new JLabel();
-		// This doesn't work.
-		try {
-			playerUserName.setText(Block223Controller.getCurrentPlayableGame().getPlayername());
-		} catch (InvalidInputException e2) {
-			lblError.setText(e2.getMessage());
-		}
-		playerUserName.setHorizontalAlignment(SwingConstants.CENTER);
-		playerUserName.setFont(projectfont15);
-		playerUserName.setForeground(Color.WHITE);
-		playerUserName.setBounds(251, 91, 121, 28);
-		layeredPane.add(playerUserName);
-
 
 		lblError2 = new JLabel("error");
+		lblError2.setBackground(Color.WHITE);
 		lblError2.setVisible(false);
 		
-		lblError2.setForeground(Color.ORANGE);
-		lblError2.setFont(new Font("Lucida Grande", Font.PLAIN, 10));
+		lblError2.setForeground(Color.WHITE);
+		lblError2.setFont(new Font("Tahoma", Font.PLAIN, 13));
 		lblError2.setHorizontalAlignment(SwingConstants.LEFT);
 		lblError2.setBounds(155, 383, 315, 16);
 		layeredPane.add(lblError2);

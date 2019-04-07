@@ -6,7 +6,7 @@ import java.io.Serializable;
 import java.util.*;
 
 // line 6 "../../../../../Block223PlayMode.ump"
-// line 56 "../../../../../Block223Persistence.ump"
+// line 58 "../../../../../Block223Persistence.ump"
 // line 87 "../../../../../Block223 v3.ump"
 public class Game implements Serializable
 {
@@ -39,7 +39,7 @@ public class Game implements Serializable
   private boolean published;
   private String name;
   private int nrBlocksPerLevel;
-  private transient Comparator<HallOfFameEntry> hallOfFameEntriesPriority;
+  private Comparator<HallOfFameEntry> hallOfFameEntriesPriority;
 
   //Game Associations
   private HallOfFameEntry mostRecentEntry;
@@ -889,12 +889,19 @@ public class Game implements Serializable
     }
   }
 
-  // line 62 "../../../../../Block223Persistence.ump"
+  // line 64 "../../../../../Block223Persistence.ump"
    public void reinitialize(){
     Block.reinitializeAutouniqueID(this.getBlocks());
+  	this.setHallOfFameEntriesPriority(new Comparator<HallOfFameEntry>(){
+    @Override
+    public int compare(HallOfFameEntry arg0, HallOfFameEntry arg1) {
+       return ((Integer)arg0.getScore()).compareTo(
+       ((Integer)arg1.getScore()));
+    }
+   });
   }
 
-  // line 66 "../../../../../Block223Persistence.ump"
+  // line 76 "../../../../../Block223Persistence.ump"
    public static  void reinitializeUniqueName(List<Game> games){
     gamesByName = new HashMap<String, Game>();
     	for (Game game : games) {
@@ -941,7 +948,7 @@ public class Game implements Serializable
   // DEVELOPER CODE - PROVIDED AS-IS
   //------------------------
   
-  // line 59 "../../../../../Block223Persistence.ump"
+  // line 61 "../../../../../Block223Persistence.ump"
   private static final long serialVersionUID = 60987679845L ;
 
   

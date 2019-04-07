@@ -595,6 +595,8 @@ public class Block223 implements Serializable
     List<Game> games=this.getGames();
     for (Game game : games) {
     game.reinitialize();
+
+    
     }
   }
 
