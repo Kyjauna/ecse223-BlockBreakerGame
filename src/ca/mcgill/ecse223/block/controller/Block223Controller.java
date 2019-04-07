@@ -626,11 +626,11 @@ public static void startGame(Block223PlayModeInterface ui) throws InvalidInputEx
 				break;
 			}
 			
-//			try {
-//				Thread.sleep(/*(long) pgame.getWaitTime()*/200);
-//			} catch (InterruptedException e) {
-//				e.printStackTrace();
-//			}
+			try {
+				Thread.sleep(/*(long) pgame.getWaitTime()*/50);
+			} catch (InterruptedException e) {
+				e.printStackTrace();
+			}
 			ui.refresh();
 			
 		}

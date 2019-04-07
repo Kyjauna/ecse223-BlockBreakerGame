@@ -35,6 +35,9 @@ public class GamePlayPage implements Block223PlayModeInterface{
 	int level;
 	String input= "";
 	JPanel panel_18;
+	JLabel lblLevel;
+	JLabel label_1;
+	JLabel label;
 	Block223KeyListener kl;
 	
 	/**
@@ -71,7 +74,17 @@ public class GamePlayPage implements Block223PlayModeInterface{
 		TOCurrentlyPlayedGame pgame=null;
 		try {
 			pgame = Block223Controller.getCurrentPlayableGame();
+			int n=0;
 			
+			if (pgame!=null) {
+				n=pgame.getCurrentLevel();
+				lblLevel.setText("LEVEL "+ n);
+				label_1.setText(Integer.toString(pgame.getScore()));
+				TOCurrentlyPlayedGame game;
+				int lives=pgame.getLives();
+				label.setText(""+lives);
+			}
+
 			panel_18.removeAll();
 			panel_18.revalidate();
 			panel_18.repaint();
@@ -341,22 +354,10 @@ public class GamePlayPage implements Block223PlayModeInterface{
 		layeredPane_4.add(panel_17);
 
 
-		JLabel lblLevel = new JLabel("");
+		lblLevel = new JLabel("");
 		lblLevel.setHorizontalAlignment(SwingConstants.CENTER);
 		lblLevel.setForeground(new Color(224, 255, 255));
 		lblLevel.setFont(projectfont32);
-		int n=0;
-		try {
-			TOCurrentlyPlayedGame game =Block223Controller.getCurrentPlayableGame();
-			if (game!=null) {
-			n=game.getCurrentLevel();
-			}
-			lblLevel.setText("LEVEL "+ n);
-			
-		} catch (InvalidInputException e) {
-			lblError.setText(e.getMessage());
-			lblError.setVisible(true);
-		}
 		
 		JButton btnQuit = new JButton("QUIT GAME");
 		btnQuit.addActionListener(new ActionListener() {
@@ -386,19 +387,7 @@ public class GamePlayPage implements Block223PlayModeInterface{
 		lblLives.setForeground(new Color(224, 255, 255));
 		
 		
-		TOCurrentlyPlayedGame game;
-		int lives=3;
-		try {
-			game = Block223Controller.getCurrentPlayableGame();	
-			if (game!=null) {
-				lives=game.getLives();
-			}
-		} catch (InvalidInputException e1) {
-			lblError.setText(e1.getMessage());
-			lblError.setVisible(true);
-		}
-		
-		JLabel label = new JLabel(""+lives);
+		label = new JLabel("");
 		label.setForeground(new Color(224, 255, 255));
 		label.setFont(projectfont32);
 		
@@ -418,16 +407,11 @@ public class GamePlayPage implements Block223PlayModeInterface{
 		lblScore.setForeground(new Color(224, 255, 255));
 		lblScore.setFont(projectfont32);
 		
-		JLabel label_1 = new JLabel("SCORE");
+		label_1 = new JLabel("0");
 		label_1.setHorizontalAlignment(SwingConstants.CENTER);
 		label_1.setForeground(new Color(224, 255, 255));
 		label_1.setFont(projectfont32);
-		try {
-			label_1.setText(Integer.toString(Block223Controller.getCurrentPlayableGame().getScore()));
-		} catch (InvalidInputException e1) {
-			lblError.setText(e1.getMessage());
-			lblError.setVisible(true);
-		}
+
 		
 		JButton btnStartGame = new JButton("Start Game");
 		btnStartGame.addActionListener(new ActionListener() {
@@ -465,7 +449,7 @@ public class GamePlayPage implements Block223PlayModeInterface{
 				t2.start();
 			}
 		});
-		btnStartGame.setFont(new Font("ArcadeClassic", Font.PLAIN, 15));
+		btnStartGame.setFont(projectfont15);
 		btnStartGame.setFocusable(false);
 		
 		GroupLayout gl_layeredPane_3 = new GroupLayout(layeredPane_3);
@@ -500,13 +484,13 @@ public class GamePlayPage implements Block223PlayModeInterface{
 							.addComponent(btnViewHallOf, GroupLayout.DEFAULT_SIZE, 166, Short.MAX_VALUE)
 							.addGap(43))))
 				.addGroup(gl_layeredPane_3.createSequentialGroup()
-					.addContainerGap()
-					.addComponent(label_1, GroupLayout.PREFERRED_SIZE, 209, GroupLayout.PREFERRED_SIZE)
-					.addContainerGap(22, Short.MAX_VALUE))
-				.addGroup(gl_layeredPane_3.createSequentialGroup()
 					.addGap(27)
 					.addComponent(btnStartGame, GroupLayout.PREFERRED_SIZE, 166, GroupLayout.PREFERRED_SIZE)
 					.addContainerGap(50, Short.MAX_VALUE))
+				.addGroup(gl_layeredPane_3.createSequentialGroup()
+					.addContainerGap()
+					.addComponent(label_1, GroupLayout.PREFERRED_SIZE, 209, GroupLayout.PREFERRED_SIZE)
+					.addContainerGap(22, Short.MAX_VALUE))
 		);
 		gl_layeredPane_3.setVerticalGroup(
 			gl_layeredPane_3.createParallelGroup(Alignment.LEADING)
@@ -518,13 +502,13 @@ public class GamePlayPage implements Block223PlayModeInterface{
 					.addComponent(lblScore, GroupLayout.PREFERRED_SIZE, 33, GroupLayout.PREFERRED_SIZE)
 					.addPreferredGap(ComponentPlacement.RELATED)
 					.addComponent(label_1, GroupLayout.PREFERRED_SIZE, 33, GroupLayout.PREFERRED_SIZE)
-					.addGap(18)
+					.addGap(28)
 					.addComponent(btnStartGame)
 					.addGap(13)
 					.addComponent(btnQuit)
 					.addGap(18)
 					.addComponent(btnLogout_1)
-					.addPreferredGap(ComponentPlacement.RELATED, 53, Short.MAX_VALUE)
+					.addPreferredGap(ComponentPlacement.RELATED, 86, Short.MAX_VALUE)
 					.addComponent(lblLives)
 					.addGap(4)
 					.addComponent(label, GroupLayout.PREFERRED_SIZE, 35, GroupLayout.PREFERRED_SIZE)
