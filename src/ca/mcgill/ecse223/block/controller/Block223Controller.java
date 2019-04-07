@@ -729,6 +729,28 @@ private static void Right(PlayedGame pgame) {
 		
 	}
 	
+	//fix
+		public static List <TOHallOfFameEntry> searchHallOfFame(String name) throws InvalidInputException {
+			
+			List <TOHallOfFameEntry> result = null;
+			TOHallOfFame hOF=null;
+			try {
+			hOF= getHallOfFame(0,100);
+			}
+			catch(InvalidInputException e) {
+				throw new InvalidInputException(e.getMessage());
+			}
+			
+			for (int i=0; i<hOF.numberOfEntries();i++) {
+				TOHallOfFameEntry entry=hOF.getEntry(i);
+				if (hOF.getEntry(i).getPlayername().equals(name)) {
+					result.add(entry);
+				}
+			}
+			return result;
+		}
+
+	
 
 	// ****************************
 	// Query methods

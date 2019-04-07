@@ -35,6 +35,8 @@ import java.util.List;
 import java.awt.event.ActionEvent;
 import javax.swing.SwingConstants;
 import javax.swing.JTextArea;
+import java.awt.event.KeyAdapter;
+import java.awt.event.KeyEvent;
 
 public class ViewHallOfFamePage {
 
@@ -42,6 +44,7 @@ public class ViewHallOfFamePage {
 	JLabel lblErrorMessage;
 	int level;
 	int start=1;
+	static int version;
 	
 	JLabel label;
 	JLabel label_1;
@@ -53,6 +56,7 @@ public class ViewHallOfFamePage {
 	JLabel label_7;
 	JLabel label_8;
 	JLabel label_9;
+	private JTextField textField;
 	
 	/**
 	 * Launch the application.
@@ -61,7 +65,7 @@ public class ViewHallOfFamePage {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
-					ViewHallOfFamePage window = new ViewHallOfFamePage();
+					ViewHallOfFamePage window = new ViewHallOfFamePage(version);
 					window.frame.setVisible(true);
 				} catch (Exception e) {
 					e.printStackTrace();
@@ -84,12 +88,34 @@ public class ViewHallOfFamePage {
 		label_9.setText(""+(start+9)+".");
 	
 	}
+	
+	private void refresh1() {
+		//Refresh for entry from PlayerPage/gamePlayPage
+		
+	}
+	
+	private void refresh2() {
+		// refresh for search for player
+		
+	}
+	
+	private void refresh3() {
+		// refresh after game over
+		
+	}
 		
 	/**
 	 * Create the application.
 	 */
-	public ViewHallOfFamePage() {
+	public ViewHallOfFamePage(int version) {
+		this.version=version;
 		initialize();
+		if (this.version==1)
+			refresh1();
+		if (this.version==2)
+			refresh2();
+		if (this.version==3)
+			refresh3();
 	}
 
 	/**
@@ -289,6 +315,26 @@ public class ViewHallOfFamePage {
 		});
 		btnExit.setFont(projectfont15);
 		
+		JLabel lblSearchPlayerName = new JLabel("Search Player Name:");
+		lblSearchPlayerName.setForeground(Color.CYAN);
+		
+		//fix
+		textField = new JTextField();
+		textField.addKeyListener(new KeyAdapter() {
+			@Override
+			public void keyPressed(KeyEvent e) {
+				String playername=textField.getText();
+					try {
+					Block223Controller.searchHallOfFame(playername);
+					refresh1();
+					}
+					catch (InvalidInputException e1) {
+						lblErrorMessage.setText(e1.getMessage());
+					}
+			}
+		});
+		textField.setColumns(10);
+		
 		GroupLayout groupLayout = new GroupLayout(frame.getContentPane());
 		groupLayout.setHorizontalGroup(
 			groupLayout.createParallelGroup(Alignment.TRAILING)
@@ -344,26 +390,32 @@ public class ViewHallOfFamePage {
 										.addGroup(groupLayout.createSequentialGroup()
 											.addGroup(groupLayout.createParallelGroup(Alignment.TRAILING)
 												.addGroup(groupLayout.createSequentialGroup()
-													.addGap(70)
-													.addComponent(btnPrevious)
-													.addPreferredGap(ComponentPlacement.RELATED)
-													.addComponent(btnExit)
-													.addPreferredGap(ComponentPlacement.RELATED)
-													.addComponent(btnNewButton, GroupLayout.PREFERRED_SIZE, 74, GroupLayout.PREFERRED_SIZE)
-													.addPreferredGap(ComponentPlacement.RELATED, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-												.addGroup(groupLayout.createSequentialGroup()
-													.addPreferredGap(ComponentPlacement.RELATED)
-													.addComponent(layeredPane_3, GroupLayout.PREFERRED_SIZE, 238, GroupLayout.PREFERRED_SIZE)
-													.addGap(21))
-												.addGroup(groupLayout.createSequentialGroup()
 													.addPreferredGap(ComponentPlacement.RELATED)
 													.addComponent(lblHallOfFame)
-													.addGap(49)))
+													.addGap(49))
+												.addGroup(Alignment.LEADING, groupLayout.createSequentialGroup()
+													.addGap(70)
+													.addGroup(groupLayout.createParallelGroup(Alignment.LEADING)
+														.addGroup(groupLayout.createSequentialGroup()
+															.addComponent(lblSearchPlayerName)
+															.addPreferredGap(ComponentPlacement.UNRELATED)
+															.addComponent(textField, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
+														.addGroup(groupLayout.createSequentialGroup()
+															.addComponent(btnPrevious)
+															.addPreferredGap(ComponentPlacement.RELATED)
+															.addComponent(btnExit)
+															.addPreferredGap(ComponentPlacement.RELATED)
+															.addComponent(btnNewButton, GroupLayout.PREFERRED_SIZE, 74, GroupLayout.PREFERRED_SIZE)))
+													.addPreferredGap(ComponentPlacement.RELATED, 11, Short.MAX_VALUE)))
 											.addGap(58)
 											.addComponent(layeredPane_2, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
 										.addGroup(groupLayout.createSequentialGroup()
 											.addGap(18)
-											.addComponent(lblGame, GroupLayout.PREFERRED_SIZE, 369, GroupLayout.PREFERRED_SIZE)))))
+											.addComponent(lblGame, GroupLayout.PREFERRED_SIZE, 369, GroupLayout.PREFERRED_SIZE))
+										.addGroup(Alignment.TRAILING, groupLayout.createSequentialGroup()
+											.addPreferredGap(ComponentPlacement.RELATED)
+											.addComponent(layeredPane_3, GroupLayout.PREFERRED_SIZE, 238, GroupLayout.PREFERRED_SIZE)
+											.addGap(81)))))
 							.addPreferredGap(ComponentPlacement.RELATED)
 							.addGroup(groupLayout.createParallelGroup(Alignment.TRAILING)
 								.addGroup(groupLayout.createParallelGroup(Alignment.LEADING)
@@ -434,7 +486,11 @@ public class ViewHallOfFamePage {
 												.addComponent(panel_38, GroupLayout.PREFERRED_SIZE, 64, GroupLayout.PREFERRED_SIZE)))
 										.addComponent(panel_31, GroupLayout.PREFERRED_SIZE, 64, GroupLayout.PREFERRED_SIZE)))
 								.addGroup(groupLayout.createSequentialGroup()
-									.addGap(332)
+									.addGap(298)
+									.addGroup(groupLayout.createParallelGroup(Alignment.BASELINE)
+										.addComponent(lblSearchPlayerName)
+										.addComponent(textField, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
+									.addGap(18)
 									.addGroup(groupLayout.createParallelGroup(Alignment.BASELINE)
 										.addComponent(btnExit)
 										.addComponent(btnPrevious)
@@ -450,7 +506,7 @@ public class ViewHallOfFamePage {
 									.addComponent(lblGame)
 									.addPreferredGap(ComponentPlacement.RELATED)
 									.addComponent(lblHallOfFame)
-									.addGap(47)
+									.addPreferredGap(ComponentPlacement.RELATED)
 									.addComponent(layeredPane_3, GroupLayout.PREFERRED_SIZE, 293, GroupLayout.PREFERRED_SIZE))
 								.addGroup(groupLayout.createSequentialGroup()
 									.addPreferredGap(ComponentPlacement.RELATED)

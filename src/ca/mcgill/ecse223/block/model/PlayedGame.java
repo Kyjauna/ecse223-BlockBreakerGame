@@ -938,7 +938,7 @@ public class PlayedGame implements Serializable
     int nrBlocks = this.numberOfBlocks();
     setBounce(null);
     
-    for(int i=0; i<numberOfBlocks()-1; i++) {	
+    for(int i=0; i<nrBlocks-1; i++) {	
     	PlayedBlockAssignment block = getBlock(i);
     	BouncePoint bp = calculateBouncePointBlock(block);
     	BouncePoint bounce = getBounce();
@@ -1050,7 +1050,7 @@ public class PlayedGame implements Serializable
 				   }
 				   
 				   // Section B and C
-				   if ((positionY-5 >= (pblock.getY()-5) && positionY-5 <= (pblock.getY())) && positionX+5 >= (pblock.getX()) && positionX-5 <= (pblock.getX()+20)||(positionY+5 <= (pblock.getY()+25)&& positionY+5 >= (pblock.getY()+20) && positionX+5 >= (pblock.getX()) && positionX-5 <= (pblock.getX()+20))) {
+				   if ((positionY-5 >= (pblock.getY()+5) && positionY-5 <= (pblock.getY())) && positionX+5 >= (pblock.getX()) && positionX-5 <= (pblock.getX()+20)||(positionY+5 <= (pblock.getY()+25)&& positionY+5 >= (pblock.getY()+20) && positionX+5 >= (pblock.getX()) && positionX-5 <= (pblock.getX()+20))) {
 					   bp = new BouncePoint(0,0,null);
 					   bp.setX(positionX);
 					   bp.setY(positionY);

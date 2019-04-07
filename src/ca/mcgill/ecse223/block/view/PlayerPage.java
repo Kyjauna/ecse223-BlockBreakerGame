@@ -189,7 +189,7 @@ public class PlayerPage {
 
 				try {
 					Block223Controller.selectPlayableGame(gameHallOfFame,-1);
-					ViewHallOfFamePage hallOfFame = new ViewHallOfFamePage();
+					ViewHallOfFamePage hallOfFame = new ViewHallOfFamePage(1);
 					hallOfFame.frame.setVisible(true);
 					frame.setVisible(false);
 				}

@@ -395,7 +395,7 @@ public class GamePlayPage implements Block223PlayModeInterface{
 		btnViewHallOf.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 			frame.dispose();
-			ViewHallOfFamePage page=new ViewHallOfFamePage();
+			ViewHallOfFamePage page=new ViewHallOfFamePage(1);
 			page.frame.setVisible(true);
 			}
 		});
