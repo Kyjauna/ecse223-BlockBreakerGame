@@ -39,75 +39,111 @@ class PlayedGame {
   }
    
    private BouncePoint calculateBouncePointPaddle(){
-    // Current position of the ball
-	   double x = getCurrentBallX();
-	   double y = getCurrentBallY();
-	   // Where the ball is going
-	   double dx = getBallDirectionX();
-	   double dy = getBallDirectionY();
-	   // New position of the ball
-	   double positionX = (x+dx);
-	   double positionY = (y+dy);
-	   
-	   BouncePoint bp = null;
-	   
-	   // Add 5 to all the variables to account for the radius of the ball
-	   Rectangle2D regionA = new Rectangle2D.Double(getCurrentPaddleX(), getCurrentPaddleY()-5.0, getCurrentPaddleLength(), 5.0);
-	   Rectangle2D regionB = new Rectangle2D.Double(getCurrentPaddleX(), getCurrentPaddleY()-5.0, 5.0, 5.0);
-	   Rectangle2D regionC = new Rectangle2D.Double(getCurrentPaddleX()+getCurrentPaddleLength(), getCurrentPaddleY(), 5.0, 5.0);
-	   Rectangle2D regionF = new Rectangle2D.Double(getCurrentPaddleX()+getCurrentPaddleLength(), getCurrentPaddleY()-5, 5.0, 5.0);
-	   Rectangle2D regionE = new Rectangle2D.Double(getCurrentPaddleX()-5, getCurrentPaddleY()-5, 5.0, 5.0);
-	   
-	   
-	   
-	   java.awt.geom.Ellipse2D ball= new java.awt.geom.Ellipse2D.Double(positionX-5, positionY-5, 10, 10);
-	   
-		   // BOUNCE
-		  
-	   
-	   // Section A
-		   if (ball.intersects(regionA)) {
-			   bp = new BouncePoint(0,0,null);
-			   bp.setX(positionX);
-			   bp.setY(positionY);
-			   bp.setDirection(BouncePoint.BounceDirection.FLIP_Y);
-		   }
-		   
-		   // Section B
-		   if (ball.intersects(regionB)||ball.intersects(regionC)) {
-			   bp = new BouncePoint(0,0,null);
-			   bp.setX(positionX);
-			   bp.setY(positionY);
-			   bp.setDirection(BouncePoint.BounceDirection.FLIP_X);
-		   }
-		   
-//		   // Section C
-//		   if (positionX == (getCurrentPaddleX()+getCurrentPaddleLength()+5) && positionY >= 355 && positionY <= 360) {
-//			   bp = new BouncePoint(0,0,null);
-//			   bp.setX(positionX);
-//			   bp.setY(positionY);
-//			   bp.setDirection(BouncePoint.BounceDirection.FLIP_X);
-//		   }
-		   
-		   // Section E
-		   // Incomplete; does not account for the whole curvature; only for the corner
-		   if (ball.intersects(regionE)) {
-			   bp = new BouncePoint(0,0,null);
-			   bp.setX(positionX);
-			   bp.setY(positionY);
-			   bp.setDirection(BouncePoint.BounceDirection.FLIP_BOTH);
-		   }
-		   
-		   // Section F
-		   if (ball.intersects(regionF)) {
-			   bp = new BouncePoint(0,0,null);
-			   bp.setX(positionX);
-			   bp.setY(positionY);
-			   bp.setDirection(BouncePoint.BounceDirection.FLIP_BOTH);
-		   }
-	  // }
-	   return bp;
-  }
+		// Current position of the ball
+		double x = getCurrentBallX();
+		double y = getCurrentBallY();
+		// Where the ball is going
+		double dx = getBallDirectionX();
+		double dy = getBallDirectionY();
+		double slope = dy/dx;
+		// New position of the ball
+		double positionX = (x+dx);
+		double positionY = (y+dy);
+
+
+		BouncePoint bp = null;
+
+		// Add 5 to all the variables to account for the radius of the ball
+		Rectangle2D regionA = new Rectangle2D.Double(getCurrentPaddleX(), getCurrentPaddleY()-5.0, getCurrentPaddleLength(), 5.0);
+		Rectangle2D regionB = new Rectangle2D.Double(getCurrentPaddleX()-5, getCurrentPaddleY(), 5.0, 5.0);
+		Rectangle2D regionC = new Rectangle2D.Double(getCurrentPaddleX()+getCurrentPaddleLength(), getCurrentPaddleY(), 5.0, 5.0);
+		Rectangle2D regionF = new Rectangle2D.Double(getCurrentPaddleX()+getCurrentPaddleLength(), getCurrentPaddleY()-5, 5.0, 5.0);
+		Rectangle2D regionE = new Rectangle2D.Double(getCurrentPaddleX()-5, getCurrentPaddleY()-5, 5.0, 5.0);
+
+		java.awt.geom.Ellipse2D ball= new java.awt.geom.Ellipse2D.Double(positionX-5, positionY-5, 10, 10);
+
+		java.awt.geom.Line2D path=new java.awt.geom.Line2D.Double(positionX, positionY, x, y);
+
+		// BOUNCE
+
+		// Section E
+		if (ball.intersects(regionE)) {
+			System.out.println("Intersecting E");
+			bp = new BouncePoint(0,0,null);
+			// If approaching from the right, flip Y
+			if(dx <= 0.0) {
+				double newX = x+(regionE.getY()-y)/slope;
+				List<Point2D> points = getInterectionPoints(path, regionE.getX(), regionE.getY(), 5);
+				if (points != null && !points.isEmpty()) {
+					bp.setX(points.get(0).getX());
+					bp.setY(points.get(0).getY());
+					bp.setDirection(BouncePoint.BounceDirection.FLIP_Y);
+				} }
+			// If approaching from the left, flip X
+			else if (dx > 0.0) {
+				bp.setX(regionE.getX());
+				List<Point2D> points = getInterectionPoints(path, regionE.getX(), regionE.getY(), 5);
+				if (points != null && !points.isEmpty()) {
+					double newY = y+slope*(bp.getX()-x);
+					bp.setY(newY);
+					bp.setDirection(BouncePoint.BounceDirection.FLIP_X);
+			} }
+		}
+
+		//Section F
+		if (ball.intersects(regionF)) {
+			System.out.println("Intersecting F");
+			bp = new BouncePoint(0,0,null);
+			// If approaching from the left, flip Y
+			if (dx > 0.0) {
+				List<Point2D> points = getInterectionPoints(path, regionF.getX()+5, regionF.getY(), 5);
+				if (points != null && !points.isEmpty()) {
+					bp.setX(points.get(0).getX());
+					bp.setY(points.get(0).getY());
+					bp.setDirection(BouncePoint.BounceDirection.FLIP_Y);
+				}
+			} else if (dx <= 0.0) {
+				bp.setX(regionF.getX()+5);
+				List<Point2D> points = getInterectionPoints(path, regionF.getX()+5, regionF.getY(), 5);
+				if (points != null && !points.isEmpty()) {
+					bp.setX(points.get(0).getX());
+					bp.setY(points.get(0).getY());
+					bp.setDirection(BouncePoint.BounceDirection.FLIP_X);
+				}
+			}
+		}
+
+		// Section C
+		if (ball.intersects(regionC)) {
+			bp = new BouncePoint(0,0,null);
+			bp.setX(regionC.getX()+5);
+			double newY = y+slope*(bp.getX()-x);
+			bp.setY(newY);
+			bp.setDirection(BouncePoint.BounceDirection.FLIP_X);
+		}
+
+		// Section A
+		else if (ball.intersects(regionA)) {
+			bp = new BouncePoint(0,0,null);
+			bp.setY(regionA.getY());
+			double newX = x+(bp.getY()-y)/slope;
+			bp.setX(newX);
+			bp.setDirection(BouncePoint.BounceDirection.FLIP_Y);
+		}
+
+
+		// Section B
+		else if (ball.intersects(regionB)) {
+			bp = new BouncePoint(0,0,null);
+			bp.setX(regionB.getX());
+			double newY = y+slope*(bp.getX()-x);
+			bp.setY(newY);
+			bp.setDirection(BouncePoint.BounceDirection.FLIP_X);
+		}
+
+
+		return bp;
+	}
    
    private void bounceBall(){
 		double incomingX;
@@ -120,6 +156,11 @@ class PlayedGame {
 		double bpy=bounce.getY();
 		double dx=getBallDirectionX();
 		double dy=getBallDirectionY();
+		
+		if (dx >= 10 || dy >= 10) {
+			dx = dx/10;
+			dy = dy/10;
+		}
 
 		System.out.println("dy= "+getBallDirectionY());
 		System.out.println("dx= "+getBallDirectionX());
@@ -191,6 +232,26 @@ class PlayedGame {
 				setCurrentBallY(bounce.getY() + (remainingY/dy)*(getBallDirectionY()));
 			} 
 		}
+		// Flip_Both Case
+		if (bounce.getDirection() == BouncePoint.BounceDirection.FLIP_BOTH) {
+			// Incoming distance for both X and Y
+			incomingY = (bpy - currenty);
+			incomingX = (bpx - currentx);
+			remainingY = (dy - incomingY);
+			remainingX = (dx - incomingX);
+			if (remainingY == 0 && remainingX == 0) {
+				setCurrentBallY(bounce.getY());
+				setCurrentBallX(bounce.getX());
+
+			} else {
+				setBallDirectionY(dy*(-1));
+				setBallDirectionX(dx*(-1));
+
+				setCurrentBallY(bounce.getY() + (remainingY/dy)*(getBallDirectionY()));
+				setCurrentBallX(bounce.getX() + (remainingX/dx)*(getBallDirectionX()));
+			}
+		}
+		
 		bounce=null; 
 	}
 
@@ -278,134 +339,247 @@ private boolean hitBlock(){
   }
   
       private BouncePoint calculateBouncePointWall(){
-    // Current position of the ball
-	   double x = getCurrentBallX();
-	   double y = getCurrentBallY();
-	   // Where the ball is going
-	   double dx = getBallDirectionX();
-	   double dy = getBallDirectionY();
-	   // New position of the ball
-	   double positionX = (x+dx);
-	   double positionY = (y+dy);
-	   
-	   BouncePoint bp = null;
-	   java.awt.geom.Rectangle2D regionA=new java.awt.geom.Rectangle2D.Double(0, 0, 5, 390-5);
-	   
-	   java.awt.geom.Rectangle2D regionC=new java.awt.geom.Rectangle2D.Double(390-5, 0, 5, 390-5);
-	   
-	   java.awt.geom.Rectangle2D regionD=new java.awt.geom.Rectangle2D.Double(0, 0, 390-10, 5);
-	   
-	   java.awt.geom.Ellipse2D ball= new java.awt.geom.Ellipse2D.Double(positionX-5, positionY-5, 10, 10);
-	   
-	   // Section A
-	   if (ball.intersects(regionA)||ball.intersects(regionC)) {
-		   bp = new BouncePoint(0,0,null);
-		   bp.setX(positionX);
-		   bp.setY(positionY);
-		   bp.setDirection(BouncePoint.BounceDirection.FLIP_X);
-	   }
-	   
-	   // Section B
-	   if (ball.intersects(regionD)) {
-		   bp = new BouncePoint(0,0,null);
-		   bp.setX(positionX);
-		   bp.setY(positionY);
-		   bp.setDirection(BouncePoint.BounceDirection.FLIP_Y);
-	   }
-	   
-	   // A-B Corner
-	   if (positionX == 5 && positionY == 5) {
-		   bp = new BouncePoint(0,0,null);
-		   bp.setX(positionX);
-		   bp.setY(positionY);
-		   bp.setDirection(BouncePoint.BounceDirection.FLIP_BOTH);
-	   }
-	   
-	   // B-C Corner
-	   if (positionX == 385 && positionY == 5) {
-		   bp = new BouncePoint(0,0,null);
-		   bp.setX(positionX);
-		   bp.setY(positionY);
-		   bp.setDirection(BouncePoint.BounceDirection.FLIP_BOTH);
-	   }
-	   
-	   return bp;
-  }
+		// Current position of the ball
+		double x = getCurrentBallX();
+		double y = getCurrentBallY();
+		// Where the ball is going
+		double dx = getBallDirectionX();
+		double dy = getBallDirectionY();
+		double slope=dy/dx;
+		// New position of the ball
+		double positionX = (x+dx);
+		double positionY = (y+dy);
+
+		BouncePoint bp = null;
+		java.awt.geom.Rectangle2D regionA=new java.awt.geom.Rectangle2D.Double(0, 0, 5, 390-5);
+
+		java.awt.geom.Rectangle2D regionC=new java.awt.geom.Rectangle2D.Double(390-5, 0, 5, 390-5);
+
+		java.awt.geom.Rectangle2D regionD=new java.awt.geom.Rectangle2D.Double(0, 0, 390-10, 5);
+
+		java.awt.geom.Ellipse2D ball= new java.awt.geom.Ellipse2D.Double(positionX-5, positionY-5, 10, 10);
+		
+		
+		// A-B Corner
+		if (positionX > 5 && positionY > 5) {
+			bp = new BouncePoint(0,0,null);
+			bp.setX(5);
+			bp.setY(5);
+			bp.setDirection(BouncePoint.BounceDirection.FLIP_BOTH);
+		}
+
+		// B-C Corner
+		else if (positionX >= 385 && positionY <= 5) {
+			bp = new BouncePoint(0,0,null);
+			bp.setX(390-5);
+			bp.setY(5);
+			bp.setDirection(BouncePoint.BounceDirection.FLIP_BOTH);
+		}
+		
+
+		// Section A
+		else if (ball.intersects(regionA)) {
+			bp = new BouncePoint(0,0,null);
+			bp.setX(5);
+			double newy=y+slope*(bp.getX()-x);
+			bp.setY(newy);
+			bp.setDirection(BouncePoint.BounceDirection.FLIP_X);
+		}
+
+		else if (ball.intersects(regionC)) {
+			bp = new BouncePoint(0,0,null);
+			bp.setX(390-5);
+			double newy=y+slope*(bp.getX()-x);
+			bp.setY(newy);
+			bp.setDirection(BouncePoint.BounceDirection.FLIP_X);
+		}
+
+		// Section B
+		else if (ball.intersects(regionD)) {
+			bp = new BouncePoint(0,0,null);
+			bp.setY(5);
+			double newx=x+(bp.getY()-y)/slope;
+			bp.setX(newx);
+			bp.setDirection(BouncePoint.BounceDirection.FLIP_Y);
+		}
+
+
+		return bp;
+	}
 
   private BouncePoint calculateBouncePointBlock(PlayedBlockAssignment pblock){
-    // Current position of the ball
-		   double x = getCurrentBallX();
-		   double y = getCurrentBallY();
-		   // Where the ball is going
-		   double dx = getBallDirectionX();
-		   double dy = getBallDirectionY();
-		   // New position of the ball
-		   double positionX = (x+dx);
-		   double positionY = (y+dy);
-		   
-		   BouncePoint bp = null; 
-		   //java.awt.geom.Rectangle2D physicalblock=new java.awt.geom.Rectangle2D.Double(pblock.getX()-10, pblock.getY()-10, 30.0, 30.0);
-		   
-		   java.awt.geom.Rectangle2D regionA=new java.awt.geom.Rectangle2D.Double(pblock.getX(), pblock.getY()-5, 20, 5);
-		   
-		   java.awt.geom.Rectangle2D regionD=new java.awt.geom.Rectangle2D.Double(pblock.getX(), pblock.getY()+20, 20, 5);
-		   
-		   java.awt.geom.Rectangle2D regionB=new java.awt.geom.Rectangle2D.Double(pblock.getX()-5, pblock.getY(), 5, 20);
-		   
-		   java.awt.geom.Rectangle2D regionC=new java.awt.geom.Rectangle2D.Double(pblock.getX()+20, pblock.getY(), 5, 20);
-		   
-		   java.awt.geom.Rectangle2D regionE=new java.awt.geom.Rectangle2D.Double(pblock.getX()-5, pblock.getY()-5, 5, 5);
-		   
-		   java.awt.geom.Rectangle2D regionF=new java.awt.geom.Rectangle2D.Double(pblock.getX()+20, pblock.getY()-5, 5, 5);
-		   
-		   java.awt.geom.Rectangle2D regionG=new java.awt.geom.Rectangle2D.Double(pblock.getX()-5, pblock.getY()+20, 5, 5);
-		   
-		   java.awt.geom.Rectangle2D regionH=new java.awt.geom.Rectangle2D.Double(pblock.getX()+20, pblock.getY()+20, 5, 5);
-		   
-		   java.awt.geom.Ellipse2D ball=new java.awt.geom.Ellipse2D.Double(positionX-5, positionY-5, 10, 10);
-		   
-		   
-				
-				// Section A and D
-				   if (ball.intersects(regionA)||ball.intersects(regionD)) {
-					   bp = new BouncePoint(0,0,null);
-					   bp.setHitBlock(pblock);
-					   bp.setX(positionX);
-					   bp.setY(positionY);
-					   bp.setDirection(BouncePoint.BounceDirection.FLIP_X);
-				   }
-				   
-				   // Section B and C
-				   if (ball.intersects(regionB)||ball.intersects(regionC)) {
-					   bp = new BouncePoint(0,0,null);
-					   bp.setHitBlock(pblock);
-					   bp.setX(positionX);
-					   bp.setY(positionY);
-					   bp.setDirection(BouncePoint.BounceDirection.FLIP_Y);
-				   }
-					
-					 //Section E and G
-				   if (ball.intersects(regionE)||ball.intersects(regionG)) {
-						   bp = new BouncePoint(0,0,null);
-						   bp.setHitBlock(pblock);
-						   bp.setX(positionX);
-						   bp.setY(positionY);
-						   bp.setDirection(BouncePoint.BounceDirection.FLIP_BOTH);
-						   //flip Y if ball approaches from right and Flip X if ball approaches from left
-				   }
-						   
-					   //Section F and H
-				   if (ball.intersects(regionF)||ball.intersects(regionH)) {
-					   bp = new BouncePoint(0,0,null);
-					   bp.setHitBlock(pblock);
-					   bp.setX(positionX);
-					   bp.setY(positionY);
-					   bp.setDirection(BouncePoint.BounceDirection.FLIP_BOTH);
-					   //Flip X of ball approaches from right and Flip Y if ball approaches from left
-					}   
-		
-		   return bp;
-  }
+		// Current position of the ball
+		double x = getCurrentBallX();
+		double y = getCurrentBallY();
+		// Where the ball is going
+		double dx = getBallDirectionX();
+		double dy = getBallDirectionY();
+		double slope=dy/dx;
+		// New position of the ball
+		double positionX = (x+dx);
+		double positionY = (y+dy);
+
+		BouncePoint bp = null; 
+		//java.awt.geom.Rectangle2D physicalblock=new java.awt.geom.Rectangle2D.Double(pblock.getX()-10, pblock.getY()-10, 30.0, 30.0);
+
+		java.awt.geom.Rectangle2D regionA=new java.awt.geom.Rectangle2D.Double(pblock.getX(), pblock.getY()-5, 20, 5);
+
+		java.awt.geom.Rectangle2D regionD=new java.awt.geom.Rectangle2D.Double(pblock.getX(), pblock.getY()+20, 20, 5);
+
+		java.awt.geom.Rectangle2D regionB=new java.awt.geom.Rectangle2D.Double(pblock.getX()-5, pblock.getY(), 5, 20);
+
+		java.awt.geom.Rectangle2D regionC=new java.awt.geom.Rectangle2D.Double(pblock.getX()+20, pblock.getY(), 5, 20);
+
+		java.awt.geom.Rectangle2D regionE=new java.awt.geom.Rectangle2D.Double(pblock.getX()-5, pblock.getY()-5, 5, 5);
+
+		java.awt.geom.Rectangle2D regionF=new java.awt.geom.Rectangle2D.Double(pblock.getX()+20, pblock.getY()-5, 5, 5);
+
+		java.awt.geom.Rectangle2D regionG=new java.awt.geom.Rectangle2D.Double(pblock.getX()-5, pblock.getY()+20, 5, 5);
+
+		java.awt.geom.Rectangle2D regionH=new java.awt.geom.Rectangle2D.Double(pblock.getX()+20, pblock.getY()+20, 5, 5);
+
+		java.awt.geom.Ellipse2D ball=new java.awt.geom.Ellipse2D.Double(positionX-5, positionY-5, 10, 10);
+
+		java.awt.geom.Line2D path=new java.awt.geom.Line2D.Double(positionX, positionY, x, y);
+
+
+		if (ball.intersects(regionE)) {
+			System.out.println("intersecting E");
+			bp = new BouncePoint(0,0,null);
+			bp.setHitBlock(pblock);
+			System.out.println("dx: "+dx);
+			if  (dx<=0.0) {
+				double newx=x+(regionE.getY()-y)/slope;
+				List<Point2D> points = getInterectionPoints(path, pblock.getX(), pblock.getY(), 5);
+				if (points!=null&&!points.isEmpty()) {
+					bp.setX(points.get(0).getX());
+					bp.setY(points.get(0).getY());
+					bp.setDirection(BouncePoint.BounceDirection.FLIP_Y);
+				}}
+			else if(dx>0.0) {
+				bp.setX(regionE.getX());
+				List<Point2D> points = getInterectionPoints(path, pblock.getX(), pblock.getY(), 5);
+				if (points!=null&&!points.isEmpty()) {
+					bp.setX(points.get(0).getX());
+					bp.setY(points.get(0).getY());
+					bp.setDirection(BouncePoint.BounceDirection.FLIP_X);
+					//flip Y if ball approaches from right and Flip X if ball approaches from left
+				}}
+		}
+		//Section F
+		else if (ball.intersects(regionF)) {
+			System.out.println("intersecting F");
+			bp = new BouncePoint(0,0,null);
+			bp.setHitBlock(pblock);
+			System.out.println("dx: "+dx);
+			if  (dx>0.0) {
+				System.out.println("dx>0.0: "+(dx>0.0));
+				List<Point2D> points = getInterectionPoints(path, pblock.getX()+20, pblock.getY(), 5);
+				if (points!=null&&!points.isEmpty()) {
+					bp.setX(points.get(0).getX());
+					bp.setY(points.get(0).getY());
+					bp.setDirection(BouncePoint.BounceDirection.FLIP_Y);
+				}}
+			else if(dx<=0.0) {
+				bp.setX(regionF.getX()+5);
+				List<Point2D> points = getInterectionPoints(path, pblock.getX()+20, pblock.getY(), 5);
+				if (points!=null&&!points.isEmpty()) {
+					bp.setX(points.get(0).getX());
+					bp.setY(points.get(0).getY());
+					bp.setDirection(BouncePoint.BounceDirection.FLIP_X);
+					//flip Y if ball approaches from right and Flip X if ball approaches from left
+				}}
+		}
+		//sectionG
+		else if (ball.intersects(regionG)) {
+			System.out.println("intersecting G");
+			bp = new BouncePoint(0,0,null);
+			bp.setHitBlock(pblock);
+			System.out.println("dx: "+dx);
+			if  (dx<=0.0) {
+				List<Point2D> points = getInterectionPoints(path, pblock.getX(), pblock.getY()+20, 5);
+				if (points!=null&&!points.isEmpty()) {
+					bp.setX(points.get(0).getX());
+					bp.setY(points.get(0).getY());
+					bp.setDirection(BouncePoint.BounceDirection.FLIP_Y);
+				}}
+			else if(dx>0.0) {
+				List<Point2D> points = getInterectionPoints(path, pblock.getX(), pblock.getY()+20, 5);
+				if (points!=null&&!points.isEmpty()) {
+					bp.setX(points.get(0).getX());
+					bp.setY(points.get(0).getY());
+					bp.setDirection(BouncePoint.BounceDirection.FLIP_X);
+					//flip Y if ball approaches from right and Flip X if ball approaches from left
+				}}
+		}
+		//Section H
+		else if (ball.intersects(regionH)) {
+			System.out.println("intersecting H");
+			bp = new BouncePoint(0,0,null);
+			bp.setHitBlock(pblock);
+			System.out.println("dx: "+dx);
+			if  (dx>0.0) {
+				List<Point2D> points = getInterectionPoints(path, pblock.getX()+20, pblock.getY()+20, 5);
+				if (points!=null&&!points.isEmpty()) {
+					bp.setX(points.get(0).getX());
+					bp.setY(points.get(0).getY());
+					bp.setDirection(BouncePoint.BounceDirection.FLIP_Y);
+				}}
+			else if(dx<=0.0) {
+				List<Point2D> points = getInterectionPoints(path, pblock.getX()+20, pblock.getY()+20, 5);
+				if (points!=null&&!points.isEmpty()) {
+					bp.setX(points.get(0).getX());
+					bp.setY(points.get(0).getY());
+					bp.setDirection(BouncePoint.BounceDirection.FLIP_X);
+					//flip Y if ball approaches from right and Flip X if ball approaches from left
+				}}
+		}
+		// Section A
+		if ((bp!=null&&bp.getDirection()==null)||bp==null) {
+			if (ball.intersects(regionA)) {
+				System.out.println("intersecting A");
+				bp = new BouncePoint(0,0,null);
+				bp.setHitBlock(pblock);
+				bp.setY(regionA.getY());
+				double newx=x+(bp.getY()-y)/slope;
+				bp.setX(newx);
+				bp.setDirection(BouncePoint.BounceDirection.FLIP_Y);
+			}
+			//sectionD
+			else if (ball.intersects(regionD)) {
+				System.out.println("intersecting D");
+				bp = new BouncePoint(0,0,null);
+				bp.setHitBlock(pblock);
+				bp.setY(regionD.getY()+5);
+				double newx=x+(bp.getY()-y)/slope;
+				bp.setX(newx);
+				bp.setDirection(BouncePoint.BounceDirection.FLIP_Y);
+			}
+
+			// Section B
+			else if (ball.intersects(regionB)) {
+				System.out.println("intersecting B");
+				bp = new BouncePoint(0,0,null);
+				bp.setHitBlock(pblock);
+				bp.setX(regionB.getX());
+				double newy=y+slope*(bp.getX()-x);
+				bp.setY(newy);
+				bp.setDirection(BouncePoint.BounceDirection.FLIP_X);
+			}
+
+			else if (ball.intersects(regionC)) {
+				System.out.println("intersecting C");
+				bp = new BouncePoint(0,0,null);
+				bp.setHitBlock(pblock);
+				bp.setX(regionC.getX()+5);
+				double newy=y+slope*(bp.getX()-x);
+				bp.setY(newy);
+				bp.setDirection(BouncePoint.BounceDirection.FLIP_X);
+			}
+		}
+
+		return bp;
+	}
   // Actions
   
    private void doSetup(){
