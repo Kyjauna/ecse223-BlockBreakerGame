@@ -625,13 +625,8 @@ public class Block223Controller {
 				break;
 			}
 
-			//			long currenttime =System.nanoTime();
-			//			long waittime =currenttime+(long)pgame.getWaitTime();
-			//			
-			//			while (System.nanoTime()<waittime) {}
-
 			try {
-				Thread.sleep((long) pgame.getWaitTime()/100);
+				Thread.sleep((long) pgame.getWaitTime());
 			} catch (InterruptedException e) {
 				e.printStackTrace();
 			}
@@ -711,6 +706,29 @@ public class Block223Controller {
 
 	}
 
+	public static void selectTestGame() throws InvalidInputException {
+
+		if (!(Block223Application.getCurrentUserRole() instanceof Admin))
+			throw new InvalidInputException("Admin privileges are required to test a game.");
+
+		if (Block223Application.getCurrentGame()==null)
+			throw new InvalidInputException("A game must be selected to test it.");
+
+		if (Block223Application.getCurrentUserRole()!=Block223Application.getCurrentGame().getAdmin())
+			throw new InvalidInputException("Only the admin who created the game can test it.");
+
+		Game game = Block223Application.getCurrentGame();
+		UserRole admin= game.getAdmin();
+		Block223 b =Block223Application.getBlock223();
+
+		String username= b.findWithRole(admin).getUsername();
+		PlayedGame pgame=new PlayedGame(username, game, b);
+		pgame.setPlayer(null);
+		Block223Application.setCurrentPlayableGame(pgame);
+
+		//startGame(ui);
+
+	}
 	public static void publishGame () throws InvalidInputException {
 
 		if (!(Block223Application.getCurrentUserRole() instanceof Admin))

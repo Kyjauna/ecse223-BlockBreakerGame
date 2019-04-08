@@ -69,6 +69,13 @@ public class GamePlayPage implements Block223PlayModeInterface{
 	 */
 	public GamePlayPage(int i) {
 		type=i;
+		if (type==2)
+			try {
+				Block223Controller.selectTestGame();
+			} catch (InvalidInputException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
 		initialize();
 		refreshBlocks();
 		refresh();
@@ -77,7 +84,10 @@ public class GamePlayPage implements Block223PlayModeInterface{
 
 	public void refresh() {
 		//input="";
+
 		try {
+			if (type==2)
+				Block223Controller.selectTestGame();
 			pgame = Block223Controller.getCurrentPlayableGame();
 			panel_18.remove(paddle);
 			panel_18.remove(ball);
@@ -91,10 +101,10 @@ public class GamePlayPage implements Block223PlayModeInterface{
 				TOCurrentlyPlayedGame game;
 				int lives=pgame.getLives();
 				label.setText(""+lives);
-				
+
 			}
 
-				refreshBlocks();
+			refreshBlocks();
 
 			paddle.setBackground(Color.BLACK);
 			paddle.setBounds((int)(pgame.getCurrentPaddleX()),355,(int) (pgame.getCurrentPaddleLength()), 5);
@@ -103,7 +113,7 @@ public class GamePlayPage implements Block223PlayModeInterface{
 			ball.setBackground(Color.BLACK);
 			ball.setBounds((int)pgame.getCurrentBallX()-5,(int)pgame.getCurrentBallY()-5, 10,10);
 			ball.setVisible(true);
-			
+
 			panel_18.add(ball);
 			panel_18.add(paddle);
 
@@ -121,6 +131,8 @@ public class GamePlayPage implements Block223PlayModeInterface{
 	private void refreshBlocks() {
 		TOCurrentlyPlayedGame pgame=null;
 		try {
+			if (type==2)
+				Block223Controller.selectTestGame();
 			panel_18.removeAll();
 			pgame = Block223Controller.getCurrentPlayableGame();
 			List<TOCurrentBlock> blocks = pgame.getBlocks();
@@ -219,6 +231,7 @@ public class GamePlayPage implements Block223PlayModeInterface{
 		panel_18.setBackground(Color.WHITE);
 
 		try {
+			
 			Block223Controller.getCurrentPlayableGame();
 			if(pgame!=null) {
 				ball = new BallRendering((int)pgame.getCurrentBallX(),(int)pgame.getCurrentBallY(), 10);
@@ -455,6 +468,7 @@ public class GamePlayPage implements Block223PlayModeInterface{
 		JButton btnStartGame = new JButton("Start Game");
 		if (type==1)
 			btnStartGame.setText("TEST GAME");
+		
 		btnStartGame.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				btnStartGame.setVisible(false);
@@ -480,11 +494,7 @@ public class GamePlayPage implements Block223PlayModeInterface{
 					@Override
 					public void run() {
 						try {
-							if (type==0)
 							Block223Controller.startGame(GamePlayPage.this);
-							if(type==2)
-							Block223Controller.testGame(GamePlayPage.this);
-							
 							btnStartGame.setVisible(true);
 						} catch (InvalidInputException e) {
 						}

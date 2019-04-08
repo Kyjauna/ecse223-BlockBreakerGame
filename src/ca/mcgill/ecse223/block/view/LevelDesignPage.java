@@ -688,6 +688,12 @@ public class LevelDesignPage {
 		JButton button_1 = new JButton("TEST GAME");
 		button_1.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
+				try {
+					Block223Controller.selectTestGame();
+				} catch (InvalidInputException e1) {
+					// TODO Auto-generated catch block
+					lblErrormessage.setText(e1.getMessage());
+				}
 				GamePlayPage ui = new GamePlayPage(1);
 				ui.frame.setVisible(true);
 				

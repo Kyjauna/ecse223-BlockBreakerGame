@@ -783,8 +783,8 @@ public class PlayedGame implements Serializable
 		Rectangle2D regionA = new Rectangle2D.Double(getCurrentPaddleX(), getCurrentPaddleY()-5.0, getCurrentPaddleLength(), 5.0);
 		Rectangle2D regionB = new Rectangle2D.Double(getCurrentPaddleX()-5, getCurrentPaddleY(), 5.0, 5.0);
 		Rectangle2D regionC = new Rectangle2D.Double(getCurrentPaddleX()+getCurrentPaddleLength(), getCurrentPaddleY(), 5.0, 5.0);
-		Rectangle2D regionF = new Rectangle2D.Double(getCurrentPaddleX()+getCurrentPaddleLength(), getCurrentPaddleY()-5, 5.0, 5.0);
-		Rectangle2D regionE = new Rectangle2D.Double(getCurrentPaddleX()-5, getCurrentPaddleY()-5, 5.0, 5.0);
+		Rectangle2D regionF = new Rectangle2D.Double(getCurrentPaddleX()+getCurrentPaddleLength(), getCurrentPaddleY()-5.0, 3.0, 3.0);
+		Rectangle2D regionE = new Rectangle2D.Double(getCurrentPaddleX()-5, getCurrentPaddleY()-5, 3.0, 3.0);
 
 		java.awt.geom.Ellipse2D ball= new java.awt.geom.Ellipse2D.Double(positionX-5, positionY-5, 10, 10);
 
@@ -794,7 +794,7 @@ public class PlayedGame implements Serializable
 
 		// Section E
 		if (ball.intersects(regionE)) {
-			//System.out.println("Intersecting E");
+			System.out.println("Intersecting E");
 			bp = new BouncePoint(0,0,null);
 			// If approaching from the right, flip Y
 			if(dx <= 0.0) {
@@ -817,7 +817,7 @@ public class PlayedGame implements Serializable
 		}
 
 		//Section F
-		if (ball.intersects(regionF)) {
+		else if (ball.intersects(regionF)) {
 			System.out.println("Intersecting F");
 			bp = new BouncePoint(0,0,null);
 			// If approaching from the left, flip Y
@@ -839,7 +839,7 @@ public class PlayedGame implements Serializable
 		}
 		if ((bp!=null&&bp.getDirection()==null)||bp==null) {
 			// Section C
-			if (ball.intersects(regionC)) {
+			if (ball.intersects(regionC)&&dx<0) {
 				bp = new BouncePoint(0,0,null);
 				bp.setX(regionC.getX()+5);
 				double newY = y+slope*(bp.getX()-x);
@@ -848,7 +848,7 @@ public class PlayedGame implements Serializable
 			}
 
 			// Section A
-			else if (ball.intersects(regionA)) {
+			else if (ball.intersects(regionA)&&dy>0) {
 				bp = new BouncePoint(0,0,null);
 				bp.setY(regionA.getY());
 				double newX = x+(bp.getY()-y)/slope;
@@ -857,7 +857,7 @@ public class PlayedGame implements Serializable
 			}
 
 			// Section B
-			else if (ball.intersects(regionB)) {
+			else if (ball.intersects(regionB)&&dx>0) {
 				bp = new BouncePoint(0,0,null);
 				bp.setX(regionB.getX());
 				double newY = y+slope*(bp.getX()-x);
@@ -890,11 +890,6 @@ public class PlayedGame implements Serializable
 		System.out.println("bpy= "+bounce.getY());
 		System.out.println("bpx= "+bounce.getX());
 
-		if (dx >= 10 || dy >= 10) {
-			dx = dx/10;
-			dy = dy/10;
-		}
-
 		System.out.println("Bounce: "+bounce);
 
 		// Flip_X case
@@ -919,12 +914,8 @@ public class PlayedGame implements Serializable
 				setBallDirectionX(dx*(-1));
 				setBallDirectionY(dy + sign*0.1*Math.abs(dx));
 
-				setCurrentBallX(bounce.getX() + (remainingX)*(getBallDirectionX()));
+				setCurrentBallX(bounce.getX() + (remainingX/dx)*(getBallDirectionX()));
 				setCurrentBallY(bounce.getY() + (remainingX/dx)*(getBallDirectionY()));
-				System.out.println("CurrentX: "+currentBallX);
-				System.out.println("CurrentY: "+currentBallY);
-				System.out.println("NewDX: "+ballDirectionX);
-				System.out.println("NewDY: "+ballDirectionY);
 
 			}
 		}
@@ -935,8 +926,6 @@ public class PlayedGame implements Serializable
 			incomingY = (bpy - currenty);
 			remainingY = (dy - incomingY);
 
-			System.out.println("incomingY: "+incomingY);
-			System.out.println("remainingY: "+remainingY);
 
 			if (remainingY == 0) {
 				setCurrentBallX(bounce.getX());
@@ -982,6 +971,11 @@ public class PlayedGame implements Serializable
 				setCurrentBallY(bounce.getY() + (remainingY/dy)*(getBallDirectionY()));
 				setCurrentBallX(bounce.getX() + (remainingX/dx)*(getBallDirectionX()));
 			}
+		}
+		
+		if (ballDirectionX >= 10 || ballDirectionY >= 10) {
+			ballDirectionX = ballDirectionX/10;
+			ballDirectionY = ballDirectionY/10;
 		}
 
 		bounce=null; 
@@ -1110,8 +1104,7 @@ public class PlayedGame implements Serializable
 
 
 		// Section A
-
-		if (ball.intersects(regionC)) {
+		else if (ball.intersects(regionC)&&dx>0) {
 			bp = new BouncePoint(0,0,null);
 			bp.setX(390-5);
 			double newy=y+slope*(bp.getX()-x);
@@ -1119,7 +1112,7 @@ public class PlayedGame implements Serializable
 			bp.setDirection(BouncePoint.BounceDirection.FLIP_X);
 		}
 		
-		else if (ball.intersects(regionA)) {
+		else if (ball.intersects(regionA)&&dx<0) {
 			bp = new BouncePoint(0,0,null);
 			bp.setX(5);
 			double newy=y+slope*(bp.getX()-x);
@@ -1128,7 +1121,7 @@ public class PlayedGame implements Serializable
 		}
 
 		// Section B
-		else if (ball.intersects(regionD)) {
+		else if (ball.intersects(regionD)&&dy<0) {
 			bp = new BouncePoint(0,0,null);
 			bp.setY(5);
 			double newx=x+(bp.getY()-y)/slope;
