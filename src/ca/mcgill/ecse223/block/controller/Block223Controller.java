@@ -631,7 +631,7 @@ public class Block223Controller {
 			//			while (System.nanoTime()<waittime) {}
 
 			try {
-				Thread.sleep(/*(long) pgame.getWaitTime()*/10);
+				Thread.sleep((long) pgame.getWaitTime()/100);
 			} catch (InterruptedException e) {
 				e.printStackTrace();
 			}

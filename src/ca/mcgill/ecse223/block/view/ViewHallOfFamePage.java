@@ -41,6 +41,7 @@ import javax.swing.JTextArea;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
 import java.awt.GridLayout;
+import java.awt.GridBagLayout;
 
 public class ViewHallOfFamePage {
 
@@ -55,9 +56,22 @@ public class ViewHallOfFamePage {
 	JLabel lblQualifyer = new JLabel("");
 	JLabel headerlabel=new JLabel("Position		Player		Score");
 	Font projectfont=null;
+	JPanel panel_3 = new JPanel();
 
-	
-	
+	JLabel lbl1=new JLabel("1");
+	JLabel lbl2=new JLabel("2");
+	JLabel lbl3=new JLabel("3");
+	JLabel lbl4=new JLabel("4");
+	JLabel lbl5=new JLabel("5");
+	JLabel lbl6=new JLabel("6");
+	JLabel lbl7=new JLabel("7");
+	JLabel lbl8=new JLabel("8");
+	JLabel lbl9=new JLabel("9");
+	JLabel lbl10=new JLabel("10");
+
+
+
+
 
 	/**
 	 * Launch the application.
@@ -86,15 +100,15 @@ public class ViewHallOfFamePage {
 			// TODO Auto-generated catch block
 			e1.printStackTrace();
 		}
-		
+
 		Font projectfont52 = projectfont.deriveFont(52f);
 		Font projectfont15 = projectfont.deriveFont(15f);
 		Font projectfont12 = projectfont.deriveFont(12f);
 		Font projectfont32 = projectfont.deriveFont(32f);
 		Font projectfont22 = projectfont.deriveFont(22f);
 	}
-	
-	
+
+
 	private void refresh1() {
 		//Refresh for entry from PlayerPage/gamePlayPage
 		Font projectfont52 = projectfont.deriveFont(52f);
@@ -102,81 +116,280 @@ public class ViewHallOfFamePage {
 		Font projectfont12 = projectfont.deriveFont(12f);
 		Font projectfont32 = projectfont.deriveFont(32f);
 		Font projectfont22 = projectfont.deriveFont(22f);
-		
-		layeredPane_3.removeAll();
-		layeredPane_3.add(headerlabel);
+
+		//layeredPane_3.removeAll();
+		//panel_3.add(headerlabel);
 
 		TOHallOfFame hof;
 		lblQualifyer.setText("RANKING");
 		try {
+			
+			panel_3.removeAll();
+			//panel_3.repaint();
 			hof = Block223Controller.getHallOfFameWithoutSelecting(name,start, (start+10));
-			for(int i=0; i<hof.numberOfEntries(); i++) {
-				TOHallOfFameEntry entry = hof.getEntry(i);
-				JLabel label=new JLabel(entry.getPosition()+"	"+entry.getPlayername()+"	"+entry.getScore());
-				label.setFont(projectfont12);
-				label.setForeground(Color.WHITE);
-				label.setVisible(true);
-				layeredPane_3.add(label);
-			}
+
+			TOHallOfFameEntry entry1=null;
+			TOHallOfFameEntry entry2=null;
+			TOHallOfFameEntry entry3=null;
+			TOHallOfFameEntry entry4=null;
+			TOHallOfFameEntry entry5=null;
+			TOHallOfFameEntry entry6=null;
+			TOHallOfFameEntry entry7=null;
+			TOHallOfFameEntry entry8=null;
+			TOHallOfFameEntry entry9=null;
+			TOHallOfFameEntry entry10=null;
+
+
+			//lbl1
+			if (hof.numberOfEntries()>0)
+				entry1 = hof.getEntry(0);
+			if (hof.numberOfEntries()>1)
+				entry2 = hof.getEntry(1);
+			if (hof.numberOfEntries()>2)
+				entry3 = hof.getEntry(2);
+			if (hof.numberOfEntries()>3)
+				entry4 = hof.getEntry(3);
+			if (hof.numberOfEntries()>4)
+				entry5 = hof.getEntry(4);
+			if (hof.numberOfEntries()>5)
+				entry6 = hof.getEntry(5);
+			if (hof.numberOfEntries()>6)
+				entry7 = hof.getEntry(6);
+			if (hof.numberOfEntries()>7)
+				entry8 = hof.getEntry(7);
+			if (hof.numberOfEntries()>8)
+				entry9 = hof.getEntry(8);
+			if (hof.numberOfEntries()>9)
+				entry10 = hof.getEntry(9);
+
+			if (entry1!=null)
+				lbl1.setText(entry1.getPosition()+"		"+entry1.getPlayername()+"		"+entry1.getScore());
+
+			if (entry2!=null)
+				lbl2.setText(entry2.getPosition()+"		"+entry2.getPlayername()+"		"+entry2.getScore());
+			
+			if (entry3!=null)
+				lbl3.setText(entry3.getPosition()+"		"+entry3.getPlayername()+"		"+entry3.getScore());
+
+			if (entry4!=null)
+				lbl4.setText(entry4.getPosition()+"		"+entry4.getPlayername()+"		"+entry4.getScore());
+
+			if (entry5!=null)
+				lbl5.setText(entry5.getPosition()+"		"+entry5.getPlayername()+"		"+entry5.getScore());
+
+			if (entry6!=null)
+				lbl6.setText(entry6.getPosition()+"		"+entry6.getPlayername()+"		"+entry6.getScore());
+
+			if (entry7!=null)
+				lbl1.setText(entry7.getPosition()+"		"+entry7.getPlayername()+"		"+entry7.getScore());
+
+			if (entry8!=null)
+				lbl8.setText(entry8.getPosition()+"		"+entry8.getPlayername()+"		"+entry8.getScore());
+
+			if (entry9!=null)
+				lbl9.setText(entry9.getPosition()+"		"+entry9.getPlayername()+"		"+entry9.getScore());
+
+			if (entry10!=null)
+				lbl10.setText(entry10.getPosition()+"	"+entry10.getPlayername()+"		"+entry10.getScore());
+
+			panel_3.add(lbl1);
+			panel_3.add(lbl2);
+			panel_3.add(lbl3);
+			panel_3.add(lbl4);
+			panel_3.add(lbl5);
+			panel_3.add(lbl6);
+			panel_3.add(lbl7);
+			panel_3.add(lbl8);
+			panel_3.add(lbl9);
+			panel_3.add(lbl10);
+
 		} catch (InvalidInputException e) {
 			lblErrorMessage.setText(e.getMessage());
 		}
-		layeredPane_3.repaint();
+		//panel_3.repaint();	
 	}
 
 	private void refresh2(String playername) {
 		// refresh for search for player
-
-		Font projectfont12 = projectfont.deriveFont(12f);
-	
-		layeredPane_3.removeAll();
-		layeredPane_3.add(headerlabel);
-		headerlabel.setVisible(true);
-		headerlabel.setForeground(Color.WHITE);
-		headerlabel.setFont(projectfont12);
-		lblQualifyer.setText(playername);
+		TOHallOfFame hof;
+		lblQualifyer.setText("RANKING");
 		try {
-			//List<TOHallOfFameEntry>=new ArrayList<TOHallOfFameEntry>();
-			List<TOHallOfFameEntry> hof=Block223Controller.searchHallOfFame(name, playername);
-			if (hof!=null&&!hof.isEmpty()) {
-				for(TOHallOfFameEntry entry:hof) {
-					JLabel label=new JLabel(entry.getPosition()+"	"+entry.getPlayername()+"	"+entry.getScore());
-					label.setFont(projectfont12);
-					label.setForeground(Color.WHITE);
-					label.setVisible(true);
-					layeredPane_3.add(label);
-				}
-			}
-			layeredPane_3.repaint();
+			
+			panel_3.removeAll();
+			//panel_3.repaint();
+			hof = (TOHallOfFame) Block223Controller.searchHallOfFame(name, playername);
+
+			TOHallOfFameEntry entry1=null;
+			TOHallOfFameEntry entry2=null;
+			TOHallOfFameEntry entry3=null;
+			TOHallOfFameEntry entry4=null;
+			TOHallOfFameEntry entry5=null;
+			TOHallOfFameEntry entry6=null;
+			TOHallOfFameEntry entry7=null;
+			TOHallOfFameEntry entry8=null;
+			TOHallOfFameEntry entry9=null;
+			TOHallOfFameEntry entry10=null;
+
+
+			//lbl1
+			if (hof.numberOfEntries()>0)
+				entry1 = hof.getEntry(0);
+			if (hof.numberOfEntries()>1)
+				entry2 = hof.getEntry(1);
+			if (hof.numberOfEntries()>2)
+				entry3 = hof.getEntry(2);
+			if (hof.numberOfEntries()>3)
+				entry4 = hof.getEntry(3);
+			if (hof.numberOfEntries()>4)
+				entry5 = hof.getEntry(4);
+			if (hof.numberOfEntries()>5)
+				entry6 = hof.getEntry(5);
+			if (hof.numberOfEntries()>6)
+				entry7 = hof.getEntry(6);
+			if (hof.numberOfEntries()>7)
+				entry8 = hof.getEntry(7);
+			if (hof.numberOfEntries()>8)
+				entry9 = hof.getEntry(8);
+			if (hof.numberOfEntries()>9)
+				entry10 = hof.getEntry(9);
+
+			if (entry1!=null)
+				lbl1.setText(entry1.getPosition()+"		"+entry1.getPlayername()+"		"+entry1.getScore());
+
+			if (entry2!=null)
+				lbl2.setText(entry2.getPosition()+"		"+entry2.getPlayername()+"		"+entry2.getScore());
+
+			if (entry3!=null)
+				lbl3.setText(entry3.getPosition()+"		"+entry3.getPlayername()+"		"+entry3.getScore());
+
+			if (entry4!=null)
+				lbl4.setText(entry4.getPosition()+"		"+entry4.getPlayername()+"		"+entry4.getScore());
+
+			if (entry5!=null)
+				lbl5.setText(entry5.getPosition()+"		"+entry5.getPlayername()+"		"+entry5.getScore());
+
+			if (entry6!=null)
+				lbl6.setText(entry6.getPosition()+"		"+entry6.getPlayername()+"		"+entry6.getScore());
+
+			if (entry7!=null)
+				lbl1.setText(entry7.getPosition()+"		"+entry7.getPlayername()+"		"+entry7.getScore());
+
+			if (entry8!=null)
+				lbl8.setText(entry8.getPosition()+"		"+entry8.getPlayername()+"		"+entry8.getScore());
+
+			if (entry9!=null)
+				lbl9.setText(entry9.getPosition()+"		"+entry9.getPlayername()+"		"+entry9.getScore());
+
+			if (entry10!=null)
+				lbl10.setText(entry10.getPosition()+"	"+entry10.getPlayername()+"		"+entry10.getScore());
+
+			panel_3.add(lbl1);
+			panel_3.add(lbl2);
+			panel_3.add(lbl3);
+			panel_3.add(lbl4);
+			panel_3.add(lbl5);
+			panel_3.add(lbl6);
+			panel_3.add(lbl7);
+			panel_3.add(lbl8);
+			panel_3.add(lbl9);
+			panel_3.add(lbl10);
+			
+		} catch (InvalidInputException e) {
+			lblErrorMessage.setText(e.getMessage());
 		}
-		catch (InvalidInputException e1) {
-			lblErrorMessage.setText(e1.getMessage());
-		}
+		//panel_3.repaint();	
 	}
 
 	private void refresh3() {
 		// refresh after game over
 
-		Font projectfont12 = projectfont.deriveFont(12f);
-		makeFont();
-		layeredPane_3.removeAll();
 		TOHallOfFame hof;
-		layeredPane_3.add(headerlabel);
 		lblQualifyer.setText("RANKING");
 		try {
+			
+			panel_3.removeAll();
+			//panel_3.repaint();
 			hof = Block223Controller.getHallOfFameWithMostRecentEntryWithoutSelecting(name,10);
-			for(int i=0; i<hof.numberOfEntries(); i++) {
-				TOHallOfFameEntry entry = hof.getEntry(i);
-				JLabel label=new JLabel(entry.getPosition()+"	"+entry.getPlayername()+"	"+entry.getScore());
-				label.setFont(projectfont12);
-				label.setForeground(Color.WHITE);
-				label.setVisible(true);
-				layeredPane_3.add(label);
-			}
+
+			TOHallOfFameEntry entry1=null;
+			TOHallOfFameEntry entry2=null;
+			TOHallOfFameEntry entry3=null;
+			TOHallOfFameEntry entry4=null;
+			TOHallOfFameEntry entry5=null;
+			TOHallOfFameEntry entry6=null;
+			TOHallOfFameEntry entry7=null;
+			TOHallOfFameEntry entry8=null;
+			TOHallOfFameEntry entry9=null;
+			TOHallOfFameEntry entry10=null;
+
+
+			//lbl1
+			if (hof.numberOfEntries()>0)
+				entry1 = hof.getEntry(0);
+			if (hof.numberOfEntries()>1)
+				entry2 = hof.getEntry(1);
+			if (hof.numberOfEntries()>2)
+				entry3 = hof.getEntry(2);
+			if (hof.numberOfEntries()>3)
+				entry4 = hof.getEntry(3);
+			if (hof.numberOfEntries()>4)
+				entry5 = hof.getEntry(4);
+			if (hof.numberOfEntries()>5)
+				entry6 = hof.getEntry(5);
+			if (hof.numberOfEntries()>6)
+				entry7 = hof.getEntry(6);
+			if (hof.numberOfEntries()>7)
+				entry8 = hof.getEntry(7);
+			if (hof.numberOfEntries()>8)
+				entry9 = hof.getEntry(8);
+			if (hof.numberOfEntries()>9)
+				entry10 = hof.getEntry(9);
+
+			if (entry1!=null)
+				lbl1.setText(entry1.getPosition()+"		"+entry1.getPlayername()+"		"+entry1.getScore());
+
+			if (entry2!=null)
+				lbl2.setText(entry2.getPosition()+"		"+entry2.getPlayername()+"		"+entry2.getScore());
+
+			if (entry3!=null)
+				lbl3.setText(entry3.getPosition()+"		"+entry3.getPlayername()+"		"+entry3.getScore());
+
+			if (entry4!=null)
+				lbl4.setText(entry4.getPosition()+"		"+entry4.getPlayername()+"		"+entry4.getScore());
+
+			if (entry5!=null)
+				lbl5.setText(entry5.getPosition()+"	"+entry5.getPlayername()+"	"+entry5.getScore());
+
+			if (entry6!=null)
+				lbl6.setText(entry6.getPosition()+"	"+entry6.getPlayername()+"	"+entry6.getScore());
+
+			if (entry7!=null)
+				lbl1.setText(entry7.getPosition()+"	"+entry7.getPlayername()+"	"+entry7.getScore());
+
+			if (entry8!=null)
+				lbl8.setText(entry8.getPosition()+"	"+entry8.getPlayername()+"	"+entry8.getScore());
+
+			if (entry9!=null)
+				lbl9.setText(entry9.getPosition()+"	"+entry9.getPlayername()+"	"+entry9.getScore());
+
+			if (entry10!=null)
+				lbl10.setText(entry10.getPosition()+"	"+entry10.getPlayername()+"	"+entry10.getScore());
+
+			panel_3.add(lbl1);
+			panel_3.add(lbl2);
+			panel_3.add(lbl3);
+			panel_3.add(lbl4);
+			panel_3.add(lbl5);
+			panel_3.add(lbl6);
+			panel_3.add(lbl7);
+			panel_3.add(lbl8);
+			panel_3.add(lbl9);
+			panel_3.add(lbl10);
+			
 		} catch (InvalidInputException e) {
 			lblErrorMessage.setText(e.getMessage());
 		}
-		layeredPane_3.repaint();
+		//panel_3.repaint();	
 	}
 
 	/**
@@ -612,6 +825,40 @@ public class ViewHallOfFamePage {
 						.addGap(16))
 				);
 		layeredPane_3.setLayout(new GridLayout(0, 1, 0, 0));
+
+		panel_3 = new JPanel();
+		layeredPane_3.add(panel_3);
+		panel_3.setLayout(new GridLayout(0, 1, 0, 0));
+
+		JLabel lbl1 = new JLabel("B");
+		panel_3.add(lbl1);
+
+		JLabel lbl2 = new JLabel("D");
+		panel_3.add(lbl2);
+
+		JLabel lbl3 = new JLabel("E");
+		panel_3.add(lbl3);
+
+		JLabel lbl4 = new JLabel("G");
+		panel_3.add(lbl4);
+
+		JLabel lbl5 = new JLabel("C");
+		panel_3.add(lbl5);
+
+		JLabel lbl6 = new JLabel("I");
+		panel_3.add(lbl6);
+
+		JLabel lbl7 = new JLabel("F");
+		panel_3.add(lbl7);
+
+		JLabel lbl8 = new JLabel("D");
+		panel_3.add(lbl8);
+
+		JLabel lbl9 = new JLabel("H");
+		panel_3.add(lbl9);
+
+		JLabel lbl10 = new JLabel("A");
+		panel_3.add(lbl10);
 		frame.getContentPane().setLayout(groupLayout);
 		frame.setBounds(200, 200, 784, 681);
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
