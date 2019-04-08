@@ -30,6 +30,7 @@ import ca.mcgill.ecse223.block.controller.TOHallOfFameEntry;
 
 public class GamePlayPage implements Block223PlayModeInterface{
 
+	int type;
 	public JFrame frame;
 	JLabel lblError;
 	int level;
@@ -53,7 +54,7 @@ public class GamePlayPage implements Block223PlayModeInterface{
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
-					GamePlayPage window = new GamePlayPage();
+					GamePlayPage window = new GamePlayPage(0);
 					window.frame.setVisible(true);
 				} catch (Exception e) {
 					e.printStackTrace();
@@ -66,7 +67,8 @@ public class GamePlayPage implements Block223PlayModeInterface{
 	/**
 	 * Create the application.
 	 */
-	public GamePlayPage() {
+	public GamePlayPage(int i) {
+		type=i;
 		initialize();
 		refreshBlocks();
 		refresh();
@@ -451,6 +453,8 @@ public class GamePlayPage implements Block223PlayModeInterface{
 
 
 		JButton btnStartGame = new JButton("Start Game");
+		if (type==1)
+			btnStartGame.setText("TEST GAME");
 		btnStartGame.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				btnStartGame.setVisible(false);
@@ -476,7 +480,11 @@ public class GamePlayPage implements Block223PlayModeInterface{
 					@Override
 					public void run() {
 						try {
+							if (type==0)
 							Block223Controller.startGame(GamePlayPage.this);
+							if(type==2)
+							Block223Controller.testGame(GamePlayPage.this);
+							
 							btnStartGame.setVisible(true);
 						} catch (InvalidInputException e) {
 						}

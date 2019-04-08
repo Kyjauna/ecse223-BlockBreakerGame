@@ -206,7 +206,7 @@ public class PlayerPage {
 				try {
 					Block223Controller.selectPlayableGame(gameToStart, -1);
 					// I think instead of selectGame it should be startGame
-					GamePlayPage playGame = new GamePlayPage();
+					GamePlayPage playGame = new GamePlayPage(0);
 					playGame.frame.setVisible(true);
 					frame.setVisible(false);
 					// start game
@@ -325,7 +325,7 @@ public class PlayerPage {
 				try {
 					Block223Controller.selectPlayableGame(name, id);
 					// I'm pretty sure I should just call startGame and not selectGame
-					GamePlayPage resumedGamePage = new GamePlayPage();
+					GamePlayPage resumedGamePage = new GamePlayPage(0);
 					resumedGamePage.frame.setVisible(true);
 					frame.setVisible(false);
 				}
