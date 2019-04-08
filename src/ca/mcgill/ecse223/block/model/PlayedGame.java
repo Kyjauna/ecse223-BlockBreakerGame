@@ -2,6 +2,8 @@
 /*This code was generated using the UMPLE 1.29.0.4181.a593105a9 modeling language!*/
 
 package ca.mcgill.ecse223.block.model;
+import java.awt.geom.Line2D;
+import java.awt.geom.Point2D;
 import java.awt.geom.Rectangle2D;
 import java.io.Serializable;
 import java.util.*;
@@ -1032,7 +1034,7 @@ public class PlayedGame implements Serializable
 
 
 		// Section A
-		if (ball.intersects(regionA)) {
+		if (ball.intersects(regionA)||positionX<=0) {
 			bp = new BouncePoint(0,0,null);
 			bp.setX(5);
 			double newy=y+slope*(bp.getX()-x);
@@ -1040,7 +1042,7 @@ public class PlayedGame implements Serializable
 			bp.setDirection(BouncePoint.BounceDirection.FLIP_X);
 		}
 
-		if (ball.intersects(regionC)) {
+		if (ball.intersects(regionC)||positionX>=390) {
 			bp = new BouncePoint(0,0,null);
 			bp.setX(390-5);
 			double newy=y+slope*(bp.getX()-x);
@@ -1049,7 +1051,7 @@ public class PlayedGame implements Serializable
 		}
 
 		// Section B
-		if (ball.intersects(regionD)) {
+		if (ball.intersects(regionD)||positionY<=0) {
 			bp = new BouncePoint(0,0,null);
 			bp.setY(5);
 			double newx=x+(bp.getY()-y)/slope;
@@ -1101,13 +1103,13 @@ public class PlayedGame implements Serializable
 		BouncePoint bp = null; 
 		//java.awt.geom.Rectangle2D physicalblock=new java.awt.geom.Rectangle2D.Double(pblock.getX()-10, pblock.getY()-10, 30.0, 30.0);
 
-		java.awt.geom.Rectangle2D regionA=new java.awt.geom.Rectangle2D.Double(pblock.getX(), pblock.getY()-5, 20, 5);
+		java.awt.geom.Rectangle2D regionA=new java.awt.geom.Rectangle2D.Double(pblock.getX(), pblock.getY()-5, 20, 10);
 
-		java.awt.geom.Rectangle2D regionD=new java.awt.geom.Rectangle2D.Double(pblock.getX(), pblock.getY()+20, 20, 5);
+		java.awt.geom.Rectangle2D regionD=new java.awt.geom.Rectangle2D.Double(pblock.getX(), pblock.getY()+15, 20, 10);
 
-		java.awt.geom.Rectangle2D regionB=new java.awt.geom.Rectangle2D.Double(pblock.getX()-5, pblock.getY(), 5, 20);
+		java.awt.geom.Rectangle2D regionB=new java.awt.geom.Rectangle2D.Double(pblock.getX()-5, pblock.getY(), 10, 20);
 
-		java.awt.geom.Rectangle2D regionC=new java.awt.geom.Rectangle2D.Double(pblock.getX()+20, pblock.getY(), 5, 20);
+		java.awt.geom.Rectangle2D regionC=new java.awt.geom.Rectangle2D.Double(pblock.getX()+15, pblock.getY(), 10, 20);
 
 		java.awt.geom.Rectangle2D regionE=new java.awt.geom.Rectangle2D.Double(pblock.getX()-5, pblock.getY()-5, 5, 5);
 
@@ -1119,15 +1121,18 @@ public class PlayedGame implements Serializable
 
 		java.awt.geom.Ellipse2D ball=new java.awt.geom.Ellipse2D.Double(positionX-5, positionY-5, 10, 10);
 
+		java.awt.geom.Line2D path=new java.awt.geom.Line2D.Double(positionX, positionY, x, y);
+		
 		if (ball.intersects(regionE)) {
 			System.out.println("intersecting E");
 			bp = new BouncePoint(0,0,null);
 			bp.setHitBlock(pblock);
 			System.out.println("dx: "+dx);
 			if  (dx<=0.0) {
-				bp.setY(regionE.getY());
-				double newx=x+(bp.getY()-y)/slope;
-				bp.setX(newx);
+				double newx=x+(regionE.getY()-y)/slope;
+				List<Point2D> points = getInterectionPoints(path,newx, regionE.getY(), 5);
+				bp.setX(points.get(0).getX());
+				bp.setY(points.get(0).getY());
 				bp.setDirection(BouncePoint.BounceDirection.FLIP_Y);
 			}
 			else if(dx>0.0) {
@@ -1367,6 +1372,58 @@ public class PlayedGame implements Serializable
 				"  " + "bounce = "+(getBounce()!=null?Integer.toHexString(System.identityHashCode(getBounce())):"null") + System.getProperties().getProperty("line.separator") +
 				"  " + "block223 = "+(getBlock223()!=null?Integer.toHexString(System.identityHashCode(getBlock223())):"null");
 	}  
+	
+	
+	private List<Point2D> getInterectionPoints(Line2D l, double xc, double yc, double r){
+
+		List<Point2D> list = new ArrayList<Point2D>();
+		Double m = slope(l);
+		double xl = l.getX1();
+		double yl= l.getY1();
+		if(m == null) {
+			List<Double> yvals = new ArrayList<Double>();
+			double x = xl;
+			double radicand = r*r - (x-xc)*(x-xc);
+			if(radicand >= 0) {
+				yvals.add(yc - Math.sqrt(radicand));
+				yvals.add(yc+Math.sqrt(radicand));
+			}
+			for(Double yval : yvals) {
+				if(yval <= Math.min(yl, l.getY2()) && yval >= Math.max(yl, l.getY2())) {
+					list.add(new Point2D.Double(x, yval));
+				}
+			}
+		}
+		else {
+			List<Double> xvals = new ArrayList<Double>();
+			double a = (m*m +1);
+			double b = 2*m*(-m*xl+yl-yc)-2*xc;
+			double c = Math.pow(-m*xl+yl-yc, 2) - r*r + xc*xc;
+			if(b*b - 4*a*c >= 0) {
+				xvals.add((-b+ Math.sqrt(b*b - 4*a*c))/(2*a));
+				xvals.add((-b - Math.sqrt(b*b - 4*a*c))/(2*a));
+			}
+			for (Double xval : xvals) {
+				if(xval <= Math.max(xl,  l.getX2()) && xval >= Math.min(xl, l.getX2())){
+					list.add(new Point2D.Double(xval, m*xval - m*xl + yl));
+				}
+			}
+		}
+		return list;
+	}
+
+	public double slope(Line2D l) {
+
+		double result = 0;
+		double x1 = l.getX1();
+		double x2 = l.getX2();
+		double y1 = l.getY1();
+		double y2 = l.getY2();
+
+		result = ((y2 - y1)/(x2 - x1));
+
+		return result;
+	}
 	//------------------------
 	// DEVELOPER CODE - PROVIDED AS-IS
 	//------------------------
