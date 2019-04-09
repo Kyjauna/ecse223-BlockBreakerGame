@@ -48,11 +48,12 @@ public class ViewHallOfFamePage {
 	public JFrame frame;
 	JLabel lblErrorMessage;
 	int level;
+	JButton btnPrevious;
+	JButton btnNewButton;
 	int start=1;
 	static int version;
 	static String name;
 	JLayeredPane layeredPane_3 = new JLayeredPane();
-	private JTextField textField;
 	JLabel lblQualifyer = new JLabel("");
 	JLabel headerlabel=new JLabel("Position		Player		Score");
 	Font projectfont=null;
@@ -123,9 +124,9 @@ public class ViewHallOfFamePage {
 		TOHallOfFame hof;
 		lblQualifyer.setText("RANKING");
 		try {
-			
 			panel_3.removeAll();
 			//panel_3.repaint();
+			
 			hof = Block223Controller.getHallOfFameWithoutSelecting(name,start, (start+10));
 
 			TOHallOfFameEntry entry1=null;
@@ -138,59 +139,93 @@ public class ViewHallOfFamePage {
 			TOHallOfFameEntry entry8=null;
 			TOHallOfFameEntry entry9=null;
 			TOHallOfFameEntry entry10=null;
+			
+			lbl1.setText("");
+			lbl2.setText("");
+			lbl3.setText("");
+			lbl4.setText("");
+			lbl5.setText("");
+			lbl6.setText("");
+			lbl7.setText("");
+			lbl8.setText("");
+			lbl9.setText("");
+			lbl10.setText("");
 
-
+			int h=hof.numberOfEntries()-1;
 			//lbl1
-			if (hof.numberOfEntries()>0)
-				entry1 = hof.getEntry(0);
-			if (hof.numberOfEntries()>1)
-				entry2 = hof.getEntry(1);
-			if (hof.numberOfEntries()>2)
-				entry3 = hof.getEntry(2);
-			if (hof.numberOfEntries()>3)
-				entry4 = hof.getEntry(3);
-			if (hof.numberOfEntries()>4)
-				entry5 = hof.getEntry(4);
-			if (hof.numberOfEntries()>5)
-				entry6 = hof.getEntry(5);
-			if (hof.numberOfEntries()>6)
-				entry7 = hof.getEntry(6);
-			if (hof.numberOfEntries()>7)
-				entry8 = hof.getEntry(7);
-			if (hof.numberOfEntries()>8)
-				entry9 = hof.getEntry(8);
-			if (hof.numberOfEntries()>9)
-				entry10 = hof.getEntry(9);
+			if (hof.numberOfEntries()>0) {
+				entry1 = hof.getEntry(h);
+				h--;
+			}
+			if (hof.numberOfEntries()>1) {
+				entry2 = hof.getEntry(h);
+				h--;
+			}
+
+			if (hof.numberOfEntries()>2) {
+				entry3 = hof.getEntry(h);
+				h--;
+			}
+
+			if (hof.numberOfEntries()>3) {
+				entry4 = hof.getEntry(h);
+				h--;
+			}
+
+			if (hof.numberOfEntries()>4) {
+				entry5 = hof.getEntry(h);
+				h--;
+			}
+
+			if (hof.numberOfEntries()>5) {
+				entry6 = hof.getEntry(h);
+				h--;
+			}
+			if (hof.numberOfEntries()>6) {
+				entry7 = hof.getEntry(h);
+				h--;
+			}
+			if (hof.numberOfEntries()>7) {
+				entry8 = hof.getEntry(h);
+				h--;
+			}
+			if (hof.numberOfEntries()>8) {
+				entry9 = hof.getEntry(h);
+				h--;
+			}
+			if (hof.numberOfEntries()>9) {
+				entry10 = hof.getEntry(h);
+			}
 
 			if (entry1!=null)
-				lbl1.setText(entry1.getPosition()+"		"+entry1.getPlayername()+"		"+entry1.getScore());
+				lbl1.setText(entry1.getPosition()+"     "+entry1.getPlayername()+"      "+entry1.getScore());
 
 			if (entry2!=null)
-				lbl2.setText(entry2.getPosition()+"		"+entry2.getPlayername()+"		"+entry2.getScore());
-			
+				lbl2.setText(entry2.getPosition()+"     "+entry2.getPlayername()+"      "+entry2.getScore());
+
 			if (entry3!=null)
-				lbl3.setText(entry3.getPosition()+"		"+entry3.getPlayername()+"		"+entry3.getScore());
+				lbl3.setText(entry3.getPosition()+"     "+entry3.getPlayername()+"     "+entry3.getScore());
 
 			if (entry4!=null)
-				lbl4.setText(entry4.getPosition()+"		"+entry4.getPlayername()+"		"+entry4.getScore());
+				lbl4.setText(entry4.getPosition()+"     "+entry4.getPlayername()+"      "+entry4.getScore());
 
 			if (entry5!=null)
-				lbl5.setText(entry5.getPosition()+"		"+entry5.getPlayername()+"		"+entry5.getScore());
+				lbl5.setText(entry5.getPosition()+"     "+entry5.getPlayername()+"     "+entry5.getScore());
 
 			if (entry6!=null)
-				lbl6.setText(entry6.getPosition()+"		"+entry6.getPlayername()+"		"+entry6.getScore());
+				lbl6.setText(entry6.getPosition()+"     "+entry6.getPlayername()+"     "+entry6.getScore());
 
 			if (entry7!=null)
-				lbl1.setText(entry7.getPosition()+"		"+entry7.getPlayername()+"		"+entry7.getScore());
+				lbl7.setText(entry7.getPosition()+"     "+entry7.getPlayername()+"     "+entry7.getScore());
 
 			if (entry8!=null)
-				lbl8.setText(entry8.getPosition()+"		"+entry8.getPlayername()+"		"+entry8.getScore());
+				lbl8.setText(entry8.getPosition()+"     "+entry8.getPlayername()+"     "+entry8.getScore());
 
 			if (entry9!=null)
-				lbl9.setText(entry9.getPosition()+"		"+entry9.getPlayername()+"		"+entry9.getScore());
+				lbl9.setText(entry9.getPosition()+"     "+entry9.getPlayername()+"     "+entry9.getScore());
 
 			if (entry10!=null)
-				lbl10.setText(entry10.getPosition()+"	"+entry10.getPlayername()+"		"+entry10.getScore());
+				lbl10.setText(entry10.getPosition()+"     "+entry10.getPlayername()+"     "+entry10.getScore());
 
 			panel_3.add(lbl1);
 			panel_3.add(lbl2);
@@ -206,107 +241,22 @@ public class ViewHallOfFamePage {
 		} catch (InvalidInputException e) {
 			lblErrorMessage.setText(e.getMessage());
 		}
-		//panel_3.repaint();	
+		panel_3.repaint();	
 	}
 
-	private void refresh2(String playername) {
-		// refresh for search for player
-		TOHallOfFame hof;
-		lblQualifyer.setText("RANKING");
-		try {
-			
-			panel_3.removeAll();
-			//panel_3.repaint();
-			hof = (TOHallOfFame) Block223Controller.searchHallOfFame(name, playername);
+	private void refresh2() {
+		Font projectfont52 = projectfont.deriveFont(52f);
+		Font projectfont15 = projectfont.deriveFont(15f);
+		Font projectfont12 = projectfont.deriveFont(12f);
+		Font projectfont32 = projectfont.deriveFont(32f);
+		Font projectfont22 = projectfont.deriveFont(22f);
 
-			TOHallOfFameEntry entry1=null;
-			TOHallOfFameEntry entry2=null;
-			TOHallOfFameEntry entry3=null;
-			TOHallOfFameEntry entry4=null;
-			TOHallOfFameEntry entry5=null;
-			TOHallOfFameEntry entry6=null;
-			TOHallOfFameEntry entry7=null;
-			TOHallOfFameEntry entry8=null;
-			TOHallOfFameEntry entry9=null;
-			TOHallOfFameEntry entry10=null;
-
-
-			//lbl1
-			if (hof.numberOfEntries()>0)
-				entry1 = hof.getEntry(0);
-			if (hof.numberOfEntries()>1)
-				entry2 = hof.getEntry(1);
-			if (hof.numberOfEntries()>2)
-				entry3 = hof.getEntry(2);
-			if (hof.numberOfEntries()>3)
-				entry4 = hof.getEntry(3);
-			if (hof.numberOfEntries()>4)
-				entry5 = hof.getEntry(4);
-			if (hof.numberOfEntries()>5)
-				entry6 = hof.getEntry(5);
-			if (hof.numberOfEntries()>6)
-				entry7 = hof.getEntry(6);
-			if (hof.numberOfEntries()>7)
-				entry8 = hof.getEntry(7);
-			if (hof.numberOfEntries()>8)
-				entry9 = hof.getEntry(8);
-			if (hof.numberOfEntries()>9)
-				entry10 = hof.getEntry(9);
-
-			if (entry1!=null)
-				lbl1.setText(entry1.getPosition()+"		"+entry1.getPlayername()+"		"+entry1.getScore());
-
-			if (entry2!=null)
-				lbl2.setText(entry2.getPosition()+"		"+entry2.getPlayername()+"		"+entry2.getScore());
-
-			if (entry3!=null)
-				lbl3.setText(entry3.getPosition()+"		"+entry3.getPlayername()+"		"+entry3.getScore());
-
-			if (entry4!=null)
-				lbl4.setText(entry4.getPosition()+"		"+entry4.getPlayername()+"		"+entry4.getScore());
-
-			if (entry5!=null)
-				lbl5.setText(entry5.getPosition()+"		"+entry5.getPlayername()+"		"+entry5.getScore());
-
-			if (entry6!=null)
-				lbl6.setText(entry6.getPosition()+"		"+entry6.getPlayername()+"		"+entry6.getScore());
-
-			if (entry7!=null)
-				lbl1.setText(entry7.getPosition()+"		"+entry7.getPlayername()+"		"+entry7.getScore());
-
-			if (entry8!=null)
-				lbl8.setText(entry8.getPosition()+"		"+entry8.getPlayername()+"		"+entry8.getScore());
-
-			if (entry9!=null)
-				lbl9.setText(entry9.getPosition()+"		"+entry9.getPlayername()+"		"+entry9.getScore());
-
-			if (entry10!=null)
-				lbl10.setText(entry10.getPosition()+"	"+entry10.getPlayername()+"		"+entry10.getScore());
-
-			panel_3.add(lbl1);
-			panel_3.add(lbl2);
-			panel_3.add(lbl3);
-			panel_3.add(lbl4);
-			panel_3.add(lbl5);
-			panel_3.add(lbl6);
-			panel_3.add(lbl7);
-			panel_3.add(lbl8);
-			panel_3.add(lbl9);
-			panel_3.add(lbl10);
-			
-		} catch (InvalidInputException e) {
-			lblErrorMessage.setText(e.getMessage());
-		}
-		//panel_3.repaint();	
-	}
-
-	private void refresh3() {
-		// refresh after game over
+		//layeredPane_3.removeAll();
+		//panel_3.add(headerlabel);
 
 		TOHallOfFame hof;
 		lblQualifyer.setText("RANKING");
 		try {
-			
 			panel_3.removeAll();
 			//panel_3.repaint();
 			hof = Block223Controller.getHallOfFameWithMostRecentEntryWithoutSelecting(name,10);
@@ -321,59 +271,93 @@ public class ViewHallOfFamePage {
 			TOHallOfFameEntry entry8=null;
 			TOHallOfFameEntry entry9=null;
 			TOHallOfFameEntry entry10=null;
+			
+			lbl1.setText("");
+			lbl2.setText("");
+			lbl3.setText("");
+			lbl4.setText("");
+			lbl5.setText("");
+			lbl6.setText("");
+			lbl7.setText("");
+			lbl8.setText("");
+			lbl9.setText("");
+			lbl10.setText("");
 
-
+			int h=hof.numberOfEntries()-1;
 			//lbl1
-			if (hof.numberOfEntries()>0)
-				entry1 = hof.getEntry(0);
-			if (hof.numberOfEntries()>1)
-				entry2 = hof.getEntry(1);
-			if (hof.numberOfEntries()>2)
-				entry3 = hof.getEntry(2);
-			if (hof.numberOfEntries()>3)
-				entry4 = hof.getEntry(3);
-			if (hof.numberOfEntries()>4)
-				entry5 = hof.getEntry(4);
-			if (hof.numberOfEntries()>5)
-				entry6 = hof.getEntry(5);
-			if (hof.numberOfEntries()>6)
-				entry7 = hof.getEntry(6);
-			if (hof.numberOfEntries()>7)
-				entry8 = hof.getEntry(7);
-			if (hof.numberOfEntries()>8)
-				entry9 = hof.getEntry(8);
-			if (hof.numberOfEntries()>9)
-				entry10 = hof.getEntry(9);
+			if (hof.numberOfEntries()>0) {
+				entry1 = hof.getEntry(h);
+				h--;
+			}
+			if (hof.numberOfEntries()>1) {
+				entry2 = hof.getEntry(h);
+				h--;
+			}
+
+			if (hof.numberOfEntries()>2) {
+				entry3 = hof.getEntry(h);
+				h--;
+			}
+
+			if (hof.numberOfEntries()>3) {
+				entry4 = hof.getEntry(h);
+				h--;
+			}
+
+			if (hof.numberOfEntries()>4) {
+				entry5 = hof.getEntry(h);
+				h--;
+			}
+
+			if (hof.numberOfEntries()>5) {
+				entry6 = hof.getEntry(h);
+				h--;
+			}
+			if (hof.numberOfEntries()>6) {
+				entry7 = hof.getEntry(h);
+				h--;
+			}
+			if (hof.numberOfEntries()>7) {
+				entry8 = hof.getEntry(h);
+				h--;
+			}
+			if (hof.numberOfEntries()>8) {
+				entry9 = hof.getEntry(h);
+				h--;
+			}
+			if (hof.numberOfEntries()>9) {
+				entry10 = hof.getEntry(h);
+			}
 
 			if (entry1!=null)
-				lbl1.setText(entry1.getPosition()+"		"+entry1.getPlayername()+"		"+entry1.getScore());
+				lbl1.setText(entry1.getPosition()+"     "+entry1.getPlayername()+"     s"+entry1.getScore());
 
 			if (entry2!=null)
-				lbl2.setText(entry2.getPosition()+"		"+entry2.getPlayername()+"		"+entry2.getScore());
+				lbl2.setText(entry2.getPosition()+"     "+entry2.getPlayername()+"     "+entry2.getScore());
 
 			if (entry3!=null)
-				lbl3.setText(entry3.getPosition()+"		"+entry3.getPlayername()+"		"+entry3.getScore());
+				lbl3.setText(entry3.getPosition()+"     "+entry3.getPlayername()+"     "+entry3.getScore());
 
 			if (entry4!=null)
-				lbl4.setText(entry4.getPosition()+"		"+entry4.getPlayername()+"		"+entry4.getScore());
+				lbl4.setText(entry4.getPosition()+"     "+entry4.getPlayername()+"     "+entry4.getScore());
 
 			if (entry5!=null)
-				lbl5.setText(entry5.getPosition()+"	"+entry5.getPlayername()+"	"+entry5.getScore());
+				lbl5.setText(entry5.getPosition()+"     "+entry5.getPlayername()+"     "+entry5.getScore());
 
 			if (entry6!=null)
-				lbl6.setText(entry6.getPosition()+"	"+entry6.getPlayername()+"	"+entry6.getScore());
+				lbl6.setText(entry6.getPosition()+"     "+entry6.getPlayername()+"     "+entry6.getScore());
 
 			if (entry7!=null)
-				lbl1.setText(entry7.getPosition()+"	"+entry7.getPlayername()+"	"+entry7.getScore());
+				lbl7.setText(entry7.getPosition()+"     "+entry7.getPlayername()+"     "+entry7.getScore());
 
 			if (entry8!=null)
-				lbl8.setText(entry8.getPosition()+"	"+entry8.getPlayername()+"	"+entry8.getScore());
+				lbl8.setText(entry8.getPosition()+"      "+entry8.getPlayername()+"     "+entry8.getScore());
 
 			if (entry9!=null)
-				lbl9.setText(entry9.getPosition()+"	"+entry9.getPlayername()+"	"+entry9.getScore());
+				lbl9.setText(entry9.getPosition()+"     "+entry9.getPlayername()+"     "+entry9.getScore());
 
 			if (entry10!=null)
-				lbl10.setText(entry10.getPosition()+"	"+entry10.getPlayername()+"	"+entry10.getScore());
+				lbl10.setText(entry10.getPosition()+"     "+entry10.getPlayername()+"     "+entry10.getScore());
 
 			panel_3.add(lbl1);
 			panel_3.add(lbl2);
@@ -386,10 +370,14 @@ public class ViewHallOfFamePage {
 			panel_3.add(lbl9);
 			panel_3.add(lbl10);
 			
+			btnNewButton.setVisible(false);
+			btnPrevious.setVisible(false);
+			
+
 		} catch (InvalidInputException e) {
 			lblErrorMessage.setText(e.getMessage());
 		}
-		//panel_3.repaint();	
+		panel_3.repaint();	
 	}
 
 	/**
@@ -401,8 +389,9 @@ public class ViewHallOfFamePage {
 		initialize();
 		if (this.version==1)
 			refresh1();
-		if (this.version==3)
-			refresh3();
+		if (this.version==2)
+			refresh2();
+
 	}
 
 	/**
@@ -562,20 +551,20 @@ public class ViewHallOfFamePage {
 		layeredPane_3.setForeground(new Color(100, 149, 237));
 		layeredPane_3.setBackground(new Color(100, 149, 237));
 
-		JButton btnNewButton = new JButton("NEXT");
+		btnNewButton = new JButton("NEXT");
 		btnNewButton.setFont(projectfont15);
 		btnNewButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				start=start+10;
+				start=start+11;
 				refresh1();
 			}
 		});
 
-		JButton btnPrevious = new JButton("PREVIOUS");
+		btnPrevious = new JButton("PREVIOUS");
 		btnPrevious.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				if(start!=1)
-					start=start-10;
+					start=start-11;
 				refresh1();
 			}
 		});
@@ -592,22 +581,6 @@ public class ViewHallOfFamePage {
 			}
 		});
 		btnExit.setFont(projectfont15);
-
-		JLabel lblSearchPlayerName = new JLabel("Search Player Name:");
-		lblSearchPlayerName.setForeground(Color.CYAN);
-
-		//fix
-		textField = new JTextField();
-		textField.addKeyListener(new KeyAdapter() {
-			@Override
-			public void keyPressed(KeyEvent e) {
-				if (e.getKeyCode()==KeyEvent.VK_ENTER) {
-					String playername=textField.getText();
-					refresh2(playername);
-				}
-			}
-		});
-		textField.setColumns(10);
 		lblQualifyer.setHorizontalAlignment(SwingConstants.CENTER);
 
 		lblQualifyer.setFont(projectfont12);
@@ -615,215 +588,202 @@ public class ViewHallOfFamePage {
 
 		GroupLayout groupLayout = new GroupLayout(frame.getContentPane());
 		groupLayout.setHorizontalGroup(
-				groupLayout.createParallelGroup(Alignment.LEADING)
+			groupLayout.createParallelGroup(Alignment.LEADING)
 				.addGroup(groupLayout.createSequentialGroup()
-						.addContainerGap()
-						.addGroup(groupLayout.createParallelGroup(Alignment.TRAILING)
+					.addContainerGap()
+					.addGroup(groupLayout.createParallelGroup(Alignment.TRAILING)
+						.addGroup(groupLayout.createSequentialGroup()
+							.addComponent(panel, GroupLayout.PREFERRED_SIZE, 76, GroupLayout.PREFERRED_SIZE)
+							.addPreferredGap(ComponentPlacement.RELATED)
+							.addComponent(panel_25, GroupLayout.PREFERRED_SIZE, 76, GroupLayout.PREFERRED_SIZE)
+							.addPreferredGap(ComponentPlacement.RELATED)
+							.addComponent(panel_26, GroupLayout.PREFERRED_SIZE, 76, GroupLayout.PREFERRED_SIZE)
+							.addPreferredGap(ComponentPlacement.RELATED)
+							.addComponent(panel_28, GroupLayout.PREFERRED_SIZE, 76, GroupLayout.PREFERRED_SIZE)
+							.addPreferredGap(ComponentPlacement.RELATED)
+							.addComponent(panel_30, GroupLayout.PREFERRED_SIZE, 76, GroupLayout.PREFERRED_SIZE)
+							.addPreferredGap(ComponentPlacement.RELATED)
+							.addComponent(panel_32, GroupLayout.PREFERRED_SIZE, 76, GroupLayout.PREFERRED_SIZE)
+							.addPreferredGap(ComponentPlacement.RELATED)
+							.addComponent(panel_34, GroupLayout.PREFERRED_SIZE, 76, GroupLayout.PREFERRED_SIZE))
+						.addGroup(groupLayout.createSequentialGroup()
+							.addGroup(groupLayout.createParallelGroup(Alignment.LEADING)
 								.addGroup(groupLayout.createSequentialGroup()
-										.addComponent(panel, GroupLayout.PREFERRED_SIZE, 76, GroupLayout.PREFERRED_SIZE)
-										.addPreferredGap(ComponentPlacement.RELATED)
-										.addComponent(panel_25, GroupLayout.PREFERRED_SIZE, 76, GroupLayout.PREFERRED_SIZE)
-										.addPreferredGap(ComponentPlacement.RELATED)
-										.addComponent(panel_26, GroupLayout.PREFERRED_SIZE, 76, GroupLayout.PREFERRED_SIZE)
-										.addPreferredGap(ComponentPlacement.RELATED)
-										.addComponent(panel_28, GroupLayout.PREFERRED_SIZE, 76, GroupLayout.PREFERRED_SIZE)
-										.addPreferredGap(ComponentPlacement.RELATED)
-										.addComponent(panel_30, GroupLayout.PREFERRED_SIZE, 76, GroupLayout.PREFERRED_SIZE)
-										.addPreferredGap(ComponentPlacement.RELATED)
-										.addComponent(panel_32, GroupLayout.PREFERRED_SIZE, 76, GroupLayout.PREFERRED_SIZE)
-										.addPreferredGap(ComponentPlacement.RELATED)
-										.addComponent(panel_34, GroupLayout.PREFERRED_SIZE, 76, GroupLayout.PREFERRED_SIZE))
+									.addComponent(panel_18, GroupLayout.PREFERRED_SIZE, 76, GroupLayout.PREFERRED_SIZE)
+									.addPreferredGap(ComponentPlacement.RELATED)
+									.addComponent(panel_12, GroupLayout.PREFERRED_SIZE, 76, GroupLayout.PREFERRED_SIZE))
 								.addGroup(groupLayout.createSequentialGroup()
-										.addGroup(groupLayout.createParallelGroup(Alignment.LEADING)
-												.addGroup(groupLayout.createSequentialGroup()
-														.addComponent(panel_18, GroupLayout.PREFERRED_SIZE, 76, GroupLayout.PREFERRED_SIZE)
-														.addPreferredGap(ComponentPlacement.RELATED)
-														.addComponent(panel_12, GroupLayout.PREFERRED_SIZE, 76, GroupLayout.PREFERRED_SIZE))
-												.addGroup(groupLayout.createSequentialGroup()
-														.addComponent(panel_19, GroupLayout.PREFERRED_SIZE, 76, GroupLayout.PREFERRED_SIZE)
-														.addPreferredGap(ComponentPlacement.RELATED)
-														.addComponent(panel_13, GroupLayout.PREFERRED_SIZE, 76, GroupLayout.PREFERRED_SIZE))
-												.addGroup(groupLayout.createSequentialGroup()
-														.addGroup(groupLayout.createParallelGroup(Alignment.LEADING)
-																.addGroup(groupLayout.createParallelGroup(Alignment.TRAILING)
-																		.addGroup(groupLayout.createParallelGroup(Alignment.LEADING)
-																				.addComponent(panel_20, GroupLayout.PREFERRED_SIZE, 76, GroupLayout.PREFERRED_SIZE)
-																				.addComponent(panel_21, GroupLayout.PREFERRED_SIZE, 76, GroupLayout.PREFERRED_SIZE))
-																		.addComponent(panel_22, GroupLayout.PREFERRED_SIZE, 76, GroupLayout.PREFERRED_SIZE))
-																.addComponent(panel_23, GroupLayout.PREFERRED_SIZE, 76, GroupLayout.PREFERRED_SIZE))
-														.addPreferredGap(ComponentPlacement.RELATED)
-														.addGroup(groupLayout.createParallelGroup(Alignment.LEADING)
-																.addComponent(panel_17, GroupLayout.PREFERRED_SIZE, 76, GroupLayout.PREFERRED_SIZE)
-																.addComponent(panel_14, GroupLayout.PREFERRED_SIZE, 76, GroupLayout.PREFERRED_SIZE)
-																.addComponent(panel_15, GroupLayout.PREFERRED_SIZE, 76, GroupLayout.PREFERRED_SIZE)
-																.addComponent(panel_16, GroupLayout.PREFERRED_SIZE, 76, GroupLayout.PREFERRED_SIZE)))
-												.addGroup(groupLayout.createSequentialGroup()
-														.addComponent(panel_1, GroupLayout.PREFERRED_SIZE, 76, GroupLayout.PREFERRED_SIZE)
-														.addPreferredGap(ComponentPlacement.RELATED)
-														.addComponent(panel_24, GroupLayout.PREFERRED_SIZE, 76, GroupLayout.PREFERRED_SIZE)))
+									.addComponent(panel_19, GroupLayout.PREFERRED_SIZE, 76, GroupLayout.PREFERRED_SIZE)
+									.addPreferredGap(ComponentPlacement.RELATED)
+									.addComponent(panel_13, GroupLayout.PREFERRED_SIZE, 76, GroupLayout.PREFERRED_SIZE))
+								.addGroup(groupLayout.createSequentialGroup()
+									.addGroup(groupLayout.createParallelGroup(Alignment.LEADING)
 										.addGroup(groupLayout.createParallelGroup(Alignment.TRAILING)
-												.addGroup(groupLayout.createSequentialGroup()
-														.addGap(70)
-														.addGroup(groupLayout.createParallelGroup(Alignment.LEADING)
-																.addGroup(groupLayout.createSequentialGroup()
-																		.addComponent(lblSearchPlayerName)
-																		.addPreferredGap(ComponentPlacement.UNRELATED)
-																		.addComponent(textField, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
-																.addGroup(groupLayout.createSequentialGroup()
-																		.addComponent(btnPrevious)
-																		.addPreferredGap(ComponentPlacement.RELATED)
-																		.addComponent(btnExit)
-																		.addPreferredGap(ComponentPlacement.RELATED)
-																		.addComponent(btnNewButton, GroupLayout.PREFERRED_SIZE, 74, GroupLayout.PREFERRED_SIZE)))
-														.addPreferredGap(ComponentPlacement.RELATED, 94, Short.MAX_VALUE)
-														.addComponent(layeredPane_2, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
-												.addGroup(groupLayout.createSequentialGroup()
-														.addPreferredGap(ComponentPlacement.RELATED)
-														.addComponent(layeredPane_3, GroupLayout.PREFERRED_SIZE, 238, GroupLayout.PREFERRED_SIZE)
-														.addGap(81))
-												.addGroup(groupLayout.createSequentialGroup()
-														.addPreferredGap(ComponentPlacement.RELATED)
-														.addComponent(lblGame, GroupLayout.PREFERRED_SIZE, 369, GroupLayout.PREFERRED_SIZE)
-														.addGap(19))
-												.addGroup(groupLayout.createSequentialGroup()
-														.addPreferredGap(ComponentPlacement.RELATED)
-														.addGroup(groupLayout.createParallelGroup(Alignment.TRAILING, false)
-																.addComponent(lblQualifyer, Alignment.LEADING, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-																.addComponent(lblHallOfFame, Alignment.LEADING, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-														.addGap(108)))))
-						.addPreferredGap(ComponentPlacement.RELATED)
-						.addGroup(groupLayout.createParallelGroup(Alignment.TRAILING)
-								.addGroup(groupLayout.createParallelGroup(Alignment.LEADING)
-										.addComponent(panel_4, GroupLayout.PREFERRED_SIZE, 76, GroupLayout.PREFERRED_SIZE)
-										.addComponent(panel_7, GroupLayout.PREFERRED_SIZE, 76, GroupLayout.PREFERRED_SIZE))
-								.addComponent(panel_27, GroupLayout.PREFERRED_SIZE, 76, GroupLayout.PREFERRED_SIZE)
-								.addComponent(panel_5, GroupLayout.PREFERRED_SIZE, 76, GroupLayout.PREFERRED_SIZE)
-								.addComponent(panel_31, GroupLayout.PREFERRED_SIZE, 76, GroupLayout.PREFERRED_SIZE)
-								.addComponent(panel_35, GroupLayout.PREFERRED_SIZE, 76, GroupLayout.PREFERRED_SIZE)
-								.addComponent(panel_36, GroupLayout.PREFERRED_SIZE, 76, GroupLayout.PREFERRED_SIZE)
-								.addComponent(panel_39, GroupLayout.PREFERRED_SIZE, 76, GroupLayout.PREFERRED_SIZE))
-						.addPreferredGap(ComponentPlacement.RELATED)
+											.addGroup(groupLayout.createParallelGroup(Alignment.LEADING)
+												.addComponent(panel_20, GroupLayout.PREFERRED_SIZE, 76, GroupLayout.PREFERRED_SIZE)
+												.addComponent(panel_21, GroupLayout.PREFERRED_SIZE, 76, GroupLayout.PREFERRED_SIZE))
+											.addComponent(panel_22, GroupLayout.PREFERRED_SIZE, 76, GroupLayout.PREFERRED_SIZE))
+										.addComponent(panel_23, GroupLayout.PREFERRED_SIZE, 76, GroupLayout.PREFERRED_SIZE))
+									.addPreferredGap(ComponentPlacement.RELATED)
+									.addGroup(groupLayout.createParallelGroup(Alignment.LEADING)
+										.addComponent(panel_17, GroupLayout.PREFERRED_SIZE, 76, GroupLayout.PREFERRED_SIZE)
+										.addComponent(panel_14, GroupLayout.PREFERRED_SIZE, 76, GroupLayout.PREFERRED_SIZE)
+										.addComponent(panel_15, GroupLayout.PREFERRED_SIZE, 76, GroupLayout.PREFERRED_SIZE)
+										.addComponent(panel_16, GroupLayout.PREFERRED_SIZE, 76, GroupLayout.PREFERRED_SIZE)))
+								.addGroup(groupLayout.createSequentialGroup()
+									.addComponent(panel_1, GroupLayout.PREFERRED_SIZE, 76, GroupLayout.PREFERRED_SIZE)
+									.addPreferredGap(ComponentPlacement.RELATED)
+									.addComponent(panel_24, GroupLayout.PREFERRED_SIZE, 76, GroupLayout.PREFERRED_SIZE)))
+							.addGroup(groupLayout.createParallelGroup(Alignment.TRAILING)
+								.addGroup(groupLayout.createSequentialGroup()
+									.addPreferredGap(ComponentPlacement.RELATED)
+									.addComponent(lblGame, GroupLayout.PREFERRED_SIZE, 369, GroupLayout.PREFERRED_SIZE)
+									.addGap(19))
+								.addGroup(groupLayout.createSequentialGroup()
+									.addPreferredGap(ComponentPlacement.RELATED)
+									.addGroup(groupLayout.createParallelGroup(Alignment.TRAILING, false)
+										.addComponent(lblQualifyer, Alignment.LEADING, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+										.addComponent(lblHallOfFame, Alignment.LEADING, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+									.addGap(108))
+								.addGroup(groupLayout.createSequentialGroup()
+									.addPreferredGap(ComponentPlacement.RELATED, 84, Short.MAX_VALUE)
+									.addGroup(groupLayout.createParallelGroup(Alignment.TRAILING)
+										.addComponent(layeredPane_2, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
+										.addComponent(layeredPane_3, GroupLayout.PREFERRED_SIZE, 238, GroupLayout.PREFERRED_SIZE)
+										.addGroup(groupLayout.createParallelGroup(Alignment.LEADING)
+											.addComponent(lblErrorMessage, GroupLayout.PREFERRED_SIZE, 263, GroupLayout.PREFERRED_SIZE)
+											.addGroup(groupLayout.createSequentialGroup()
+												.addComponent(btnPrevious)
+												.addPreferredGap(ComponentPlacement.RELATED)
+												.addComponent(btnExit)
+												.addPreferredGap(ComponentPlacement.RELATED)
+												.addComponent(btnNewButton, GroupLayout.PREFERRED_SIZE, 74, GroupLayout.PREFERRED_SIZE))))
+									.addGap(81)))))
+					.addPreferredGap(ComponentPlacement.RELATED)
+					.addGroup(groupLayout.createParallelGroup(Alignment.TRAILING)
 						.addGroup(groupLayout.createParallelGroup(Alignment.LEADING)
-								.addComponent(panel_29, GroupLayout.PREFERRED_SIZE, 76, GroupLayout.PREFERRED_SIZE)
-								.addComponent(panel_6, GroupLayout.PREFERRED_SIZE, 76, GroupLayout.PREFERRED_SIZE)
-								.addComponent(panel_9, GroupLayout.PREFERRED_SIZE, 76, GroupLayout.PREFERRED_SIZE)
-								.addComponent(panel_33, GroupLayout.PREFERRED_SIZE, 76, GroupLayout.PREFERRED_SIZE)
-								.addComponent(panel_37, GroupLayout.PREFERRED_SIZE, 76, GroupLayout.PREFERRED_SIZE)
-								.addComponent(panel_38, GroupLayout.PREFERRED_SIZE, 76, GroupLayout.PREFERRED_SIZE)
-								.addComponent(panel_2, GroupLayout.PREFERRED_SIZE, 76, GroupLayout.PREFERRED_SIZE)
-								.addComponent(panel_10, GroupLayout.PREFERRED_SIZE, 76, GroupLayout.PREFERRED_SIZE))
-						.addGap(164))
-				.addGroup(groupLayout.createSequentialGroup()
-						.addGap(119)
-						.addComponent(lblErrorMessage, GroupLayout.PREFERRED_SIZE, 524, GroupLayout.PREFERRED_SIZE)
-						.addContainerGap(273, Short.MAX_VALUE))
-				);
+							.addComponent(panel_4, GroupLayout.PREFERRED_SIZE, 76, GroupLayout.PREFERRED_SIZE)
+							.addComponent(panel_7, GroupLayout.PREFERRED_SIZE, 76, GroupLayout.PREFERRED_SIZE))
+						.addComponent(panel_27, GroupLayout.PREFERRED_SIZE, 76, GroupLayout.PREFERRED_SIZE)
+						.addComponent(panel_5, GroupLayout.PREFERRED_SIZE, 76, GroupLayout.PREFERRED_SIZE)
+						.addComponent(panel_31, GroupLayout.PREFERRED_SIZE, 76, GroupLayout.PREFERRED_SIZE)
+						.addComponent(panel_35, GroupLayout.PREFERRED_SIZE, 76, GroupLayout.PREFERRED_SIZE)
+						.addComponent(panel_36, GroupLayout.PREFERRED_SIZE, 76, GroupLayout.PREFERRED_SIZE)
+						.addComponent(panel_39, GroupLayout.PREFERRED_SIZE, 76, GroupLayout.PREFERRED_SIZE))
+					.addPreferredGap(ComponentPlacement.RELATED)
+					.addGroup(groupLayout.createParallelGroup(Alignment.LEADING)
+						.addComponent(panel_29, GroupLayout.PREFERRED_SIZE, 76, GroupLayout.PREFERRED_SIZE)
+						.addComponent(panel_6, GroupLayout.PREFERRED_SIZE, 76, GroupLayout.PREFERRED_SIZE)
+						.addComponent(panel_9, GroupLayout.PREFERRED_SIZE, 76, GroupLayout.PREFERRED_SIZE)
+						.addComponent(panel_33, GroupLayout.PREFERRED_SIZE, 76, GroupLayout.PREFERRED_SIZE)
+						.addComponent(panel_37, GroupLayout.PREFERRED_SIZE, 76, GroupLayout.PREFERRED_SIZE)
+						.addComponent(panel_38, GroupLayout.PREFERRED_SIZE, 76, GroupLayout.PREFERRED_SIZE)
+						.addComponent(panel_2, GroupLayout.PREFERRED_SIZE, 76, GroupLayout.PREFERRED_SIZE)
+						.addComponent(panel_10, GroupLayout.PREFERRED_SIZE, 76, GroupLayout.PREFERRED_SIZE))
+					.addGap(164))
+		);
 		groupLayout.setVerticalGroup(
-				groupLayout.createParallelGroup(Alignment.LEADING)
+			groupLayout.createParallelGroup(Alignment.LEADING)
 				.addGroup(groupLayout.createSequentialGroup()
-						.addContainerGap()
-						.addGroup(groupLayout.createParallelGroup(Alignment.LEADING)
+					.addContainerGap()
+					.addGroup(groupLayout.createParallelGroup(Alignment.LEADING)
+						.addGroup(groupLayout.createSequentialGroup()
+							.addGroup(groupLayout.createParallelGroup(Alignment.LEADING)
+								.addComponent(panel_28, GroupLayout.PREFERRED_SIZE, 64, GroupLayout.PREFERRED_SIZE)
+								.addComponent(panel_30, GroupLayout.PREFERRED_SIZE, 64, GroupLayout.PREFERRED_SIZE)
+								.addComponent(panel_32, GroupLayout.PREFERRED_SIZE, 64, GroupLayout.PREFERRED_SIZE)
+								.addComponent(panel_34, GroupLayout.PREFERRED_SIZE, 64, GroupLayout.PREFERRED_SIZE)
+								.addComponent(panel_10, GroupLayout.PREFERRED_SIZE, 64, GroupLayout.PREFERRED_SIZE)
+								.addComponent(panel_7, GroupLayout.PREFERRED_SIZE, 64, GroupLayout.PREFERRED_SIZE))
+							.addPreferredGap(ComponentPlacement.RELATED)
+							.addGroup(groupLayout.createParallelGroup(Alignment.LEADING)
+								.addComponent(panel_4, GroupLayout.PREFERRED_SIZE, 64, GroupLayout.PREFERRED_SIZE)
 								.addGroup(groupLayout.createSequentialGroup()
-										.addGroup(groupLayout.createParallelGroup(Alignment.LEADING)
-												.addComponent(panel_28, GroupLayout.PREFERRED_SIZE, 64, GroupLayout.PREFERRED_SIZE)
-												.addComponent(panel_30, GroupLayout.PREFERRED_SIZE, 64, GroupLayout.PREFERRED_SIZE)
-												.addComponent(panel_32, GroupLayout.PREFERRED_SIZE, 64, GroupLayout.PREFERRED_SIZE)
-												.addComponent(panel_34, GroupLayout.PREFERRED_SIZE, 64, GroupLayout.PREFERRED_SIZE)
-												.addComponent(panel_10, GroupLayout.PREFERRED_SIZE, 64, GroupLayout.PREFERRED_SIZE)
-												.addComponent(panel_7, GroupLayout.PREFERRED_SIZE, 64, GroupLayout.PREFERRED_SIZE))
-										.addPreferredGap(ComponentPlacement.RELATED)
-										.addGroup(groupLayout.createParallelGroup(Alignment.LEADING)
-												.addComponent(panel_4, GroupLayout.PREFERRED_SIZE, 64, GroupLayout.PREFERRED_SIZE)
-												.addGroup(groupLayout.createSequentialGroup()
-														.addComponent(panel_2, GroupLayout.PREFERRED_SIZE, 64, GroupLayout.PREFERRED_SIZE)
-														.addPreferredGap(ComponentPlacement.RELATED)
-														.addGroup(groupLayout.createParallelGroup(Alignment.LEADING)
-																.addComponent(panel_6, GroupLayout.PREFERRED_SIZE, 64, GroupLayout.PREFERRED_SIZE)
-																.addComponent(panel_27, GroupLayout.PREFERRED_SIZE, 64, GroupLayout.PREFERRED_SIZE)))
-												.addComponent(layeredPane_2, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
-										.addGroup(groupLayout.createParallelGroup(Alignment.LEADING)
-												.addGroup(groupLayout.createSequentialGroup()
-														.addPreferredGap(ComponentPlacement.RELATED)
-														.addGroup(groupLayout.createParallelGroup(Alignment.LEADING)
-																.addComponent(panel_5, GroupLayout.PREFERRED_SIZE, 64, GroupLayout.PREFERRED_SIZE)
-																.addComponent(panel_29, GroupLayout.PREFERRED_SIZE, 64, GroupLayout.PREFERRED_SIZE))
-														.addPreferredGap(ComponentPlacement.RELATED)
-														.addGroup(groupLayout.createParallelGroup(Alignment.LEADING)
-																.addGroup(groupLayout.createSequentialGroup()
-																		.addComponent(panel_9, GroupLayout.PREFERRED_SIZE, 64, GroupLayout.PREFERRED_SIZE)
-																		.addPreferredGap(ComponentPlacement.RELATED)
-																		.addGroup(groupLayout.createParallelGroup(Alignment.LEADING)
-																				.addComponent(panel_35, GroupLayout.PREFERRED_SIZE, 64, GroupLayout.PREFERRED_SIZE)
-																				.addComponent(panel_33, GroupLayout.PREFERRED_SIZE, 64, GroupLayout.PREFERRED_SIZE))
-																		.addPreferredGap(ComponentPlacement.RELATED)
-																		.addGroup(groupLayout.createParallelGroup(Alignment.LEADING)
-																				.addComponent(panel_37, GroupLayout.PREFERRED_SIZE, 64, GroupLayout.PREFERRED_SIZE)
-																				.addComponent(panel_36, GroupLayout.PREFERRED_SIZE, 64, GroupLayout.PREFERRED_SIZE))
-																		.addPreferredGap(ComponentPlacement.RELATED)
-																		.addGroup(groupLayout.createParallelGroup(Alignment.LEADING)
-																				.addComponent(panel_39, GroupLayout.PREFERRED_SIZE, 64, GroupLayout.PREFERRED_SIZE)
-																				.addComponent(panel_38, GroupLayout.PREFERRED_SIZE, 64, GroupLayout.PREFERRED_SIZE)))
-																.addComponent(panel_31, GroupLayout.PREFERRED_SIZE, 64, GroupLayout.PREFERRED_SIZE)))
-												.addGroup(groupLayout.createSequentialGroup()
-														.addGap(298)
-														.addGroup(groupLayout.createParallelGroup(Alignment.BASELINE)
-																.addComponent(lblSearchPlayerName)
-																.addComponent(textField, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
-														.addGap(18)
-														.addGroup(groupLayout.createParallelGroup(Alignment.BASELINE)
-																.addComponent(btnExit)
-																.addComponent(btnPrevious)
-																.addComponent(btnNewButton)))))
+									.addComponent(panel_2, GroupLayout.PREFERRED_SIZE, 64, GroupLayout.PREFERRED_SIZE)
+									.addPreferredGap(ComponentPlacement.RELATED)
+									.addGroup(groupLayout.createParallelGroup(Alignment.LEADING)
+										.addComponent(panel_6, GroupLayout.PREFERRED_SIZE, 64, GroupLayout.PREFERRED_SIZE)
+										.addComponent(panel_27, GroupLayout.PREFERRED_SIZE, 64, GroupLayout.PREFERRED_SIZE)))
+								.addComponent(layeredPane_2, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
+							.addGroup(groupLayout.createParallelGroup(Alignment.LEADING)
 								.addGroup(groupLayout.createSequentialGroup()
-										.addGroup(groupLayout.createParallelGroup(Alignment.LEADING)
-												.addComponent(panel, GroupLayout.PREFERRED_SIZE, 64, GroupLayout.PREFERRED_SIZE)
-												.addComponent(panel_25, GroupLayout.PREFERRED_SIZE, 64, GroupLayout.PREFERRED_SIZE)
-												.addComponent(panel_26, GroupLayout.PREFERRED_SIZE, 64, GroupLayout.PREFERRED_SIZE))
-										.addGroup(groupLayout.createParallelGroup(Alignment.LEADING)
-												.addGroup(groupLayout.createSequentialGroup()
-														.addGap(10)
-														.addComponent(lblGame)
-														.addPreferredGap(ComponentPlacement.RELATED)
-														.addComponent(lblHallOfFame)
-														.addGap(1)
-														.addComponent(lblQualifyer)
-														.addPreferredGap(ComponentPlacement.RELATED)
-														.addComponent(layeredPane_3, GroupLayout.PREFERRED_SIZE, 293, GroupLayout.PREFERRED_SIZE))
-												.addGroup(groupLayout.createSequentialGroup()
-														.addPreferredGap(ComponentPlacement.RELATED)
-														.addGroup(groupLayout.createParallelGroup(Alignment.TRAILING)
-																.addComponent(panel_1, GroupLayout.PREFERRED_SIZE, 65, GroupLayout.PREFERRED_SIZE)
-																.addComponent(panel_24, GroupLayout.PREFERRED_SIZE, 64, GroupLayout.PREFERRED_SIZE))
-														.addPreferredGap(ComponentPlacement.RELATED)
-														.addGroup(groupLayout.createParallelGroup(Alignment.LEADING)
-																.addComponent(panel_18, GroupLayout.PREFERRED_SIZE, 64, GroupLayout.PREFERRED_SIZE)
-																.addComponent(panel_12, GroupLayout.PREFERRED_SIZE, 65, GroupLayout.PREFERRED_SIZE))
-														.addPreferredGap(ComponentPlacement.RELATED)
-														.addGroup(groupLayout.createParallelGroup(Alignment.TRAILING)
-																.addComponent(panel_19, GroupLayout.PREFERRED_SIZE, 64, GroupLayout.PREFERRED_SIZE)
-																.addComponent(panel_13, GroupLayout.PREFERRED_SIZE, 65, GroupLayout.PREFERRED_SIZE))
-														.addPreferredGap(ComponentPlacement.RELATED)
-														.addGroup(groupLayout.createParallelGroup(Alignment.LEADING)
-																.addGroup(groupLayout.createSequentialGroup()
-																		.addComponent(panel_14, GroupLayout.PREFERRED_SIZE, 64, GroupLayout.PREFERRED_SIZE)
-																		.addPreferredGap(ComponentPlacement.RELATED)
-																		.addComponent(panel_15, GroupLayout.PREFERRED_SIZE, 64, GroupLayout.PREFERRED_SIZE)
-																		.addPreferredGap(ComponentPlacement.RELATED)
-																		.addComponent(panel_16, GroupLayout.PREFERRED_SIZE, 64, GroupLayout.PREFERRED_SIZE)
-																		.addPreferredGap(ComponentPlacement.RELATED)
-																		.addComponent(panel_17, GroupLayout.PREFERRED_SIZE, 64, GroupLayout.PREFERRED_SIZE))
-																.addGroup(groupLayout.createSequentialGroup()
-																		.addComponent(panel_20, GroupLayout.PREFERRED_SIZE, 64, GroupLayout.PREFERRED_SIZE)
-																		.addPreferredGap(ComponentPlacement.RELATED)
-																		.addComponent(panel_21, GroupLayout.PREFERRED_SIZE, 64, GroupLayout.PREFERRED_SIZE)
-																		.addPreferredGap(ComponentPlacement.RELATED)
-																		.addComponent(panel_22, GroupLayout.PREFERRED_SIZE, 64, GroupLayout.PREFERRED_SIZE)
-																		.addPreferredGap(ComponentPlacement.RELATED)
-																		.addComponent(panel_23, GroupLayout.PREFERRED_SIZE, 64, GroupLayout.PREFERRED_SIZE)))))))
-						.addGap(18)
-						.addComponent(lblErrorMessage, GroupLayout.DEFAULT_SIZE, 18, Short.MAX_VALUE)
-						.addGap(16))
-				);
+									.addPreferredGap(ComponentPlacement.RELATED)
+									.addGroup(groupLayout.createParallelGroup(Alignment.LEADING)
+										.addComponent(panel_5, GroupLayout.PREFERRED_SIZE, 64, GroupLayout.PREFERRED_SIZE)
+										.addComponent(panel_29, GroupLayout.PREFERRED_SIZE, 64, GroupLayout.PREFERRED_SIZE))
+									.addPreferredGap(ComponentPlacement.RELATED)
+									.addGroup(groupLayout.createParallelGroup(Alignment.LEADING)
+										.addGroup(groupLayout.createSequentialGroup()
+											.addComponent(panel_9, GroupLayout.PREFERRED_SIZE, 64, GroupLayout.PREFERRED_SIZE)
+											.addPreferredGap(ComponentPlacement.RELATED)
+											.addGroup(groupLayout.createParallelGroup(Alignment.LEADING)
+												.addComponent(panel_35, GroupLayout.PREFERRED_SIZE, 64, GroupLayout.PREFERRED_SIZE)
+												.addComponent(panel_33, GroupLayout.PREFERRED_SIZE, 64, GroupLayout.PREFERRED_SIZE))
+											.addPreferredGap(ComponentPlacement.RELATED)
+											.addGroup(groupLayout.createParallelGroup(Alignment.LEADING)
+												.addComponent(panel_37, GroupLayout.PREFERRED_SIZE, 64, GroupLayout.PREFERRED_SIZE)
+												.addComponent(panel_36, GroupLayout.PREFERRED_SIZE, 64, GroupLayout.PREFERRED_SIZE))
+											.addPreferredGap(ComponentPlacement.RELATED)
+											.addGroup(groupLayout.createParallelGroup(Alignment.LEADING)
+												.addComponent(panel_39, GroupLayout.PREFERRED_SIZE, 64, GroupLayout.PREFERRED_SIZE)
+												.addComponent(panel_38, GroupLayout.PREFERRED_SIZE, 64, GroupLayout.PREFERRED_SIZE)))
+										.addComponent(panel_31, GroupLayout.PREFERRED_SIZE, 64, GroupLayout.PREFERRED_SIZE)))
+								.addGroup(groupLayout.createSequentialGroup()
+									.addGap(332)
+									.addGroup(groupLayout.createParallelGroup(Alignment.BASELINE)
+										.addComponent(btnNewButton)
+										.addComponent(btnExit)
+										.addComponent(btnPrevious)))))
+						.addGroup(groupLayout.createSequentialGroup()
+							.addGroup(groupLayout.createParallelGroup(Alignment.LEADING)
+								.addComponent(panel, GroupLayout.PREFERRED_SIZE, 64, GroupLayout.PREFERRED_SIZE)
+								.addComponent(panel_25, GroupLayout.PREFERRED_SIZE, 64, GroupLayout.PREFERRED_SIZE)
+								.addComponent(panel_26, GroupLayout.PREFERRED_SIZE, 64, GroupLayout.PREFERRED_SIZE))
+							.addGroup(groupLayout.createParallelGroup(Alignment.LEADING)
+								.addGroup(groupLayout.createSequentialGroup()
+									.addGap(10)
+									.addComponent(lblGame)
+									.addPreferredGap(ComponentPlacement.RELATED)
+									.addComponent(lblHallOfFame)
+									.addGap(1)
+									.addComponent(lblQualifyer)
+									.addPreferredGap(ComponentPlacement.RELATED)
+									.addComponent(layeredPane_3, GroupLayout.PREFERRED_SIZE, 293, GroupLayout.PREFERRED_SIZE)
+									.addGap(18)
+									.addComponent(lblErrorMessage, GroupLayout.DEFAULT_SIZE, 23, Short.MAX_VALUE))
+								.addGroup(groupLayout.createSequentialGroup()
+									.addPreferredGap(ComponentPlacement.RELATED)
+									.addGroup(groupLayout.createParallelGroup(Alignment.TRAILING)
+										.addComponent(panel_1, GroupLayout.PREFERRED_SIZE, 65, GroupLayout.PREFERRED_SIZE)
+										.addComponent(panel_24, GroupLayout.PREFERRED_SIZE, 64, GroupLayout.PREFERRED_SIZE))
+									.addPreferredGap(ComponentPlacement.RELATED)
+									.addGroup(groupLayout.createParallelGroup(Alignment.LEADING)
+										.addComponent(panel_18, GroupLayout.PREFERRED_SIZE, 64, GroupLayout.PREFERRED_SIZE)
+										.addComponent(panel_12, GroupLayout.PREFERRED_SIZE, 65, GroupLayout.PREFERRED_SIZE))
+									.addPreferredGap(ComponentPlacement.RELATED)
+									.addGroup(groupLayout.createParallelGroup(Alignment.TRAILING)
+										.addComponent(panel_19, GroupLayout.PREFERRED_SIZE, 64, GroupLayout.PREFERRED_SIZE)
+										.addComponent(panel_13, GroupLayout.PREFERRED_SIZE, 65, GroupLayout.PREFERRED_SIZE))
+									.addPreferredGap(ComponentPlacement.RELATED)
+									.addGroup(groupLayout.createParallelGroup(Alignment.LEADING)
+										.addGroup(groupLayout.createSequentialGroup()
+											.addComponent(panel_14, GroupLayout.PREFERRED_SIZE, 64, GroupLayout.PREFERRED_SIZE)
+											.addPreferredGap(ComponentPlacement.RELATED)
+											.addComponent(panel_15, GroupLayout.PREFERRED_SIZE, 64, GroupLayout.PREFERRED_SIZE)
+											.addPreferredGap(ComponentPlacement.RELATED)
+											.addComponent(panel_16, GroupLayout.PREFERRED_SIZE, 64, GroupLayout.PREFERRED_SIZE)
+											.addPreferredGap(ComponentPlacement.RELATED)
+											.addComponent(panel_17, GroupLayout.PREFERRED_SIZE, 64, GroupLayout.PREFERRED_SIZE))
+										.addGroup(groupLayout.createSequentialGroup()
+											.addComponent(panel_20, GroupLayout.PREFERRED_SIZE, 64, GroupLayout.PREFERRED_SIZE)
+											.addPreferredGap(ComponentPlacement.RELATED)
+											.addComponent(panel_21, GroupLayout.PREFERRED_SIZE, 64, GroupLayout.PREFERRED_SIZE)
+											.addPreferredGap(ComponentPlacement.RELATED)
+											.addComponent(panel_22, GroupLayout.PREFERRED_SIZE, 64, GroupLayout.PREFERRED_SIZE)
+											.addPreferredGap(ComponentPlacement.RELATED)
+											.addComponent(panel_23, GroupLayout.PREFERRED_SIZE, 64, GroupLayout.PREFERRED_SIZE)))))))
+					.addContainerGap(57, Short.MAX_VALUE))
+		);
 		layeredPane_3.setLayout(new GridLayout(0, 1, 0, 0));
 
 		panel_3 = new JPanel();

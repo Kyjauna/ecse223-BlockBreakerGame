@@ -471,6 +471,9 @@ public class GamePlayPage implements Block223PlayModeInterface{
 		
 		btnStartGame.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
+				btnViewHallOf.setVisible(false);
+				btnQuit.setVisible(false);
+				btnLogout_1.setVisible(false);
 				btnStartGame.setVisible(false);
 				// initiating a thread to start listening to keyboard inputs
 				//bp = new Block223PlayModeExampleListener();
@@ -495,7 +498,10 @@ public class GamePlayPage implements Block223PlayModeInterface{
 					public void run() {
 						try {
 							Block223Controller.startGame(GamePlayPage.this);
+							btnQuit.setVisible(true);
+							btnLogout_1.setVisible(true);
 							btnStartGame.setVisible(true);
+							btnViewHallOf.setVisible(true);
 						} catch (InvalidInputException e) {
 						}
 					}
@@ -585,11 +591,7 @@ public class GamePlayPage implements Block223PlayModeInterface{
 	public void endGame(int nrOfLives, TOHallOfFameEntry hof) {
 		frame.dispose();
 		ViewHallOfFamePage Hof;
-		if (nrOfLives==0)
-			Hof=new ViewHallOfFamePage(1, pgame.getGamename());
-		else{
-			Hof=new ViewHallOfFamePage(3, pgame.getGamename());
-		}
+			Hof=new ViewHallOfFamePage(2, pgame.getGamename());
 		Hof.frame.setVisible(true);
 		//System.out.println("GAME OVER BITCH!!");
 

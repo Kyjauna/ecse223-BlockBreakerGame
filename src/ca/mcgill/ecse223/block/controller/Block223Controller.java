@@ -626,7 +626,7 @@ public class Block223Controller {
 			}
 
 			try {
-				Thread.sleep((long) pgame.getWaitTime());
+				Thread.sleep((long) pgame.getWaitTime()/500);
 			} catch (InterruptedException e) {
 				e.printStackTrace();
 			}
@@ -640,7 +640,6 @@ public class Block223Controller {
 			pgame.delete();
 			Block223 block223 = Block223Application.getBlock223();
 			Block223Persistence.save(block223);
-			System.out.println(pgame);
 		}
 
 		else if (pgame.getPlayer() != null) {

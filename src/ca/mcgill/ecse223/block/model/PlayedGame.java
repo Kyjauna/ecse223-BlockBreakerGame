@@ -452,7 +452,6 @@ public class PlayedGame implements Serializable
 			if (hitBlock())
 			{
 				// line 17 "../../../../../Block223States.ump"
-				System.out.println("made it here");
 				doHitBlock();
 				setPlayStatus(PlayStatus.Moving);
 				wasEventProcessed = true;
@@ -1095,9 +1094,9 @@ public class PlayedGame implements Serializable
 		}
 
 		// B-C Corner
-		else if (positionX == 385 && positionY == 5) {
+		else if (positionX == 385 && positionY == 5 ) {
 			bp = new BouncePoint(0,0,null);
-			bp.setX(390-5);
+			bp.setX(385);
 			bp.setY(5);
 			bp.setDirection(BouncePoint.BounceDirection.FLIP_BOTH);
 		}
@@ -1371,7 +1370,6 @@ public class PlayedGame implements Serializable
 		int points = block.getPoints();
 		setScore(score+points);
 		pblock.delete();
-		System.out.println("about to bounce");
 		bounceBall();
 	}
 
@@ -1382,7 +1380,7 @@ public class PlayedGame implements Serializable
 
 		setCurrentLevel(level+1);
 		setCurrentPaddleLength(getGame().getPaddle().getMaxPaddleLength()-(getGame().getPaddle().getMaxPaddleLength()-getGame().getPaddle().getMinPaddleLength())/(getGame().numberOfLevels()-1)*(getCurrentLevel()-1));
-		setWaitTime(INITIAL_WAIT_TIME*(int)getGame().getBall().getBallSpeedIncreaseFactor()^(getCurrentLevel()-1));
+		setWaitTime(INITIAL_WAIT_TIME*getGame().getBall().getBallSpeedIncreaseFactor());
 	}
 
 	// line 453 "../../../../../Block223States.ump"
