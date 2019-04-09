@@ -691,10 +691,9 @@ public class LevelDesignPage {
 				try {
 					Block223Controller.selectTestGame();
 				} catch (InvalidInputException e1) {
-					// TODO Auto-generated catch block
 					lblErrormessage.setText(e1.getMessage());
 				}
-				GamePlayPage ui = new GamePlayPage(1);
+				GamePlayPage ui = new GamePlayPage(2);
 				ui.frame.setVisible(true);
 				
 			}

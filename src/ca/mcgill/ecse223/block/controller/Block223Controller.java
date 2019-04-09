@@ -715,7 +715,13 @@ public class Block223Controller {
 
 		if (Block223Application.getCurrentUserRole()!=Block223Application.getCurrentGame().getAdmin())
 			throw new InvalidInputException("Only the admin who created the game can test it.");
+		
+		for (Level level : Block223Application.getCurrentGame().getLevels()) {
 
+			if (level.getBlockAssignments().size()<1)
+				throw new InvalidInputException("At least one block must be defined for a game to be tested.");
+		}
+		
 		Game game = Block223Application.getCurrentGame();
 		UserRole admin= game.getAdmin();
 		Block223 b =Block223Application.getBlock223();

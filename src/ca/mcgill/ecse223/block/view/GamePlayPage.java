@@ -73,8 +73,7 @@ public class GamePlayPage implements Block223PlayModeInterface{
 			try {
 				Block223Controller.selectTestGame();
 			} catch (InvalidInputException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
+				lblError.setText(e.getMessage());
 			}
 		initialize();
 		refreshBlocks();
@@ -580,8 +579,12 @@ public class GamePlayPage implements Block223PlayModeInterface{
 
 		frame.getContentPane().setLayout(groupLayout);
 		frame.setBounds(100, 100, 750, 603);
-		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-
+		
+		if (type==2)
+			frame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+		else {
+			frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		}
 		refresh();
 
 	}

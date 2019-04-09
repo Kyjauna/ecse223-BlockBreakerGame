@@ -330,7 +330,7 @@ public class ViewHallOfFamePage {
 			}
 
 			if (entry1!=null)
-				lbl1.setText(entry1.getPosition()+"     "+entry1.getPlayername()+"     s"+entry1.getScore());
+				lbl1.setText(entry1.getPosition()+"     "+entry1.getPlayername()+"     "+entry1.getScore());
 
 			if (entry2!=null)
 				lbl2.setText(entry2.getPosition()+"     "+entry2.getPlayername()+"     "+entry2.getScore());
