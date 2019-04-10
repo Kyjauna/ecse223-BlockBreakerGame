@@ -48,10 +48,8 @@ import java.awt.event.FocusEvent;
 public class PlayerPage {
 
 	public JFrame frame;
-	public static JComboBox<String> selectAGame;
-	public static JComboBox<String> resumeAGame;
-	JLabel lblError_1;
-	JLabel lblError2;
+	public static JComboBox<String> selectAGame, resumeAGame=new JComboBox();
+	JLabel lblError_1, lblError2=new JLabel();
 
 
 

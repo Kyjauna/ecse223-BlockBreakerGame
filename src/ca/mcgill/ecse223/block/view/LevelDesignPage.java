@@ -693,7 +693,7 @@ public class LevelDesignPage {
 				} catch (InvalidInputException e1) {
 					lblErrormessage.setText(e1.getMessage());
 				}
-				GamePlayPage ui = new GamePlayPage(2);
+				GamePlayPage ui = new GamePlayPage(1);
 				ui.frame.setVisible(true);
 				
 			}
